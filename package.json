@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "node_modules/mocha/bin/mocha 'tests/*.js'"
+    "test": "node_modules/mocha/bin/mocha 'src/tests/*.js'"
   },
   "dependencies": {
     "expo": "~42.0.1",
