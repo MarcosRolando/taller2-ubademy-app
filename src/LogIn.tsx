@@ -28,7 +28,7 @@ const LogIn = (props: any) => {
                 onChangeText={password => setPassword(password)}
             />
             <Button
-                onPress={() => foo(username, password)}
+                onPress={() => foo()}
                 title={"Touch Me!"}
             />
         </View>
