@@ -1,24 +1,14 @@
-import * as http from 'http';
-
-
-  
-
-export default function foo() {
-    console.log("Hola!");
-    const postData = JSON.stringify({
-        'msg': 'Hello World!'
+export default async function sendLoginCredentials(username: string, password: string) {
+    const loginData = JSON.stringify({
+        'username': username,
+        'password': password
     });
-    const options = {
-        hostname: '127.0.0.1',
-        port: 8080,
-        path: '/upload',
+    await fetch('https://localhost:8080', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData)
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: postData
-    }
-    const req = http.request(options);
-    req.end();
+        body: loginData
+    });
 }
