@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View} from 'react-native';
-import foo from './src/foo';
-import LogIn from './src/LogIn';
+import LogIn from './src/components/LogIn';
 
 export default function App() {
-  const [text, setText] = useState("");
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
-      <LogIn withUsername="Marcos" />
+      <LogIn />
       <StatusBar style="auto" />
     </View>
   );

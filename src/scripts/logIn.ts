@@ -3,7 +3,7 @@ export default async function sendLoginCredentials(username: string, password: s
         'username': username,
         'password': password
     });
-    await fetch('https://localhost:8080', {
+    fetch('https://localhost:8080', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
