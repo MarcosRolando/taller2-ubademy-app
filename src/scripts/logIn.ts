@@ -3,12 +3,12 @@ export default async function sendLoginCredentials(username: string, password: s
         'username': username,
         'password': password
     });
-    fetch('https://localhost:8080', {
+    await fetch('https://localhost:8080', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: loginData
-    });
+    }).catch(() => console.log("Could not connect to the server"));
 }

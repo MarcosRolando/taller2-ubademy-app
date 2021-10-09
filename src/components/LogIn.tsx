@@ -42,10 +42,10 @@ const LogIn = (props: any) => {
             <Button
                 onPress={() => {
                     if (checkInput()) {
-                        //sendLoginCredentials(username, password);
+                        sendLoginCredentials(username, password);
                     }
                 }}
-                title={"Touch Me!"}
+                title={"Login"}
             />
         </View>
     )
