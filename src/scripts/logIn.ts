@@ -1,12 +1,11 @@
-import Constants from 'expo-constants';
+import { API_URL } from '../../App';
 
 export default async function sendLoginCredentials(username: string, password: string) {
     const loginData = JSON.stringify({
         'email': username,
         'password': password
     });
-    console.log(Constants.manifest.extra.api_dev_url);
-    await fetch(Constants.manifest.extra.api_dev_url + '/login/', {
+    await fetch(API_URL + 'login/', {
         method: 'POST',
         headers: {
             Accept: 'application/json',

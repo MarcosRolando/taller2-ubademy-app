@@ -1,7 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View} from 'react-native';
+import Constants from 'expo-constants';
 import LogIn from './src/components/LogIn';
+
+export const API_URL = Constants.manifest.extra.API_URL
 
 export default function App() {
   return (
