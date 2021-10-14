@@ -1,14 +1,14 @@
 export default async function sendLoginCredentials(username: string, password: string) {
     const loginData = JSON.stringify({
-        'username': username,
+        'email': username,
         'password': password
     });
-    await fetch('https://localhost:8080', {
+    await fetch('https://ubademy-api-gate.herokuapp.com/login/', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: loginData
-    }).catch(() => console.log("Could not connect to the server"));
+    }).then((response) => console.log(response)).catch(() => console.log("Could not connect to the server"));
 }
