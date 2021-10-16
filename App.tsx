@@ -4,7 +4,8 @@ import { StyleSheet, Text, View} from 'react-native';
 import Constants from 'expo-constants';
 import LogIn from './src/components/LogIn';
 
-export const API_URL = Constants.manifest.extra.API_URL
+// @ts-ignore
+export const API_URL = Constants.manifest.extra.API_URL // The ignore comment is for suppressing the VSCode error
 
 export default function App() {
   return (
