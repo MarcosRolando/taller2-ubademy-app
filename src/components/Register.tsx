@@ -9,24 +9,21 @@ const Register = () => {
 
   return (
     <View>
-      <Image source={require('../../assets/ubademy-logo.png')} style={{marginLeft:wp(20.5), marginBottom:hp(3)}}/>
-      <View style={{marginBottom: hp(1.5)}}>
-        <TextInput
-          label='Email'
-          value={username}
-          onChangeText={username => setUsername(username)}
-          mode='outlined'
-        />
+      <Image source={require('../../assets/ubademy-logo.png')} style={{marginLeft:wp(20), marginBottom:hp(3)}}/>
+      <TextInput
+        label='Email'
+        value={username}
+        onChangeText={username => setUsername(username)}
+        mode='outlined'
+        style={{marginBottom: hp(1.5)}}
+      />
+      <TextInput
+        label='Password'
+        value={password}
+        onChangeText={password => setPassword(password)}
+        mode='outlined'
+      />
       </View>
-      <View>
-        <TextInput
-          label='Password'
-          value={password}
-          onChangeText={password => setPassword(password)}
-          mode='outlined'
-        />
-      </View>
-    </View>
   );
 };
 
