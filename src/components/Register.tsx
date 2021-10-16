@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 const Register = () => {
   const [username, setUsername] = React.useState('');
@@ -8,7 +9,8 @@ const Register = () => {
 
   return (
     <View>
-      <View style={{marginBottom: 10}}>
+      <Image source={require('../../assets/ubademy-logo.png')} style={{marginLeft:wp(20.5), marginBottom:hp(3)}}/>
+      <View style={{marginBottom: hp(1.5)}}>
         <TextInput
           label='Email'
           value={username}

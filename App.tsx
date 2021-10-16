@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import { Provider as PaperProvider , DarkTheme as PaperDarkTheme } from 'react-native-paper';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
 import LogIn from './src/components/LogIn';
 import Register from './src/components/Register';
@@ -33,8 +34,9 @@ AppRegistry.registerComponent("ubademy", () => App);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: hp(20),
     backgroundColor: '#111',
     justifyContent: 'center',
-    padding: 70
+    padding: wp(16.5)
   }
 });
