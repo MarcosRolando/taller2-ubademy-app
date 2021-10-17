@@ -37,9 +37,8 @@ AppRegistry.registerComponent('ubademy', () => App);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: hp(20),
     backgroundColor: '#111',
-    justifyContent: 'center',
-    padding: wp(16.5),
+    paddingTop: '40%',
+    paddingHorizontal: '15%'
   },
 });
