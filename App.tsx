@@ -1,14 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, AppRegistry } from 'react-native';
-import { Provider as PaperProvider , DarkTheme as PaperDarkTheme } from 'react-native-paper';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {StatusBar} from 'expo-status-bar';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, AppRegistry} from 'react-native';
+import {Provider as PaperProvider,
+  DarkTheme as PaperDarkTheme} from 'react-native-paper';
+import {widthPercentageToDP as wp,
+  heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
 import LogIn from './src/components/LogIn';
 import Register from './src/components/Register';
 
 // @ts-ignore
-export const API_URL = Constants.manifest.extra.API_URL // The ignore comment is for suppressing the VSCode error
+export const API_URL = Constants.manifest.extra.API_URL;
+// The ignore comment is for suppressing the VSCode error
 
 const UbademyTheme = {
   ...PaperDarkTheme,
@@ -29,7 +32,7 @@ export default function App() {
   );
 }
 
-AppRegistry.registerComponent("ubademy", () => App);
+AppRegistry.registerComponent('ubademy', () => App);
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +40,6 @@ const styles = StyleSheet.create({
     paddingBottom: hp(20),
     backgroundColor: '#111',
     justifyContent: 'center',
-    padding: wp(16.5)
-  }
+    padding: wp(16.5),
+  },
 });
