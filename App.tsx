@@ -3,8 +3,6 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, AppRegistry} from 'react-native';
 import {Provider as PaperProvider,
   DarkTheme as PaperDarkTheme} from 'react-native-paper';
-import {widthPercentageToDP as wp,
-  heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
 import LogIn from './src/components/LogIn';
 import Register from './src/components/Register';
@@ -25,8 +23,8 @@ export default function App() {
   return (
     <PaperProvider theme={UbademyTheme}>
       <View style={styles.container}>
+        <StatusBar style='light' />
         <Register />
-        <StatusBar style="auto" />
       </View>
     </PaperProvider>
   );
