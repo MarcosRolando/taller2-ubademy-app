@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {View, Image} from 'react-native';
+import {TextInput, Text, Button} from 'react-native-paper';
 
 const Register = () => {
   const [username, setUsername] = React.useState('');
@@ -16,7 +16,7 @@ const Register = () => {
         value={username}
         onChangeText={(username) => setUsername(username)}
         mode='outlined'
-        style={{paddingTop:'15%', paddingBottom:'3%'}}
+        style={{paddingTop:'15%', paddingBottom:'2%'}}
       />
       <TextInput
         label='Password'
@@ -24,6 +24,13 @@ const Register = () => {
         onChangeText={(password) => setPassword(password)}
         mode='outlined'
       />
+      <Button mode='contained' style={{marginVertical:'10%', marginHorizontal:'20%'}}>
+        Next
+      </Button>
+      <View style={{flexDirection:'row'}}>
+        <Text>Already have an account? </Text>
+        <Text style={{color:'#3498db'}}>Log in</Text>
+      </View>
     </View>
   );
 };
