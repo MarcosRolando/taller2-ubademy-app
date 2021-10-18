@@ -1,8 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, AppRegistry} from 'react-native';
+import {StyleSheet, Text, View, AppRegistry, ScrollView} from 'react-native';
 import {Provider as PaperProvider,
   DarkTheme as PaperDarkTheme} from 'react-native-paper';
+import { heightPercentageToDP as hp, 
+    widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
 import LogIn from './src/components/LogIn';
 import Register from './src/components/Register';
@@ -22,9 +24,11 @@ const UbademyTheme = {
 export default function App() {
   return (
     <PaperProvider theme={UbademyTheme}>
+      <StatusBar style='light' />
       <View style={styles.container}>
-        <StatusBar style='light' />
-        <Register />
+        <ScrollView>
+          <Register />
+        </ScrollView>
       </View>
     </PaperProvider>
   );
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#111',
-    paddingTop: '25%',
-    paddingHorizontal: '15%',
+    paddingTop: hp(15),
+    paddingHorizontal: wp(15),
   },
 });

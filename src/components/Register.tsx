@@ -1,19 +1,21 @@
 import * as React from 'react';
+import { heightPercentageToDP as hp, 
+  widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {View, Image} from 'react-native';
 import {Text, Button} from 'react-native-paper';
 import Credentials from './Credentials';
 
-const Register = () => {
+const Register = (props: any) => {
   return (
-    <View>
+    <View style={props.style}>
       <View style={{alignSelf: 'center'}}>
         <Image source={require('../../assets/ubademy-logo.png')}/>
       </View>
-      <Credentials style={{paddingTop: '15%'}}/>
+      <Credentials style={{paddingTop: hp(4)}}/>
       <Button mode='contained' style={{marginVertical: '10%', marginHorizontal: '20%'}}>
         Next
       </Button>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', justifyContent:'center'}}>
         <Text>Already have an account? </Text>
         <Text style={{color: '#3498db'}}>Log in</Text>
       </View>
