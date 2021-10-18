@@ -26,8 +26,8 @@ export default function App() {
     <PaperProvider theme={UbademyTheme}>
       <StatusBar style='light' />
       <View style={styles.container}>
-        <ScrollView>
-          <Register />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Register style={{paddingTop: hp(15), paddingHorizontal: wp(15)}}/>
         </ScrollView>
       </View>
     </PaperProvider>
@@ -40,7 +40,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#111',
-    paddingTop: hp(15),
-    paddingHorizontal: wp(15),
   },
 });

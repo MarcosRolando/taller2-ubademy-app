@@ -12,7 +12,7 @@ const Register = (props: any) => {
         <Image source={require('../../assets/ubademy-logo.png')}/>
       </View>
       <Credentials style={{paddingTop: hp(4)}}/>
-      <Button mode='contained' style={{marginVertical: '10%', marginHorizontal: '20%'}}>
+      <Button mode='contained' style={{marginVertical: hp(4), marginHorizontal: wp(8)}}>
         Next
       </Button>
       <View style={{flexDirection: 'row', justifyContent:'center'}}>
