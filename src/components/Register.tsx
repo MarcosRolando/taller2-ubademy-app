@@ -6,21 +6,27 @@ import {Text, Button} from 'react-native-paper';
 import Credentials from './Credentials';
 
 const Register = (props: any) => {
-  return (
-    <View style={props.style}>
-      <View style={{alignSelf: 'center'}}>
-        <Image source={require('../../assets/ubademy-logo.png')}/>
+  const [screen, setScreen] = React.useState(credentialScreen());
+
+  function credentialScreen() {
+    return (
+      <View style={props.style}>
+        <View style={{alignSelf: 'center'}}>
+          <Image source={require('../../assets/ubademy-logo.png')}/>
+        </View>
+        <Credentials style={{paddingTop: hp(4)}}/>
+        <Button mode='contained' style={{marginVertical: hp(4), marginHorizontal: wp(8)}}>
+          Next
+        </Button>
+        <View style={{flexDirection: 'row', justifyContent:'center'}}>
+          <Text>Already have an account? </Text>
+          <Text style={{color: '#3498db'}}>Log in</Text>
+        </View>
       </View>
-      <Credentials style={{paddingTop: hp(4)}}/>
-      <Button mode='contained' style={{marginVertical: hp(4), marginHorizontal: wp(8)}}>
-        Next
-      </Button>
-      <View style={{flexDirection: 'row', justifyContent:'center'}}>
-        <Text>Already have an account? </Text>
-        <Text style={{color: '#3498db'}}>Log in</Text>
-      </View>
-    </View>
-  );
+    );
+  }
+
+  return screen;
 };
 
 export default Register;
