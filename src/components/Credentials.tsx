@@ -13,7 +13,7 @@ const Credentials = (props: any) => {
     <View style={props.style}>
       <TextInput
         label='Email'
-        textContentType='emailAddress'
+        textContentType="emailAddress"
         value={username}
         onChangeText={(username) => setUsername(username)}
         mode='outlined'
@@ -22,7 +22,8 @@ const Credentials = (props: any) => {
       />
       <TextInput
         label='Password'
-        textContentType='password'
+        secureTextEntry={true}
+        textContentType="newPassword"
         value={password}
         onChangeText={(password) => setPassword(password)}
         mode='outlined'
