@@ -5,6 +5,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import sendLoginCredentials from '../scripts/logIn';
 
 
 const screen = Dimensions.get('window');
@@ -40,8 +41,12 @@ const Login = (props: any) => {
                 disableFullscreenUI={false}
             />
 
-            <Button mode='contained' style={styles.button}>
-                Login
+            <Button mode='contained' style={styles.button}
+                onPress={() => {
+                    sendLoginCredentials(username, password);
+                }}
+                >
+                    Login
             </Button>
         </View>
     );
