@@ -1,6 +1,11 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import {
+    Button,
+    DarkTheme as PaperDarkTheme,
+    Text,
+    TextInput
+} from 'react-native-paper';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
@@ -13,6 +18,10 @@ const screen = Dimensions.get('window');
 const Login = (props: any) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [usernameInputStyle, setUsernameInputStyle] = React.useState(styles.textInput);
+    const [passwordInputStyle, setPasswordInputStyle] = React.useState(styles.textInput);
+    const [usernameInputTheme, setUsernameInputTheme] = React.useState(textInputTheme);
+    //const [showErrorText, setShowErrorText] = React.useState("");
 
     return (
         <View style={styles.container}>
@@ -26,9 +35,12 @@ const Login = (props: any) => {
                 value={username}
                 onChangeText={(username) => setUsername(username)}
                 mode='outlined'
-                style={styles.textInput}
+                style={usernameInputStyle}
                 disableFullscreenUI={true}
+                theme={usernameInputTheme}
             />
+
+
 
             <TextInput
                 label='Password'
@@ -43,7 +55,10 @@ const Login = (props: any) => {
 
             <Button mode='contained' style={styles.button}
                 onPress={() => {
-                    sendLoginCredentials(username, password);
+                    //sendLoginCredentials(username, password);
+                    setUsernameInputTheme(textInputWrongTheme);
+                    //setShowErrorText(true);
+                    console.log("se presiono!");
                 }}
                 >
                     Login
@@ -69,4 +84,31 @@ const styles = StyleSheet.create({
         paddingTop: hp(15),
         paddingHorizontal: wp(15)
       },
+    textInputWrong: {
+        paddingBottom: hp(1),
+        borderColor: '#B00020',
+        color: '#B00020'
+    }
 });
+
+
+const textInputTheme = {
+    ...PaperDarkTheme,
+    colors: {
+    ...PaperDarkTheme.colors,
+    primary: '#3498db',
+    },
+};
+
+
+const textInputWrongTheme = {
+    ...PaperDarkTheme,
+    colors: {
+    ...PaperDarkTheme.colors,
+    primary: '#B00020',
+    placeholder: '#B00020',
+    border: '#B00020',
+    colorOnSurface: '#B00020'
+    },
+    
+};
