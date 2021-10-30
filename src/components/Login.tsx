@@ -20,7 +20,7 @@ const Login = (props: any) => {
     const [password, setPassword] = React.useState('');
     const [usernameInputTheme, setUsernameInputTheme] = React.useState(themes.textInput);
     const [passwordInputTheme, setPasswordInputTheme] = React.useState(themes.textInput);
-    const [showInputError, setShowInputError] = React.useState(false);
+    const [showInputError, setShowInputError] = React.useState("");
 
     function checkInput(): boolean {
         var r = true;
@@ -35,6 +35,14 @@ const Login = (props: any) => {
         return r;
     }
 
+    function resolveLoginCredentials(data : any) {
+        // Modificar cuando el backend me diga sus mensajitos
+        if (data.error) {
+            console.log("ocurrió un error :(");
+        } else if (data.token) {
+            console.log("se entró <3");
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -63,28 +71,23 @@ const Login = (props: any) => {
                 theme={passwordInputTheme}
             />
 
-            {
-                showInputError ? (
-                    <Text style = {styles.textInputWrong}>
-                        Please, complete the fields in red
-                    </Text>
-                ) : null
-            }
+            <Text style = {styles.textInputWrong}>
+                {showInputError}
+            </Text>
 
             <Button mode='contained' style={styles.button}
                 onPress={() => {
                     if (checkInput()) {
-                        setShowInputError(false);
+                        setShowInputError("");
                         setUsernameInputTheme(themes.textInput);
                         setPasswordInputTheme(themes.textInput);
-                        //sendLoginCredentials(username, password);
+                        sendLoginCredentials(username, password)
+                        .then(response => response.json())
+                        .then(data => resolveLoginCredentials(data));
+                        
                     } else {
-                        setShowInputError(true);
+                        setShowInputError("Please, complete the fields");
                     }
-                    //sendLoginCredentials(username, password);
-                    //setUsernameInputTheme(themes.textInputWrong);
-                    //setShowErrorText(true);
-                    //console.log("se presiono!");
                 }}
                 >
                     Login
@@ -112,8 +115,8 @@ const styles = StyleSheet.create({
       },
     textInputWrong: {
         paddingBottom: hp(1),
-        borderColor: '#B00020',
-        color: '#B00020'
+        borderColor: '#CF6679',
+        color: '#CF6679'
     }
 });
 
@@ -121,18 +124,17 @@ const themes = {
     textInput: {
         ...PaperDarkTheme,
         colors: {
-        ...PaperDarkTheme.colors,
-        primary: '#3498db',
+            ...PaperDarkTheme.colors,
+            primary: '#3498db',
         },
     },
     textInputWrong: {
         ...PaperDarkTheme,
         colors: {
-        ...PaperDarkTheme.colors,
-        primary: '#B00020',
-        placeholder: '#B00020',
-        border: '#B00020',
-        colorOnSurface: '#B00020'
+            ...PaperDarkTheme.colors,
+            primary: '#CF6679',
+            placeholder: '#CF6679',
+            border: '#CF6679'
         },
         
     }
