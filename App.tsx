@@ -1,25 +1,17 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, AppRegistry, ScrollView} from 'react-native';
-import {Provider as PaperProvider,
-  DarkTheme as PaperDarkTheme} from 'react-native-paper';
+import {StyleSheet, View, AppRegistry, ScrollView} from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
     widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
 import LogIn from './src/components/LogIn';
-import Register from './src/components/Register';
+import Register from './src/components/register/Register';
+import UbademyTheme from './src/components/UbademyTheme';
 
 // @ts-ignore
 export const API_URL = Constants.manifest.extra.API_URL;
 // The ignore comment is for suppressing the VSCode error
-
-const UbademyTheme = {
-  ...PaperDarkTheme,
-  colors: {
-    ...PaperDarkTheme.colors,
-    primary: '#3498db',
-  },
-};
 
 export default function App() {
   return (

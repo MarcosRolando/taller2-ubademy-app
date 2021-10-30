@@ -12,13 +12,10 @@ const Register = (props: any) => {
     return (
       <View style={props.style}>
         <View style={{alignSelf: 'center'}}>
-          <Image source={require('../../assets/ubademy-logo.png')}/>
+          <Image source={require('../../../assets/ubademy-logo.png')}/>
         </View>
         <Credentials style={{paddingTop: hp(4)}}/>
-        <Button mode='contained' style={{marginVertical: hp(4), marginHorizontal: wp(8)}}>
-          Next
-        </Button>
-        <View style={{flexDirection: 'row', justifyContent:'center'}}>
+        <View style={{paddingTop: hp(2), flexDirection: 'row', justifyContent:'center'}}>
           <Text>Already have an account? </Text>
           <Text style={{color: '#3498db'}}>Log in</Text>
         </View>
