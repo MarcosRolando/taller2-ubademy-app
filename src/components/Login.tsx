@@ -18,10 +18,23 @@ const screen = Dimensions.get('window');
 const Login = (props: any) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [usernameInputStyle, setUsernameInputStyle] = React.useState(styles.textInput);
-    const [passwordInputStyle, setPasswordInputStyle] = React.useState(styles.textInput);
-    const [usernameInputTheme, setUsernameInputTheme] = React.useState(textInputTheme);
-    //const [showErrorText, setShowErrorText] = React.useState("");
+    const [usernameInputTheme, setUsernameInputTheme] = React.useState(themes.textInput);
+    const [passwordInputTheme, setPasswordInputTheme] = React.useState(themes.textInput);
+    const [showInputError, setShowInputError] = React.useState(false);
+
+    function checkInput(): boolean {
+        var r = true;
+        if (!username.trim()) {
+            setUsernameInputTheme(themes.textInputWrong);
+            r = false;
+        }
+        if (!password.trim()) {
+            setPasswordInputTheme(themes.textInputWrong);
+            r = false;
+        }
+        return r;
+    }
+
 
     return (
         <View style={styles.container}>
@@ -35,12 +48,9 @@ const Login = (props: any) => {
                 value={username}
                 onChangeText={(username) => setUsername(username)}
                 mode='outlined'
-                style={usernameInputStyle}
                 disableFullscreenUI={true}
                 theme={usernameInputTheme}
             />
-
-
 
             <TextInput
                 label='Password'
@@ -49,16 +59,32 @@ const Login = (props: any) => {
                 value={password}
                 onChangeText={(password) => setPassword(password)}
                 mode='outlined'
-                style={styles.textInput}
                 disableFullscreenUI={false}
+                theme={passwordInputTheme}
             />
+
+            {
+                showInputError ? (
+                    <Text style = {styles.textInputWrong}>
+                        Please, complete the fields in red
+                    </Text>
+                ) : null
+            }
 
             <Button mode='contained' style={styles.button}
                 onPress={() => {
+                    if (checkInput()) {
+                        setShowInputError(false);
+                        setUsernameInputTheme(themes.textInput);
+                        setPasswordInputTheme(themes.textInput);
+                        //sendLoginCredentials(username, password);
+                    } else {
+                        setShowInputError(true);
+                    }
                     //sendLoginCredentials(username, password);
-                    setUsernameInputTheme(textInputWrongTheme);
+                    //setUsernameInputTheme(themes.textInputWrong);
                     //setShowErrorText(true);
-                    console.log("se presiono!");
+                    //console.log("se presiono!");
                 }}
                 >
                     Login
@@ -91,24 +117,23 @@ const styles = StyleSheet.create({
     }
 });
 
-
-const textInputTheme = {
-    ...PaperDarkTheme,
-    colors: {
-    ...PaperDarkTheme.colors,
-    primary: '#3498db',
+const themes = {
+    textInput: {
+        ...PaperDarkTheme,
+        colors: {
+        ...PaperDarkTheme.colors,
+        primary: '#3498db',
+        },
     },
-};
-
-
-const textInputWrongTheme = {
-    ...PaperDarkTheme,
-    colors: {
-    ...PaperDarkTheme.colors,
-    primary: '#B00020',
-    placeholder: '#B00020',
-    border: '#B00020',
-    colorOnSurface: '#B00020'
-    },
-    
-};
+    textInputWrong: {
+        ...PaperDarkTheme,
+        colors: {
+        ...PaperDarkTheme.colors,
+        primary: '#B00020',
+        placeholder: '#B00020',
+        border: '#B00020',
+        colorOnSurface: '#B00020'
+        },
+        
+    }
+}
