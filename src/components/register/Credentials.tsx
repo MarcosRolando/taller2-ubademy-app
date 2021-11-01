@@ -16,12 +16,12 @@ const Credentials = (props: any) => {
   function sendCredentials(): boolean {
     if (!username.trim()) {
       setUsernameInputStyle(themes.wrongTextInput);
-      setErrorMessage('Please write your email');
+      setErrorMessage('Please enter your email');
       return false;
     }
     if (!password.trim()) {
       setPasswordInputStyle(themes.wrongTextInput);
-      setErrorMessage('Please write your password');
+      setErrorMessage('Please enter your password');
       return false;
     }
     return true;

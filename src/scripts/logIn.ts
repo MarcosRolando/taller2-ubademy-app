@@ -1,4 +1,4 @@
-import {API_URL} from '../../App';
+import {API_URL} from '../../api_url';
 
 export default async function sendLoginCredentials(username: string, password: string) {
   const loginData = JSON.stringify({
