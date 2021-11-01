@@ -1,19 +1,15 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, View } from 'react-native';
 import {
     Button,
-    DarkTheme as PaperDarkTheme,
+    Dialog,
+    Portal,
     Text,
     TextInput
 } from 'react-native-paper';
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
 import sendLoginCredentials from '../scripts/logIn';
-
-
-const screen = Dimensions.get('window');
+import themes from '../../constants/themes';
+import styles from '../../constants/styles';
 
 const Login = (props: any) => {
     const [username, setUsername] = React.useState('');
@@ -21,6 +17,11 @@ const Login = (props: any) => {
     const [usernameInputTheme, setUsernameInputTheme] = React.useState(themes.textInput);
     const [passwordInputTheme, setPasswordInputTheme] = React.useState(themes.textInput);
     const [showInputError, setShowInputError] = React.useState("");
+    const [visible, setVisible] = React.useState(false);
+
+    const showDialog = () => setVisible(true);
+
+    const hideDialog = () => setVisible(false);
 
     function checkInput(): boolean {
         var r = true;
@@ -38,6 +39,7 @@ const Login = (props: any) => {
     function resolveLoginCredentials(data : any) {
         // Modificar cuando el backend me diga sus mensajitos
         if (data.error) {
+            showDialog();
             console.log("ocurrió un error :(");
         } else if (data.token) {
             console.log("se entró <3");
@@ -84,7 +86,6 @@ const Login = (props: any) => {
                         sendLoginCredentials(username, password)
                         .then(response => response.json())
                         .then(data => resolveLoginCredentials(data));
-                        
                     } else {
                         setShowInputError("Please, complete the fields");
                     }
@@ -92,50 +93,22 @@ const Login = (props: any) => {
                 >
                     Login
             </Button>
+
+            <Portal>
+                <Dialog visible={visible} onDismiss={hideDialog}>
+                    <Dialog.Title>An error has occurred</Dialog.Title>
+                        <Dialog.Content>
+                            <Text>This is simple dialog</Text>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button onPress={hideDialog}>OK</Button>
+                        </Dialog.Actions>
+                </Dialog>
+            </Portal>
+
         </View>
     );
     
 };
 
 export default Login;
-
-const styles = StyleSheet.create({
-    textInput: {
-        paddingBottom: hp(1),
-    },
-    button: {
-        marginVertical: hp(1),
-        marginHorizontal: wp(8)
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#111',
-        paddingTop: hp(15),
-        paddingHorizontal: wp(15)
-      },
-    textInputWrong: {
-        paddingBottom: hp(1),
-        borderColor: '#CF6679',
-        color: '#CF6679'
-    }
-});
-
-const themes = {
-    textInput: {
-        ...PaperDarkTheme,
-        colors: {
-            ...PaperDarkTheme.colors,
-            primary: '#3498db',
-        },
-    },
-    textInputWrong: {
-        ...PaperDarkTheme,
-        colors: {
-            ...PaperDarkTheme.colors,
-            primary: '#CF6679',
-            placeholder: '#CF6679',
-            border: '#CF6679'
-        },
-        
-    }
-}

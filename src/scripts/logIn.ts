@@ -35,3 +35,4 @@ export default async function sendLoginCredentials(username: string, password: s
         //.catch(() => console.log("Could not connect to the server"))
         //return response;
 }
+
