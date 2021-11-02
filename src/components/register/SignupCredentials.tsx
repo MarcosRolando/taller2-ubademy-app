@@ -3,24 +3,25 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { UbademyTheme } from '../../constants/themes';
+import { Themes } from '../../constants/themes';
+import sendLoginCredentials from '../../scripts/logIn';
 
 
-const Credentials = (props: any) => {
+const SignupCredentials = (props: any) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [usernameInputStyle, setUsernameInputStyle] = React.useState(themes.textInput);
-  const [passwordInputStyle, setPasswordInputStyle] = React.useState(themes.textInput);
+  const [usernameInputStyle, setUsernameInputStyle] = React.useState(Themes.textInput);
+  const [passwordInputStyle, setPasswordInputStyle] = React.useState(Themes.textInput);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   function sendCredentials(): boolean {
     if (!username.trim()) {
-      setUsernameInputStyle(themes.wrongTextInput);
+      setUsernameInputStyle(Themes.textInputWrong);
       setErrorMessage('Please enter your email');
       return false;
     }
     if (!password.trim()) {
-      setPasswordInputStyle(themes.wrongTextInput);
+      setPasswordInputStyle(Themes.textInputWrong);
       setErrorMessage('Please enter your password');
       return false;
     }
@@ -34,7 +35,7 @@ const Credentials = (props: any) => {
         textContentType="emailAddress"
         value={username}
         onChangeText={(username) => {
-          setUsernameInputStyle(themes.textInput);
+          setUsernameInputStyle(Themes.textInput);
           setUsername(username);
         }}
         mode='outlined'
@@ -49,7 +50,7 @@ const Credentials = (props: any) => {
         theme={passwordInputStyle}
         value={password}
         onChangeText={(password) => {
-          setPasswordInputStyle(themes.textInput);
+          setPasswordInputStyle(Themes.textInput);
           setPassword(password);
         }}
         mode='outlined'
@@ -70,18 +71,4 @@ const Credentials = (props: any) => {
   );
 };
 
-export default Credentials;
-
-const themes = {
-  textInput: {
-    ...UbademyTheme,
-  },
-  wrongTextInput: {
-    ...UbademyTheme,
-    colors: {
-      ...UbademyTheme.colors,
-      primary: '#CF6679',
-      placeholder: '#CF6679',
-    }
-  },
-};
+export default SignupCredentials;

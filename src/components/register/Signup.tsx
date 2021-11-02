@@ -1,22 +1,21 @@
 import * as React from 'react';
-import { heightPercentageToDP as hp, 
-  widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
-import Credentials from './RegisterCredentials';
+import SignupCredentials from './SignupCredentials';
 
-const Register = (props: any) => {
+const Signup = (props: any) => {
   return (
     <View style={props.style}>
       <View style={{alignSelf: 'center'}}>
         <Image source={require('../../../assets/ubademy-logo.png')}/>
       </View>
-      <Credentials style={{paddingTop: hp(4)}}/>
+      <SignupCredentials style={{paddingTop: hp(4)}}/>
       <View style={{paddingTop: hp(2), flexDirection: 'row', justifyContent:'center'}}>
         <Text>Already have an account? </Text>
         <Text 
         style={{color: '#3498db'}} 
-        onPress={() => props.navigation.navigate('Login')}>
+        onPress={() => props.navigation.push('Login')}>
         Log in
         </Text>
       </View>
@@ -24,4 +23,4 @@ const Register = (props: any) => {
   );
 };
 
-export default Register;
+export default Signup;
