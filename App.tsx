@@ -3,20 +3,12 @@ import React from 'react';
 import {AppRegistry} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import RegisterScreen from './src/components/register/RegisterScreen';
-import LogIn from './src/components/LogIn';
-import UbademyTheme from './src/components/UbademyTheme';
-import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import LogIn from './src/components/Login';
+import { UbademyTheme, NavigationTheme } from './src/constants/themes';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-
-const NavigationTheme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-    background: '#111',
-  }
-}
 
 export default function App() {
   return (
