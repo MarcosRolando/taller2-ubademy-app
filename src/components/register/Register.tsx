@@ -3,7 +3,7 @@ import { heightPercentageToDP as hp,
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
-import Credentials from './Credentials';
+import Credentials from './RegisterCredentials';
 
 const Register = (props: any) => {
   return (
@@ -16,7 +16,7 @@ const Register = (props: any) => {
         <Text>Already have an account? </Text>
         <Text 
         style={{color: '#3498db'}} 
-        onPress={() => props.navigation.navigate('LogIn')}>
+        onPress={() => props.navigation.navigate('Login')}>
         Log in
         </Text>
       </View>

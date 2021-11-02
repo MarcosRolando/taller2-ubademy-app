@@ -4,10 +4,11 @@ import Register from './Register';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { heightPercentageToDP as hp, 
     widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import Login from './Login'; 
 
 const RegisterStack = createNativeStackNavigator();
 
-const RegisterWrapper = ({navigation}: any) => {
+const RegisterView = ({navigation}: any) => {
     return (
       <View>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -17,10 +18,21 @@ const RegisterWrapper = ({navigation}: any) => {
     );
 }
 
+const LoginView = ({navigation}: any) => {
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Login navigation={navigation} style={styles.container}/>
+      </ScrollView>
+    </View>
+  );
+}
+
 const RegisterScreen = () => {
     return (
       <RegisterStack.Navigator screenOptions={{headerShown:false}}>
-        <RegisterStack.Screen name='Register' component={RegisterWrapper} />
+        <RegisterStack.Screen name='Register' component={RegisterView} />
+        <RegisterStack.Screen name='Login' component={LoginView} />
       </RegisterStack.Navigator>
     );
 }
