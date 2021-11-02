@@ -8,8 +8,11 @@ import { UbademyTheme, NavigationTheme } from './src/constants/themes';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import Profile from "./src/components/Profile";
+
 const Stack = createNativeStackNavigator();
 
+/**
 export default function App() {
   return (
     <PaperProvider theme={UbademyTheme}>
@@ -20,6 +23,15 @@ export default function App() {
           <Stack.Screen name='LogIn' component={LogIn} />
         </Stack.Navigator>
       </NavigationContainer>
+    </PaperProvider>
+  );
+}
+*/
+
+export default function App() {
+  return (
+    <PaperProvider theme={UbademyTheme}>
+      <Profile />
     </PaperProvider>
   );
 }

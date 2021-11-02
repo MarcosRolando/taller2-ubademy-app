@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import UbademyTheme from '../UbademyTheme'
+import { UbademyTheme } from '../../constants/themes';
 
 
 const Credentials = (props: any) => {

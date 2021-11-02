@@ -23,6 +23,27 @@ const styles = StyleSheet.create({
         paddingBottom: hp(1),
         borderColor: colors.error,
         color: colors.error
+    },
+    profileContainer: {
+        flex: 1,
+        backgroundColor: colors.background,
+        paddingHorizontal: wp(5)
+    },
+    profileImage: {
+        paddingTop: hp(2),
+        alignItems: 'center',
+    },
+    profileTitle: {
+        paddingTop: hp(10),
+        paddingLeft: wp(5),
+        justifyContent: "flex-start",
+        fontSize: hp(5)
+    },
+    profileName: {
+        color: colors.primary
+    },
+    infoRow: {
+        flexDirection: 'row',
     }
 });
 

@@ -8,14 +8,14 @@ import {
     TextInput
 } from 'react-native-paper';
 import sendLoginCredentials from '../scripts/logIn';
-import themes from '../constants/themes';
+import { Themes } from '../constants/themes';
 import styles from '../constants/styles';
 
 const Login = (props: any) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [usernameInputTheme, setUsernameInputTheme] = React.useState(themes.textInput);
-    const [passwordInputTheme, setPasswordInputTheme] = React.useState(themes.textInput);
+    const [usernameInputTheme, setUsernameInputTheme] = React.useState(Themes.textInput);
+    const [passwordInputTheme, setPasswordInputTheme] = React.useState(Themes.textInput);
     const [showInputError, setShowInputError] = React.useState("");
     const [visible, setVisible] = React.useState(false);
 
@@ -26,11 +26,11 @@ const Login = (props: any) => {
     function checkInput(): boolean {
         var r = true;
         if (!username.trim()) {
-            setUsernameInputTheme(themes.textInputWrong);
+            setUsernameInputTheme(Themes.textInputWrong);
             r = false;
         }
         if (!password.trim()) {
-            setPasswordInputTheme(themes.textInputWrong);
+            setPasswordInputTheme(Themes.textInputWrong);
             r = false;
         }
         return r;
@@ -81,8 +81,8 @@ const Login = (props: any) => {
                 onPress={() => {
                     if (checkInput()) {
                         setShowInputError("");
-                        setUsernameInputTheme(themes.textInput);
-                        setPasswordInputTheme(themes.textInput);
+                        setUsernameInputTheme(Themes.textInput);
+                        setPasswordInputTheme(Themes.textInput);
                         sendLoginCredentials(username, password)
                         .then(response => response.json())
                         .then(data => resolveLoginCredentials(data));
