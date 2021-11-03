@@ -10,8 +10,10 @@ import sendLoginCredentials from '../../scripts/logIn';
 const SignupCredentials = (props: any) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [confPassword, setConfPassword] = React.useState('');
   const [usernameInputStyle, setUsernameInputStyle] = React.useState(Themes.textInput);
   const [passwordInputStyle, setPasswordInputStyle] = React.useState(Themes.textInput);
+  const [confPasswordInputStyle, setConfPasswordInputStyle] = React.useState(Themes.textInput);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   function sendCredentials(): boolean {
@@ -25,6 +27,11 @@ const SignupCredentials = (props: any) => {
       setErrorMessage('Please enter your password');
       return false;
     }
+    if (password != confPassword) {
+      setConfPasswordInputStyle(Themes.textInputWrong);
+      setErrorMessage('Passwords must match');
+      return false;
+    }
     //TODO validar los credentials con el back
     props.navigation.navigate('Location');
     return true;
@@ -33,27 +40,41 @@ const SignupCredentials = (props: any) => {
   return (
     <View style={props.style}>
       <TextInput
-        label='Email'
-        textContentType="emailAddress"
+        label='Enter your email'
+        textContentType='emailAddress'
         value={username}
         onChangeText={(username) => {
           setUsernameInputStyle(Themes.textInput);
           setUsername(username);
         }}
         mode='outlined'
-        style={{paddingBottom: hp(1)}}
         theme={usernameInputStyle}
         disableFullscreenUI={true}
       />
       <TextInput
-        label='Password'
+        label='Enter your password'
+        style={{paddingTop:hp(1)}}
         secureTextEntry={true}
-        textContentType="newPassword"
+        textContentType='password'
         theme={passwordInputStyle}
         value={password}
         onChangeText={(password) => {
           setPasswordInputStyle(Themes.textInput);
           setPassword(password);
+        }}
+        mode='outlined'
+        disableFullscreenUI={true}
+      />
+      <TextInput
+        label='Confirm your password'
+        style={{paddingTop:hp(1)}}
+        secureTextEntry={true}
+        textContentType='newPassword'
+        theme={confPasswordInputStyle}
+        value={confPassword}
+        onChangeText={(confPassword) => {
+          setConfPasswordInputStyle(Themes.textInput);
+          setConfPassword(confPassword);
         }}
         mode='outlined'
         disableFullscreenUI={true}

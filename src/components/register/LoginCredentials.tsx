@@ -30,8 +30,8 @@ const LoginCredentials = (props: any) => {
   return (
     <View style={props.style}>
       <TextInput
-        label='Email'
-        textContentType="emailAddress"
+        label='Enter your email'
+        textContentType='emailAddress'
         value={username}
         onChangeText={(username) => {
           setUsernameInputStyle(Themes.textInput);
@@ -43,9 +43,9 @@ const LoginCredentials = (props: any) => {
         disableFullscreenUI={true}
       />
       <TextInput
-        label='Password'
+        label='Enter your password'
         secureTextEntry={true}
-        textContentType="newPassword"
+        textContentType='password'
         theme={passwordInputStyle}
         value={password}
         onChangeText={(password) => {

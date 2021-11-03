@@ -52,7 +52,7 @@ const Location = (props: any) => {
         <Button 
           mode='contained'
           style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
-          onPress={() => props.navigator.navigate('TODO')}>
+          onPress={() => props.navigator.push('TODO')}>
             Next
         </Button>
         <Text 
