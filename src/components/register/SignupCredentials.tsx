@@ -64,7 +64,7 @@ const SignupCredentials = (props: any) => {
         </Text>
       </View>
       <Button 
-        mode='contained' 
+        mode='contained'
         style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
         onPress={sendCredentials}>
           Next
