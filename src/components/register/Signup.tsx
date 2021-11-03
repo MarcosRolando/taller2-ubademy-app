@@ -10,7 +10,7 @@ const Signup = (props: any) => {
       <View style={{alignSelf: 'center'}}>
         <Image source={require('../../../assets/ubademy-logo.png')}/>
       </View>
-      <SignupCredentials style={{paddingTop: hp(4)}}/>
+      <SignupCredentials navigation={props.navigation} style={{paddingTop: hp(4)}}/>
       <View style={{paddingTop: hp(2), flexDirection: 'row', justifyContent:'center'}}>
         <Text>Already have an account? </Text>
         <Text 

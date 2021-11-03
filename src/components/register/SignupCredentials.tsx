@@ -25,6 +25,8 @@ const SignupCredentials = (props: any) => {
       setErrorMessage('Please enter your password');
       return false;
     }
+    //TODO validar los credentials con el back
+    props.navigation.navigate('Location');
     return true;
   }
 

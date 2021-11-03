@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { heightPercentageToDP as hp, 
     widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Login from './Login'; 
+import Location from './Location';
 
 const RegisterStack = createNativeStackNavigator();
 
@@ -16,6 +17,16 @@ const SignupView = ({navigation}: any) => {
         </ScrollView>
       </View>
     );
+}
+
+const LocationView = ({navigation}: any) => {
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Location navigation={navigation} style={styles.container}/>
+      </ScrollView>
+    </View>
+  );
 }
 
 const LoginView = ({navigation}: any) => {
@@ -32,6 +43,7 @@ const RegisterScreen = () => {
     return (
       <RegisterStack.Navigator screenOptions={{headerShown:false}}>
         <RegisterStack.Screen name='Signup' component={SignupView} />
+        <RegisterStack.Screen name='Location' component={LocationView} />
         <RegisterStack.Screen name='Login' component={LoginView} />
       </RegisterStack.Navigator>
     );
