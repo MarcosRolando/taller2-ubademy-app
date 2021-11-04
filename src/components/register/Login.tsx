@@ -16,7 +16,7 @@ const Login = (props: any) => {
           <Text>Don't have an account? </Text>
           <Text 
           style={{color: colors.primary}} 
-          onPress={() => props.navigation.push('SignupCredentials')}>
+          onPress={() => props.navigation.push('Signup')}>
           Sign up
           </Text>
         </View>

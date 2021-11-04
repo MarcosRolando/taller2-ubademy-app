@@ -40,7 +40,7 @@ const SignupCredentials = (props: any) => {
   return (
     <View style={props.style}>
       <TextInput
-        label='Enter your email'
+        label='Email'
         textContentType='emailAddress'
         value={username}
         onChangeText={(username) => {
@@ -52,7 +52,7 @@ const SignupCredentials = (props: any) => {
         disableFullscreenUI={true}
       />
       <TextInput
-        label='Enter your password'
+        label='Password'
         style={{paddingTop:hp(1)}}
         secureTextEntry={true}
         textContentType='password'
@@ -66,7 +66,7 @@ const SignupCredentials = (props: any) => {
         disableFullscreenUI={true}
       />
       <TextInput
-        label='Confirm your password'
+        label='Confirm password'
         style={{paddingTop:hp(1)}}
         secureTextEntry={true}
         textContentType='newPassword'

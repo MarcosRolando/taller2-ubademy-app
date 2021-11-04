@@ -5,29 +5,29 @@ widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DropDown from 'react-native-paper-dropdown';
 import { Text, Button } from 'react-native-paper';
 
-const Location = (props: any) => {
+const Courses = (props: any) => {
     const [showMultiSelectDropDown, setShowMultiSelectDropDown] = React.useState(false);
-    const [locations, setLocations] = React.useState('');
-    const locationList = [
+    const [courses, setCourses] = React.useState('');
+    const coursesList = [
       {
-        label: "Argentina",
-        value: "argentina",
+        label: "Cooking",
+        value: "cooking",
       },
       {
-        label: "Germany",
-        value: "germany",
+        label: "Maths",
+        value: "maths",
       },
       {
-        label: "Peru",
-        value: "peru",
+        label: "Literature",
+        value: "literature",
       },
       {
-        label: "Africa",
-        value: "africa",
+        label: "Physics",
+        value: "physics",
       },
       {
-        label: "China",
-        value: "china",
+        label: "Chemistry",
+        value: "chemistry",
       },
     ];
 
@@ -38,33 +38,26 @@ const Location = (props: any) => {
         </View>
         <View style={{paddingTop:hp(4), paddingBottom:hp(3)}}>
           <DropDown
-            label={"Where are you from?"}
+            label={"What are you interested in?"}
             mode={"outlined"}
             visible={showMultiSelectDropDown}
             showDropDown={() => setShowMultiSelectDropDown(true)}
             onDismiss={() => setShowMultiSelectDropDown(false)}
-            value={locations}
-            setValue={setLocations}
-            list={locationList}
+            value={courses}
+            setValue={setCourses}
+            list={coursesList}
             dropDownStyle={{paddingTop:hp(1)}}
+            multiSelect
+            
           />
         </View>
         <Button 
           mode='contained'
-          style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
-          onPress={() => props.navigation.navigate('RegisterCourses')}>
+          style={{marginVertical: hp(1), marginHorizontal: wp(8)}}>
             Next
         </Button>
-        <Text 
-        style={{marginTop:hp(2), 
-                lineHeight:hp(3), 
-                paddingHorizontal:wp(2), 
-                backgroundColor:'#4444',
-                borderRadius:6}}>
-          Don't worry, we will only use this information to recommend you courses :-)
-        </Text>
       </View>
     );
   };
   
-export default Location;
+export default Courses;
