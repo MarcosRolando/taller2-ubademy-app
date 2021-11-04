@@ -4,6 +4,7 @@ import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../constants/themes';
+import sendLoginCredentials from '../../scripts/logIn';
 
 
 const LoginCredentials = (props: any) => {
@@ -24,6 +25,7 @@ const LoginCredentials = (props: any) => {
       setErrorMessage('Please enter your password');
       return false;
     }
+    sendLoginCredentials(username, password, setErrorMessage);
     return true;
   }
 

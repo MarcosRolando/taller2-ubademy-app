@@ -1,38 +1,16 @@
 import {API_URL} from '../../api_url';
+import axios from 'axios';
+import React from 'react';
 
-/**
-export default async function sendLoginCredentials(username: string, password: string) {
-  const loginData = JSON.stringify({
-    'email': username,
-    'password': password,
-  });
-  await fetch(API_URL + 'login/', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: loginData,
-  }).then((response) => console.log(response)).catch(() => console.log('Could not connect to the server'));
-}
-*/
-
-export default async function sendLoginCredentials(username: string, password: string) {
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: username,
-            password: password
-        })
+//TODO cambiar el mensaje de error que recibo del server al robotico
+export default async function sendLoginCredentials(username: string, password: string, 
+        setErrorMessage: React.Dispatch<React.SetStateAction<string>>) {
+  try {
+    const res = await axios.post(API_URL + 'login/', {email:username, password:password});
+    if (res.data['detail'] == 'incorrect username or password') {
+      setErrorMessage('Incorrect email or password');
     }
-    return await fetch("https://reqres.in/api/login", requestOptions)
-        //then(response => response.json())
-        //.then(data => console.log(data.token))
-        //.catch(() => console.log("Could not connect to the server"))
-        //return response;
+  } catch(error) {
+    setErrorMessage('Connection to server failed');
+  }
 }
-
