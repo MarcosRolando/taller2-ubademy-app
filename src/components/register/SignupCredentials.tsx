@@ -93,7 +93,7 @@ const SignupCredentials = (props: any) => {
         secureTextEntry={true}
         textContentType='username'
         theme={usernameStyle}
-        value={email}
+        value={username}
         onChangeText={(username) => {
           setUsernameStyle(Themes.textInput);
           setUsername(username);

@@ -16,7 +16,7 @@ export default function App() {
   return (
     <PaperProvider theme={UbademyTheme}>
       <StatusBar style='light' />
-      <SafeAreaProvider style={{ backgroundColor: colors.background}}> #This is because React Navigator is a piece of shit and gives me a fucking siezure with a white animation bug and this was the only stack overflow solution that worked. Fuck you React Navigator.
+      <SafeAreaProvider style={{ backgroundColor: colors.background}}>
         <NavigationContainer theme={NavigationTheme}>
           <Stack.Navigator screenOptions={{headerShown:false}}>
             <Stack.Group>
