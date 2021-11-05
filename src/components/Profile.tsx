@@ -9,6 +9,35 @@ import styles from "../constants/styles";
 
 const Profile = () => {
 
+    var coursesStudentNames = ["Curso de Python", "Curso de Chocolate I"]
+    //var coursesStudent:any = [];
+
+    function renderCourses(coursesName : any) : any[] {
+        var courses:any = [];
+        for (let i = 0; i < coursesName.length; i++) {
+            courses.push(
+                <List.Item key={i} title={coursesName[i]} onPress={() => console.log("Oh! Me has presionado!")} />
+            )
+        }
+        return courses;
+    }
+
+    /**
+    function renderCourses1(coursesName : any, courses : any) {
+        let i = 0;
+        for (let courseName in coursesName) {
+            courses.push(
+                <List.Item key={i} title={courseName} onPress={() => console.log("Oh! Me has presionado!")} />
+            )
+            i = i + 1;
+            console.log(courseName);
+        }
+        console.log(courses);
+    }
+    */
+
+    var coursesStudent = renderCourses(coursesStudentNames);
+
     return (
         <SafeAreaView style={styles.profileContainer}>
             
@@ -31,15 +60,10 @@ const Profile = () => {
 
                 </View>
 
-                <Paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </Paragraph>
-
                 <List.Accordion
                     title="Courses as a student"
                     left={props => <List.Icon {...props} icon="folder" />}>
-                    <List.Item title="First item" onPress={() => console.log("Oh! Me has presionado!")} />
-                    <List.Item title="Second item" />
+                    {coursesStudent}
                 </List.Accordion>
 
                 <List.Accordion
