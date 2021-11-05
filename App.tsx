@@ -2,13 +2,13 @@ import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {AppRegistry} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
-import { UbademyTheme, NavigationTheme } from './src/constants/themes';
+import { UbademyTheme, NavigationTheme } from './src/styling/themes';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SignupScreen, LocationScreen, 
   CoursesScreen as RegisterCoursesScreen, LoginScreen } from './src/components/register/Screens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import colors from './src/constants/colors';
+import colors from './src/styling/colors';
 
 const Stack = createNativeStackNavigator();
 

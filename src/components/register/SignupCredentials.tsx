@@ -3,28 +3,30 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Themes } from '../../constants/themes';
-import sendLoginCredentials from '../../scripts/logIn';
+import { Themes } from '../../styling/themes';
+import { sendSignupCredentials } from '../../scripts/signUp';
 
 
 const SignupCredentials = (props: any) => {
-  const [username, setUsername] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confPassword, setConfPassword] = React.useState('');
-  const [usernameInputStyle, setUsernameInputStyle] = React.useState(Themes.textInput);
+  const [username, setUsername] = React.useState('');
+  const [emailInputStyle, setEmailInputStyle] = React.useState(Themes.textInput);
   const [passwordInputStyle, setPasswordInputStyle] = React.useState(Themes.textInput);
   const [confPasswordInputStyle, setConfPasswordInputStyle] = React.useState(Themes.textInput);
+  const [usernameStyle, setUsernameStyle] = React.useState(Themes.textInput);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   function sendCredentials(): boolean {
-    if (!username.trim()) {
-      setUsernameInputStyle(Themes.textInputWrong);
+    if (!email.trim()) {
+      setEmailInputStyle(Themes.textInputWrong);
       setErrorMessage('Please enter your email');
       return false;
     }
     if (!password.trim()) {
       setPasswordInputStyle(Themes.textInputWrong);
-      setErrorMessage('Please enter your password');
+      setErrorMessage('Please enter a password');
       return false;
     }
     if (password != confPassword) {
@@ -32,7 +34,13 @@ const SignupCredentials = (props: any) => {
       setErrorMessage('Passwords must match');
       return false;
     }
+    if (!username.trim()) {
+      setUsernameStyle(Themes.textInputWrong);
+      setErrorMessage('Please enter a username');
+      return false;
+    }
     //TODO validar los credentials con el back
+    sendSignupCredentials(email, password, username, setErrorMessage);
     props.navigation.navigate('Location');
     return true;
   }
@@ -42,13 +50,13 @@ const SignupCredentials = (props: any) => {
       <TextInput
         label='Email'
         textContentType='emailAddress'
-        value={username}
-        onChangeText={(username) => {
-          setUsernameInputStyle(Themes.textInput);
-          setUsername(username);
+        value={email}
+        onChangeText={(email) => {
+          setEmailInputStyle(Themes.textInput);
+          setEmail(email);
         }}
         mode='outlined'
-        theme={usernameInputStyle}
+        theme={emailInputStyle}
         disableFullscreenUI={true}
       />
       <TextInput
@@ -75,6 +83,20 @@ const SignupCredentials = (props: any) => {
         onChangeText={(confPassword) => {
           setConfPasswordInputStyle(Themes.textInput);
           setConfPassword(confPassword);
+        }}
+        mode='outlined'
+        disableFullscreenUI={true}
+      />
+      <TextInput
+        label='Username'
+        style={{paddingTop:hp(1)}}
+        secureTextEntry={true}
+        textContentType='username'
+        theme={usernameStyle}
+        value={email}
+        onChangeText={(username) => {
+          setUsernameStyle(Themes.textInput);
+          setUsername(username);
         }}
         mode='outlined'
         disableFullscreenUI={true}

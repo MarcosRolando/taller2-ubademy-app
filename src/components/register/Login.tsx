@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import colors from '../../constants/colors';
+import colors from '../../styling/colors';
 import LoginCredentials from './LoginCredentials';
 
 const Login = (props: any) => {

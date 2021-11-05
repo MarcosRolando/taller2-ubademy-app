@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Themes } from '../../constants/themes';
+import { Themes } from '../../styling/themes';
 import sendLoginCredentials from '../../scripts/logIn';
 
 
