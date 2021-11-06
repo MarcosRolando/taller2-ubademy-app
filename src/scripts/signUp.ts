@@ -1,6 +1,6 @@
 import {API_URL} from '../../api_url';
 import axios from 'axios';
-import { SIGNUP } from '../endpoints';
+import { LOCATIONS, SIGNUP } from '../endpoints';
 
 export async function sendSignupCredentials(email: string, password: string, username: string) {
   try {
@@ -18,6 +18,22 @@ export async function sendSignupCredentials(email: string, password: string, use
       }
     }
     return Promise.resolve('');
+  } catch(error) {
+    console.log(error);
+    return Promise.reject('Error when trying to reach the server');
+  }
+}
+
+export async function sendSignupLocation(location: string) {
+  try {
+    const res = await axios.post(`${API_URL}${LOCATIONS}`, {
+      location:location,
+    })
+    if (res.data['status'] == 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(res.data['message']);
+    }
+    return Promise.resolve(''); // Ok!
   } catch(error) {
     console.log(error);
     return Promise.reject('Error when trying to reach the server');

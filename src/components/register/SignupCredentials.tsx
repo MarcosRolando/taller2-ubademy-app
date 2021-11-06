@@ -64,8 +64,8 @@ const SignupCredentials = (props: any) => {
     sendSignupCredentials(email.value, password.value, username.value)
       .then(() => {
         props.navigation.navigate(LOCATION)
-      })
-      .catch((errorMsg) => {
+      },
+      (errorMsg) => {
         setErrorMessage(errorMsg);
       })
   }
