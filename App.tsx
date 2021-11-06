@@ -1,27 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
-import Constants from 'expo-constants';
-import LogIn from './src/components/LogIn';
+import {StatusBar} from 'expo-status-bar';
+import React from 'react';
+import {AppRegistry} from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
+import RegisterScreen from './src/components/register/RegisterScreen';
+import LogIn from './src/components/Login';
+import {UbademyTheme, NavigationTheme} from './src/constants/themes';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ProfileScreen from './src/components/profile/Screens';
 
-// @ts-ignore
-export const API_URL = Constants.manifest.extra.API_URL // The ignore comment is for suppressing the VSCode error
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <LogIn />
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={UbademyTheme}>
+      <StatusBar style='light' />
+      <NavigationContainer theme={NavigationTheme}>
+        <Stack.Navigator screenOptions={{headerShown:false}}>
+          <Stack.Screen name='Profile' component={ProfileScreen} />
+          <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
+          <Stack.Screen name='LogIn' component={LogIn} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
+AppRegistry.registerComponent('ubademy', () => App);
