@@ -40,10 +40,16 @@ const styles = StyleSheet.create({
         fontSize: hp(5)
     },
     profileName: {
+        paddingTop: hp(2),
         color: colors.primary
     },
-    infoRow: {
-        flexDirection: 'row',
+    profileSubtitle: {
+        paddingTop: hp(5),
+        fontSize: hp(3)
+    },
+    hideView: {
+        height: 0,
+        width: 0
     }
 });
 

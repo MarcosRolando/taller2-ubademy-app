@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import { Avatar, Paragraph, Title, List } from "react-native-paper";
+import { Avatar, Title, List, Subheading } from "react-native-paper";
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import styles from "../constants/styles";
 import getCoursesData from "../scripts/profile";
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faEnvelope, faGlobe, faFolder } from '@fortawesome/free-solid-svg-icons';
+
 
 const Profile = () => {
     //const [coursesData, setCoursesData] = React.useState([]);
@@ -56,7 +60,7 @@ const Profile = () => {
                 <View style={styles.profileImage}>
 
                     <Avatar.Image
-                        size={wp(40)}
+                        size={wp(30)}
                         source={require("../images/example.jpg")}
                     />
 
@@ -66,21 +70,58 @@ const Profile = () => {
 
                 </View>
 
+                <View >
+
+                <Subheading style={styles.profileSubtitle}>
+                    Info
+                </Subheading>
+
+                <List.Item
+                    title="example@gmail.com"
+                    description="Email"
+                    left={props => <List.Icon {...props} icon={({ size, color }) => (
+                        <FontAwesomeIcon color={color} size={size} icon={ faEnvelope } />
+                      )} />}
+                />
+
+                <List.Item
+                    title="Argentina :("
+                    description="Location"
+                    left={props => <List.Icon {...props} icon={({ size, color }) => (
+                        <FontAwesomeIcon color={color} size={size} icon={ faGlobe } />
+                      )} />}
+                />
+
+                </View>
+
+                <Subheading style={styles.profileSubtitle}>
+                    Courses
+                </Subheading>
+
                 <List.Accordion
                     title="Courses as a student"
-                    left={props => <List.Icon {...props} icon="folder" />}>
+                    left={props => <List.Icon {...props}
+                        icon={props => <List.Icon {...props} icon={({ size, color }) => (
+                            <FontAwesomeIcon color={color} size={size} icon={ faFolder } />
+                        )} />} />}>
                     {coursesStudent}
                 </List.Accordion>
 
                 <List.Accordion
                     title="Courses as a teacher"
-                    left={props => <List.Icon {...props} icon="folder" />}>
+                    left={props => <List.Icon {...props}
+                    icon={props => <List.Icon {...props} icon={({ size, color }) => (
+                        <FontAwesomeIcon color={color} size={size} icon={ faFolder } />
+                    )} />} />}>
                     {courseProfessor}
                 </List.Accordion>
 
                 <List.Accordion
                     title="Courses as a collaborator"
-                    left={props => <List.Icon {...props} icon="folder" />}>
+                    left={props => <List.Icon {...props} 
+                    icon={props => <List.Icon {...props} icon={({ size, color }) => (
+                        <FontAwesomeIcon color={color} size={size} icon={ faFolder } />
+                    )} />} />}>
                     {courseCollaborator}
                 </List.Accordion>
 
