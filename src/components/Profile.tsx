@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Avatar, Paragraph, Title, List } from "react-native-paper";
 import {
@@ -6,37 +6,43 @@ import {
     heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import styles from "../constants/styles";
+import getCoursesData from "../scripts/profile";
 
 const Profile = () => {
+    //const [coursesData, setCoursesData] = React.useState([]);
+    const [coursesData, setCoursesData] = React.useState({
+        courseStudent: [] as any,
+        courseProfessor: [] as any,
+        courseCollaborator: [] as any
+    })
 
-    var coursesStudentNames = ["Curso de Python", "Curso de Chocolate I"]
-    //var coursesStudent:any = [];
+    useEffect(() => {
+        async function fetchData() {
+            // Después se cambia, cuando ya tengamos los mensajes.
+            // Pero dejo una "template"
+           let data = await getCoursesData();
+           setCoursesData({
+                courseStudent: [...data],
+                courseProfessor: [...data],
+                courseCollaborator: [...data]
+           })
+        }
+        fetchData();
+    }, [])
 
     function renderCourses(coursesName : any) : any[] {
         var courses:any = [];
         for (let i = 0; i < coursesName.length; i++) {
             courses.push(
-                <List.Item key={i} title={coursesName[i]} onPress={() => console.log("Oh! Me has presionado!")} />
+                <List.Item key={i} title={coursesName[i].name} onPress={() => console.log("Oh! Me has presionado!")} />
             )
         }
         return courses;
     }
 
-    /**
-    function renderCourses1(coursesName : any, courses : any) {
-        let i = 0;
-        for (let courseName in coursesName) {
-            courses.push(
-                <List.Item key={i} title={courseName} onPress={() => console.log("Oh! Me has presionado!")} />
-            )
-            i = i + 1;
-            console.log(courseName);
-        }
-        console.log(courses);
-    }
-    */
-
-    var coursesStudent = renderCourses(coursesStudentNames);
+    var coursesStudent = renderCourses(coursesData.courseStudent);
+    var courseProfessor =  renderCourses(coursesData.courseProfessor);
+    var courseCollaborator = renderCourses(coursesData.courseCollaborator);
 
     return (
         <SafeAreaView style={styles.profileContainer}>
@@ -69,20 +75,13 @@ const Profile = () => {
                 <List.Accordion
                     title="Courses as a teacher"
                     left={props => <List.Icon {...props} icon="folder" />}>
-                    <List.Item title="First item" />
-                    <List.Item title="Second item" />
+                    {courseProfessor}
                 </List.Accordion>
 
                 <List.Accordion
                     title="Courses as a collaborator"
                     left={props => <List.Icon {...props} icon="folder" />}>
-                    <List.Item title="First item" />
-                    <List.Item title="Second item" />
-                    <List.Item title="Second item" />
-                    <List.Item title="Second item" />
-                    <List.Item title="Second item" />
-                    <List.Item title="Second item" />
-                    <List.Item title="Second item" />
+                    {courseCollaborator}
                 </List.Accordion>
 
             </ScrollView>
