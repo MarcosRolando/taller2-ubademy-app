@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { SIGNUP } from '../../routes';
 import colors from '../../styling/colors';
 import LoginCredentials from './LoginCredentials';
 
@@ -16,7 +17,7 @@ const Login = (props: any) => {
           <Text>Don't have an account? </Text>
           <Text 
           style={{color: colors.primary}} 
-          onPress={() => props.navigation.push('Signup')}>
+          onPress={() => props.navigation.navigate(SIGNUP)}>
           Sign up
           </Text>
         </View>

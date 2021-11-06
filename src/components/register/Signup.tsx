@@ -3,6 +3,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import SignupCredentials from './SignupCredentials';
+import colors from '../../styling/colors';
 
 const Signup = (props: any) => {
   return (
@@ -14,7 +15,7 @@ const Signup = (props: any) => {
       <View style={{paddingTop: hp(2), flexDirection: 'row', justifyContent:'center'}}>
         <Text>Already have an account? </Text>
         <Text 
-        style={{color: '#3498db'}} 
+        style={{color: colors.primary}} 
         onPress={() => props.navigation.push('Login')}>
         Log in
         </Text>

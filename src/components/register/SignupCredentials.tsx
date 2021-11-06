@@ -5,44 +5,69 @@ import { heightPercentageToDP as hp,
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styling/themes';
 import { sendSignupCredentials } from '../../scripts/signUp';
+import colors from '../../styling/colors';
+import { LOCATION } from '../../routes';
 
 
 const SignupCredentials = (props: any) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confPassword, setConfPassword] = React.useState('');
-  const [username, setUsername] = React.useState('');
-  const [emailInputStyle, setEmailInputStyle] = React.useState(Themes.textInput);
-  const [passwordInputStyle, setPasswordInputStyle] = React.useState(Themes.textInput);
-  const [confPasswordInputStyle, setConfPasswordInputStyle] = React.useState(Themes.textInput);
-  const [usernameStyle, setUsernameStyle] = React.useState(Themes.textInput);
+  const [email, setEmail] = React.useState({
+    value: '',
+    theme: Themes.textInput,
+  });
+  const [password, setPassword] = React.useState({
+    value: '',
+    theme: Themes.textInput,
+  });
+  const [confPassword, setConfPassword] = React.useState({
+    value: '',
+    theme: Themes.textInput,
+  });
+  const [username, setUsername] = React.useState({
+    value: '',
+    theme: Themes.textInput,
+  });
   const [errorMessage, setErrorMessage] = React.useState('');
 
-  function sendCredentials(): boolean {
-    if (!email.trim()) {
-      setEmailInputStyle(Themes.textInputWrong);
+  function sendCredentials() {
+    if (!email.value.trim()) {
+      setEmail({
+        ...email,
+        theme: Themes.textInputWrong,
+      })
       setErrorMessage('Please enter your email');
-      return false;
+      return;
     }
-    if (!password.trim()) {
-      setPasswordInputStyle(Themes.textInputWrong);
+    if (!password.value.trim()) {
+      setPassword({
+        ...password,
+        theme: Themes.textInputWrong,
+      })
       setErrorMessage('Please enter a password');
-      return false;
+      return;
     }
-    if (password != confPassword) {
-      setConfPasswordInputStyle(Themes.textInputWrong);
+    if (password.value != confPassword.value) {
+      setConfPassword({
+        ...confPassword,
+        theme: Themes.textInputWrong,
+      })
       setErrorMessage('Passwords must match');
-      return false;
+      return;
     }
-    if (!username.trim()) {
-      setUsernameStyle(Themes.textInputWrong);
+    if (!username.value.trim()) {
+      setUsername({
+        ...username,
+        theme: Themes.textInputWrong,
+      })
       setErrorMessage('Please enter a username');
-      return false;
+      return;
     }
-    //TODO validar los credentials con el back
-    sendSignupCredentials(email, password, username, setErrorMessage);
-    props.navigation.navigate('Location');
-    return true;
+    sendSignupCredentials(email.value, password.value, username.value)
+      .then(() => {
+        props.navigation.navigate(LOCATION)
+      })
+      .catch((errorMsg) => {
+        setErrorMessage(errorMsg);
+      })
   }
 
   return (
@@ -50,13 +75,12 @@ const SignupCredentials = (props: any) => {
       <TextInput
         label='Email'
         textContentType='emailAddress'
-        value={email}
-        onChangeText={(email) => {
-          setEmailInputStyle(Themes.textInput);
-          setEmail(email);
+        value={email.value}
+        onChangeText={(newEmail) => {
+          setEmail({...email, value:newEmail, theme:Themes.textInput});
         }}
         mode='outlined'
-        theme={emailInputStyle}
+        theme={email.theme}
         disableFullscreenUI={true}
       />
       <TextInput
@@ -64,11 +88,10 @@ const SignupCredentials = (props: any) => {
         style={{paddingTop:hp(1)}}
         secureTextEntry={true}
         textContentType='password'
-        theme={passwordInputStyle}
-        value={password}
-        onChangeText={(password) => {
-          setPasswordInputStyle(Themes.textInput);
-          setPassword(password);
+        theme={password.theme}
+        value={password.value}
+        onChangeText={(newPassword) => {
+          setPassword({...password, value:newPassword, theme:Themes.textInput});
         }}
         mode='outlined'
         disableFullscreenUI={true}
@@ -78,11 +101,10 @@ const SignupCredentials = (props: any) => {
         style={{paddingTop:hp(1)}}
         secureTextEntry={true}
         textContentType='newPassword'
-        theme={confPasswordInputStyle}
-        value={confPassword}
-        onChangeText={(confPassword) => {
-          setConfPasswordInputStyle(Themes.textInput);
-          setConfPassword(confPassword);
+        theme={confPassword.theme}
+        value={confPassword.value}
+        onChangeText={(newConfPassword) => {
+          setConfPassword({...confPassword, value:newConfPassword, theme:Themes.textInput});
         }}
         mode='outlined'
         disableFullscreenUI={true}
@@ -92,17 +114,16 @@ const SignupCredentials = (props: any) => {
         style={{paddingTop:hp(1)}}
         secureTextEntry={true}
         textContentType='username'
-        theme={usernameStyle}
-        value={username}
-        onChangeText={(username) => {
-          setUsernameStyle(Themes.textInput);
-          setUsername(username);
+        theme={username.theme}
+        value={username.value}
+        onChangeText={(newUsername) => {
+          setUsername({...username, value:newUsername, theme:Themes.textInput});
         }}
         mode='outlined'
         disableFullscreenUI={true}
       />
       <View style={{flexDirection: 'row', justifyContent:'center'}}>
-        <Text style={{marginVertical: hp(2), color:'#CF6679'}}>
+        <Text style={{marginVertical: hp(2), color: colors.error}}>
           {errorMessage}
         </Text>
       </View>

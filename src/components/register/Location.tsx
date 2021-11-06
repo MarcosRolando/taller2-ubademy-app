@@ -4,6 +4,7 @@ import { heightPercentageToDP as hp,
 widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DropDown from 'react-native-paper-dropdown';
 import { Text, Button } from 'react-native-paper';
+import { REGISTER_COURSES } from '../../routes';
 
 const Location = (props: any) => {
     const [showMultiSelectDropDown, setShowMultiSelectDropDown] = React.useState(false);
@@ -52,7 +53,7 @@ const Location = (props: any) => {
         <Button 
           mode='contained'
           style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
-          onPress={() => props.navigation.navigate('RegisterCourses')}>
+          onPress={() => props.navigation.navigate(REGISTER_COURSES)}>
             Next
         </Button>
         <Text 

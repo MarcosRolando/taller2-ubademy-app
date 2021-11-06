@@ -5,28 +5,39 @@ import { heightPercentageToDP as hp,
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styling/themes';
 import sendLoginCredentials from '../../scripts/logIn';
+import { PROFILE } from '../../routes';
+import colors from '../../styling/colors';
 
 
 const LoginCredentials = (props: any) => {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [usernameInputStyle, setUsernameInputStyle] = React.useState(Themes.textInput);
-  const [passwordInputStyle, setPasswordInputStyle] = React.useState(Themes.textInput);
+  const [username, setUsername] = React.useState({
+    value: '',
+    style: Themes.textInput,
+  });
+  const [password, setPassword] = React.useState({
+    value: '',
+    style: Themes.textInput,
+  });
   const [errorMessage, setErrorMessage] = React.useState('');
 
-  function sendCredentials(): boolean {
-    if (!username.trim()) {
-      setUsernameInputStyle(Themes.textInputWrong);
+  function sendCredentials() {
+    if (!username.value.trim()) {
+      setUsername({...username, style:Themes.textInputWrong});
       setErrorMessage('Please enter your email');
-      return false;
+      return;
     }
-    if (!password.trim()) {
-      setPasswordInputStyle(Themes.textInputWrong);
+    if (!password.value.trim()) {
+      setPassword({...password, style:Themes.textInputWrong});
       setErrorMessage('Please enter your password');
-      return false;
+      return;
     }
-    sendLoginCredentials(username, password, setErrorMessage);
-    return true;
+    sendLoginCredentials(username.value, password.value)
+      .then(() => {
+        props.navigator.navigate(PROFILE);
+      })
+      .catch((errorMsg) => {
+        setErrorMessage(errorMsg);
+      });
   }
 
   return (
@@ -34,31 +45,29 @@ const LoginCredentials = (props: any) => {
       <TextInput
         label='Email'
         textContentType='emailAddress'
-        value={username}
-        onChangeText={(username) => {
-          setUsernameInputStyle(Themes.textInput);
-          setUsername(username);
+        value={username.value}
+        onChangeText={(newUsername) => {
+          setUsername({...username, value:newUsername, style:Themes.textInput});
         }}
         mode='outlined'
         style={{paddingBottom: hp(1)}}
-        theme={usernameInputStyle}
+        theme={username.style}
         disableFullscreenUI={true}
       />
       <TextInput
         label='Password'
         secureTextEntry={true}
         textContentType='password'
-        theme={passwordInputStyle}
-        value={password}
-        onChangeText={(password) => {
-          setPasswordInputStyle(Themes.textInput);
-          setPassword(password);
+        theme={password.style}
+        value={password.value}
+        onChangeText={(newPassword) => {
+          setPassword({...password, value:newPassword, style:Themes.textInput});
         }}
         mode='outlined'
         disableFullscreenUI={true}
       />
       <View style={{flexDirection: 'row', justifyContent:'center'}}>
-        <Text style={{marginVertical: hp(2), color:'#CF6679'}}>
+        <Text style={{marginVertical: hp(2), color:colors.error}}>
           {errorMessage}
         </Text>
       </View>
