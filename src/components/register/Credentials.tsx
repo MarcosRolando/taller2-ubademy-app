@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
-import { heightPercentageToDP as hp, 
+import {heightPercentageToDP as hp,
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { UbademyTheme } from '../../constants/themes';
+import {UbademyTheme} from '../../constants/themes';
 
 
 const Credentials = (props: any) => {
@@ -55,13 +55,13 @@ const Credentials = (props: any) => {
         mode='outlined'
         disableFullscreenUI={true}
       />
-      <View style={{flexDirection: 'row', justifyContent:'center'}}>
-        <Text style={{marginVertical: hp(2), color:'#CF6679'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <Text style={{marginVertical: hp(2), color: '#CF6679'}}>
           {errorMessage}
         </Text>
       </View>
-      <Button 
-        mode='contained' 
+      <Button
+        mode='contained'
         style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
         onPress={sendCredentials}>
           Next
@@ -82,6 +82,6 @@ const themes = {
       ...UbademyTheme.colors,
       primary: '#CF6679',
       placeholder: '#CF6679',
-    }
+    },
   },
 };

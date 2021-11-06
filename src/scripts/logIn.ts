@@ -18,21 +18,21 @@ export default async function sendLoginCredentials(username: string, password: s
 */
 
 export default async function sendLoginCredentials(username: string, password: string) {
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: username,
-            password: password
-        })
-    }
-    return await fetch("https://reqres.in/api/login", requestOptions)
-        //then(response => response.json())
-        //.then(data => console.log(data.token))
-        //.catch(() => console.log("Could not connect to the server"))
-        //return response;
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: username,
+      password: password,
+    }),
+  };
+  return await fetch('https://reqres.in/api/login', requestOptions);
+  // then(response => response.json())
+  // .then(data => console.log(data.token))
+  // .catch(() => console.log("Could not connect to the server"))
+  // return response;
 }
 
