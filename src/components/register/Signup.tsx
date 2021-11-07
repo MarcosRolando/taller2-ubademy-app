@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp,
+  widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import SignupCredentials from './SignupCredentials';
