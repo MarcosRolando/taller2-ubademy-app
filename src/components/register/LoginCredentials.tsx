@@ -5,7 +5,7 @@ import { heightPercentageToDP as hp,
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styling/themes';
 import sendLoginCredentials from '../../scripts/logIn';
-import { PROFILE } from '../../routes';
+import { ROOT } from '../../routes';
 import colors from '../../styling/colors';
 
 
@@ -21,19 +21,21 @@ const LoginCredentials = (props: any) => {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   function sendCredentials() {
-    if (!username.value.trim()) {
-      setUsername({...username, style:Themes.textInputWrong});
-      setErrorMessage('Please enter your email');
-      return;
-    }
-    if (!password.value.trim()) {
-      setPassword({...password, style:Themes.textInputWrong});
-      setErrorMessage('Please enter your password');
-      return;
-    }
+    // if (!username.value.trim()) {
+    //   setUsername({...username, style:Themes.textInputWrong});
+    //   setErrorMessage('Please enter your email');
+    //   return;
+    // }
+    // if (!password.value.trim()) {
+    //   setPassword({...password, style:Themes.textInputWrong});
+    //   setErrorMessage('Please enter your password');
+    //   return;
+    // }
+    props.navigation.navigate(ROOT);
+    return;
     sendLoginCredentials(username.value, password.value)
       .then(() => {
-        props.navigation.navigate(PROFILE);
+        props.navigation.navigate(HOME);
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);

@@ -33,11 +33,6 @@ const styles = StyleSheet.create({
     paddingTop: hp(2),
     alignItems: 'center',
   },
-  profileTitle: {
-    paddingTop: hp(10),
-    justifyContent: 'flex-start',
-    fontSize: hp(5),
-  },
   profileName: {
     paddingTop: hp(2),
     color: colors.primary,

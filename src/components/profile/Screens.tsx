@@ -6,11 +6,11 @@ import Profile from './Profile';
 
 const ProfileScreen = ({navigation}: any) => {
     return (
-      <SafeAreaView>
+      <View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Profile style={styles.profile}/>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
 }
 

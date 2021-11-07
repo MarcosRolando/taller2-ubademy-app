@@ -28,9 +28,6 @@ const Profile = (props: any) => {
 
   return (
     <View style={props.style}>
-      <Title style={styles.profileTitle}>
-      Profile
-      </Title>
       <Intro username={'John Doe'}/>
       <BasicInfo email={'some_email@gmail.com'} location={'Argentina'} />
       <Courses coursesData={coursesData} />
