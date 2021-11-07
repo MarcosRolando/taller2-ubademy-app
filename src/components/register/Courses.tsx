@@ -10,15 +10,9 @@ import { PROFILE } from '../../routes';
 
 const Courses = (props: any) => {
     const [showMultiSelectDropDown, setShowMultiSelectDropDown] = React.useState(false);
-    const [courses, setCourses] = React.useState([] as Array<string>);
+    const [courses, setCourses] = React.useState('');
     const [errorMessage, setErrorMessage] = React.useState('');
     const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
-    // const coursesList = [
-    //   {
-    //     label: "Cooking",
-    //     value: "cooking",
-    //   },
-    // ];
 
     useEffect(() => {
       getSignupCourses()
@@ -28,21 +22,21 @@ const Courses = (props: any) => {
           })
           setCoursesList(nCourses);
         },
-        (errorMsg) => {
-          setErrorMessage(errorMsg);
+        (errorMsg: Error) => {
+          setErrorMessage(errorMsg.message);
         })
     }, []); // The empty list avoids this function being run every time the user opens or closes the list of locations
 
     function sendCourses() {
-      sendSignupCourses(courses)
+      let coursesToSend = courses.split(',').filter((course) => (course !== ''));
+      sendSignupCourses(coursesToSend)
         .then(() => {
           props.navigation.navigate(PROFILE);
         },
-        (errorMsg) => {
-          setErrorMessage(errorMsg);
+        (errorMsg: Error) => {
+          setErrorMessage(errorMsg.message);
         });
     }
-
 
     return (
       <View style={props.style}>

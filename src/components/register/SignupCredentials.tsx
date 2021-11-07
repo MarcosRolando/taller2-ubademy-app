@@ -65,8 +65,8 @@ const SignupCredentials = (props: any) => {
       .then(() => {
         props.navigation.navigate(LOCATION)
       },
-      (errorMsg) => {
-        setErrorMessage(errorMsg);
+      (errorMsg: Error) => {
+        setErrorMessage(errorMsg.message);
       });
   }
 

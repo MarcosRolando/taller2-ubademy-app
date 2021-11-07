@@ -35,8 +35,8 @@ const LoginCredentials = (props: any) => {
       .then(() => {
         props.navigator.navigate(PROFILE);
       },
-      (errorMsg) => {
-        setErrorMessage(errorMsg);
+      (errorMsg: Error) => {
+        setErrorMessage(errorMsg.message);
       });
   }
 

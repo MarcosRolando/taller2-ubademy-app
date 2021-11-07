@@ -13,12 +13,6 @@ const Location = (props: any) => {
     const [location, setLocation] = React.useState('');
     const [errorMessage, setErrorMessage] = React.useState('');
     const [locationList, setLocationList] = React.useState([] as Array<{label:string, value:string}>);
-    // const locationList = [
-    //   {
-    //     label: "Argentina",
-    //     value: "argentina",
-    //   },
-    // ]
 
     useEffect(() => {
       getSignupLocations()
@@ -28,8 +22,8 @@ const Location = (props: any) => {
           })
           setLocationList(nLocations);
         },
-        (errorMsg) => {
-          setErrorMessage(errorMsg);
+        (errorMsg: Error) => {
+          setErrorMessage(errorMsg.message);
         })
     }, []); // The empty list avoids this function being run every time the user opens or closes the list of locations
 
@@ -42,8 +36,8 @@ const Location = (props: any) => {
         .then(() => {
           props.navigation.navigate(REGISTER_COURSES);
         },
-        (errorMsg) => {
-          setErrorMessage(errorMsg);
+        (errorMsg: Error) => {
+          setErrorMessage(errorMsg.message);
         });
     }
 
