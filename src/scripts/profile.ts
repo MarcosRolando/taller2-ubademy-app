@@ -7,5 +7,5 @@ export default async function getCoursesData() {
     return json.data;
   } catch (error) {
     console.error(error);
-  } //TODO usar axios
+  } // TODO usar axios
 }

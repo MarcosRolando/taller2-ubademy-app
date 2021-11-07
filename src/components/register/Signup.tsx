@@ -5,6 +5,7 @@ import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import SignupCredentials from './SignupCredentials';
 import colors from '../../styling/colors';
+import { LOGIN } from '../../routes';
 
 const Signup = (props: any) => {
   return (
@@ -17,7 +18,7 @@ const Signup = (props: any) => {
         <Text>Already have an account? </Text>
         <Text 
         style={{color: colors.primary}} 
-        onPress={() => props.navigation.push('Login')}>
+        onPress={() => props.navigation.navigate(LOGIN)}>
         Log in
         </Text>
       </View>
