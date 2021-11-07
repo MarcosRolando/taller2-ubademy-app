@@ -67,7 +67,7 @@ const SignupCredentials = (props: any) => {
       },
       (errorMsg) => {
         setErrorMessage(errorMsg);
-      })
+      });
   }
 
   return (
@@ -112,7 +112,6 @@ const SignupCredentials = (props: any) => {
       <TextInput
         label='Username'
         style={{paddingTop:hp(1)}}
-        secureTextEntry={true}
         textContentType='username'
         theme={username.theme}
         value={username.value}

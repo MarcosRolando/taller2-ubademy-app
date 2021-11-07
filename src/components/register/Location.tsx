@@ -1,48 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, View } from 'react-native';
 import { heightPercentageToDP as hp,
 widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DropDown from 'react-native-paper-dropdown';
 import { Text, Button } from 'react-native-paper';
 import { REGISTER_COURSES } from '../../routes';
-import { sendSignupLocation } from '../../scripts/signUp';
+import { getSignupLocations, sendSignupLocation } from '../../scripts/signUp';
 import colors from '../../styling/colors';
 
 const Location = (props: any) => {
     const [showMultiSelectDropDown, setShowMultiSelectDropDown] = React.useState(false);
     const [location, setLocation] = React.useState('');
     const [errorMessage, setErrorMessage] = React.useState('');
-    const locationList = [
-      {
-        label: "Argentina",
-        value: "argentina",
-      },
-      {
-        label: "Germany",
-        value: "germany",
-      },
-      {
-        label: "Peru",
-        value: "peru",
-      },
-      {
-        label: "Africa",
-        value: "africa",
-      },
-      {
-        label: "China",
-        value: "china",
-      },
-    ];
+    const [locationList, setLocationList] = React.useState([] as Array<{label:string, value:string}>);
+    // const locationList = [
+    //   {
+    //     label: "Argentina",
+    //     value: "argentina",
+    //   },
+    // ]
+
+    useEffect(() => {
+      getSignupLocations()
+        .then((locations) => {
+          let nLocations = locations.map((location) => {
+            return {label:location, value:location};
+          })
+          setLocationList(nLocations);
+        },
+        (errorMsg) => {
+          setErrorMessage(errorMsg);
+        })
+    }, []); // The empty list avoids this function being run every time the user opens or closes the list of locations
 
     function sendLocation() {
+      if (location === '') {
+        setErrorMessage('Please choose a location');
+        return;
+      }
       sendSignupLocation(location)
         .then(() => {
           props.navigation.navigate(REGISTER_COURSES);
         },
         (errorMsg) => {
           setErrorMessage(errorMsg);
-        })
+        });
     }
 
     return (

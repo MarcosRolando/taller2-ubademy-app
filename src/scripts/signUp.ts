@@ -1,6 +1,6 @@
 import {API_URL} from '../../api_url';
 import axios from 'axios';
-import { LOCATIONS, SIGNUP } from '../endpoints';
+import { COURSES, LOCATIONS, SIGNUP } from '../endpoints';
 
 export async function sendSignupCredentials(email: string, password: string, username: string) {
   try {
@@ -24,14 +24,58 @@ export async function sendSignupCredentials(email: string, password: string, use
   }
 }
 
+export async function getSignupLocations() {
+  try {
+    let res = await axios.get(`${API_URL}${LOCATIONS}`);
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject('Unkown error in the server');
+    }
+    return Promise.resolve(res.data['locations'] as Array<string>);
+  } catch(error) {
+    console.log('Error when trying to reach the server');
+    return Promise.reject('Error when trying to reach the server');
+  }
+}
+
+export async function getSignupCourses() {
+  try {
+    let res = await axios.get(`${API_URL}${COURSES}`);
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject('Unkown error in the server');
+    }
+    return Promise.resolve(res.data['courses'] as Array<string>);
+  } catch(error) {
+    console.log('Error when trying to reach the server');
+    return Promise.reject('Error when trying to reach the server');
+  }
+}
+
 export async function sendSignupLocation(location: string) {
   try {
     const res = await axios.post(`${API_URL}${LOCATIONS}`, {
       location:location,
     })
-    if (res.data['status'] == 'error') {
+    if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
-      return Promise.reject(res.data['message']);
+      return Promise.reject('Unkown error in the server');
+    }
+    return Promise.resolve(''); // Ok!
+  } catch(error) {
+    console.log(error);
+    return Promise.reject('Error when trying to reach the server');
+  }
+}
+
+export async function sendSignupCourses(courses: Array<string>) {
+  try {
+    const res = await axios.post(`${API_URL}${COURSES}`, {
+      courses:courses,
+    })
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject('Unkown error in the server');
     }
     return Promise.resolve(''); // Ok!
   } catch(error) {
