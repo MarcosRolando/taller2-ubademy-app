@@ -29,7 +29,11 @@ const Profile = (props: any) => {
   return (
     <View style={props.style}>
       <Intro username={'John Doe'}/>
-      <BasicInfo email={'some_email@gmail.com'} location={'Argentina'} />
+      {(props.ownProfile === true) ? 
+        <BasicInfo email={'some_email@gmail.com'} location={'Argentina'} />
+        :
+        <></>
+      }
       <Courses coursesData={coursesData} />
     </View>
   );

@@ -21,21 +21,19 @@ const LoginCredentials = (props: any) => {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   function sendCredentials() {
-    // if (!username.value.trim()) {
-    //   setUsername({...username, style:Themes.textInputWrong});
-    //   setErrorMessage('Please enter your email');
-    //   return;
-    // }
-    // if (!password.value.trim()) {
-    //   setPassword({...password, style:Themes.textInputWrong});
-    //   setErrorMessage('Please enter your password');
-    //   return;
-    // }
-    props.navigation.navigate(ROOT);
-    return;
+    if (!username.value.trim()) {
+      setUsername({...username, style:Themes.textInputWrong});
+      setErrorMessage('Please enter your email');
+      return;
+    }
+    if (!password.value.trim()) {
+      setPassword({...password, style:Themes.textInputWrong});
+      setErrorMessage('Please enter your password');
+      return;
+    }
     sendLoginCredentials(username.value, password.value)
       .then(() => {
-        props.navigation.navigate(HOME);
+        props.navigation.navigate(ROOT);
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);

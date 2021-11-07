@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../../constants/styles';
 import Profile from './Profile';
 
-const ProfileScreen = ({navigation}: any) => {
+const ProfileScreen = ({route, navigation}: any) => {
+    const {ownProfile} = (route.params !== undefined) ? route.params : {ownProfile:false};
+
     return (
       <View>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Profile style={styles.profile}/>
+          <Profile ownProfile={ownProfile} style={styles.profile}/>
         </ScrollView>
       </View>
     );

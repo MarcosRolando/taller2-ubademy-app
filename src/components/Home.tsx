@@ -25,7 +25,8 @@ const Home = () => {
           <FontAwesomeIcon color={color} size={size} icon={ faHome } />
         ),
       }} />
-      <Drawer.Screen name={PROFILE} component={ProfileScreen} options={{
+      <Drawer.Screen name={PROFILE} component={ProfileScreen} initialParams={{ownProfile:true}} 
+       options={{
         drawerIcon: ({ size, color }) => (
           <FontAwesomeIcon color={color} size={size} icon={ faUserCircle } />
         )}}/>
