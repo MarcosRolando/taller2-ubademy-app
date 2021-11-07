@@ -1,38 +1,20 @@
 import {API_URL} from '../../api_url';
-
-/**
-export default async function sendLoginCredentials(username: string, password: string) {
-  const loginData = JSON.stringify({
-    'email': username,
-    'password': password,
-  });
-  await fetch(API_URL + 'login/', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: loginData,
-  }).then((response) => console.log(response)).catch(() => console.log('Could not connect to the server'));
-}
-*/
+import axios from 'axios';
 
 export default async function sendLoginCredentials(username: string, password: string) {
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: username,
-      password: password,
-    }),
-  };
-  return await fetch('https://reqres.in/api/login', requestOptions);
-  // then(response => response.json())
-  // .then(data => console.log(data.token))
-  // .catch(() => console.log("Could not connect to the server"))
-  // return response;
+  try {
+    const res = await axios.post(API_URL + 'login/', {email: username, password: password});
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        case 'error_bad_login':
+          return Promise.reject(new Error('Incorrect email or password'));
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    return Promise.resolve('');
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
 }
-
