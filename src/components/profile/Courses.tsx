@@ -3,7 +3,7 @@ import {faChalkboardTeacher, faUserFriends, faUserGraduate} from '@fortawesome/f
 import {View} from 'react-native';
 import {Subheading, List} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import styles from '../../constants/styles';
+import styles from '../../styling/styles';
 
 const Courses = ({coursesData}: any) => {
   function renderCourses(coursesName : any) : any[] {

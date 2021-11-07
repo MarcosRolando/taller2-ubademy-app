@@ -6,6 +6,7 @@ import { heightPercentageToDP as hp,
 import Login from './Login'; 
 import Location from './Location';
 import Courses from './Courses';
+import colors from '../../styling/colors';
 
 export const SignupScreen = ({navigation}: any) => {
     return (

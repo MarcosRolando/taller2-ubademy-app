@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Avatar, Title } from "react-native-paper";
-import styles from "../../constants/styles";
+import styles from "../../styling/styles";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const Intro = ({username}: any) => {

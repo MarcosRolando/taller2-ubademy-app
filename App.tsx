@@ -9,11 +9,11 @@ import {SignupScreen, LocationScreen,
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import colors from './src/styling/colors';
 import {ROOT, LOCATION, LOGIN, PROFILE, REGISTER_COURSES, SIGNUP} from './src/routes';
-import {UbademyTheme, NavigationTheme} from './src/constants/themes';
+import {UbademyTheme, NavigationTheme} from './src/styling/themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ProfileScreen from './src/components/profile/Screens';
-import Home from './src/components/Home';
+import Root from './src/components/Root';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,14 +23,14 @@ export default function App() {
       <StatusBar style='light' />
       <SafeAreaProvider style={{backgroundColor: colors.background}}>
         <NavigationContainer theme={NavigationTheme}>
-          <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={ROOT}>
             <Stack.Group>
               <Stack.Screen name={LOGIN} component={LoginScreen} />
               <Stack.Screen name={SIGNUP} component={SignupScreen} />
               <Stack.Screen name={LOCATION} component={LocationScreen} />
               <Stack.Screen name={REGISTER_COURSES} component={RegisterCoursesScreen} />
             </Stack.Group>
-            <Stack.Screen name={ROOT} component={Home} />
+            <Stack.Screen name={ROOT} component={Root} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

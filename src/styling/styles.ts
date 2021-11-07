@@ -24,6 +24,27 @@ const styles = StyleSheet.create({
     borderColor: colors.error,
     color: colors.error,
   },
+  profile: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingHorizontal: wp(5),
+  },
+  profileImage: {
+    paddingTop: hp(2),
+    alignItems: 'center',
+  },
+  profileName: {
+    paddingTop: hp(2),
+    color: colors.primary,
+  },
+  profileSubtitle: {
+    paddingTop: hp(5),
+    fontSize: hp(3),
+  },
+  hideView: {
+    height: 0,
+    width: 0,
+  },
 });
 
 export default styles;
