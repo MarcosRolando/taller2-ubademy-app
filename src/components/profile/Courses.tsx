@@ -1,5 +1,5 @@
 import React from 'react';
-import {faFolder} from '@fortawesome/free-solid-svg-icons';
+import {faChalkboardTeacher, faUserFriends, faUserGraduate} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {Subheading, List} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -26,26 +26,26 @@ const Courses = ({coursesData}: any) => {
           Courses
       </Subheading>
       <List.Accordion
-        title="Courses as a student"
+        title="Student"
         left={(props) => <List.Icon {...props}
           icon={(props) => <List.Icon {...props} icon={({size, color}) => (
-            <FontAwesomeIcon color={color} size={size} icon={ faFolder } />
+            <FontAwesomeIcon color={color} size={size} icon={ faUserGraduate } />
           )} />} />}>
         {coursesStudent}
       </List.Accordion>
       <List.Accordion
-        title="Courses as a teacher"
+        title="Teacher"
         left={(props) => <List.Icon {...props}
           icon={(props) => <List.Icon {...props} icon={({size, color}) => (
-            <FontAwesomeIcon color={color} size={size} icon={ faFolder } />
+            <FontAwesomeIcon color={color} size={size} icon={ faChalkboardTeacher } />
           )} />} />}>
         {courseProfessor}
       </List.Accordion>
       <List.Accordion
-        title="Courses as a collaborator"
+        title="Collaborator"
         left={(props) => <List.Icon {...props}
           icon={(props) => <List.Icon {...props} icon={({size, color}) => (
-            <FontAwesomeIcon color={color} size={size} icon={ faFolder } />
+            <FontAwesomeIcon color={color} size={size} icon={ faUserFriends } />
           )} />} />}>
         {courseCollaborator}
       </List.Accordion>
