@@ -12,7 +12,7 @@ const Login = (props: any) => {
         <View style={{alignSelf: 'center'}}>
           <Image source={require('../../../assets/ubademy-logo.png')}/>
         </View>
-        <LoginCredentials style={{paddingTop: hp(4)}}/>
+        <LoginCredentials navigation={props.navigation} style={{paddingTop: hp(4)}}/>
         <View style={{paddingTop: hp(2), flexDirection: 'row', justifyContent:'center'}}>
           <Text>Don't have an account? </Text>
           <Text 
