@@ -22,12 +22,12 @@ const Profile = (props: any) => {
           courseCollaborator: [...data],
         });
       })
-  });
+  }, []);
 
   return (
     <View style={props.style}>
       <Intro username={'John Doe'}/>
-      {(props.ownProfile === true) ? 
+      {(props.ownProfile !== undefined) ? 
         <BasicInfo email={'some_email@gmail.com'} location={'Argentina'} />
         :
         <></>

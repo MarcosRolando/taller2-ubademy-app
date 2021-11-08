@@ -8,11 +8,10 @@ import {SignupScreen, LocationScreen,
   CoursesScreen as RegisterCoursesScreen, LoginScreen} from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import colors from './src/styling/colors';
-import {ROOT, LOCATION, LOGIN, PROFILE, REGISTER_COURSES, SIGNUP} from './src/routes';
+import {ROOT, LOCATION, LOGIN, REGISTER_COURSES, SIGNUP} from './src/routes';
 import {UbademyTheme, NavigationTheme} from './src/styling/themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ProfileScreen from './src/components/profile/Screens';
 import Root from './src/components/Root';
 
 const Stack = createNativeStackNavigator();
