@@ -1,6 +1,9 @@
 import {API_URL} from '../../api_url';
 import axios from 'axios';
 import {COURSES, LOCATIONS, SIGNUP} from '../endpoints';
+import {sendAPIrequest, setAccessToken, getAxiosConfig} from '../apiWrapper';
+import {setUserCredentials} from '../userCredentials';
+import {ERROR_EMAIL_USED} from '../apiErrorMessages';
 
 export async function sendSignupCredentials(email: string, password: string, username: string) {
   try {
@@ -11,12 +14,14 @@ export async function sendSignupCredentials(email: string, password: string, use
     });
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
-        case 'error_email_in_use':
+        case ERROR_EMAIL_USED:
           return Promise.reject(new Error('That email is already used'));
         default:
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    setUserCredentials(email, password);
+    setAccessToken(res.data['access_token']);
     return Promise.resolve('');
   } catch (error) {
     console.log(error);
@@ -26,7 +31,7 @@ export async function sendSignupCredentials(email: string, password: string, use
 
 export async function getSignupLocations() {
   try {
-    const res = await axios.get(`${API_URL}${LOCATIONS}`);
+    const res = await sendAPIrequest(() => axios.get(`${API_URL}${LOCATIONS}`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error('Unkown error in the server'));
@@ -40,7 +45,7 @@ export async function getSignupLocations() {
 
 export async function getSignupCourses() {
   try {
-    const res = await axios.get(`${API_URL}${COURSES}`);
+    const res = await sendAPIrequest(() => axios.get(`${API_URL}${COURSES}`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error('Unkown error in the server'));
@@ -54,9 +59,9 @@ export async function getSignupCourses() {
 
 export async function sendSignupLocation(location: string) {
   try {
-    const res = await axios.post(`${API_URL}${LOCATIONS}`, {
+    const res = await sendAPIrequest(() => axios.post(`${API_URL}${LOCATIONS}`, {
       location: location,
-    });
+    }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error('Unkown error in the server'));
@@ -70,9 +75,9 @@ export async function sendSignupLocation(location: string) {
 
 export async function sendSignupCourses(courses: Array<string>) {
   try {
-    const res = await axios.post(`${API_URL}${COURSES}`, {
+    const res = await sendAPIrequest(() => axios.post(`${API_URL}${COURSES}`, {
       courses: courses,
-    });
+    }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error('Unkown error in the server'));

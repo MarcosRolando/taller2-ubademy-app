@@ -22,7 +22,7 @@ export default function App() {
       <StatusBar style='light' />
       <SafeAreaProvider style={{backgroundColor: colors.background}}>
         <NavigationContainer theme={NavigationTheme}>
-          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={ROOT}>
+          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
             <Stack.Group>
               <Stack.Screen name={LOGIN} component={LoginScreen} />
               <Stack.Screen name={SIGNUP} component={SignupScreen} />

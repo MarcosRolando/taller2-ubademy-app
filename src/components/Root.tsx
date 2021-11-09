@@ -10,10 +10,10 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen} from './home/Screens';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import {TouchableHighlight} from 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -22,8 +22,8 @@ const HomeStack = createNativeStackNavigator();
 const CustomDrawerContent = (props: any) => {
   return (
     <DrawerContentScrollView {...props}>
-      <TouchableHighlight 
-        onPress={() => props.navigation.navigate(HOME)} 
+      <TouchableHighlight
+        onPress={() => props.navigation.navigate(HOME)}
         underlayColor={colors.background}>
         <View style={{height: hp(10), marginVertical: hp(2)}}>
           <Image
