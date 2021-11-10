@@ -5,7 +5,7 @@ import { heightPercentageToDP as hp,
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styling/themes';
 import sendLoginCredentials from '../../scripts/logIn';
-import { ROOT } from '../../routes';
+import { PROFILE_SETUP, ROOT } from '../../routes';
 import colors from '../../styling/colors';
 
 
@@ -71,7 +71,7 @@ const LoginCredentials = (props: any) => {
           {errorMessage}
         </Text>
       </View>
-      <Button 
+      <Button
         mode='contained' 
         style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
         onPress={sendCredentials}>
