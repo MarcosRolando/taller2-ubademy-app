@@ -6,7 +6,7 @@ import { heightPercentageToDP as hp,
 import { Themes } from '../../styling/themes';
 import { sendSignupCredentials } from '../../scripts/signUp';
 import colors from '../../styling/colors';
-import { LOCATION } from '../../routes';
+import { LOCATION, PROFILE_SETUP } from '../../routes';
 
 
 const SignupCredentials = (props: any) => {
@@ -19,10 +19,6 @@ const SignupCredentials = (props: any) => {
     theme: Themes.textInput,
   });
   const [confPassword, setConfPassword] = React.useState({
-    value: '',
-    theme: Themes.textInput,
-  });
-  const [username, setUsername] = React.useState({
     value: '',
     theme: Themes.textInput,
   });
@@ -53,15 +49,7 @@ const SignupCredentials = (props: any) => {
       setErrorMessage('Passwords must match');
       return;
     }
-    if (!username.value.trim()) {
-      setUsername({
-        ...username,
-        theme: Themes.textInputWrong,
-      })
-      setErrorMessage('Please enter a username');
-      return;
-    }
-    sendSignupCredentials(email.value, password.value, username.value)
+    sendSignupCredentials(email.value, password.value)
       .then(() => {
         props.navigation.navigate(LOCATION)
       },
@@ -105,18 +93,6 @@ const SignupCredentials = (props: any) => {
         value={confPassword.value}
         onChangeText={(newConfPassword) => {
           setConfPassword({...confPassword, value:newConfPassword, theme:Themes.textInput});
-        }}
-        mode='outlined'
-        disableFullscreenUI={true}
-      />
-      <TextInput
-        label='Username'
-        style={{paddingTop:hp(1)}}
-        textContentType='username'
-        theme={username.theme}
-        value={username.value}
-        onChangeText={(newUsername) => {
-          setUsername({...username, value:newUsername, theme:Themes.textInput});
         }}
         mode='outlined'
         disableFullscreenUI={true}

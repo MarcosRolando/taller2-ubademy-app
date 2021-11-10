@@ -1,16 +1,17 @@
+import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT, THE DOCUMENTATION SAYS SO!
+
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {AppRegistry} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {SignupScreen, LocationScreen,
-  CoursesScreen as RegisterCoursesScreen, LoginScreen} from './src/components/register/Screens';
+import {SignupScreen, LoginScreen, ProfileSetupScreen} from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import colors from './src/styling/colors';
-import {LOCATION, LOGIN, PROFILE, REGISTER_COURSES, SIGNUP} from './src/routes';
-import {UbademyTheme, NavigationTheme} from './src/constants/themes';
+import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP} from './src/routes';
+import {UbademyTheme, NavigationTheme} from './src/styling/themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ProfileScreen from './src/components/profile/Screens';
+import Root from './src/components/Root';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,14 +21,13 @@ export default function App() {
       <StatusBar style='light' />
       <SafeAreaProvider style={{backgroundColor: colors.background}}>
         <NavigationContainer theme={NavigationTheme}>
-          <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
             <Stack.Group>
               <Stack.Screen name={LOGIN} component={LoginScreen} />
               <Stack.Screen name={SIGNUP} component={SignupScreen} />
-              <Stack.Screen name={LOCATION} component={LocationScreen} />
-              <Stack.Screen name={REGISTER_COURSES} component={RegisterCoursesScreen} />
+              <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
             </Stack.Group>
-            <Stack.Screen name={PROFILE} component={ProfileScreen} />
+            <Stack.Screen name={ROOT} component={Root} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
