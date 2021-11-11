@@ -1,7 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {EXPLORE, HOME, PROFILE, USER} from '../routes';
+import {CREATE_COURSE, EXPLORE, HOME, PROFILE, USER} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +14,7 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen} from './home/Screens';
 import {TouchableHighlight} from 'react-native-gesture-handler';
+import { CreateCourseScreen } from './course/Screens';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -39,9 +40,10 @@ const CustomDrawerContent = (props: any) => {
 
 const ExploreScreen = ({navigation}: any) => {
   return (
-    <HomeStack.Navigator initialRouteName={HOME} screenOptions={{headerShown: false}}>
+    <HomeStack.Navigator initialRouteName={CREATE_COURSE} screenOptions={{headerShown: false}}>
       <HomeStack.Screen name={HOME} component={HomeScreen} />
       <HomeStack.Screen name={USER} component={UserScreen} />
+      <HomeStack.Screen name={CREATE_COURSE} component={CreateCourseScreen} />
     </HomeStack.Navigator>
   );
 };
