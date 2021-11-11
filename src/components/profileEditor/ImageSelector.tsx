@@ -2,7 +2,10 @@ import React from "react";
 import { Avatar, Button } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { Alert, View } from "react-native";
+import { Alert, Text,TouchableHighlight, TouchableOpacity, View } from "react-native";
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
+import styles from "../../constants/styles";
 
 const ImageSelector = () => {
   const [image, setImage] = React.useState('../../images/example.jpg');
@@ -20,14 +23,26 @@ const ImageSelector = () => {
       setImage(pickerResult.uri);
     }
     console.log(pickerResult);
-  }
+  };
 
   return(
-    <View>
+    <View style={{alignItems: "center"}}>
       <Avatar.Image
       size={wp(30)}
       source={{uri: image}}
     />
+
+    <View style={{position:"absolute", paddingTop:wp(20), paddingLeft:wp(20)}}>
+      <TouchableOpacity onPress={()=>console.log("ah!")} >
+          <View>
+            <FontAwesomeIcon
+              color={"red"}
+              size={wp(10)}
+              icon={ faCameraRetro } 
+              style={{paddingTop:wp(8)}}/>
+          </View>
+      </TouchableOpacity>
+    </View>
 
       <Button onPress={() => {
           openGallery();
