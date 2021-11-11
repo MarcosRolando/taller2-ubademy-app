@@ -12,7 +12,8 @@ import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 
 const CreateCourse = ({ style }: any) => {
-  const [image, setImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
+  const [courseImage, setCourseImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
+  const [images, setImages] = React.useState('')
 
   const [showCourses, setShowCourses] = React.useState(false);
   const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
@@ -46,13 +47,16 @@ const CreateCourse = ({ style }: any) => {
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setCourseImage(result.uri);
     }
   };
 
   return (
     <View style={style}>
-      <Image source={{uri: image, height: hp(33)}} style={{borderRadius: 10, resizeMode:'contain'}} />
+      <Image
+        source={{uri: courseImage, height: hp(33)}} 
+        style={{borderRadius: 10, resizeMode:'contain'}} 
+      />
       <View style={{position:'absolute', left: wp(3)}}>
         <TouchableWithoutFeedback 
           style={{width:wp(14)}} 
@@ -114,11 +118,31 @@ const CreateCourse = ({ style }: any) => {
         list={locationsList}
         dropDownStyle={{paddingTop:hp(1)}}
       />
+      
+      <View 
+        style={{flexDirection: 'row', 
+        flexWrap: 'wrap', 
+        justifyContent: 'space-around', 
+        marginTop: hp(3)}}>
+        <Image 
+          source={{uri: courseImage, height: hp(13), width: wp(30)}} 
+          style={{borderRadius: 10, resizeMode:'contain'}} 
+        />
+        <Image 
+          source={{uri: courseImage, height: hp(13), width: wp(30)}} 
+          style={{borderRadius: 10, resizeMode:'contain'}} 
+        />
+        <Image 
+          source={{uri: courseImage, height: hp(13), width: wp(30)}} 
+          style={{borderRadius: 10, resizeMode:'contain'}} 
+        />
+      </View>
+      
       <Button 
         mode='contained'
         style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
         >
-        Next
+        Create course
       </Button>
     </View>
   );
