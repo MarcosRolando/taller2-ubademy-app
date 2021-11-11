@@ -13,7 +13,7 @@ import DropDown from "react-native-paper-dropdown";
 
 const CreateCourse = ({ style }: any) => {
   const [courseImage, setCourseImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
-  const [images, setImages] = React.useState('')
+  const [media, setMedia] = React.useState('')
 
   const [showCourses, setShowCourses] = React.useState(false);
   const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
@@ -38,7 +38,7 @@ const CreateCourse = ({ style }: any) => {
     })();
   }, []);
 
-  async function pickImage() {
+  async function pickCourseImage() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -51,6 +51,19 @@ const CreateCourse = ({ style }: any) => {
     }
   };
 
+  async function addMedia() {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setMedia(result.uri);
+    }
+  }
+
   return (
     <View style={style}>
       <Image
@@ -60,7 +73,7 @@ const CreateCourse = ({ style }: any) => {
       <View style={{position:'absolute', left: wp(3)}}>
         <TouchableWithoutFeedback 
           style={{width:wp(14)}} 
-          onPress={pickImage}>
+          onPress={pickCourseImage}>
           <FontAwesomeIcon color={colors.primary} size={50} icon={ faCamera } />
         </TouchableWithoutFeedback>
       </View>
@@ -125,22 +138,30 @@ const CreateCourse = ({ style }: any) => {
         justifyContent: 'space-around', 
         marginTop: hp(3)}}>
         <Image 
-          source={{uri: courseImage, height: hp(13), width: wp(30)}} 
+          source={{uri: courseImage, height: hp(14), width: wp(30)}} 
           style={{borderRadius: 10, resizeMode:'contain'}} 
         />
         <Image 
-          source={{uri: courseImage, height: hp(13), width: wp(30)}} 
+          source={{uri: courseImage, height: hp(14), width: wp(30)}} 
           style={{borderRadius: 10, resizeMode:'contain'}} 
         />
         <Image 
-          source={{uri: courseImage, height: hp(13), width: wp(30)}} 
+          source={{uri: media, height: hp(14), width: wp(30)}} 
           style={{borderRadius: 10, resizeMode:'contain'}} 
         />
       </View>
+
+      <Button 
+        mode='contained'
+        style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+        onPress={addMedia}
+        >
+        Add media
+      </Button>
       
       <Button 
         mode='contained'
-        style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
+        style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
         >
         Create course
       </Button>
