@@ -60,7 +60,7 @@ const ProfileSetup = (props: any) => {
         return;
       }
       let coursesToSend = courses.split(',').filter((course) => (course !== ''));
-      sendSignupProfile(username, location, coursesToSend)
+      sendSignupProfile(username.value, location, coursesToSend)
         .then(() => {
           props.navigation.navigate(EXPLORE);
         },
@@ -86,13 +86,17 @@ const ProfileSetup = (props: any) => {
           mode='outlined'
           disableFullscreenUI={true}
         />
-        <Location 
-          style={{paddingTop:hp(1), paddingBottom:hp(1.2)}}
-          show={showLocations}
-          setShow={setShowLocations}
-          location={location}
-          setLocation={setLocation}
-          locationList={locationList}
+        <DropDown
+          label={"Where are you from?"}
+          mode={"outlined"}
+          visible={showLocations}
+          showDropDown={() => setShowLocations(true)}
+          onDismiss={() => setShowLocations(false)}
+          value={location}
+          setValue={setLocation}
+          list={locationList}
+          dropDownStyle={{paddingTop:hp(1)}}
+          multiSelect
         />
         <DropDown
           label={"What are you interested in?"}
