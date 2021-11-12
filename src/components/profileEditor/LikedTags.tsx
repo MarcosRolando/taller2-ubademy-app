@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
-import { Chip } from "react-native-paper";
+import { Chip, List } from "react-native-paper";
 import { widthPercentageToDP as wp,
   heightPercentageToDP as hp} from "react-native-responsive-screen";
   import colors from '../../styling/colors';
@@ -29,11 +29,39 @@ const LikedTags = (props : any) => {
     return tagsToRender;
   }
 
+  function renderSelectableTags() {
+    const tagsToRender = [];
+    for (let i = 0; i < tags.length; i++) {
+      tagsToRender.push(
+        <List.Item
+          key={tags[i]}
+          title={tags[i]}
+          onPress={() => {
+            if (!likedTags.includes(tags[i])) {
+              setLikedTags([...likedTags, tags[i]]);
+            }
+            console.log(tags[i]);
+            console.log(likedTags);
+          }}
+        />
+      )
+    }
+    return tagsToRender;
+  }
+
+
   return (
     <View>
       <View style={{flexDirection:"row"}}>
         {renderTags()}
       </View>
+
+      <List.Accordion
+        title="Select more interests"
+        left={props => <List.Icon {...props} icon="folder" />}>
+        {renderSelectableTags()}
+      </List.Accordion>
+
     </View>
   );
 };

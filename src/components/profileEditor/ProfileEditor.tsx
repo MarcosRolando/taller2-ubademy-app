@@ -30,6 +30,10 @@ const ProfileEditor = (props : any) => {
 
       <Location style={props.style} info = {info} setInfo = {setInfo} />
 
+      <Subheading>
+        Interests
+      </Subheading>
+
       <LikedTags/>
 
     </View>
