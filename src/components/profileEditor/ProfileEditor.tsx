@@ -14,7 +14,7 @@ const ProfileEditor = (props : any) => {
   });
 
   return (
-    <View style={props.style}>
+    <ScrollView style={props.style}>
 
       <Title style={styles.profileTitle}>
         Profile Editor
@@ -36,7 +36,7 @@ const ProfileEditor = (props : any) => {
 
       <LikedTags/>
 
-    </View>
+    </ScrollView>
   );
 }
 

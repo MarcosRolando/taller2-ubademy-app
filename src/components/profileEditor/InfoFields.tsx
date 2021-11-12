@@ -19,7 +19,6 @@ const InfoFields = (props : any) => {
     <View>
 
       <TextInput
-        label="Name"
         onChangeText={changeName}
         value={props.info.name}
       />

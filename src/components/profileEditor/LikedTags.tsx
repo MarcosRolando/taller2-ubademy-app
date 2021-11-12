@@ -8,7 +8,10 @@ import { widthPercentageToDP as wp,
   import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const LikedTags = (props : any) => {
-  const [tags, setTags] = React.useState(["Tag 1", "Tag 2"]);
+  const [tags, setTags] = React.useState(
+    ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
+    "Tag 5", "Tag 6", "Tag 7", "Tag 8",
+    "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
   //const [likedTags, setLikedTags] = React.useState([] as Array<any>);
   const [likedTags, setLikedTags] = React.useState(["Tag 1", "Tag 2"]);
 
@@ -52,7 +55,7 @@ const LikedTags = (props : any) => {
 
   return (
     <View>
-      <View style={{flexDirection:"row"}}>
+      <View style={{flexDirection:"row", flexWrap: "wrap"}}>
         {renderTags()}
       </View>
 
