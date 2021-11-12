@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import colors from "../../styling/colors";
 // @ts-ignore
 import defaultPicture from '../../../assets/default-course-image.jpg';
@@ -14,7 +14,6 @@ import DropDown from "react-native-paper-dropdown";
 const CreateCourse = ({ style }: any) => {
   const [courseImage, setCourseImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
   const [media, setMedia] = React.useState([] as Array<any>)
-  const [mediaCounter, setMediaCounter] = React.useState(0)
 
   const [showCourses, setShowCourses] = React.useState(false);
   const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
@@ -61,15 +60,32 @@ const CreateCourse = ({ style }: any) => {
     });
 
     if (!result.cancelled) {
-      setMedia([...media, 
-        <Image
-        key={mediaCounter}
-        source={{uri: result.uri, height: hp(14), width: wp(30)}} 
-        style={{borderRadius: 10, resizeMode:'contain'}} 
-      />]);
-      setMediaCounter(mediaCounter + 1)
-      console.log(media)
+      setMedia([...media, result.uri]);
     }
+  }
+
+  function renderMedia() {
+    let mediaToRender = [];
+    let counter = 0;
+    for (const uri of media) {
+      mediaToRender.push(
+        <View key={counter}>
+          <Image
+            source={{uri: uri, height: hp(14), width: wp(30)}} 
+            style={{borderRadius: 10, resizeMode:'contain'}} 
+          />
+          <View style={{position:'relative', bottom: hp(15), right: wp(3)}}>
+            <TouchableWithoutFeedback 
+              style={{width:wp(14)}}
+              onPress={() => setMedia(media.filter((mediaUri) => mediaUri !== uri ))}>
+              <FontAwesomeIcon color={colors.primary} size={30} icon={ faTimesCircle } />
+            </TouchableWithoutFeedback>
+          </View>
+        </View>
+      );
+      counter++;
+    }
+    return mediaToRender;
   }
 
   return (
@@ -145,7 +161,7 @@ const CreateCourse = ({ style }: any) => {
         flexWrap: 'wrap', 
         justifyContent: 'space-around', 
         marginTop: hp(3)}}>
-        {media}
+        {renderMedia()}
       </View>
 
       <Button 
