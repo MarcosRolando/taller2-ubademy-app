@@ -1,11 +1,17 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { HelperText , Subheading, TextInput, Title } from "react-native-paper";
 import styles from "../../constants/styles";
-
+import InfoFields from "./InfoFields";
+import Location from "../profileEditor/Location";
 import ImageSelector from "./ImageSelector";
+import LikedTags from "./LikedTags";
 
 const ProfileEditor = (props : any) => {
+  const [info, setInfo] = React.useState({
+    name: "John",
+    location: "Argentina"
+  });
 
   return (
     <View style={props.style}>
@@ -17,12 +23,14 @@ const ProfileEditor = (props : any) => {
       <ImageSelector/>
 
       <Subheading>
-        Name
+        {info.location}
       </Subheading>
 
-      <TextInput>
+      <InfoFields info = {info} setInfo = {setInfo} />
 
-      </TextInput>
+      <Location style={props.style} info = {info} setInfo = {setInfo} />
+
+      <LikedTags/>
 
     </View>
   );

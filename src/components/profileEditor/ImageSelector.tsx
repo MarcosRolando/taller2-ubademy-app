@@ -27,28 +27,24 @@ const ImageSelector = () => {
 
   return(
     <View style={{alignItems: "center"}}>
+      
       <Avatar.Image
-      size={wp(30)}
-      source={{uri: image}}
-    />
+        size={wp(30)}
+        source={{uri: image}}
+      />
 
-    <View style={{position:"absolute", paddingTop:wp(20), paddingLeft:wp(20)}}>
-      <TouchableOpacity onPress={()=>console.log("ah!")} >
-          <View>
-            <FontAwesomeIcon
-              color={"red"}
-              size={wp(10)}
-              icon={ faCameraRetro } 
-              style={{paddingTop:wp(8)}}/>
-          </View>
-      </TouchableOpacity>
-    </View>
+      <View style={{position:"absolute", paddingTop:wp(20), paddingLeft:wp(20)}}>
+        <TouchableOpacity onPress={()=> openGallery()} >
+            <View>
+              <FontAwesomeIcon
+                color={"red"}
+                size={wp(10)}
+                icon={ faCameraRetro } 
+                style={{paddingTop:wp(8)}}/>
+            </View>
+        </TouchableOpacity>
+      </View>
 
-      <Button onPress={() => {
-          openGallery();
-        }}>
-          Open Gallery
-      </Button>
     </View>
 
   )
