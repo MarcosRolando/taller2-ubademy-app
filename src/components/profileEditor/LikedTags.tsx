@@ -8,17 +8,32 @@ import { widthPercentageToDP as wp,
   import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const LikedTags = (props : any) => {
+  const [tags, setTags] = React.useState(["Tag 1", "Tag 2"]);
+  //const [likedTags, setLikedTags] = React.useState([] as Array<any>);
+  const [likedTags, setLikedTags] = React.useState(["Tag 1", "Tag 2"]);
+
+  function renderTags() {
+    const tagsToRender = [];
+    for (let i = 0; i < likedTags.length; i++) {
+      tagsToRender.push(
+        <Chip
+          key={likedTags[i]}
+          onClose={() => {
+            setLikedTags(likedTags.filter((likedTag) => likedTag !== likedTags[i]));
+          }}
+        >
+          {likedTags[i]}
+        </Chip>
+      )
+    }
+    return tagsToRender;
+  }
 
   return (
-    <View style={{flexDirection:"row"}}>
-        <Chip icon={({size, color}) => (
-            <FontAwesomeIcon color={color} size={size} icon={ faTimesCircle } />
-          )}
-         onPress={() => console.log('Pressed')}>UWU</Chip>
-         <Chip icon={({size, color}) => (
-            <FontAwesomeIcon color={color} size={size} icon={ faTimesCircle } />
-          )}
-         onPress={() => console.log('Pressed')}>UWU</Chip>
+    <View>
+      <View style={{flexDirection:"row"}}>
+        {renderTags()}
+      </View>
     </View>
   );
 };
