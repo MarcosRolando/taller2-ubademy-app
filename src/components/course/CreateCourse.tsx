@@ -13,7 +13,8 @@ import DropDown from "react-native-paper-dropdown";
 
 const CreateCourse = ({ style }: any) => {
   const [courseImage, setCourseImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
-  const [media, setMedia] = React.useState('')
+  const [media, setMedia] = React.useState([] as Array<any>)
+  const [mediaCounter, setMediaCounter] = React.useState(0)
 
   const [showCourses, setShowCourses] = React.useState(false);
   const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
@@ -60,7 +61,14 @@ const CreateCourse = ({ style }: any) => {
     });
 
     if (!result.cancelled) {
-      setMedia(result.uri);
+      setMedia([...media, 
+        <Image
+        key={mediaCounter}
+        source={{uri: result.uri, height: hp(14), width: wp(30)}} 
+        style={{borderRadius: 10, resizeMode:'contain'}} 
+      />]);
+      setMediaCounter(mediaCounter + 1)
+      console.log(media)
     }
   }
 
@@ -137,18 +145,7 @@ const CreateCourse = ({ style }: any) => {
         flexWrap: 'wrap', 
         justifyContent: 'space-around', 
         marginTop: hp(3)}}>
-        <Image 
-          source={{uri: courseImage, height: hp(14), width: wp(30)}} 
-          style={{borderRadius: 10, resizeMode:'contain'}} 
-        />
-        <Image 
-          source={{uri: courseImage, height: hp(14), width: wp(30)}} 
-          style={{borderRadius: 10, resizeMode:'contain'}} 
-        />
-        <Image 
-          source={{uri: media, height: hp(14), width: wp(30)}} 
-          style={{borderRadius: 10, resizeMode:'contain'}} 
-        />
+        {media}
       </View>
 
       <Button 
