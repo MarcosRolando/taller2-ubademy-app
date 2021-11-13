@@ -24,6 +24,7 @@ const LikedTags = (props : any) => {
           onClose={() => {
             setLikedTags(likedTags.filter((likedTag) => likedTag !== likedTags[i]));
           }}
+          style={{margin:wp(1)}}
         >
           {likedTags[i]}
         </Chip>
@@ -52,10 +53,9 @@ const LikedTags = (props : any) => {
     return tagsToRender;
   }
 
-
   return (
     <View>
-      <View style={{flexDirection:"row", flexWrap: "wrap"}}>
+      <View style={{flexDirection:"row", flexWrap: "wrap", justifyContent: "center"}}>
         {renderTags()}
       </View>
 

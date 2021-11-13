@@ -6,6 +6,8 @@ import InfoFields from "./InfoFields";
 import Location from "../profileEditor/Location";
 import ImageSelector from "./ImageSelector";
 import LikedTags from "./LikedTags";
+import { heightPercentageToDP as hp, 
+  widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const ProfileEditor = (props : any) => {
   const [info, setInfo] = React.useState({
@@ -14,7 +16,7 @@ const ProfileEditor = (props : any) => {
   });
 
   return (
-    <ScrollView style={props.style}>
+    <ScrollView style={{paddingHorizontal: wp(3)}}>
 
       <Title style={styles.profileTitle}>
         Profile Editor
@@ -34,7 +36,7 @@ const ProfileEditor = (props : any) => {
 
       <Location style={props.style} info = {info} setInfo = {setInfo} />
 
-      <Subheading style={styles.profileSubtitle}>
+      <Subheading style={{...styles.profileSubtitle, paddingTop:hp(0)}}>
         Interests
       </Subheading>
 

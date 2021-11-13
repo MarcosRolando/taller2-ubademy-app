@@ -17,7 +17,7 @@ const Location = (props : any) => {
   return (
     <View style={props.style}>
 
-      <View style={{paddingTop:hp(4), paddingBottom:hp(1.2)}}>
+      <View style={{paddingHorizontal: wp(5)}}>
 
         <DropDown
           label={message}
@@ -32,10 +32,9 @@ const Location = (props : any) => {
             }
             props.setInfo(newInfo);
             setLocation(value);
-            setMessage("Location");
+            setMessage("");
           }}
           list={locationList}
-          dropDownStyle={{paddingTop:hp(1)}}
         />
         
       </View>
