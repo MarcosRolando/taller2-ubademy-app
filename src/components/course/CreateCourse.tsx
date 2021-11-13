@@ -23,7 +23,8 @@ const CreateCourse = ({ style }: any) => {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   const [courseImage, setCourseImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
-  const [media, setMedia] = React.useState([] as Array<any>)
+  const [videos, setVideos] = React.useState([] as Array<{name: string, uri: string}>)
+  const [images, setImages] = React.useState([] as Array<string>)
 
   const [showCourses, setShowCourses] = React.useState(false);
   const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
@@ -61,24 +62,74 @@ const CreateCourse = ({ style }: any) => {
     }
   };
 
-  async function addMedia() {
+  async function addVideo() {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setMedia([...media, result.uri]);
+      setVideos([...videos, {name: '', uri: result.uri}]);
     }
   }
 
-  function renderMedia() {
-    let mediaToRender = [];
+  async function addImage() {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImages([...images, result.uri]);
+    }
+  }
+
+  function renderVideos() {
+    let videosToRender = [];
     let counter = 0;
-    for (const uri of media) {
-      mediaToRender.push(
+    for (const {name, uri} of videos) {
+      videosToRender.push(
+        <View key={counter}>
+          <Image
+            source={{uri: uri, height: hp(14), width: wp(30)}} 
+            style={{borderRadius: 10, resizeMode:'contain'}} 
+          />
+          <TextInput 
+            mode='flat'
+            value={name}
+            onChangeText={(newName) => setVideos(videos.map((elem) => {
+              if (elem.uri === uri) {
+                elem.name = newName;
+              }
+              return elem;
+            }))}
+            disableFullscreenUI={true}
+            style={{height: hp(4), width: wp(30)}}
+          />
+          <View style={{position:'relative', bottom: hp(15), right: wp(1)}}>
+            <TouchableWithoutFeedback 
+              style={{width:wp(14)}}
+              onPress={() => setVideos(videos.filter((video) => video.uri !== uri ))}>
+              <FontAwesomeIcon color={colors.primary} size={30} icon={ faTimesCircle } />
+            </TouchableWithoutFeedback>
+          </View>
+        </View>
+      );
+      counter++;
+    }
+    return videosToRender;
+  }
+
+
+  function renderImages() {
+    let imagesToRender = [];
+    let counter = 0;
+    for (const uri of images) {
+      imagesToRender.push(
         <View key={counter}>
           <Image
             source={{uri: uri, height: hp(14), width: wp(30)}} 
@@ -87,7 +138,7 @@ const CreateCourse = ({ style }: any) => {
           <View style={{position:'relative', bottom: hp(15), right: wp(1)}}>
             <TouchableWithoutFeedback 
               style={{width:wp(14)}}
-              onPress={() => setMedia(media.filter((mediaUri) => mediaUri !== uri ))}>
+              onPress={() => setImages(images.filter((imageUri) => imageUri !== uri ))}>
               <FontAwesomeIcon color={colors.primary} size={30} icon={ faTimesCircle } />
             </TouchableWithoutFeedback>
           </View>
@@ -95,7 +146,7 @@ const CreateCourse = ({ style }: any) => {
       );
       counter++;
     }
-    return mediaToRender;
+    return imagesToRender;
   }
 
   function validateData() {
@@ -123,7 +174,7 @@ const CreateCourse = ({ style }: any) => {
   }
 
   async function createCourse() {
-    if (!validateData() && !uploading) {
+    if (validateData()) {
       setErrorMessage('');
       setUploading(true);
       await uploadMedia();
@@ -133,11 +184,14 @@ const CreateCourse = ({ style }: any) => {
   }
 
   async function uploadMedia() {
-    for (let mediaToUpload of media) {
-      await uploadMediaToFirebase(mediaToUpload);
+    await uploadMediaToFirebase(courseImage);
+    for (const imageToUpload of images) {
+      await uploadMediaToFirebase(imageToUpload);
+    }
+    for (const videosToUpload of videos) {
+      await uploadMediaToFirebase(videosToUpload.uri);
     }
   }
-
 
   async function uploadMediaToFirebase(uri: string) {
     // Why are we using XMLHttpRequest? See:
@@ -175,7 +229,7 @@ const CreateCourse = ({ style }: any) => {
             StyleSheet.absoluteFill,
             {
               backgroundColor: "rgba(0,0,0,0.8)",
-              alignItems: "center",
+              alignItems: "flex-end",
               justifyContent: "center",
             },
           ]}
@@ -190,107 +244,128 @@ const CreateCourse = ({ style }: any) => {
   };
 
   return (
-    <View style={style}>
-      <Image
-        source={{uri: courseImage, height: hp(33)}} 
-        style={{borderRadius: 10, resizeMode:'contain'}} 
-      />
-      <View style={{position:'absolute', left: wp(3)}}>
-        <TouchableWithoutFeedback 
-          style={{width:wp(14)}} 
-          onPress={pickCourseImage}>
-          <FontAwesomeIcon color={colors.primary} size={50} icon={ faCamera } />
-        </TouchableWithoutFeedback>
-      </View>
-      <TextInput
-        label='Name'
-        mode='outlined'
-        value={courseName}
-        onChangeText={(name) => setCoursenName(name)}
-        disableFullscreenUI={true}
-        style={{marginBottom:hp(2), marginTop:hp(2)}}
-      />
-      <TextInput 
-        label='Description' 
-        mode='outlined'
-        value={courseDescription}
-        onChangeText={(descr) => setCourseDescription(descr)}
-        disableFullscreenUI={true}
-        multiline={true}
-        style={{marginBottom:hp(2)}}
-      />
-      <DropDown
-        label={"Course type"}
-        mode={"outlined"}
-        visible={showCourses}
-        showDropDown={() => setShowCourses(true)}
-        onDismiss={() => setShowCourses(false)}
-        value={course}
-        setValue={setCourse}
-        list={coursesList}
-        dropDownStyle={{paddingTop:hp(1)}}
-      />
-      <TextInput 
-        label='Number of exams' 
-        mode='outlined'
-        value={examsNumber}
-        onChangeText={(exams) => setExamsNumber(exams)}
-        disableFullscreenUI={true}
-        style={{marginTop:hp(2), marginBottom:hp(2)}}
-        keyboardType='numeric'
-      />
-      <DropDown
-        label={"Subscription type"}
-        mode={"outlined"}
-        visible={showSubTypes}
-        showDropDown={() => setShowSubTypes(true)}
-        onDismiss={() => setShowSubTypes(false)}
-        value={subType}
-        setValue={setSubType}
-        list={subTypesList}
-        dropDownStyle={{paddingTop:hp(1)}}
-      />
-      <View style={{paddingBottom:hp(2)}} />
-      <DropDown
-        label={"Location"}
-        mode={"outlined"}
-        visible={showLocations}
-        showDropDown={() => setShowLocations(true)}
-        onDismiss={() => setShowLocations(false)}
-        value={location}
-        setValue={setLocation}
-        list={locationsList}
-        dropDownStyle={{paddingTop:hp(1)}}
-      />
-      
-      <View style={{backgroundColor: '#3333', marginTop: hp(2)}}>
-        <View 
-          style={{flexDirection: 'row', 
-          flexWrap: 'wrap', 
-          justifyContent: 'space-around', 
-          marginTop: hp(3)}}>
-          {renderMedia()}
+    <View>
+      <View style={style}>
+        <Image
+          source={{uri: courseImage, height: hp(33)}} 
+          style={{borderRadius: 10, resizeMode:'contain'}} 
+        />
+        <View style={{position:'absolute', left: wp(3)}}>
+          <TouchableWithoutFeedback 
+            style={{width:wp(14)}} 
+            onPress={pickCourseImage}>
+            <FontAwesomeIcon color={colors.primary} size={50} icon={ faCamera } />
+          </TouchableWithoutFeedback>
         </View>
+        <TextInput
+          label='Name'
+          mode='outlined'
+          value={courseName}
+          onChangeText={(name) => setCoursenName(name)}
+          disableFullscreenUI={true}
+          style={{marginBottom:hp(2), marginTop:hp(2)}}
+        />
+        <TextInput 
+          label='Description' 
+          mode='outlined'
+          value={courseDescription}
+          onChangeText={(descr) => setCourseDescription(descr)}
+          disableFullscreenUI={true}
+          multiline={true}
+          style={{marginBottom:hp(2)}}
+        />
+        <DropDown
+          label={"Course type"}
+          mode={"outlined"}
+          visible={showCourses}
+          showDropDown={() => setShowCourses(true)}
+          onDismiss={() => setShowCourses(false)}
+          value={course}
+          setValue={setCourse}
+          list={coursesList}
+          dropDownStyle={{paddingTop:hp(1)}}
+        />
+        <TextInput 
+          label='Number of exams' 
+          mode='outlined'
+          value={examsNumber}
+          onChangeText={(exams) => setExamsNumber(exams)}
+          disableFullscreenUI={true}
+          style={{marginTop:hp(2), marginBottom:hp(2)}}
+          keyboardType='numeric'
+        />
+        <DropDown
+          label={"Subscription type"}
+          mode={"outlined"}
+          visible={showSubTypes}
+          showDropDown={() => setShowSubTypes(true)}
+          onDismiss={() => setShowSubTypes(false)}
+          value={subType}
+          setValue={setSubType}
+          list={subTypesList}
+          dropDownStyle={{paddingTop:hp(1)}}
+        />
+        <View style={{paddingBottom:hp(2)}} />
+        <DropDown
+          label={"Location"}
+          mode={"outlined"}
+          visible={showLocations}
+          showDropDown={() => setShowLocations(true)}
+          onDismiss={() => setShowLocations(false)}
+          value={location}
+          setValue={setLocation}
+          list={locationsList}
+          dropDownStyle={{paddingTop:hp(1)}}
+        />
+
+
+        <View style={{backgroundColor: '#3333', marginTop: hp(2)}}>
+          <View 
+            style={{flexDirection: 'row', 
+            flexWrap: 'wrap', 
+            justifyContent: 'space-around', 
+            marginTop: hp(3)}}>
+            {renderImages()}
+          </View>
+          <Button 
+            mode='contained'
+            style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+            onPress={addImage}
+            >
+            Add image
+          </Button>
+        </View>
+        
+        <View style={{backgroundColor: '#3333', marginTop: hp(2)}}>
+          <View 
+            style={{flexDirection: 'row', 
+            flexWrap: 'wrap', 
+            justifyContent: 'space-around', 
+            marginTop: hp(3)}}>
+            {renderVideos()}
+          </View>
+          <Button
+            mode='contained'
+            style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+            onPress={addVideo}
+            >
+            Add video
+          </Button>
+        </View>
+        
         <Button 
           mode='contained'
-          style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
-          onPress={addMedia}
+          style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
+          onPress={createCourse}
           >
-          Add media
+          Create course
         </Button>
-      </View>
-      
-      <Button 
-        mode='contained'
-        style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
-        onPress={createCourse}
-        >
-        Create course
-      </Button>
 
-      <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
-        {errorMessage}
-      </Text>
+        <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
+          {errorMessage}
+        </Text>
+
+      </View>
 
       {maybeRenderUploadingOverlay()}
     </View>
