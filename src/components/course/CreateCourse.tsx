@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Platform, View, Image } from "react-native";
+import { Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -10,12 +11,15 @@ import colors from "../../styling/colors";
 import defaultPicture from '../../../assets/default-course-image.jpg';
 import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
-
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-// @ts-ignore
-import uuid from 'uuid';
+
 
 const CreateCourse = ({ style }: any) => {
+  const [courseName, setCoursenName] = React.useState('');
+  const [courseDescription, setCourseDescription] = React.useState('');
+  const [examsNumber, setExamsNumber] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
+
   const [courseImage, setCourseImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
   const [media, setMedia] = React.useState([] as Array<any>)
 
@@ -92,6 +96,37 @@ const CreateCourse = ({ style }: any) => {
     return mediaToRender;
   }
 
+  function validateData() {
+    if (!courseName.trim()) {
+      setErrorMessage('Please enter a course name');
+      return false;
+    }
+    if (!course.trim()) {
+      setErrorMessage('Please select a course type');
+      return false;
+    }
+    if (!examsNumber.trim()) {
+      setErrorMessage('Please enter the amount of exams');
+      return false;
+    }
+    if (!subType.trim()) {
+      setErrorMessage('Please select a subscription type');
+      return false;
+    }
+    if (!location.trim()) {
+      setErrorMessage('Please select a location for this course');
+      return false;
+    }
+    return true;
+  }
+
+  function createCourse() {
+    if (validateData()) {
+      uploadMedia();
+      // TODO enviar al back todo
+    }
+  }
+
   function uploadMedia() {
     for (let mediaToUpload of media) {
       uploadMediaToFirebase(mediaToUpload);
@@ -133,7 +168,7 @@ const CreateCourse = ({ style }: any) => {
         source={{uri: courseImage, height: hp(33)}} 
         style={{borderRadius: 10, resizeMode:'contain'}} 
       />
-      <View style={{position:'relative', left: wp(3)}}>
+      <View style={{position:'absolute', left: wp(3)}}>
         <TouchableWithoutFeedback 
           style={{width:wp(14)}} 
           onPress={pickCourseImage}>
@@ -143,12 +178,16 @@ const CreateCourse = ({ style }: any) => {
       <TextInput
         label='Name'
         mode='outlined'
+        value={courseName}
+        onChangeText={(name) => setCoursenName(name)}
         disableFullscreenUI={true}
         style={{marginBottom:hp(2), marginTop:hp(2)}}
       />
       <TextInput 
         label='Description' 
         mode='outlined'
+        value={courseDescription}
+        onChangeText={(descr) => setCourseDescription(descr)}
         disableFullscreenUI={true}
         multiline={true}
         style={{marginBottom:hp(2)}}
@@ -167,6 +206,8 @@ const CreateCourse = ({ style }: any) => {
       <TextInput 
         label='Number of exams' 
         mode='outlined'
+        value={examsNumber}
+        onChangeText={(exams) => setExamsNumber(exams)}
         disableFullscreenUI={true}
         style={{marginTop:hp(2), marginBottom:hp(2)}}
         keyboardType='numeric'
@@ -195,29 +236,34 @@ const CreateCourse = ({ style }: any) => {
         dropDownStyle={{paddingTop:hp(1)}}
       />
       
-      <View 
-        style={{flexDirection: 'row', 
-        flexWrap: 'wrap', 
-        justifyContent: 'space-around', 
-        marginTop: hp(3)}}>
-        {renderMedia()}
+      <View style={{backgroundColor: '#3333', marginTop: hp(2)}}>
+        <View 
+          style={{flexDirection: 'row', 
+          flexWrap: 'wrap', 
+          justifyContent: 'space-around', 
+          marginTop: hp(3)}}>
+          {renderMedia()}
+        </View>
+        <Button 
+          mode='contained'
+          style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+          onPress={addMedia}
+          >
+          Add media
+        </Button>
       </View>
-
-      <Button 
-        mode='contained'
-        style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
-        onPress={addMedia}
-        >
-        Add media
-      </Button>
       
       <Button 
         mode='contained'
-        style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
-        onPress={uploadMedia}
+        style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
+        onPress={createCourse}
         >
         Create course
       </Button>
+
+      <Text style={{color: colors.error, alignSelf: 'center'}}>
+        {errorMessage}
+      </Text>
     </View>
   );
 }
