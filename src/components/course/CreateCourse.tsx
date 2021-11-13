@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Platform, View, Image } from "react-native";
-import { Text } from 'react-native-paper';
+import { Platform, View, Image, StyleSheet } from "react-native";
+import { ActivityIndicator, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -15,6 +15,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 const CreateCourse = ({ style }: any) => {
+  const[uploading, setUploading] = React.useState(false);
+
   const [courseName, setCoursenName] = React.useState('');
   const [courseDescription, setCourseDescription] = React.useState('');
   const [examsNumber, setExamsNumber] = React.useState('');
@@ -48,7 +50,7 @@ const CreateCourse = ({ style }: any) => {
 
   async function pickCourseImage() {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -82,7 +84,7 @@ const CreateCourse = ({ style }: any) => {
             source={{uri: uri, height: hp(14), width: wp(30)}} 
             style={{borderRadius: 10, resizeMode:'contain'}} 
           />
-          <View style={{position:'relative', bottom: hp(15), right: wp(3)}}>
+          <View style={{position:'relative', bottom: hp(15), right: wp(1)}}>
             <TouchableWithoutFeedback 
               style={{width:wp(14)}}
               onPress={() => setMedia(media.filter((mediaUri) => mediaUri !== uri ))}>
@@ -120,16 +122,19 @@ const CreateCourse = ({ style }: any) => {
     return true;
   }
 
-  function createCourse() {
-    if (validateData()) {
-      uploadMedia();
+  async function createCourse() {
+    if (!validateData() && !uploading) {
+      setErrorMessage('');
+      setUploading(true);
+      await uploadMedia();
       // TODO enviar al back todo
+      setUploading(false);
     }
   }
 
-  function uploadMedia() {
+  async function uploadMedia() {
     for (let mediaToUpload of media) {
-      uploadMediaToFirebase(mediaToUpload);
+      await uploadMediaToFirebase(mediaToUpload);
     }
   }
 
@@ -151,7 +156,7 @@ const CreateCourse = ({ style }: any) => {
       xhr.send(null);
     });
 
-    const fileRef = ref(getStorage(), `curso/${uri.replace(/^.*[\\\/]/, '')}`);
+    const fileRef = ref(getStorage(), `${courseName}/${uri.replace(/^.*[\\\/]/, '')}`);
     
     await uploadBytes(fileRef, blob);
 
@@ -161,6 +166,28 @@ const CreateCourse = ({ style }: any) => {
 
     return await getDownloadURL(fileRef);
   }
+
+  function maybeRenderUploadingOverlay() {
+    if (uploading) {
+      return (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: "rgba(0,0,0,0.8)",
+              alignItems: "center",
+              justifyContent: "center",
+            },
+          ]}
+        >
+          <ActivityIndicator color={colors.primary} animating size="large" />
+          <Text style={{color: colors.primary, fontSize: 20}}>
+            Creating course...
+          </Text>
+        </View>
+      );
+    }
+  };
 
   return (
     <View style={style}>
@@ -261,9 +288,11 @@ const CreateCourse = ({ style }: any) => {
         Create course
       </Button>
 
-      <Text style={{color: colors.error, alignSelf: 'center'}}>
+      <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
         {errorMessage}
       </Text>
+
+      {maybeRenderUploadingOverlay()}
     </View>
   );
 }
