@@ -1,11 +1,12 @@
 import React from "react";
-import { Avatar, Button } from "react-native-paper";
+import { Avatar, IconButton } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { Alert, Text,TouchableHighlight, TouchableOpacity, View } from "react-native";
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 import styles from "../../constants/styles";
+import colors from "../../constants/colors";
 
 const ImageSelector = () => {
   const [image, setImage] = React.useState('../../images/example.jpg');
@@ -28,21 +29,21 @@ const ImageSelector = () => {
   return(
     <View style={{alignItems: "center"}}>
       
-      <Avatar.Image
-        size={wp(30)}
-        source={{uri: image}}
-      />
+      <View style={styles.profileImage}>
+        <Avatar.Image
+          size={wp(30)}
+          source={{uri: image}}
+          style={{backgroundColor: colors.second}}
+        />
+      </View>
 
       <View style={{position:"absolute", paddingTop:wp(20), paddingLeft:wp(20)}}>
-        <TouchableOpacity onPress={()=> openGallery()} >
-            <View>
-              <FontAwesomeIcon
-                color={"red"}
-                size={wp(10)}
-                icon={ faCameraRetro } 
-                style={{paddingTop:wp(8)}}/>
-            </View>
-        </TouchableOpacity>
+        <IconButton
+          icon="camera"
+          color={colors.primary}
+          size={wp(11)}
+          onPress={() => openGallery()}
+        />
       </View>
 
     </View>

@@ -2,6 +2,8 @@ import React from "react";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { HelperText, TextInput, Subheading } from "react-native-paper";
+import styles from "../../constants/styles";
+import { Themes } from "../../styling/themes";
 
 
 const InfoFields = (props : any) => {
@@ -16,9 +18,10 @@ const InfoFields = (props : any) => {
 
   return (
 
-    <View>
+    <View style={styles.fieldView}>
 
       <TextInput
+        theme={Themes.textInput}
         onChangeText={changeName}
         value={props.info.name}
       />

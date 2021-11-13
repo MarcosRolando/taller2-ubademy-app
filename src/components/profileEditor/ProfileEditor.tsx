@@ -20,17 +20,21 @@ const ProfileEditor = (props : any) => {
         Profile Editor
       </Title>
 
-      <ImageSelector/>
+      <ImageSelector />
 
-      <Subheading>
-        {info.location}
+      <Subheading style={styles.profileSubtitle}>
+        Name
       </Subheading>
 
       <InfoFields info = {info} setInfo = {setInfo} />
 
+      <Subheading style={styles.profileSubtitle}>
+        Location
+      </Subheading>
+
       <Location style={props.style} info = {info} setInfo = {setInfo} />
 
-      <Subheading>
+      <Subheading style={styles.profileSubtitle}>
         Interests
       </Subheading>
 

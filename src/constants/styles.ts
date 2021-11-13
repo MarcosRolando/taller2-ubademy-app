@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     paddingTop: hp(10),
     justifyContent: 'flex-start',
     fontSize: hp(5),
+    color: colors.primary
   },
   profileName: {
     paddingTop: hp(2),
@@ -49,6 +50,9 @@ const styles = StyleSheet.create({
   hideView: {
     height: 0,
     width: 0,
+  },
+  fieldView: {
+    paddingHorizontal: wp(5)
   },
 });
 
