@@ -11,6 +11,10 @@ import defaultPicture from '../../../assets/default-course-image.jpg';
 import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// @ts-ignore
+import uuid from 'uuid';
+
 const CreateCourse = ({ style }: any) => {
   const [courseImage, setCourseImage] = React.useState(Image.resolveAssetSource(defaultPicture).uri);
   const [media, setMedia] = React.useState([] as Array<any>)
@@ -88,13 +92,48 @@ const CreateCourse = ({ style }: any) => {
     return mediaToRender;
   }
 
+  function uploadMedia() {
+    for (let mediaToUpload of media) {
+      uploadMediaToFirebase(mediaToUpload);
+    }
+  }
+
+
+  async function uploadMediaToFirebase(uri: string) {
+    // Why are we using XMLHttpRequest? See:
+    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+    const blob: Blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+
+    const fileRef = ref(getStorage(), `curso/${uri.replace(/^.*[\\\/]/, '')}`);
+    
+    await uploadBytes(fileRef, blob);
+
+    // We're done with the blob, close and release it
+    // @ts-ignore
+    blob.close();
+
+    return await getDownloadURL(fileRef);
+  }
+
   return (
     <View style={style}>
       <Image
         source={{uri: courseImage, height: hp(33)}} 
         style={{borderRadius: 10, resizeMode:'contain'}} 
       />
-      <View style={{position:'absolute', left: wp(3)}}>
+      <View style={{position:'relative', left: wp(3)}}>
         <TouchableWithoutFeedback 
           style={{width:wp(14)}} 
           onPress={pickCourseImage}>
@@ -175,6 +214,7 @@ const CreateCourse = ({ style }: any) => {
       <Button 
         mode='contained'
         style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+        onPress={uploadMedia}
         >
         Create course
       </Button>
