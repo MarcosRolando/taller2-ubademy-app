@@ -18,7 +18,7 @@ export const CreateCourseScreen = ({navigation}: any) => {
 
 const styles = StyleSheet.create({
   screen: {
-    marginTop: hp(5),
+    marginTop: hp(2),
     marginHorizontal: wp(15),
   },
 });

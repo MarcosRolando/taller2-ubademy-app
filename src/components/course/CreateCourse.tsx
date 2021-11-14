@@ -10,6 +10,7 @@ import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { sendCreateCourse } from "../../scripts/course";
+import CourseTags from "./CourseTags";
 
 
 const CreateCourse = ({ style }: any) => {
@@ -35,6 +36,12 @@ const CreateCourse = ({ style }: any) => {
   const [showLocations, setShowLocations] = React.useState(false);
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
+
+  const [tags, setTags] = React.useState(
+    ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
+    "Tag 5", "Tag 6", "Tag 7", "Tag 8",
+    "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
+  const [courseTags, setCourseTags] = React.useState([] as Array<string>);
 
   useEffect(() => {
     (async () => {
@@ -177,7 +184,8 @@ const CreateCourse = ({ style }: any) => {
       setUploading(true);
       const {images, videos} = await uploadMedia();
       sendCreateCourse(courseName, courseDescription, 
-        examsNumber, subType, courseType, location, images, videos);
+        examsNumber, subType, courseType, location, tags, 
+        images, videos);
       setUploading(false);
     }
   }
@@ -323,8 +331,12 @@ const CreateCourse = ({ style }: any) => {
           list={locationsList}
           dropDownStyle={{paddingTop:hp(1)}}
         />
-
-
+        <CourseTags
+          tags={tags}
+          courseTags={courseTags}
+          setCourseTags={setCourseTags}
+          style={{marginTop: hp(2)}}
+        />
         <View style={{backgroundColor: '#3333', marginTop: hp(2)}}>
           <View 
             style={{flexDirection: 'row', 
