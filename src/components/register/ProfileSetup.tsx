@@ -4,7 +4,7 @@ import { heightPercentageToDP as hp,
 widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DropDown from 'react-native-paper-dropdown';
 import { Text, Button, TextInput } from 'react-native-paper';
-import { EXPLORE } from '../../routes';
+import { ROOT } from '../../routes';
 import { getSignupData, sendSignupProfile } from '../../scripts/signUp';
 import colors from '../../styles/colors';
 import { Themes } from '../../styles/themes';
@@ -55,7 +55,7 @@ const ProfileSetup = (props: any) => {
       let coursesToSend = courses.split(',').filter((course) => (course !== ''));
       sendSignupProfile(username.value, location, coursesToSend)
         .then(() => {
-          props.navigation.navigate(EXPLORE);
+          props.navigation.navigate(ROOT);
         },
         (errorMsg: Error) => {
           setErrorMessage(errorMsg.message);

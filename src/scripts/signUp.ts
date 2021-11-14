@@ -1,6 +1,6 @@
 import {API_URL} from '../../api_url';
 import axios from 'axios';
-import {SIGNUP, SIGNUP_PROFILE} from '../endpoints';
+import {SIGNUP, SIGNUP_PROFILE, UPDATE_PROFILE} from '../endpoints';
 import {sendAPIrequest, setAccessToken, getAxiosConfig} from '../apiWrapper';
 import {setUserCredentials} from '../userCredentials';
 import {ERROR_EMAIL_USED} from '../apiErrorMessages';
@@ -31,10 +31,11 @@ export async function sendSignupCredentials(email: string, password: string) {
 
 export async function sendSignupProfile(username: string, location: string, courses: Array<string>) {
   try {
-    const res = await sendAPIrequest(() => axios.post(`${API_URL}${SIGNUP_PROFILE}`, {
+    const res = await sendAPIrequest(() => axios.put(`${API_URL}${UPDATE_PROFILE}`, {
       name: username,
-      location: location,
-      courses: courses,
+      country: location,
+      interesting_genres: courses,
+      subscription_type: 'Free',
     }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
