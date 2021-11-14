@@ -11,6 +11,7 @@ import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { sendCreateCourse } from "../../scripts/course";
 import CourseTags from "./CourseTags";
+import { ProfileSetupScreen } from "../register/Screens";
 
 
 const CreateCourse = ({ style }: any) => {
@@ -179,32 +180,38 @@ const CreateCourse = ({ style }: any) => {
   }
 
   async function createCourse() {
-    if (validateData()) {
-      setErrorMessage('');
-      setUploading(true);
-      const {images, videos} = await uploadMedia();
-      sendCreateCourse(courseName, courseDescription, 
-        examsNumber, subType, courseType, location, tags, 
-        images, videos);
-      setUploading(false);
+    try {
+      if (!validateData()) {
+        setErrorMessage('');
+        setUploading(true);
+        const {_images, _videos} = await uploadMedia();
+        sendCreateCourse(courseName, courseDescription, 
+          examsNumber, subType, courseType, location, tags, 
+          _images, _videos);
+        setUploading(false);
+        //TODO ir a la pantalla del curso creado
+      }
+    } catch(error) {
+      console.log(error);
+      setErrorMessage('Failed to create the course');
     }
   }
 
   async function uploadMedia() {
-    let images = [] as Array<string>;
-    let videos = [] as Array<{name:string, uri:string}>;
+    let _images = [] as Array<string>;
+    let _videos = [] as Array<{name:string, uri:string}>;
     try {
-      images.push(await uploadMediaToFirebase(courseImage));
+      _images.push(await uploadMediaToFirebase(courseImage));
       for (const imageToUpload of images) {
-        images.push(await uploadMediaToFirebase(imageToUpload));
+        _images.push(await uploadMediaToFirebase(imageToUpload));
       }
       for (const videoToUpload of videos) {
-        videos.push({name: videoToUpload.name, uri: await uploadMediaToFirebase(videoToUpload.uri)});
+        _videos.push({name: videoToUpload.name, uri: await uploadMediaToFirebase(videoToUpload.uri)});
       }
     } catch(error) {
       console.log(error);
     }
-    return {images, videos};
+    return {_images, _videos};
   }
 
   async function uploadMediaToFirebase(uri: string) {
