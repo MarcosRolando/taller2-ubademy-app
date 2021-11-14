@@ -1,9 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { ParallaxImage } from 'react-native-snap-carousel'
 
-export const SLIDER_WIDTH = Dimensions.get('window').width + 80
+export const SLIDER_WIDTH = wp(100) + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
+
 
 const CarouselCardItem = ({ item, index } : any) => {
   return (
