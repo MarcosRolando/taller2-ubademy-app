@@ -179,12 +179,12 @@ const CreateCourse = ({ style }: any) => {
 
   async function createCourse() {
     try {
-      if (validateData()) {
+      if (!validateData()) {
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
         sendCreateCourse(courseName, courseDescription, 
-          examsNumber, subType, courseType, location, tags, 
+          examsNumber, subType, courseType, location, courseTags, 
           _images, _videos);
         setUploading(false);
         //TODO ir a la pantalla del curso creado
@@ -197,14 +197,14 @@ const CreateCourse = ({ style }: any) => {
 
   async function uploadMedia() {
     let _images = [] as Array<string>;
-    let _videos = [] as Array<{name:string, uri:string}>;
+    let _videos = [] as Array<{name:string, url:string}>;
     try {
       _images.push(await uploadMediaToFirebase(courseImage));
       for (const imageToUpload of images) {
         _images.push(await uploadMediaToFirebase(imageToUpload));
       }
       for (const videoToUpload of videos) {
-        _videos.push({name: videoToUpload.name, uri: await uploadMediaToFirebase(videoToUpload.uri)});
+        _videos.push({name: videoToUpload.name, url: await uploadMediaToFirebase(videoToUpload.uri)});
       }
     } catch(error) {
       console.log(error);

@@ -6,7 +6,7 @@ import { CREATE_COURSE } from "../endpoints";
 export async function sendCreateCourse(title: string, description: string,
     totalExams: string, subscriptionType: string, courseType: string,
     country: string, hashtags: Array<string>, images: Array<string>, 
-    videos: Array<{name: string, uri: string}>) {
+    videos: Array<{name: string, url: string}>) {
   try {
     const res = await sendAPIrequest(() => axios.post(`${API_URL}${CREATE_COURSE}`, {
       title: title,
@@ -16,7 +16,8 @@ export async function sendCreateCourse(title: string, description: string,
       course_type: 'Art',
       country: 'Argentina',
       hashtags: hashtags,
-      media: images // TODO agregar los videos
+      images: images,
+      videos: videos
     }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
