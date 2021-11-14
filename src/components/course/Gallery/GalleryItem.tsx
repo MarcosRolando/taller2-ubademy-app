@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
+import { ParallaxImage } from 'react-native-snap-carousel'
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
@@ -7,11 +8,13 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 const CarouselCardItem = ({ item, index } : any) => {
   return (
     <View style={styles.container} key={index}>
-      <Image
-        source={item.uri}
-        style={styles.image}
-      />
-      <Text style={styles.header}>{item.title}</Text>
+                <Image
+                    source={{uri: item.uri}}
+                    style={styles.image}
+                />
+                <Text numberOfLines={2}>
+                    { item.title }
+                </Text>
     </View>
   )
 }

@@ -1,18 +1,21 @@
 import React from 'react'
-import { View } from "react-native"
+import { SafeAreaView, View } from "react-native"
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import GalleryItem, { SLIDER_WIDTH, ITEM_WIDTH } from './GalleryItem'
+import { heightPercentageToDP as hp,
+  widthPercentageToDP as wp } from "react-native-responsive-screen";
+
 
 const data = [
   {
     title: "John 1",
     uri:
-      require("../../../images/example.jpg"),
+      "https://i.imgur.com/UYiroysl.jpg",
   },
   {
     title: "John 2",
     uri:
-      require("../../../images/example2.jpg"),
+      "https://i.imgur.com/UPrs1EWl.jpg",
   },
 ]
 
@@ -23,19 +26,17 @@ const CarouselCards = () => {
 
 
   return (
-    <View>
+    <SafeAreaView style={{alignItems:"center", alignContent: "center",}}>
       <Carousel
-        layout="tinder"
-        layoutCardOffset={9}
-        ref={isCarousel}
-        data={data}
-        renderItem={GalleryItem}
-        sliderWidth={SLIDER_WIDTH}
-        itemWidth={ITEM_WIDTH}
-        onSnapToItem={(index) => setIndex(index)}
-        useScrollView={true}
+                sliderWidth={wp(80)}
+                sliderHeight={wp(80)}
+                itemWidth={wp(100) - wp(10)}
+                data={data}
+                renderItem={GalleryItem}
+                layout={'stack'}
+                layoutCardOffset={9}
       />
-    </View>
+    </SafeAreaView>
 
   )
 }
