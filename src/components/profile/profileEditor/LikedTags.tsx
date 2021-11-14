@@ -3,12 +3,7 @@ import { View } from "react-native";
 import { Chip, List } from "react-native-paper";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-const LikedTags = (props : any) => {
-  const [tags, setTags] = React.useState(
-    ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
-    "Tag 5", "Tag 6", "Tag 7", "Tag 8",
-    "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
-  const [likedTags, setLikedTags] = React.useState(["Tag 1", "Tag 2"]);
+const LikedTags = ({likedTags, setLikedTags, tags}: any) => {
 
   function renderTags() {
     const tagsToRender = [];
@@ -17,7 +12,7 @@ const LikedTags = (props : any) => {
         <Chip
           key={likedTags[i]}
           onClose={() => {
-            setLikedTags(likedTags.filter((likedTag) => likedTag !== likedTags[i]));
+            setLikedTags(likedTags.filter((likedTag: string) => likedTag !== likedTags[i]));
           }}
           style={{margin:wp(1)}}
         >

@@ -6,9 +6,7 @@ import { View } from "react-native";
 import styles from "../../../styles/styles";
 import colors from "../../../styles/colors";
 
-const ImageSelector = () => {
-  const [image, setImage] = React.useState('../../images/example.jpg');
-
+const ImageSelector = ({ image, setImage }: any) => {
   async function openGallery() {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -34,7 +32,7 @@ const ImageSelector = () => {
         />
       </View>
 
-      <View style={{position:"absolute", paddingTop:wp(28), paddingRight:wp(30)}}>
+      <View style={{position:"absolute", paddingTop:wp(27), paddingRight:wp(30)}}>
         <IconButton
           icon="camera"
           color={colors.primary}
