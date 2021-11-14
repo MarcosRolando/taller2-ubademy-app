@@ -181,7 +181,7 @@ const CreateCourse = ({ style }: any) => {
 
   async function createCourse() {
     try {
-      if (!validateData()) {
+      if (validateData()) {
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();

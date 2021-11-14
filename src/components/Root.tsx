@@ -68,7 +68,7 @@ const Root = () => {
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faChalkboard } />
       )}}/>
-      <Drawer.Screen 
+      <Drawer.Screen
         name={PROFILE}
         component={ProfileScreen}
         options={{
