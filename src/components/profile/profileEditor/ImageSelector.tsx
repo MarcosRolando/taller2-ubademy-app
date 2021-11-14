@@ -39,7 +39,7 @@ const ImageSelector = () => {
           icon="camera"
           color={colors.primary}
           size={wp(15)}
-          onPress={() => openGallery()}
+          onPress={openGallery}
         />
       </View>
 
