@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { View} from 'react-native';
 import { Title } from 'react-native-paper';
-import styles from '../../constants/styles';
+import styles from '../../styles/styles';
 import getCoursesData from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';

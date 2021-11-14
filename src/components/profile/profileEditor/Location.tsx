@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Text, View } from "react-native";
 import DropDown from 'react-native-paper-dropdown';
 import { widthPercentageToDP as wp,
   heightPercentageToDP as hp} from "react-native-responsive-screen";
-  import colors from '../../styling/colors';
+  import colors from '../../../styles/colors';
 
 const Location = (props : any) => {
   const [showMultiSelectDropDown, setShowMultiSelectDropDown] = React.useState(false);
   const [location, setLocation] = React.useState('Hola');
   const [errorMessage, setErrorMessage] = React.useState('');
-  //const [locationList, setLocationList] = React.useState([] as Array<{label:string, value:string}>);
   const [locationList, setLocationList] = React.useState([{label: "EEUU", value: "EEUU"},
   {label: "Inglaterra", value: "Inglaterra"}]);
   const [message, setMessage] = React.useState(props.info.location);

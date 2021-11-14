@@ -1,9 +1,9 @@
 import React from "react";
-import { View, ScrollView, Text } from "react-native";
-import { HelperText , Subheading, TextInput, Title } from "react-native-paper";
-import styles from "../../constants/styles";
+import { ScrollView} from "react-native";
+import { Subheading, Title } from "react-native-paper";
+import styles from "../../../styles/styles";
 import InfoFields from "./InfoFields";
-import Location from "../profileEditor/Location";
+import Location from "./Location";
 import ImageSelector from "./ImageSelector";
 import LikedTags from "./LikedTags";
 import { heightPercentageToDP as hp, 

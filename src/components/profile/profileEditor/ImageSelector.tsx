@@ -2,11 +2,9 @@ import React from "react";
 import { Avatar, IconButton } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { Alert, Text,TouchableHighlight, TouchableOpacity, View } from "react-native";
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
-import styles from "../../constants/styles";
-import colors from "../../constants/colors";
+import { View } from "react-native";
+import styles from "../../../styles/styles";
+import colors from "../../../styles/colors";
 
 const ImageSelector = () => {
   const [image, setImage] = React.useState('../../images/example.jpg');
@@ -23,7 +21,6 @@ const ImageSelector = () => {
     if (!pickerResult.cancelled) {
       setImage(pickerResult.uri);
     }
-    console.log(pickerResult);
   };
 
   return(
@@ -31,17 +28,17 @@ const ImageSelector = () => {
       
       <View style={styles.profileImage}>
         <Avatar.Image
-          size={wp(30)}
+          size={wp(40)}
           source={{uri: image}}
           style={{backgroundColor: colors.second}}
         />
       </View>
 
-      <View style={{position:"absolute", paddingTop:wp(20), paddingLeft:wp(20)}}>
+      <View style={{position:"absolute", paddingTop:wp(28), paddingRight:wp(30)}}>
         <IconButton
           icon="camera"
           color={colors.primary}
-          size={wp(11)}
+          size={wp(15)}
           onPress={() => openGallery()}
         />
       </View>

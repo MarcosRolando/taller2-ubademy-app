@@ -1,18 +1,13 @@
-import React, { useEffect } from "react";
-import { Text, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { Chip, List } from "react-native-paper";
-import { widthPercentageToDP as wp,
-  heightPercentageToDP as hp} from "react-native-responsive-screen";
-  import colors from '../../styling/colors';
-  import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-  import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const LikedTags = (props : any) => {
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
     "Tag 5", "Tag 6", "Tag 7", "Tag 8",
     "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
-  //const [likedTags, setLikedTags] = React.useState([] as Array<any>);
   const [likedTags, setLikedTags] = React.useState(["Tag 1", "Tag 2"]);
 
   function renderTags() {
@@ -44,8 +39,6 @@ const LikedTags = (props : any) => {
             if (!likedTags.includes(tags[i])) {
               setLikedTags([...likedTags, tags[i]]);
             }
-            console.log(tags[i]);
-            console.log(likedTags);
           }}
         />
       )
