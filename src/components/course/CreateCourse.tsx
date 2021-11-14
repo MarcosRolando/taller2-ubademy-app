@@ -3,7 +3,7 @@ import { Platform, View, Image, StyleSheet } from "react-native";
 import { ActivityIndicator, IconButton, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
-import colors from "../../styling/colors";
+import colors from "../../styles/colors";
 // @ts-ignore
 import defaultPicture from '../../../assets/default-course-image.jpg';
 import { Button, TextInput } from "react-native-paper";
@@ -11,8 +11,6 @@ import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { sendCreateCourse } from "../../scripts/course";
 import CourseTags from "./CourseTags";
-import { ProfileSetupScreen } from "../register/Screens";
-
 
 const CreateCourse = ({ style }: any) => {
   const[uploading, setUploading] = React.useState(false);

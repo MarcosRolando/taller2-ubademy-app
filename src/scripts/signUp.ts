@@ -10,7 +10,7 @@ export async function sendSignupCredentials(email: string, password: string) {
     const res = await axios.post(`${API_URL}${SIGNUP}`, {
       email: email,
       password: password,
-      name: '',
+      name: 'oinoin',
     });
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
