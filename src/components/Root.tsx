@@ -5,7 +5,7 @@ import {CREATE_COURSE, EXPLORE, HOME, PROFILE, USER} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
-import colors from '../styling/colors';
+import colors from '../styles/colors';
 import {
   DrawerContentScrollView,
   DrawerItemList,

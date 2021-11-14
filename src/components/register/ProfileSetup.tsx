@@ -6,8 +6,8 @@ import DropDown from 'react-native-paper-dropdown';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { EXPLORE } from '../../routes';
 import { getSignupCourses, getSignupLocations, sendSignupProfile } from '../../scripts/signUp';
-import colors from '../../styling/colors';
-import { Themes } from '../../styling/themes';
+import colors from '../../styles/colors';
+import { Themes } from '../../styles/themes';
 
 const ProfileSetup = (props: any) => {
     const [username, setUsername] = React.useState({

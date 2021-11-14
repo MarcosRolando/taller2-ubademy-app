@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {List, Subheading} from 'react-native-paper';
-import styles from '../../styling/styles';
+import styles from '../../styles/styles';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAt, faGlobeAmericas} from '@fortawesome/free-solid-svg-icons';
 
