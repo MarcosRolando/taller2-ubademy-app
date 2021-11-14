@@ -8,6 +8,7 @@ import colors from "../../styling/colors";
 import styles from "../../styling/styles";
 import { Themes } from "../../styling/themes";
 import BasicInfo from "./BasicInfo";
+import ClassVideo from "./ClassVideo";
 
 const Course = () => {
 
@@ -16,6 +17,8 @@ const Course = () => {
       <View>
         <BasicInfo />
       </View>
+
+      <ClassVideo />
 
       <View style={{paddingBottom: hp(10)}}></View>
 
