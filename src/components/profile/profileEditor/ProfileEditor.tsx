@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView} from "react-native";
+import { View } from "react-native";
 import { Subheading, Title } from "react-native-paper";
 import styles from "../../../styles/styles";
 import InfoFields from "./InfoFields";
@@ -16,7 +16,7 @@ const ProfileEditor = (props : any) => {
   });
 
   return (
-    <ScrollView style={{paddingHorizontal: wp(3)}}>
+    <View style={{paddingHorizontal: wp(3)}}>
 
       <Title style={styles.profileTitle}>
         Profile Editor
@@ -42,7 +42,7 @@ const ProfileEditor = (props : any) => {
 
       <LikedTags/>
 
-    </ScrollView>
+    </View>
   );
 }
 

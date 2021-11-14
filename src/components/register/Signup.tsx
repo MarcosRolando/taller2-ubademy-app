@@ -4,7 +4,7 @@ import {heightPercentageToDP as hp,
 import {View, Image} from 'react-native';
 import {Text} from 'react-native-paper';
 import SignupCredentials from './SignupCredentials';
-import colors from '../../styling/colors';
+import colors from '../../styles/colors';
 import { LOGIN } from '../../routes';
 
 const Signup = (props: any) => {

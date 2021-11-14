@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileTitle: {
-    paddingTop: hp(10),
+    paddingTop: hp(2.5),
     justifyContent: 'flex-start',
     fontSize: hp(5),
     color: colors.primary

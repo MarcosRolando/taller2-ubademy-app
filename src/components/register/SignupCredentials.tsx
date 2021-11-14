@@ -3,10 +3,10 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Themes } from '../../styling/themes';
+import { Themes } from '../../styles/themes';
 import { sendSignupCredentials } from '../../scripts/signUp';
-import colors from '../../styling/colors';
-import { LOCATION } from '../../routes';
+import colors from '../../styles/colors';
+import { PROFILE_SETUP } from '../../routes';
 
 
 const SignupCredentials = (props: any) => {
@@ -19,10 +19,6 @@ const SignupCredentials = (props: any) => {
     theme: Themes.textInput,
   });
   const [confPassword, setConfPassword] = React.useState({
-    value: '',
-    theme: Themes.textInput,
-  });
-  const [username, setUsername] = React.useState({
     value: '',
     theme: Themes.textInput,
   });
@@ -53,17 +49,9 @@ const SignupCredentials = (props: any) => {
       setErrorMessage('Passwords must match');
       return;
     }
-    if (!username.value.trim()) {
-      setUsername({
-        ...username,
-        theme: Themes.textInputWrong,
-      })
-      setErrorMessage('Please enter a username');
-      return;
-    }
-    sendSignupCredentials(email.value, password.value, username.value)
+    sendSignupCredentials(email.value, password.value)
       .then(() => {
-        props.navigation.navigate(LOCATION)
+        props.navigation.navigate(PROFILE_SETUP)
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);
@@ -105,18 +93,6 @@ const SignupCredentials = (props: any) => {
         value={confPassword.value}
         onChangeText={(newConfPassword) => {
           setConfPassword({...confPassword, value:newConfPassword, theme:Themes.textInput});
-        }}
-        mode='outlined'
-        disableFullscreenUI={true}
-      />
-      <TextInput
-        label='Username'
-        style={{paddingTop:hp(1)}}
-        textContentType='username'
-        theme={username.theme}
-        value={username.value}
-        onChangeText={(newUsername) => {
-          setUsername({...username, value:newUsername, theme:Themes.textInput});
         }}
         mode='outlined'
         disableFullscreenUI={true}

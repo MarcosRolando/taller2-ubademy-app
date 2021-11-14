@@ -3,10 +3,10 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Themes } from '../../styling/themes';
+import { Themes } from '../../styles/themes';
 import sendLoginCredentials from '../../scripts/logIn';
-import { PROFILE } from '../../routes';
-import colors from '../../styling/colors';
+import { PROFILE_SETUP, ROOT } from '../../routes';
+import colors from '../../styles/colors';
 
 
 const LoginCredentials = (props: any) => {
@@ -33,7 +33,7 @@ const LoginCredentials = (props: any) => {
     }
     sendLoginCredentials(username.value, password.value)
       .then(() => {
-        props.navigation.navigate(PROFILE);
+        props.navigation.navigate(ROOT);
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);
@@ -71,7 +71,7 @@ const LoginCredentials = (props: any) => {
           {errorMessage}
         </Text>
       </View>
-      <Button 
+      <Button
         mode='contained' 
         style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
         onPress={sendCredentials}>

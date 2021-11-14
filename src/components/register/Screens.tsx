@@ -4,8 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { heightPercentageToDP as hp, 
     widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Login from './Login'; 
-import Location from './Location';
-import Courses from './Courses';
+import ProfileSetup from './ProfileSetup';
 
 export const SignupScreen = ({navigation}: any) => {
     return (
@@ -17,11 +16,11 @@ export const SignupScreen = ({navigation}: any) => {
     );
 }
 
-export const LocationScreen = ({navigation}: any) => {
+export const ProfileSetupScreen = ({navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Location navigation={navigation} style={styles.screen}/>
+        <ProfileSetup navigation={navigation} style={{...styles.screen, paddingHorizontal:wp(5)}}/>
       </ScrollView>
     </View>
   );
@@ -32,16 +31,6 @@ export const LoginScreen = ({navigation}: any) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Login navigation={navigation} style={styles.screen}/>
-      </ScrollView>
-    </View>
-  );
-}
-
-export const CoursesScreen = ({navigation}: any) => {
-  return (
-    <View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Courses navigation={navigation} style={{...styles.screen, paddingHorizontal:wp(5)}}/>
       </ScrollView>
     </View>
   );
