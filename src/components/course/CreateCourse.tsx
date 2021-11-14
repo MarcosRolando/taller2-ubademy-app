@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { Platform, View, Image, StyleSheet } from "react-native";
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { ActivityIndicator, IconButton, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import colors from "../../styling/colors";
 // @ts-ignore
 import defaultPicture from '../../../assets/default-course-image.jpg';
@@ -111,13 +108,13 @@ const CreateCourse = ({ style }: any) => {
             disableFullscreenUI={true}
             style={{height: hp(4), width: wp(30)}}
           />
-          <View style={{position:'relative', bottom: hp(15), right: wp(1)}}>
-            <TouchableWithoutFeedback 
-              style={{width:wp(14)}}
-              onPress={() => setVideos(videos.filter((video) => video.uri !== uri ))}>
-              <FontAwesomeIcon color={colors.primary} size={30} icon={ faTimesCircle } />
-            </TouchableWithoutFeedback>
-          </View>
+          <IconButton
+            icon='close-circle'
+            color={colors.primary}
+            size={wp(10)}
+            style={{position:'absolute', left: wp(-5), top: hp(-4)}}
+            onPress={() => setVideos(videos.filter((video) => video.uri !== uri ))}
+          />
         </View>
       );
       counter++;
@@ -136,13 +133,13 @@ const CreateCourse = ({ style }: any) => {
             source={{uri: uri, height: hp(14), width: wp(30)}} 
             style={{borderRadius: 10, resizeMode:'contain'}} 
           />
-          <View style={{position:'relative', bottom: hp(15), right: wp(1)}}>
-            <TouchableWithoutFeedback 
-              style={{width:wp(14)}}
-              onPress={() => setImages(images.filter((imageUri) => imageUri !== uri ))}>
-              <FontAwesomeIcon color={colors.primary} size={30} icon={ faTimesCircle } />
-            </TouchableWithoutFeedback>
-          </View>
+          <IconButton
+            icon='close-circle'
+            color={colors.primary}
+            size={wp(10)}
+            style={{position:'absolute', left: wp(-5), top: hp(-4)}}
+            onPress={() => setImages(images.filter((imageUri) => imageUri !== uri ))}
+          />
         </View>
       );
       counter++;
@@ -259,13 +256,13 @@ const CreateCourse = ({ style }: any) => {
           source={{uri: courseImage, height: hp(33)}} 
           style={{borderRadius: 10, resizeMode:'contain'}} 
         />
-        <View style={{position:'absolute', left: wp(3)}}>
-          <TouchableWithoutFeedback 
-            style={{width:wp(14)}} 
-            onPress={pickCourseImage}>
-            <FontAwesomeIcon color={colors.primary} size={50} icon={ faCamera } />
-          </TouchableWithoutFeedback>
-        </View>
+        <IconButton
+          icon="camera"
+          color={colors.primary}
+          size={wp(15)}
+          style={{position:'absolute', left: wp(-3), top: hp(-3)}}
+          onPress={pickCourseImage}
+        />
         <TextInput
           label='Name'
           mode='outlined'
