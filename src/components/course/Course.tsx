@@ -10,6 +10,7 @@ import { Themes } from "../../styling/themes";
 import BasicInfo from "./BasicInfo";
 import ClassVideo from "./ClassVideo";
 import CourseList from "./CourseList";
+import Gallery from "./Gallery/Gallery";
 
 const Course = () => {
 
@@ -19,9 +20,9 @@ const Course = () => {
         <BasicInfo />
       </View>
 
-      <ClassVideo uri="http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" title="Clase 1" />
+      <CourseList/>
 
-      <ClassVideo uri="http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" title="Clase 2" />
+      <Gallery/>
 
       <View style={{paddingBottom: hp(10)}}></View>
 
