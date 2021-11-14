@@ -1,6 +1,6 @@
 import {API_URL} from '../../api_url';
 import axios from 'axios';
-import {COURSES, LOCATIONS, SIGNUP, SIGNUP_PROFILE} from '../endpoints';
+import {SIGNUP, SIGNUP_PROFILE} from '../endpoints';
 import {sendAPIrequest, setAccessToken, getAxiosConfig} from '../apiWrapper';
 import {setUserCredentials} from '../userCredentials';
 import {ERROR_EMAIL_USED} from '../apiErrorMessages';

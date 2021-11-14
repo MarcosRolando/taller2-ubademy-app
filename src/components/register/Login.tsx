@@ -3,7 +3,7 @@ import { Image, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { SIGNUP } from '../../routes';
-import colors from '../../styling/colors';
+import colors from '../../styles/colors';
 import LoginCredentials from './LoginCredentials';
 
 const Login = (props: any) => {

@@ -6,9 +6,9 @@ import {AppRegistry} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {SignupScreen, LoginScreen, ProfileSetupScreen} from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import colors from './src/styling/colors';
-import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP} from './src/routes';
-import {UbademyTheme, NavigationTheme} from './src/styling/themes';
+import colors from './src/styles/colors';
+import {LOGIN, PROFILE_SETUP, ROOT, SIGNUP} from './src/routes';
+import {UbademyTheme, NavigationTheme} from './src/styles/themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
@@ -21,7 +21,7 @@ export default function App() {
       <StatusBar style='light' />
       <SafeAreaProvider style={{backgroundColor: colors.background}}>
         <NavigationContainer theme={NavigationTheme}>
-          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
+          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={ROOT}>
             <Stack.Group>
               <Stack.Screen name={LOGIN} component={LoginScreen} />
               <Stack.Screen name={SIGNUP} component={SignupScreen} />
