@@ -6,7 +6,7 @@ import { heightPercentageToDP as hp,
 import { Themes } from '../../styling/themes';
 import { sendSignupCredentials } from '../../scripts/signUp';
 import colors from '../../styling/colors';
-import { LOCATION, PROFILE_SETUP } from '../../routes';
+import { PROFILE_SETUP } from '../../routes';
 
 
 const SignupCredentials = (props: any) => {
@@ -51,7 +51,7 @@ const SignupCredentials = (props: any) => {
     }
     sendSignupCredentials(email.value, password.value)
       .then(() => {
-        props.navigation.navigate(LOCATION)
+        props.navigation.navigate(PROFILE_SETUP)
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);

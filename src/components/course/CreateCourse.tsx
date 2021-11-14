@@ -12,6 +12,7 @@ import defaultPicture from '../../../assets/default-course-image.jpg';
 import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { sendCreateCourse } from "../../scripts/course";
 
 
 const CreateCourse = ({ style }: any) => {
@@ -28,7 +29,7 @@ const CreateCourse = ({ style }: any) => {
 
   const [showCourses, setShowCourses] = React.useState(false);
   const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
-  const [course, setCourse] = React.useState('');
+  const [courseType, setCourseType] = React.useState('');
 
   const [showSubTypes, setShowSubTypes] = React.useState(false);
   const [subTypesList, setSubTypesList] = React.useState([] as Array<{label:string, value:string}>);
@@ -154,7 +155,7 @@ const CreateCourse = ({ style }: any) => {
       setErrorMessage('Please enter a course name');
       return false;
     }
-    if (!course.trim()) {
+    if (!courseType.trim()) {
       setErrorMessage('Please select a course type');
       return false;
     }
@@ -177,20 +178,28 @@ const CreateCourse = ({ style }: any) => {
     if (validateData()) {
       setErrorMessage('');
       setUploading(true);
-      await uploadMedia();
-      // TODO enviar al back todo
+      const {images, videos} = await uploadMedia();
+      sendCreateCourse(courseName, courseDescription, 
+        examsNumber, subType, courseType, location, images, videos);
       setUploading(false);
     }
   }
 
   async function uploadMedia() {
-    await uploadMediaToFirebase(courseImage);
-    for (const imageToUpload of images) {
-      await uploadMediaToFirebase(imageToUpload);
+    let images = [] as Array<string>;
+    let videos = [] as Array<{name:string, uri:string}>;
+    try {
+      images.push(await uploadMediaToFirebase(courseImage));
+      for (const imageToUpload of images) {
+        images.push(await uploadMediaToFirebase(imageToUpload));
+      }
+      for (const videoToUpload of videos) {
+        videos.push({name: videoToUpload.name, uri: await uploadMediaToFirebase(videoToUpload.uri)});
+      }
+    } catch(error) {
+      console.log(error);
     }
-    for (const videosToUpload of videos) {
-      await uploadMediaToFirebase(videosToUpload.uri);
-    }
+    return {images, videos};
   }
 
   async function uploadMediaToFirebase(uri: string) {
@@ -229,7 +238,7 @@ const CreateCourse = ({ style }: any) => {
             StyleSheet.absoluteFill,
             {
               backgroundColor: "rgba(0,0,0,0.8)",
-              alignItems: "flex-end",
+              alignItems: "center",
               justifyContent: "center",
             },
           ]}
@@ -280,8 +289,8 @@ const CreateCourse = ({ style }: any) => {
           visible={showCourses}
           showDropDown={() => setShowCourses(true)}
           onDismiss={() => setShowCourses(false)}
-          value={course}
-          setValue={setCourse}
+          value={courseType}
+          setValue={setCourseType}
           list={coursesList}
           dropDownStyle={{paddingTop:hp(1)}}
         />
