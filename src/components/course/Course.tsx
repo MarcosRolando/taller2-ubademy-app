@@ -9,6 +9,7 @@ import styles from "../../styling/styles";
 import { Themes } from "../../styling/themes";
 import BasicInfo from "./BasicInfo";
 import ClassVideo from "./ClassVideo";
+import CourseList from "./CourseList";
 
 const Course = () => {
 
@@ -18,7 +19,9 @@ const Course = () => {
         <BasicInfo />
       </View>
 
-      <ClassVideo />
+      <ClassVideo uri="http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" title="Clase 1" />
+
+      <ClassVideo uri="http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" title="Clase 2" />
 
       <View style={{paddingBottom: hp(10)}}></View>
 

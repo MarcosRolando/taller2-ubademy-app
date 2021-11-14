@@ -2,32 +2,27 @@ import React, { useEffect, useRef } from "react";
 import { Button, StyleSheet, View } from "react-native";
 import { Video, AVPlaybackStatus } from "expo-av";
 
-const ClassVideo = () => {
+const ClassVideo = ({uri, title} : any) => {
   const video = React.useRef(null as any);
   const [status, setStatus] = React.useState({} as any);
-
-
-
 
   return (
   <View>
        <View style={styles.container}>
 
-      
         <Video
           ref={video}
           source={{
-            uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+            uri: uri,
           }}
           useNativeControls
           resizeMode="contain"
           isLooping
           onPlaybackStatusUpdate={status => setStatus(() => status)}
-
         />
 
         <Button
-          title={status.isPlaying ? 'Pause' : 'Play'}
+          title={title}
           onPress={() =>
             video.current.presentFullscreenPlayer()
           }
