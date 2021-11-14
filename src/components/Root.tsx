@@ -1,10 +1,10 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {EXPLORE, HOME, PROFILE, USER} from '../routes';
+import {CREATE_COURSE, EXPLORE, HOME, PROFILE, USER} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import {faChalkboard, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import colors from '../styles/colors';
 import {
   DrawerContentScrollView,
@@ -14,7 +14,8 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen} from './home/Screens';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-import ProfileEditor from './profile/profileEditor/ProfileEditor';
+import { CreateCourseScreen } from './course/Screens';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -25,7 +26,9 @@ const CustomDrawerContent = (props: any) => {
     <DrawerContentScrollView {...props}>
       <TouchableHighlight
         onPress={() => props.navigation.navigate(HOME)}
-        underlayColor={colors.background}>
+        underlayColor='#3498db20'
+        style={{width: wp(20), borderRadius: 20, alignSelf: 'center'}}
+        >
         <View style={{height: hp(10), marginVertical: hp(2)}}>
           <Image
             source={require('../../assets/ubademy-logo.png')}
@@ -58,11 +61,20 @@ const Root = () => {
           <FontAwesomeIcon color={color} size={size} icon={ faSchool } />
         ),
       }} />
-      <Drawer.Screen name={PROFILE} component={ProfileScreen}
+      <Drawer.Screen 
+        name={CREATE_COURSE}
+        component={CreateCourseScreen}
+        options={{
+          drawerIcon: ({size, color}) => (
+            <FontAwesomeIcon color={color} size={size} icon={ faChalkboard } />
+      )}}/>
+      <Drawer.Screen
+        name={PROFILE}
+        component={ProfileScreen}
         options={{
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faUserCircle } />
-          )}}/>
+      )}}/>
     </Drawer.Navigator>
   );
 };
