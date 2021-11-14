@@ -8,7 +8,6 @@ import { sendSignupCredentials } from '../../scripts/signUp';
 import colors from '../../styles/colors';
 import { PROFILE_SETUP } from '../../routes';
 
-
 const SignupCredentials = (props: any) => {
   const [email, setEmail] = React.useState({
     value: '',

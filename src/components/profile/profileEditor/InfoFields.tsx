@@ -5,26 +5,14 @@ import styles from "../../../styles/styles";
 import { Themes } from "../../../styles/themes";
 
 
-const InfoFields = (props : any) => {
-
-  function changeName(event : any) {
-    const newState = {
-      ...props.a,
-      name: event
-    }
-      props.setInfo(newState);
-  }
-
+const InfoFields = ({ name, setName }: any) => {
   return (
-
     <View style={styles.fieldView}>
-
       <TextInput
         theme={Themes.textInput}
-        onChangeText={changeName}
-        value={props.info.name}
+        onChangeText={setName}
+        value={name}
       />
-
     </View>
 
   )
