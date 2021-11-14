@@ -13,4 +13,4 @@ export const PROFILE = 'Profile';
 // Home Routes
 export const HOME = 'Home';
 export const USER = 'User'; // The screen used for a user profile (not the main one, that one is Profile)
-export const CREATE_COURSE = 'CreateCourse';
+export const CREATE_COURSE = 'Create course';
