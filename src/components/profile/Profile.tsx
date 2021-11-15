@@ -45,7 +45,7 @@ const Profile = (props: any) => {
     <View style={props.style}>
       <Intro username={name}/>
       {(props.ownProfile !== undefined) ? 
-        <BasicInfo email={email} location={location} />
+        <BasicInfo email={email} location={location} subType={subType} />
         :
         <></>
       }

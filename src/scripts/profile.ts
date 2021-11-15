@@ -14,12 +14,13 @@ export async function getOwnProfile() {
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    const data = res.data['profile'];
     return Promise.resolve({
-      _name: res.data['name'],
-      _email: res.data['email'],
-      _location: res.data['country'],
-      _subType: res.data['subscription_type'],
-      _genres: res.data['interesting_genres'],
+      _name: data['name'],
+      _email: data['email'],
+      _location: data['country'],
+      _subType: data['subscription_type'],
+      _genres: data['interesting_genres'],
       //TODO eventualmente me tienen que llegar los cursos en los que esta inscripto
     });
   } catch (error) {

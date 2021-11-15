@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   profileName: {
     paddingTop: hp(2),
     color: colors.primary,
+    fontSize: 26,
   },
   profileSubtitle: {
     paddingTop: hp(5),
