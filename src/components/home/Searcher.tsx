@@ -11,7 +11,7 @@ const Searcher = ({navigation}: any) => {
 
   function sendQuery() {
     if (searchQuery === 'some other user') {
-      navigation.navigate(USER);
+      navigation.navigate(USER, {email:'ivi'});
     }
   }
 

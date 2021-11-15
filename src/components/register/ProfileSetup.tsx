@@ -4,8 +4,8 @@ import { heightPercentageToDP as hp,
 widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DropDown from 'react-native-paper-dropdown';
 import { Text, Button, TextInput } from 'react-native-paper';
-import { EXPLORE } from '../../routes';
-import { getSignupCourses, getSignupLocations, sendSignupProfile } from '../../scripts/signUp';
+import { ROOT } from '../../routes';
+import { getSignupData, sendSignupProfile } from '../../scripts/signUp';
 import colors from '../../styles/colors';
 import { Themes } from '../../styles/themes';
 
@@ -23,27 +23,20 @@ const ProfileSetup = (props: any) => {
     const [errorMessage, setErrorMessage] = React.useState('');
 
     useEffect(() => {
-      getSignupLocations()
-        .then((locations) => {
+      getSignupData()
+        .then(({locations, courses}) => {
           let nLocations = locations.map((location) => {
             return {label:location, value:location};
           })
           setLocationList(nLocations);
+          let nCourses = courses.map((course) => {
+            return {label:course, value:course};
+          })
+          setCoursesList(nCourses);
         },
         (errorMsg: Error) => {
           setErrorMessage(errorMsg.message);
         });
-
-      getSignupCourses()
-      .then((courses) => {
-        let nCourses = courses.map((course) => {
-          return {label:course, value:course};
-        })
-        setCoursesList(nCourses);
-      },
-      (errorMsg: Error) => {
-        setErrorMessage(errorMsg.message);
-      });
     }, []); // The empty list avoids this function being run every time the user opens or closes the list of locations
 
     function sendData() {
@@ -62,7 +55,7 @@ const ProfileSetup = (props: any) => {
       let coursesToSend = courses.split(',').filter((course) => (course !== ''));
       sendSignupProfile(username.value, location, coursesToSend)
         .then(() => {
-          props.navigation.navigate(EXPLORE);
+          props.navigation.navigate(ROOT);
         },
         (errorMsg: Error) => {
           setErrorMessage(errorMsg.message);
@@ -76,7 +69,7 @@ const ProfileSetup = (props: any) => {
         </View>
         <TextInput
           label='Username'
-          style={{paddingTop:hp(4)}}
+          style={{marginTop:hp(4), marginBottom:hp(1)}}
           textContentType='username'
           theme={username.theme}
           value={username.value}
@@ -96,8 +89,8 @@ const ProfileSetup = (props: any) => {
           setValue={setLocation}
           list={locationList}
           dropDownStyle={{paddingTop:hp(1)}}
-          multiSelect
         />
+        <View style={{marginVertical: hp(1)}} />
         <DropDown
           label={"What are you interested in?"}
           mode={"outlined"}

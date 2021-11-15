@@ -1,4 +1,34 @@
-export default async function getCoursesData() {
+import axios from "axios";
+import { API_URL } from "../../api_url";
+import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
+import { PROFILE } from "../endpoints";
+
+export async function getProfileInfo(email: string) {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+      `${API_URL}${PROFILE}/${email}`, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    const data = res.data['profile'];
+    return Promise.resolve({
+      _name: data['name'],
+      _email: data['email'],
+      _location: data['country'],
+      _subType: data['subscription_type'],
+      _genres: data['interesting_genres'],
+      //TODO eventualmente me tienen que llegar los cursos en los que esta inscripto
+    });
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function getCoursesData() {
   try {
     const response = await fetch(
         'https://reqres.in/api/unknown',

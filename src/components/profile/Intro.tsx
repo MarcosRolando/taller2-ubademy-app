@@ -8,7 +8,7 @@ const Intro = ({username}: any) => {
   return (
     <View style={styles.profileImage}>
       <Avatar.Image
-        size={wp(30)}
+        size={wp(40)}
         source={require('../../images/example.jpg')}
       />
       <Title style={styles.profileName}>

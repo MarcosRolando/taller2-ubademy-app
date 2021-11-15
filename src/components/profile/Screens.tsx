@@ -37,11 +37,13 @@ export const ProfileScreen = ({navigation}: any) => {
     );
 }
 
-export const UserScreen = ({navigation}: any) => {
+export const UserScreen = ({route, navigation}: any) => {
+  const { email } = route.params;
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Profile style={styles.profile}/>
+        <Profile style={styles.profile} email={email} />
       </ScrollView>
     </View>
   );
