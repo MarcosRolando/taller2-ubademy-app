@@ -2,12 +2,11 @@ import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { PROFILE } from "../endpoints";
-import { getUserCredentials } from '../userCredentials';
 
-export async function getOwnProfile() {
+export async function getProfileInfo(email: string) {
   try {
     const res = await sendAPIrequest(() => axios.get(
-      `${API_URL}${PROFILE}/${getUserCredentials().email}`, getAxiosConfig()));
+      `${API_URL}${PROFILE}/${email}`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:
@@ -29,7 +28,7 @@ export async function getOwnProfile() {
   }
 }
 
-export default async function getCoursesData() {
+export async function getCoursesData() {
   try {
     const response = await fetch(
         'https://reqres.in/api/unknown',

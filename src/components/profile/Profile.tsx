@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
 import { View} from 'react-native';
 import { Button } from 'react-native-paper';
-import getCoursesData, { getOwnProfile } from '../../scripts/profile';
+import { getCoursesData, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
 import Intro from './Intro';
 import { heightPercentageToDP as hp,
  widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { PROFILE_EDITOR } from '../../routes';
+import { getUserCredentials } from '../../userCredentials';
 
 
 const Profile = (props: any) => {
@@ -32,7 +33,8 @@ const Profile = (props: any) => {
           courseCollaborator: [...data],
         });
       });
-    getOwnProfile()
+    const userEmail = (props.email !== undefined) ? props.email : getUserCredentials().email;
+    getProfileInfo(userEmail)
       .then(({_name, _email, _location, _subType, _genres}) => {
         setName(_name);
         setEmail(_email);
