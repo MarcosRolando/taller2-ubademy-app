@@ -9,7 +9,7 @@ import defaultPicture from '../../../assets/default-course-image.jpg';
 import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { sendCreateCourse } from "../../scripts/course";
+import { getCreateCourseInfo, sendCreateCourse } from "../../scripts/course";
 import CourseTags from "./CourseTags";
 
 const CreateCourse = ({ style }: any) => {
@@ -51,6 +51,20 @@ const CreateCourse = ({ style }: any) => {
         }
       }
     })();
+    getCreateCourseInfo()
+      .then(({_locations, _subTypes, _genres}) => {
+        console.log(_subTypes);
+        const nLocations = _locations.map((location: any) => {
+          return {label:location, value:location};
+        });
+        const nGenres = _genres.map((genre: any) => {
+          return {label:genre, value:genre};
+        })
+        //const nSubTypes = _subTypes.keys();
+        setLocationsList(nLocations);
+        //setSubTypesList(_subTypes.keys);
+        setCoursesList(nGenres);
+      });
   }, []);
 
   async function pickCourseImage() {

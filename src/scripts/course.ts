@@ -1,7 +1,30 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { CREATE_COURSE } from "../endpoints";
+import { COURSE_SETUP, CREATE_COURSE } from "../endpoints";
+
+
+export async function getCreateCourseInfo() {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+      `${API_URL}${COURSE_SETUP}`, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    return Promise.resolve({
+      _locations: res.data['locations'],
+      _subTypes: res.data['subscriptions'],
+      _genres: res.data['course_genres'],
+    });
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
 
 export async function sendCreateCourse(title: string, description: string,
     totalExams: string, subscriptionType: string, courseType: string,
