@@ -1,31 +1,56 @@
-import React, {useRef} from 'react'
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native"
+import React, { useRef, useEffect } from 'react'
+import { BackHandler, Modal, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
+import { Button } from 'react-native-paper'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import GalleryItem, { SLIDER_WIDTH, ITEM_WIDTH } from './GalleryItem'
 import { heightPercentageToDP as hp,
   widthPercentageToDP as wp } from "react-native-responsive-screen";
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 
 const data = [
   {
     title: "John 1",
-    uri:
+    url:
       "https://i.imgur.com/UYiroysl.jpg",
   },
   {
     title: "John 2",
-    uri:
+    url:
       "https://i.imgur.com/UPrs1EWl.jpg",
   },
 ]
 
 
 const CarouselCards = () => {
-  const [index, setIndex] = React.useState(0)
+  const [indexCarousel, setindexCarousel] = React.useState(0)
   const carouselRef = useRef(null) as any;
+  const [isModalVisible, setModalVisible] = React.useState(true)
+
+  function closeModal() {
+    if (isModalVisible) {
+      setModalVisible(false);
+    } else {
+      setModalVisible(true);
+    }
+  }
+
 
   return (
     <SafeAreaView style={{alignItems:"center", alignContent: "center",}}>
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+      >
+        <ImageViewer
+          imageUrls={data}
+          enableSwipeDown={true}
+          onSwipeDown={closeModal}
+          useNativeDriver={true}
+          onChange={(index) => console.log(index)}
+        />
+      </Modal>
+
       <Carousel
         ref={carouselRef}
         sliderWidth={wp(100)}
@@ -36,11 +61,11 @@ const CarouselCards = () => {
         layout={'tinder'}
         layoutCardOffset={9}
         useScrollView={true}
-        onSnapToItem={(i) => setIndex(i)}
+        onSnapToItem={(i) => setIndexCarousel(i)}
       />
       <Pagination
         dotsLength={data.length}
-        activeDotIndex={index}
+        activeDotIndex={indexCarousel}
         carouselRef={carouselRef}
         dotStyle={{
           width: 10,
@@ -53,7 +78,13 @@ const CarouselCards = () => {
         inactiveDotScale={0.6}
         tappableDots={true}
       />
-        
+
+      <Button
+        onPress={() => closeModal()}
+      >
+        Touch!
+      </Button>
+
     </SafeAreaView>
 
   )

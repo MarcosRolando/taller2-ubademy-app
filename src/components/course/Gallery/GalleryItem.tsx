@@ -1,25 +1,38 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { ParallaxImage } from 'react-native-snap-carousel'
+import { Modal, View, Text, StyleSheet, Dimensions, Image } from "react-native";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { ParallaxImage } from 'react-native-snap-carousel';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 export const SLIDER_WIDTH = wp(100) + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 
+const images = [{
+  url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
+  props: {
 
-const CarouselCardItem = ({ item, index } : any) => {
+  }
+}, {
+  url: 'https://i.imgur.com/UPrs1EWl.jpg',
+  props: {
+
+  }
+}]
+
+const GalleryItem = ({ item, index } : any) => {
+  //const [isModalVisible, setModalVisible] = React.useState(false)
+
   return (
     <View style={styles.container} key={index}>
-                <Image
-                    source={{uri: item.uri}}
-                    style={styles.image}
-                />
-                <Text numberOfLines={2}>
-                    { item.title }
-                </Text>
+      <Image
+          source={{uri: item.url}}
+          style={styles.image}
+      />
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -54,4 +67,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CarouselCardItem
+export default GalleryItem;
