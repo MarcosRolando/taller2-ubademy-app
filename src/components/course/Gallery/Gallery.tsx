@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from 'react'
 import { BackHandler, Modal, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
-import { Button } from 'react-native-paper'
+import { IconButton } from 'react-native-paper'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import GalleryItem, { SLIDER_WIDTH, ITEM_WIDTH } from './GalleryItem'
 import { heightPercentageToDP as hp,
   widthPercentageToDP as wp } from "react-native-responsive-screen";
 import ImageViewer from 'react-native-image-zoom-viewer';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 const data = [
@@ -23,7 +25,8 @@ const data = [
 
 
 const CarouselCards = () => {
-  const [indexCarousel, setindexCarousel] = React.useState(0)
+  const [indexCarousel, setIndexCarousel] = React.useState(0)
+  const [indexZoom, setIndexZoom] = React.useState(0);
   const carouselRef = useRef(null) as any;
   const [isModalVisible, setModalVisible] = React.useState(true)
 
@@ -47,7 +50,11 @@ const CarouselCards = () => {
           enableSwipeDown={true}
           onSwipeDown={closeModal}
           useNativeDriver={true}
-          onChange={(index) => console.log(index)}
+          onChange={(index) => {
+            setIndexCarousel(index as number);
+            setIndexZoom(index as number);
+          }}
+          index={indexCarousel}
         />
       </Modal>
 
@@ -61,8 +68,13 @@ const CarouselCards = () => {
         layout={'tinder'}
         layoutCardOffset={9}
         useScrollView={true}
-        onSnapToItem={(i) => setIndexCarousel(i)}
+        onSnapToItem={(i) => {
+          setIndexCarousel(i);
+          setIndexZoom(i);
+        }}
+        firstItem={indexZoom}
       />
+
       <Pagination
         dotsLength={data.length}
         activeDotIndex={indexCarousel}
@@ -79,11 +91,14 @@ const CarouselCards = () => {
         tappableDots={true}
       />
 
-      <Button
-        onPress={() => closeModal()}
-      >
-        Touch!
-      </Button>
+      <IconButton
+          icon={({size, color}) => (
+            <FontAwesomeIcon color={color} size={size} icon={ faSearchPlus } />
+          )}
+          color={"red"}
+          size={wp(15)}
+          onPress={closeModal}
+        />
 
     </SafeAreaView>
 
