@@ -62,7 +62,15 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: colors.primary,
     paddingTop: hp(1),
-    paddingBottom: hp(1)
+    paddingBottom: hp(1),
+    flexDirection: "row",
+    justifyContent: "center"
+  },
+  buttonOnFront: {
+    backgroundColor: colors.background,
+    borderRadius: 1.5,
+    padding:wp(2),
+    marginLeft:wp(10)
   }
 });
 

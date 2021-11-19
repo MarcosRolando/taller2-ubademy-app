@@ -1,6 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import { List, Subheading } from "react-native-paper";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import styles from "../../styling/styles";
 import ClassVideo from "./ClassVideo";
 
 const CourseList = () => {
@@ -28,7 +30,7 @@ const CourseList = () => {
 
   return (
     <View>
-      <Subheading>
+      <Subheading style={{...styles.profileSubtitle, paddingTop: hp(0), marginTop: hp(3), marginBottom: hp(3)}}>
         Classes
       </Subheading>
 

@@ -1,33 +1,54 @@
 import React, { useEffect, useRef } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { List } from "react-native-paper";
 import { Video, AVPlaybackStatus } from "expo-av";
+import colors from "../../styling/colors";
 
 const ClassVideo = ({uri, title} : any) => {
   const video = React.useRef(null as any);
   const [status, setStatus] = React.useState({} as any);
 
+  function onFullscreenUpdate(fullscreenUpdate: any) {
+    fullscreenUpdate.status.isMuted=false;
+    console.log(fullscreenUpdate);
+    switch (fullscreenUpdate.fullscreenUpdate) {
+      case Video.FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT: 
+        break;
+      case Video.FULLSCREEN_UPDATE_PLAYER_DID_PRESENT: 
+        break;
+      case Video.FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS: 
+        break;
+      case Video.FULLSCREEN_UPDATE_PLAYER_DID_DISMISS: 
+        video.current.stopAsync();
+      ;
+    }
+  }
+
   return (
   <View>
-       <View style={styles.container}>
+    <View style={styles.container}>
+      <Video
+        ref={video}
+        source={{
+          uri: uri,
+        }}
+        useNativeControls
+        resizeMode="contain"
+        isLooping
+        onPlaybackStatusUpdate={status => {setStatus(() => status)}}
+        rate={1.0}
+        onFullscreenUpdate={onFullscreenUpdate}
+      />
 
-        <Video
-          ref={video}
-          source={{
-            uri: uri,
-          }}
-          useNativeControls
-          resizeMode="contain"
-          isLooping
-          onPlaybackStatusUpdate={status => setStatus(() => status)}
-        />
-
-        <Button
-          title={title}
-          onPress={() =>
-            video.current.presentFullscreenPlayer()
-          }
-        />
-       </View>
+      <List.Item
+        title={title}
+        left={props => <List.Icon {...props} icon="play"/>}
+        onPress={() => {
+          video.current.presentFullscreenPlayer();
+        }}
+        style={{backgroundColor:colors.background}}
+      />
+      </View>
     </View>
 
   );

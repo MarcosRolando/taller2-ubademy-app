@@ -1,7 +1,8 @@
 import React from "react";
 import { Image, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Button, Card, Paragraph, Portal, Subheading, Title } from "react-native-paper";
+import { Card, Paragraph, Portal, Subheading, Text, Title } from "react-native-paper";
+import { Button, TouchableOpacity } from "react-native";
 import { color } from "react-native-reanimated";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../styling/colors";
@@ -13,28 +14,43 @@ import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 
 const Course = () => {
+  const [info, setInfo] = React.useState({
+    name: "Titulo del curso",
+    source: require('../../images/example.jpg'),
+    intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    subscriptionType: "FREE"
+  })
 
   return (
     <ScrollView style={{paddingHorizontal: wp(3)}}>
       <View>
-        <BasicInfo />
+        <BasicInfo info={info} />
       </View>
 
       <CourseList/>
+
+      <View style={{marginBottom: hp(3)}}></View>
 
       <Gallery/>
 
       <View style={{paddingBottom: hp(10)}}></View>
 
       <Portal>
-        <View
-          style={styles.viewOnFront}>
-          <Button
-            color={colors.background}
+        <View style={styles.viewOnFront}>
+
+          <Text>{info.subscriptionType}</Text>
+
+          <TouchableOpacity
             onPress={() => console.log("presionado!")}
+            style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
           >
-            Subscribe
-          </Button>
+
+            <Text style={{}}
+              >SUBSCRIBE
+            </Text>
+            
+          </TouchableOpacity>
+
         </View>
       </Portal>
   
