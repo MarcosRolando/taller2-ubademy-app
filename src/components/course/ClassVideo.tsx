@@ -9,8 +9,6 @@ const ClassVideo = ({uri, title} : any) => {
   const [status, setStatus] = React.useState({} as any);
 
   function onFullscreenUpdate(fullscreenUpdate: any) {
-    fullscreenUpdate.status.isMuted=false;
-    console.log(fullscreenUpdate);
     switch (fullscreenUpdate.fullscreenUpdate) {
       case Video.FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT: 
         break;

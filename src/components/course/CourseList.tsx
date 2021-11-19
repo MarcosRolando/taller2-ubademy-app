@@ -5,25 +5,15 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import styles from "../../styling/styles";
 import ClassVideo from "./ClassVideo";
 
-const CourseList = () => {
-  const [courses, setCourses] = React.useState([
-    {
-    title: "Class 1",
-    uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-    },
-    {
-    title: "Class 2",
-    uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-    }
-])
+const CourseList = (props: any) => {
+  const course = props.info.videos;
 
   function renderCourses() {
     const coursesToRender = []
-    for (let i = 0; i < courses.length; i++) {
+    for (let i = 0; i < course.length; i++) {
       coursesToRender.push(
-        <ClassVideo key={i} title={courses[i].title} uri={courses[i].uri} />
+        <ClassVideo key={i} title={course[i].title} uri={course[i].uri} />
       )
-      console.log(courses[i].title)
     }
     return coursesToRender;
   }

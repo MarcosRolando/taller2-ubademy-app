@@ -25,11 +25,13 @@ const data = [
 ]
 
 
-const CarouselCards = () => {
+
+const CarouselCards = (props: any) => {
   const [indexCarousel, setIndexCarousel] = React.useState(0)
   const [indexZoom, setIndexZoom] = React.useState(0);
   const carouselRef = useRef(null) as any;
-  const [isModalVisible, setModalVisible] = React.useState(false)
+  const [isModalVisible, setModalVisible] = React.useState(false);
+  const images = props.images;
 
   function closeModal() {
     if (isModalVisible) {
@@ -37,6 +39,8 @@ const CarouselCards = () => {
     } else {
       setModalVisible(true);
     }
+    console.log(props.info.images);
+    console.log(data);
   }
 
 
@@ -48,7 +52,7 @@ const CarouselCards = () => {
           transparent={false}
         >
           <ImageViewer
-            imageUrls={data}
+            imageUrls={props.info.images}
             enableSwipeDown={true}
             onSwipeDown={closeModal}
             useNativeDriver={true}
@@ -76,7 +80,7 @@ const CarouselCards = () => {
           sliderWidth={wp(100)}
           sliderHeight={wp(100)}
           itemWidth={wp(100) - wp(15)}
-          data={data}
+          data={props.info.images}
           renderItem={GalleryItem}
           layout={'tinder'}
           layoutCardOffset={9}
@@ -89,7 +93,7 @@ const CarouselCards = () => {
         />
 
         <Pagination
-          dotsLength={data.length}
+          dotsLength={props.info.images.length}
           activeDotIndex={indexCarousel}
           carouselRef={carouselRef}
           dotStyle={{
