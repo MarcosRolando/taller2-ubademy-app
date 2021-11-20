@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT, THE DOCUMENTATION SAYS SO!
 
 import {StatusBar} from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {AppRegistry} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {SignupScreen, LoginScreen, ProfileSetupScreen} from './src/components/register/Screens';
@@ -13,10 +13,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
 import Course from './src/components/course/Course';
+import sendLoginCredentials from './src/scripts/logIn';
 
 const Stack = createNativeStackNavigator();
 
-/**
+
 export default function App() {
   return (
     <PaperProvider theme={UbademyTheme}>
@@ -36,12 +37,21 @@ export default function App() {
     </PaperProvider>
   );
 }
-*/
 
+
+/**
 export default function App() {
+  
+
+  useEffect(() => {
+    sendLoginCredentials("un_mail_random@gmail.com", "una_contrasenia");
+  }, [])
+
+  
   return (
     <PaperProvider theme={UbademyTheme}>
       <StatusBar style='light' />
+
       <SafeAreaProvider style={{backgroundColor: colors.background}}>
         <NavigationContainer theme={NavigationTheme}>
           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
@@ -54,3 +64,4 @@ export default function App() {
 }
 
 AppRegistry.registerComponent('ubademy', () => App);
+**/
