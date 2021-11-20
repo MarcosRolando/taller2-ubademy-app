@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Card, Paragraph, Portal, Subheading, Text, Title } from "react-native-paper";
@@ -12,10 +12,13 @@ import BasicInfo from "./BasicInfo";
 import ClassVideo from "./ClassVideo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
+import sendLoginCredentials from "../../scripts/logIn";
+
+import getCourseInfo from "../../scripts/course";
 
 const Course = () => {
   const [info, setInfo] = React.useState({
-    name: "Titulo del curso",
+    title: "Titulo del curso muy muy muy largo",
     source: require('../../images/example.jpg'),
     intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     subscriptionType: "FREE",
@@ -41,17 +44,60 @@ const Course = () => {
     ]
   })
 
+  const [showVideo, setShowVideo] = React.useState(true);
+  const [showImages, setShowImages] = React.useState(true);
+
+  useEffect(() => {
+    (
+      async () => {
+        await sendLoginCredentials("un_mail_random@gmail.com", "una_contrasenia");
+        await getCourseInfo()
+          .then(({
+            id, country, course_type, description, hashtags,
+            images, subscription_type, title, total_exams, videos}) => {
+            const videosParsed = [];
+            for (let i = 0; i < videos.length; i++) {
+              videosParsed.push({
+                title: videos[i].name,
+                uri: videos[i].url
+              })
+            };
+
+            if (images.length == 0) {
+              setShowImages(false);
+            }
+            if (videosParsed.length == 0) {
+              setShowImages(false);
+            }
+
+            setInfo({
+              ...info,
+              title: title,
+              subscriptionType: subscription_type,
+              intro: description,
+              images: images,
+              videos: videosParsed
+            })
+          })
+      }
+    )()
+  }, [])
+
   return (
     <ScrollView style={{paddingHorizontal: wp(3)}}>
       <View>
         <BasicInfo info={info} />
       </View>
 
-      <CourseList info={info}/>
+      {showVideo ? (
+        <CourseList info={info}/>
+        ) : null}
 
       <View style={{marginBottom: hp(3)}}></View>
 
-      <Gallery info={info}/>
+      {showImages ? (
+        <Gallery info={info}/>
+        ) : null}
 
       <View style={{paddingBottom: hp(10)}}></View>
 

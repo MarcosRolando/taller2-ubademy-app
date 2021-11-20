@@ -13,7 +13,19 @@ export default async function getCourseInfo() {
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
+    const course = res.data['course'];
+    return Promise.resolve({
+      id: course['_id'],
+      country: course['country'],
+      course_type: course['course_type'],
+      description: course['description'],
+      hashtags: course['hastags'],
+      images: course['images'],
+      subscription_type: course['subscription_type'],
+      title: course['title'],
+      total_exams: course['total_exams'],
+      videos: course['videos']
+    })
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error("Error when trying to reach the server"));

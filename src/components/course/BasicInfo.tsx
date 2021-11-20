@@ -11,7 +11,7 @@ const BasicInfo = (props: any) => {
     <View>
 
       <Title style={styles.profileTitle}>
-        {props.info.name}
+        {props.info.title}
       </Title>
 
       <View style={{marginTop: hp(2)}}>
