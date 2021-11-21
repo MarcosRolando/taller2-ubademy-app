@@ -8,7 +8,7 @@ import { heightPercentageToDP as hp,
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
-import colors from '../../../styling/colors'
+import colors from '../../../styles/colors'
 
 
 const data = [

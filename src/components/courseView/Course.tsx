@@ -5,16 +5,16 @@ import { Card, Paragraph, Portal, Subheading, Text, Title } from "react-native-p
 import { Button, TouchableOpacity } from "react-native";
 import { color } from "react-native-reanimated";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import colors from "../../styling/colors";
-import styles from "../../styling/styles";
-import { Themes } from "../../styling/themes";
+import colors from "../../styles/colors";
+import styles from "../../styles/styles";
+import { Themes } from "../../styles/themes";
 import BasicInfo from "./BasicInfo";
 import ClassVideo from "./ClassVideo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 import sendLoginCredentials from "../../scripts/logIn";
 
-import getCourseInfo from "../../scripts/course";
+import { getCourseInfo } from "../../scripts/course";
 
 const Course = () => {
   const [info, setInfo] = React.useState({

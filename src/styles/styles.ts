@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   profileName: {
     paddingTop: hp(2),
     color: colors.primary,
+    fontSize: 26,
   },
   profileSubtitle: {
     paddingTop: hp(5),
@@ -71,7 +72,10 @@ const styles = StyleSheet.create({
     borderRadius: 1.5,
     padding:wp(2),
     marginLeft:wp(10)
-  }
+  },
+  fieldView: {
+    paddingHorizontal: wp(5)
+  },
 });
 
 export default styles;

@@ -1,8 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import { Card, Paragraph, Subheading, Title } from "react-native-paper";
-import styles from "../../styling/styles";
-import colors from "../../styling/colors";
+import styles from "../../styles/styles";
+import colors from "../../styles/colors";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const BasicInfo = (props: any) => {

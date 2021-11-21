@@ -1,6 +1,6 @@
 import React from "react";
 import { Searchbar } from "react-native-paper";
-import colors from "../../styling/colors";
+import colors from "../../styles/colors";
 import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { USER } from "../../routes";
@@ -11,7 +11,7 @@ const Searcher = ({navigation}: any) => {
 
   function sendQuery() {
     if (searchQuery === 'some other user') {
-      navigation.navigate(USER);
+      navigation.navigate(USER, {email:'ivi'});
     }
   }
 

@@ -20,7 +20,7 @@ export const ProfileSetupScreen = ({navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ProfileSetup navigation={navigation} style={{...styles.screen, paddingHorizontal:wp(5)}}/>
+        <ProfileSetup navigation={navigation} style={{...styles.screen, paddingHorizontal:wp(10)}}/>
       </ScrollView>
     </View>
   );

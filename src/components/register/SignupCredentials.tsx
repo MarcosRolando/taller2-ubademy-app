@@ -3,11 +3,10 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Themes } from '../../styling/themes';
+import { Themes } from '../../styles/themes';
 import { sendSignupCredentials } from '../../scripts/signUp';
-import colors from '../../styling/colors';
-import { LOCATION, PROFILE_SETUP } from '../../routes';
-
+import colors from '../../styles/colors';
+import { PROFILE_SETUP } from '../../routes';
 
 const SignupCredentials = (props: any) => {
   const [email, setEmail] = React.useState({
@@ -51,7 +50,7 @@ const SignupCredentials = (props: any) => {
     }
     sendSignupCredentials(email.value, password.value)
       .then(() => {
-        props.navigation.navigate(LOCATION)
+        props.navigation.navigate(PROFILE_SETUP)
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);

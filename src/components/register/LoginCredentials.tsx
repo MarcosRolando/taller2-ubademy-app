@@ -3,10 +3,10 @@ import {View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { Themes } from '../../styling/themes';
+import { Themes } from '../../styles/themes';
 import sendLoginCredentials from '../../scripts/logIn';
-import { PROFILE_SETUP, ROOT } from '../../routes';
-import colors from '../../styling/colors';
+import { ROOT } from '../../routes';
+import colors from '../../styles/colors';
 
 
 const LoginCredentials = (props: any) => {
