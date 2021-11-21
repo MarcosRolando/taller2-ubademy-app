@@ -33,6 +33,12 @@ const styles = StyleSheet.create({
     paddingTop: hp(2),
     alignItems: 'center',
   },
+  profileTitle: {
+    paddingTop: hp(10),
+    justifyContent: 'flex-start',
+    fontSize: hp(5),
+    color: colors.primary
+  },
   profileName: {
     paddingTop: hp(2),
     color: colors.primary,
@@ -45,6 +51,27 @@ const styles = StyleSheet.create({
   hideView: {
     height: 0,
     width: 0,
+  },
+  viewOnFront: {
+    position: "absolute",
+    bottom:0,
+    alignContent: "center",
+    alignItems: 'center',
+    marginLeft: "auto",
+    marginRight: "auto",
+    left: 0,
+    right: 0,
+    backgroundColor: colors.primary,
+    paddingTop: hp(1),
+    paddingBottom: hp(1),
+    flexDirection: "row",
+    justifyContent: "center"
+  },
+  buttonOnFront: {
+    backgroundColor: colors.background,
+    borderRadius: 1.5,
+    padding:wp(2),
+    marginLeft:wp(10)
   },
   fieldView: {
     paddingHorizontal: wp(5)
