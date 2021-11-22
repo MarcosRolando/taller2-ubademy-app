@@ -1,14 +1,14 @@
-import React, { useRef, useEffect } from 'react'
-import { BackHandler, Modal, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
+import React, { useRef } from 'react'
+import { Modal, SafeAreaView, View } from "react-native"
 import { IconButton } from 'react-native-paper'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import GalleryItem, { SLIDER_WIDTH, ITEM_WIDTH } from './GalleryItem'
+import GalleryItem from './GalleryItem'
 import { heightPercentageToDP as hp,
   widthPercentageToDP as wp } from "react-native-responsive-screen";
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
-import colors from '../../../styles/colors'
+import colors from '../../../../styles/colors'
 
 
 const data = [
@@ -31,7 +31,6 @@ const CarouselCards = (props: any) => {
   const [indexZoom, setIndexZoom] = React.useState(0);
   const carouselRef = useRef(null) as any;
   const [isModalVisible, setModalVisible] = React.useState(false);
-  const images = props.images;
 
   function closeModal() {
     if (isModalVisible) {

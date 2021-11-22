@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { List } from "react-native-paper";
-import { Video, AVPlaybackStatus } from "expo-av";
-import colors from "../../styles/colors";
+import { Video } from "expo-av";
+import colors from "../../../styles/colors";
 
 const ClassVideo = ({uri, title} : any) => {
   const video = React.useRef(null as any);
