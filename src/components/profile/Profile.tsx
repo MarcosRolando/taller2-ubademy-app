@@ -9,6 +9,7 @@ import { heightPercentageToDP as hp,
  widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { PROFILE_EDITOR } from '../../routes';
 import { getUserCredentials } from '../../userCredentials';
+import { useFocusEffect } from '@react-navigation/core';
 
 
 const Profile = (props: any) => {
@@ -24,7 +25,7 @@ const Profile = (props: any) => {
     courseCollaborator: [] as any,
   });
 
-  useEffect(() => {
+  useFocusEffect(React.useCallback(() => {
     getCoursesData()
       .then((data) => {
         setCoursesData({
@@ -41,7 +42,7 @@ const Profile = (props: any) => {
         setLocation(_location);
         setSubType(_subType);
       });
-  }, []);
+  }, []));
 
   const editProfile = () => {
     props.navigation.navigate(PROFILE_EDITOR, { name, location })

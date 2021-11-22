@@ -12,14 +12,14 @@ import colors from "../../../styles/colors";
 import { sendUpdateProfile } from "../../../scripts/profile";
 import { PROFILE_INFO } from "../../../routes";
 
-const ProfileEditor = ({ _name, _location, _likedCourses=['Matematica', 'Fisica'], 
+const ProfileEditor = ({ _name, _location, _likedCourses=['Art', 'Programming'], 
                         navigation, style }: any) => {
   const [name, setName] = React.useState(_name);
 
   const [location, setLocation] = React.useState(_location);
   const [locationList, setLocationList] = React.useState([
-    {label: "EEUU", value: "EEUU"},
-    {label: "Inglaterra", value: "Inglaterra"}
+    {label: "Albania", value: "Albania"},
+    {label: "Argentina", value: "Argentina"}
   ]);
   
   const [image, setImage] = React.useState('../../images/example.jpg');
