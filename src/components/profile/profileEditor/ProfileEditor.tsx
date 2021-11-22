@@ -5,15 +5,18 @@ import styles from "../../../styles/styles";
 import InfoFields from "./InfoFields";
 import Location from "./Location";
 import ImageSelector from "./ImageSelector";
-import LikedTags from "./LikedTags";
+import LikedCourses from "./LikedCourses";
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
+import { sendUpdateProfile } from "../../../scripts/profile";
+import { PROFILE_INFO } from "../../../routes";
 
-const ProfileEditor = (props : any) => {
-  const [name, setName] = React.useState('John');
+const ProfileEditor = ({ _name, _location, _likedCourses=['Matematica', 'Fisica'], 
+                        navigation, style }: any) => {
+  const [name, setName] = React.useState(_name);
 
-  const [location, setLocation] = React.useState('Argentina');
+  const [location, setLocation] = React.useState(_location);
   const [locationList, setLocationList] = React.useState([
     {label: "EEUU", value: "EEUU"},
     {label: "Inglaterra", value: "Inglaterra"}
@@ -21,11 +24,9 @@ const ProfileEditor = (props : any) => {
   
   const [image, setImage] = React.useState('../../images/example.jpg');
   
-  const [tags, setTags] = React.useState(
-    ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
-    "Tag 5", "Tag 6", "Tag 7", "Tag 8",
-    "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
-  const [likedTags, setLikedTags] = React.useState(["Tag 1", "Tag 2"]);
+  const [coursesType, setCoursesType] = React.useState(
+    ['Proba', 'Fisica', 'Matematica', 'Analisis Numerico', 'Programacion']);
+  const [likedCourses, setLikedCourses] = React.useState(_likedCourses);
     
   const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -43,7 +44,13 @@ const ProfileEditor = (props : any) => {
 
   function sendProfile() {
     if (validateData()) {
-      //TODO mandar el perfil al back
+      sendUpdateProfile(name, location, likedCourses, 'Free')
+        .then(() => {
+          navigation.navigate(PROFILE_INFO);
+        },
+        (errorMsg: Error) => {
+          setErrorMessage(errorMsg.message);
+      });
     }
   }
 
@@ -63,8 +70,7 @@ const ProfileEditor = (props : any) => {
       <Subheading style={styles.profileSubtitle}>
         Location
       </Subheading>
-      <Location 
-        style={props.style}
+      <Location
         location={location}
         setLocation={setLocation}
         locationList={locationList}
@@ -72,10 +78,10 @@ const ProfileEditor = (props : any) => {
       <Subheading style={{...styles.profileSubtitle, marginVertical:hp(1)}}>
         Interests
       </Subheading>
-      <LikedTags 
-        tags={tags}
-        likedTags={likedTags}
-        setLikedTags={setLikedTags}
+      <LikedCourses 
+        courses={coursesType}
+        likedCourses={likedCourses}
+        setLikedCourses={setLikedCourses}
       />
       <Button 
         mode='contained'

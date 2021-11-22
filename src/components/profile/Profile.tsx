@@ -43,6 +43,10 @@ const Profile = (props: any) => {
       });
   }, []);
 
+  const editProfile = () => {
+    props.navigation.navigate(PROFILE_EDITOR, { name, location })
+  }
+
   return (
     <View style={props.style}>
       <Intro username={name}/>
@@ -56,7 +60,7 @@ const Profile = (props: any) => {
         <Button 
           mode='contained'
           style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
-          onPress={() => props.navigation.navigate(PROFILE_EDITOR)}>
+          onPress={editProfile}>
           Edit profile
         </Button>
         :

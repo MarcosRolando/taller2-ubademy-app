@@ -18,15 +18,30 @@ const ProfileInfoSreen = ({navigation}: any) => {
   );
 }
 
-const ProfileEditorScreen = ({navigation}: any) => {
+const ProfileEditorScreen = ({route, navigation}: any) => {
+  const { name, location } = route.params;
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ProfileEditor />
+        <ProfileEditor _name={name} _location={location} 
+          navigation={navigation} style={styles.profile}/>
       </ScrollView>
     </View>
   );
 }
+
+export const UserScreen = ({route, navigation}: any) => {
+  const { email } = route.params;
+  
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Profile style={styles.profile} email={email} />
+      </ScrollView>
+    </View>
+  );
+};
 
 export const ProfileScreen = ({navigation}: any) => {
     return (
@@ -36,15 +51,3 @@ export const ProfileScreen = ({navigation}: any) => {
       </ProfileStack.Navigator>
     );
 }
-
-export const UserScreen = ({route, navigation}: any) => {
-  const { email } = route.params;
-
-  return (
-    <View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Profile style={styles.profile} email={email} />
-      </ScrollView>
-    </View>
-  );
-};

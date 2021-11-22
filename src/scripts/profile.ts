@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { PROFILE } from "../endpoints";
+import { PROFILE, UPDATE_PROFILE } from "../endpoints";
 
 export async function getProfileInfo(email: string) {
   try {
@@ -22,6 +22,27 @@ export async function getProfileInfo(email: string) {
       _genres: data['interesting_genres'],
       //TODO eventualmente me tienen que llegar los cursos en los que esta inscripto
     });
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function sendUpdateProfile(username: string, location: string, courses: Array<string>,
+                                        subscription_type: string) {
+  try {
+    const res = await sendAPIrequest(() => axios.put(`${API_URL}${UPDATE_PROFILE}`, {
+      name: username,
+      country: location,
+      interesting_genres: courses,
+      subscription_type,
+      profile_picture: 'algo' // TODO mandar el posta
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error('Unkown error in the server'));
+    }
+    return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));

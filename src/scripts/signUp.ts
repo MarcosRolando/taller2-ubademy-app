@@ -36,6 +36,7 @@ export async function sendSignupProfile(username: string, location: string, cour
       country: location,
       interesting_genres: courses,
       subscription_type: 'Free',
+      profile_picture: 'none'
     }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
