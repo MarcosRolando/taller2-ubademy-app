@@ -17,6 +17,7 @@ const Profile = (props: any) => {
   const [email, setEmail] = React.useState('');
   const [location, setLocation] = React.useState('');
   const [subType, setSubType] = React.useState('');
+  const [image, setImage] = React.useState('');
 
 
   const [coursesData, setCoursesData] = React.useState({
@@ -36,21 +37,22 @@ const Profile = (props: any) => {
       });
     const userEmail = (props.email !== undefined) ? props.email : getUserCredentials().email;
     getProfileInfo(userEmail)
-      .then(({_name, _email, _location, _subType, _genres}) => {
+      .then(({_name, _email, _location, _subType, _image, _genres}) => {
         setName(_name);
         setEmail(_email);
         setLocation(_location);
         setSubType(_subType);
+        setImage(_image);
       });
   }, []));
 
   const editProfile = () => {
-    props.navigation.navigate(PROFILE_EDITOR, { name, location })
+    props.navigation.navigate(PROFILE_EDITOR, { name, location, image })
   }
 
   return (
     <View style={props.style}>
-      <Intro username={name}/>
+      <Intro username={name} image={image} />
       {(props.ownProfile !== undefined) ? 
         <BasicInfo email={email} location={location} subType={subType} />
         :

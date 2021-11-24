@@ -60,8 +60,8 @@ const CreateCourse = ({ style }: any) => {
         const nGenres = _genres.map((genre: any) => {
           return {label:genre, value:genre};
         })
-        //const nSubTypes = _subTypes.keys();
-        setLocationsList(nLocations);
+        //const nSubTypes = _subTypes.keys(); //TODO
+        setLocationsList(nLocations); 
         //setSubTypesList(_subTypes.keys);
         setCoursesList(nGenres);
       });
@@ -193,7 +193,7 @@ const CreateCourse = ({ style }: any) => {
 
   async function createCourse() {
     try {
-      if (!validateData()) {
+      if (!validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
