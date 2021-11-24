@@ -15,7 +15,13 @@ const ImageSelector = ({ image, setImage }: any) => {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    
     if (!pickerResult.cancelled) {
       setImage(pickerResult.uri);
     }

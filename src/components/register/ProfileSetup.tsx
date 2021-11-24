@@ -5,9 +5,10 @@ widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import DropDown from 'react-native-paper-dropdown';
 import { Text, Button, TextInput } from 'react-native-paper';
 import { ROOT } from '../../routes';
-import { getSignupData, sendSignupProfile } from '../../scripts/signUp';
+import { sendSignupProfile } from '../../scripts/signUp';
 import colors from '../../styles/colors';
 import { Themes } from '../../styles/themes';
+import { getProfileOptionsData } from '../../scripts/profile';
 
 const ProfileSetup = (props: any) => {
     const [username, setUsername] = React.useState({
@@ -23,7 +24,7 @@ const ProfileSetup = (props: any) => {
     const [errorMessage, setErrorMessage] = React.useState('');
 
     useEffect(() => {
-      getSignupData()
+      getProfileOptionsData()
         .then(({locations, courses}) => {
           let nLocations = locations.map((location) => {
             return {label:location, value:location};

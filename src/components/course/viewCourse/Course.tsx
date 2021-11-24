@@ -1,25 +1,21 @@
 import React, { useEffect } from "react";
-import { Image, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { Card, Paragraph, Portal, Subheading, Text, Title } from "react-native-paper";
-import { Button, TouchableOpacity } from "react-native";
-import { color } from "react-native-reanimated";
+import { View } from "react-native";
+import { Portal, Text } from "react-native-paper";
+import { TouchableOpacity } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import colors from "../../styles/colors";
-import styles from "../../styles/styles";
-import { Themes } from "../../styles/themes";
+import colors from "../../../styles/colors";
+import styles from "../../../styles/styles";
 import BasicInfo from "./BasicInfo";
-import ClassVideo from "./ClassVideo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
-import sendLoginCredentials from "../../scripts/logIn";
+import sendLoginCredentials from "../../../scripts/logIn";
 
-import { getCourseInfo } from "../../scripts/course";
+import { getCourseInfo } from "../../../scripts/course";
 
 const Course = () => {
   const [info, setInfo] = React.useState({
     title: "Titulo del curso muy muy muy largo",
-    source: require('../../images/example.jpg'),
+    source: require('../../../images/example.jpg'),
     intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     subscriptionType: "FREE",
     images: [
@@ -84,7 +80,7 @@ const Course = () => {
   }, [])
 
   return (
-    <ScrollView style={{paddingHorizontal: wp(3)}}>
+    <View style={{paddingHorizontal: wp(3)}}>
       <View>
         <BasicInfo info={info} />
       </View>
@@ -119,10 +115,8 @@ const Course = () => {
 
         </View>
       </Portal>
-  
-    </ScrollView>
-  )
-
+    </View>
+  );
 }
 
 export default Course;

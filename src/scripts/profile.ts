@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { PROFILE } from "../endpoints";
+import { PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE } from "../endpoints";
 
 export async function getProfileInfo(email: string) {
   try {
@@ -20,8 +20,47 @@ export async function getProfileInfo(email: string) {
       _location: data['country'],
       _subType: data['subscription_type'],
       _genres: data['interesting_genres'],
+      _image: data['profile_picture_link'],
       //TODO eventualmente me tienen que llegar los cursos en los que esta inscripto
     });
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+
+export async function getProfileOptionsData() {
+  try {
+    const res = await sendAPIrequest(() => axios.get(`${API_URL}${SIGNUP_PROFILE}`, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error('Unkown error in the server'));
+    }
+    return Promise.resolve({locations: res.data['locations'] as Array <string>, 
+      courses: res.data['course_genres'] as Array<string>});
+  } catch (error) {
+    console.log('Error when trying to reach the server');
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+
+export async function sendUpdateProfile(username: string, location: string, courses: Array<string>,
+                                        profile_picture: string, subscription_type: string) {
+  try {
+    const res = await sendAPIrequest(() => axios.put(`${API_URL}${UPDATE_PROFILE}`, {
+      name: username,
+      country: location,
+      interesting_genres: courses,
+      subscription_type,
+      profile_picture
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error('Unkown error in the server'));
+    }
+    return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));

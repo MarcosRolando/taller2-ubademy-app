@@ -7,7 +7,6 @@ const Location = ({style, location, setLocation,
                   locationList} : any) => {
 
   const [showLocations, setShowLocations] = React.useState(false);
-  const [locationLabel, setLocationLabel] = React.useState(location);
 
   return (
     <View style={style}>
@@ -15,14 +14,12 @@ const Location = ({style, location, setLocation,
       <View style={{paddingHorizontal: wp(5)}}>
 
         <DropDown
-          label={locationLabel}
           visible={showLocations}
           showDropDown={() => setShowLocations(true)}
           onDismiss={() => setShowLocations(false)}
           value={location}
           setValue={(value : any) => {
             setLocation(value);
-            setLocationLabel('');
           }}
           list={locationList}
         />
