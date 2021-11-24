@@ -19,12 +19,13 @@ const ProfileInfoSreen = ({navigation}: any) => {
 }
 
 const ProfileEditorScreen = ({route, navigation}: any) => {
-  const { name, location } = route.params;
+  const { name, location, likedCourses, image } = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ProfileEditor _name={name} _location={location} 
+        <ProfileEditor _name={name} _location={location} _image={image}
+          _likedCourses={likedCourses}
           navigation={navigation} style={styles.profile}/>
       </ScrollView>
     </View>

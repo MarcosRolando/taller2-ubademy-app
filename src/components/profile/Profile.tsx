@@ -17,6 +17,7 @@ const Profile = (props: any) => {
   const [email, setEmail] = React.useState('');
   const [location, setLocation] = React.useState('');
   const [subType, setSubType] = React.useState('');
+  const [likedCourses, setLikedCourses] = React.useState([] as Array<string>);
   const [image, setImage] = React.useState('');
 
 
@@ -43,11 +44,12 @@ const Profile = (props: any) => {
         setLocation(_location);
         setSubType(_subType);
         setImage(_image);
+        setLikedCourses(_genres); // TODO mostrarlos aca tambien
       });
   }, []));
 
   const editProfile = () => {
-    props.navigation.navigate(PROFILE_EDITOR, { name, location, image })
+    props.navigation.navigate(PROFILE_EDITOR, { name, location, likedCourses, image })
   }
 
   return (

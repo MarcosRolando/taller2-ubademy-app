@@ -13,7 +13,7 @@ import { getProfileOptionsData, sendUpdateProfile } from "../../../scripts/profi
 import { PROFILE_INFO } from "../../../routes";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage";
 
-const ProfileEditor = ({ _name, _location, _likedCourses=['Art', 'Programming'], 
+const ProfileEditor = ({ _name, _location, _likedCourses,
                         navigation, _image }: any) => {
   const [name, setName] = React.useState(_name);
   const [location, setLocation] = React.useState(_location);

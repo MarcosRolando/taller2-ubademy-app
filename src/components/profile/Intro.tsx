@@ -9,7 +9,7 @@ const Intro = ({ username, image }: any) => {
     <View style={styles.profileImage}>
       <Avatar.Image
         size={wp(40)}
-        source={image}
+        source={{uri: image}}
       />
       <Title style={styles.profileName}>
         {username}
