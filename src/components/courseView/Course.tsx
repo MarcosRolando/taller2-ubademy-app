@@ -17,31 +17,40 @@ import sendLoginCredentials from "../../scripts/logIn";
 import { getCourseInfo } from "../../scripts/course";
 
 const Course = () => {
+  // const [info, setInfo] = React.useState({
+  //   title: "Titulo del curso muy muy muy largo",
+  //   source: require('../../images/example.jpg'),
+  //   intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  //   subscriptionType: "FREE",
+  //   images: [
+  //     {
+  //       title: "Title 1",
+  //       url: "https://i.imgur.com/UYiroysl.jpg"
+  //     },
+  //     {
+  //       title: "Title 2",
+  //       url: "https://i.imgur.com/UPrs1EWl.jpg"
+  //     }
+  //   ],
+  //   videos: [
+  //     {
+  //       title: "Class 1",
+  //       uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+  //       },
+  //       {
+  //       title: "Class 2",
+  //       uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+  //       }
+  //   ]
+  // })
+
   const [info, setInfo] = React.useState({
     title: "Titulo del curso muy muy muy largo",
     source: require('../../images/example.jpg'),
     intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     subscriptionType: "FREE",
-    images: [
-      {
-        title: "Title 1",
-        url: "https://i.imgur.com/UYiroysl.jpg"
-      },
-      {
-        title: "Title 2",
-        url: "https://i.imgur.com/UPrs1EWl.jpg"
-      }
-    ],
-    videos: [
-      {
-        title: "Class 1",
-        uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-        },
-        {
-        title: "Class 2",
-        uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-        }
-    ]
+    images: [] as Array<{title: string, url: string}>,
+    videos: [] as Array<{title: string, uri: string}>
   })
 
   const [showVideo, setShowVideo] = React.useState(true);
@@ -50,24 +59,32 @@ const Course = () => {
   useEffect(() => {
     (
       async () => {
-        await sendLoginCredentials("un_mail_random@gmail.com", "una_contrasenia");
         await getCourseInfo()
           .then(({
             id, country, course_type, description, hashtags,
-            images, subscription_type, title, total_exams, videos}) => {
+            images, subscription_type, title, total_exams, _videos}) => {
+
+            console.log("array con imagenes:");
+            console.log(images);
+            console.log("cantidad de imagenes");
+            console.log(images.length);
+            console.log("priemra imgen", images[0]);
+            console.log("fin de la info");
+            
             const videosParsed = [];
-            for (let i = 0; i < videos.length; i++) {
+            for (let i = 0; i < Object.keys(_videos).length; i++) {
               videosParsed.push({
-                title: videos[i].name,
-                uri: videos[i].url
+                title: _videos[i].name,
+                uri: _videos[i].url
               })
             };
 
-            if (images.length == 0) {
-              setShowImages(false);
-            }
-            if (videosParsed.length == 0) {
-              setShowImages(false);
+            const imagesParsed = [] as Array<{title: string, url: string}>;
+            for (let i = 0; i < Object.keys(images).length; i++) {
+              imagesParsed.push({
+                title: "",
+                url: images[i]
+              })
             }
 
             setInfo({
@@ -75,8 +92,8 @@ const Course = () => {
               title: title,
               subscriptionType: subscription_type,
               intro: description,
-              images: images,
-              videos: videosParsed
+              videos: videosParsed,
+              images: imagesParsed
             })
           })
       }

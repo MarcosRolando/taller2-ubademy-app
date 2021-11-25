@@ -4,13 +4,17 @@ import {View} from 'react-native';
 import {Subheading, List} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import styles from '../../styles/styles';
+import { COURSE } from '../../routes';
 
-const Courses = ({coursesData}: any) => {
+const Courses = ({coursesData, navigation}: any) => {
   function renderCourses(coursesName : any) : any[] {
     const courses: any = [];
     for (let i = 0; i < coursesName.length; i++) {
       courses.push(
-          <List.Item key={i} title={coursesName[i].name} />,
+          <List.Item
+          key={i}
+          title={coursesName[i].name}
+          onPress={() => navigation.navigate(COURSE)}/>,
       );
     }
     return courses;

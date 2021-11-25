@@ -51,7 +51,7 @@ const Profile = (props: any) => {
         :
         <></>
       }
-      <Courses coursesData={coursesData} />
+      <Courses navigation={props.navigation} coursesData={coursesData} />
       {(props.ownProfile !== undefined) ? 
         <Button 
           mode='contained'

@@ -65,6 +65,7 @@ export async function getCourseInfo() {
       }
     }
     const course = res.data['course'];
+    console.log(course);
     return Promise.resolve({
       id: course['_id'],
       country: course['country'],
