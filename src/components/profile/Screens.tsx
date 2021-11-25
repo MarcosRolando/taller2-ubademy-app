@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { PROFILE_EDITOR, PROFILE_INFO } from '../../routes';
 import styles from '../../styles/styles';
+import { getUserCredentials } from '../../userCredentials';
 import Profile from './Profile';
 import ProfileEditor from './profileEditor/ProfileEditor';
 
@@ -12,7 +13,8 @@ const ProfileInfoSreen = ({navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Profile ownProfile style={styles.profile} navigation={navigation} />
+        <Profile ownProfile userEmail={getUserCredentials().email} 
+        style={styles.profile} navigation={navigation} />
       </ScrollView>
     </View>
   );
@@ -33,12 +35,12 @@ const ProfileEditorScreen = ({route, navigation}: any) => {
 }
 
 export const UserScreen = ({route, navigation}: any) => {
-  const { email } = route.params;
+  const { userProfile } = route.params;
   
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Profile style={styles.profile} email={email} />
+        <Profile style={styles.profile} profileInfo={userProfile} />
       </ScrollView>
     </View>
   );

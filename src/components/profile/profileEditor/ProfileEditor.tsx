@@ -18,7 +18,7 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
   const [name, setName] = React.useState(_name);
   const [location, setLocation] = React.useState(_location);
   const [locationList, setLocationList] = React.useState([] as Array<{label:string, value:string}>)
-  const [image, setImage] = React.useState(_image);
+  const [image, setImage] = React.useState({value: _image, changed: false});
   const [coursesType, setCoursesType] = React.useState([] as Array<string>);
   const [likedCourses, setLikedCourses] = React.useState(_likedCourses);
   const [uploading, setUploading] = React.useState(false);
@@ -51,13 +51,15 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
   }
 
   async function uploadMedia() {
-    let image_to_upload = image;
-    try {
-      image_to_upload = await uploadMediaToFirebase(image);
-    } catch(error) {
-      console.log(error);
+    if (image.changed) {
+        try {
+          const image_to_upload = await uploadMediaToFirebase(image.value);
+          return image_to_upload;
+        } catch(error) {
+          console.log(error);
+        }
     }
-    return image_to_upload;
+    return image.value;
   }
 
   async function uploadMediaToFirebase(uri: string) {
