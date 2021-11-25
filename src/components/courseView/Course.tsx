@@ -15,6 +15,7 @@ import Gallery from "./Gallery/Gallery";
 import sendLoginCredentials from "../../scripts/logIn";
 
 import { getCourseInfo } from "../../scripts/course";
+import { getUserCredentials } from "../../userCredentials";
 
 const Course = () => {
   // const [info, setInfo] = React.useState({
@@ -63,13 +64,6 @@ const Course = () => {
           .then(({
             id, country, course_type, description, hashtags,
             images, subscription_type, title, total_exams, _videos}) => {
-
-            console.log("array con imagenes:");
-            console.log(images);
-            console.log("cantidad de imagenes");
-            console.log(images.length);
-            console.log("priemra imgen", images[0]);
-            console.log("fin de la info");
             
             const videosParsed = [];
             for (let i = 0; i < Object.keys(_videos).length; i++) {
@@ -80,7 +74,7 @@ const Course = () => {
             };
 
             const imagesParsed = [] as Array<{title: string, url: string}>;
-            for (let i = 0; i < Object.keys(images).length; i++) {
+            for (let i = 1; i < Object.keys(images).length; i++) {
               imagesParsed.push({
                 title: "",
                 url: images[i]
@@ -90,6 +84,7 @@ const Course = () => {
             setInfo({
               ...info,
               title: title,
+              source: images[0],
               subscriptionType: subscription_type,
               intro: description,
               videos: videosParsed,

@@ -17,7 +17,7 @@ const BasicInfo = (props: any) => {
       <View style={{marginTop: hp(2)}}>
         <Card>
           <Card.Cover
-          source={props.info.source}
+          source={{uri: props.info.source}}
           resizeMode={'contain'}
           style={{backgroundColor: colors.background}}/>
         </Card>
