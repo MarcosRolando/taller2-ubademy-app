@@ -81,6 +81,9 @@ const Course = () => {
               })
             }
 
+            console.log("uri");
+            console.log(imagesParsed);
+
             setInfo({
               ...info,
               title: title,
@@ -91,6 +94,10 @@ const Course = () => {
               images: imagesParsed
             })
           })
+
+          if (Object.keys(info.images).length > 0) {
+            setShowImages(true);
+          }
       }
     )()
   }, [])
