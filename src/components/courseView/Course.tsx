@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Image, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Card, Paragraph, Portal, Subheading, Text, Title } from "react-native-paper";
-import { Button, TouchableOpacity } from "react-native";
+import { Button, Card, Paragraph, Portal, Subheading, Text, Title } from "react-native-paper";
+import { TouchableOpacity } from "react-native";
 import { color } from "react-native-reanimated";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../styles/colors";
@@ -51,7 +51,9 @@ const Course = () => {
     intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     subscriptionType: "FREE",
     images: [] as Array<{title: string, url: string}>,
-    videos: [] as Array<{title: string, uri: string}>
+    videos: [] as Array<{title: string, uri: string}>,
+    creatorEmail: "",
+    ownEmail: ""
   })
 
   const [showVideo, setShowVideo] = React.useState(true);
@@ -64,7 +66,8 @@ const Course = () => {
         await getCourseInfo()
           .then(({
             id, country, course_type, description, hashtags,
-            images, subscription_type, title, total_exams, _videos}) => {
+            images, subscription_type, title, total_exams, _videos,
+            creatorEmail}) => {
             
             const videosParsed = [];
             for (let i = 0; i < Object.keys(_videos).length; i++) {
@@ -86,6 +89,9 @@ const Course = () => {
               setShowCover(true);
             }
 
+            const credentials = getUserCredentials();
+
+            console.log(info.creatorEmail);
             setInfo({
               ...info,
               title: title,
@@ -93,19 +99,25 @@ const Course = () => {
               subscriptionType: subscription_type,
               intro: description,
               videos: videosParsed,
-              images: imagesParsed
+              images: imagesParsed,
+              creatorEmail: creatorEmail,
+              ownEmail: credentials.email
             })
           })
 
           if (Object.keys(info.images).length > 0) {
             setShowImages(true);
           }
+
+          console.log(info.creatorEmail);
+          console.log(info.ownEmail);
       }
     )()
   }, [])
 
   return (
     <ScrollView style={{paddingHorizontal: wp(3)}}>
+
       <View>
         <BasicInfo info={info} showCover={showCover} />
       </View>
@@ -119,6 +131,17 @@ const Course = () => {
       {showImages ? (
         <Gallery info={info}/>
         ) : null}
+
+      {info.ownEmail == info.creatorEmail ? (
+        // TODO
+        <Button
+          onPress = {() => {console.log("Going to the editor screen, bro!")}}
+          style={{marginTop:hp(3)}}
+        >
+          Edit course
+        </Button>
+      ) : null}
+
 
       <View style={{paddingBottom: hp(10)}}></View>
 

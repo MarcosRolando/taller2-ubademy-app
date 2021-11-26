@@ -31,7 +31,7 @@ const BasicInfo = (props: any) => {
   return (
     <View>
 
-      <Title style={styles.profileTitle}>
+      <Title style={{...styles.profileTitle, marginTop:hp(-5)}}>
         {props.info.title}
       </Title>
 

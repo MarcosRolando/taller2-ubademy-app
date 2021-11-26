@@ -77,6 +77,7 @@ export async function getCourseInfo() {
       title: course['title'],
       total_exams: course['total_exams'],
       _videos: course['videos'],
+      creatorEmail: course['creator_email']
     })
   } catch (error) {
     console.log(error);
