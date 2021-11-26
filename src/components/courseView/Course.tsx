@@ -56,6 +56,7 @@ const Course = () => {
 
   const [showVideo, setShowVideo] = React.useState(true);
   const [showImages, setShowImages] = React.useState(true);
+  const [showCover, setShowCover] = React.useState(false);
 
   useEffect(() => {
     (
@@ -81,8 +82,9 @@ const Course = () => {
               })
             }
 
-            console.log("uri");
-            console.log(imagesParsed);
+            if (Object.keys(images).length > 0) {
+              setShowCover(true);
+            }
 
             setInfo({
               ...info,
@@ -105,7 +107,7 @@ const Course = () => {
   return (
     <ScrollView style={{paddingHorizontal: wp(3)}}>
       <View>
-        <BasicInfo info={info} />
+        <BasicInfo info={info} showCover={showCover} />
       </View>
 
       {showVideo ? (
