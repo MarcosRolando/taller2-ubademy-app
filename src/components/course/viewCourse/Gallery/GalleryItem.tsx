@@ -5,20 +5,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 export const SLIDER_WIDTH = wp(100) + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 
-const images = [{
-  url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
-  props: {
-
-  }
-}, {
-  url: 'https://i.imgur.com/UPrs1EWl.jpg',
-  props: {
-
-  }
-}]
-
 const GalleryItem = ({ item, index } : any) => {
-  //const [isModalVisible, setModalVisible] = React.useState(false)
 
   return (
     <View style={styles.container} key={index}>

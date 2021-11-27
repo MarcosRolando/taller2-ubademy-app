@@ -15,9 +15,15 @@ const ImageSelector = ({ image, setImage }: any) => {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    
     if (!pickerResult.cancelled) {
-      setImage(pickerResult.uri);
+      setImage({changed: true, value: pickerResult.uri});
     }
   };
 
@@ -27,7 +33,7 @@ const ImageSelector = ({ image, setImage }: any) => {
       <View style={styles.profileImage}>
         <Avatar.Image
           size={wp(40)}
-          source={{uri: image}}
+          source={{uri: image.value}}
           style={{backgroundColor: colors.second}}
         />
       </View>

@@ -8,7 +8,7 @@ import { heightPercentageToDP as hp,
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
-import colors from '../../../styles/colors'
+import colors from '../../../../styles/colors'
 
 
 const data = [
@@ -31,7 +31,6 @@ const CarouselCards = (props: any) => {
   const [indexZoom, setIndexZoom] = React.useState(0);
   const carouselRef = useRef(null) as any;
   const [isModalVisible, setModalVisible] = React.useState(false);
-  const images = props.images;
 
   function closeModal() {
     if (isModalVisible) {

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { View } from "react-native";
-import { Card, Paragraph, Subheading, Title } from "react-native-paper";
-import styles from "../../styles/styles";
-import colors from "../../styles/colors";
+import { Card, Paragraph, Title } from "react-native-paper";
+import styles from "../../../styles/styles";
+import colors from "../../../styles/colors";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { getCourseInfo } from "../../scripts/course";
+import { getCourseInfo } from "../../../scripts/course";
 
 const BasicInfo = (props: any) => {
   const [showCover, setShowCover] = React.useState(false);
@@ -45,15 +45,6 @@ const BasicInfo = (props: any) => {
           </Card>
         </View>
       ) : null}
-
-      {/* <View style={{marginTop: hp(2)}}>
-        <Card>
-          <Card.Cover
-          source={{uri: image}}
-          resizeMode={'contain'}
-          style={{backgroundColor: colors.background}}/>
-        </Card>
-      </View> */}
 
       <Paragraph style={{marginTop: hp(3)}}>
         {props.info.intro}
