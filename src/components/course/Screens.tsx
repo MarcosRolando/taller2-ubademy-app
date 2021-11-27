@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import CreateCourse from './createCourse/CreateCourse';
+import CreateCourse from './createUpdateCourse/CreateUpdateCourse';
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp } from 'react-native-responsive-screen';

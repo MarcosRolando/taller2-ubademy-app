@@ -266,7 +266,7 @@ const CreateCourse = ({ style }: any) => {
       }
     } catch(error) {
       console.log(error);
-      setErrorMessage('Failed to create the course');
+      setErrorMessage('Failed to update the course');
     }
   }
 
