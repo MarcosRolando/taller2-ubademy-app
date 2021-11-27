@@ -64,7 +64,6 @@ export async function getCourseInfo(id: string = "619bffa222a2392ec59d8adc") {
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     const course = res.data['course'];
     return Promise.resolve({
       id: course['_id'],
