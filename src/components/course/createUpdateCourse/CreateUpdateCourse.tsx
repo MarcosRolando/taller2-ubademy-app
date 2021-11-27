@@ -9,11 +9,13 @@ import defaultPicture from '../../../../assets/default-course-image.jpg';
 import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getCreateCourseInfo, sendCreateCourse } from "../../../scripts/course";
+import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } from "../../../scripts/course";
 import CourseTags from "./CourseTags";
 
 const CreateCourse = ({ style }: any) => {
   const[uploading, setUploading] = React.useState(false);
+
+  const [id, setId] = React.useState('');
 
   const [courseName, setCoursenName] = React.useState('');
   const [courseDescription, setCourseDescription] = React.useState('');
@@ -36,6 +38,8 @@ const CreateCourse = ({ style }: any) => {
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
 
+  const [isEditing, setIsEditing] = React.useState(true);
+
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
     "Tag 5", "Tag 6", "Tag 7", "Tag 8",
@@ -51,6 +55,39 @@ const CreateCourse = ({ style }: any) => {
         }
       }
     })();
+    if (isEditing) {
+      (async () => {
+        await getCourseInfo()
+            .then(({
+              id, country, course_type, description, hashtags,
+              images, subscription_type, title, total_exams, _videos}) => {
+                setId(id);
+                setCoursenName(title);
+                setCourseDescription(description);
+                if (images.length > 0) {
+                  setCourseImage(images[0]);
+                }
+                setSubType(subscription_type);
+                setExamsNumber(total_exams.toString());
+                setVideos([]);
+                const newVideos = [] as Array<{name: string, uri: string}>;
+                for (let i = 0; i < _videos.length; i++) {
+                  newVideos.push({
+                    name: _videos[i].name,
+                    uri: _videos[i].url
+                  })
+                }
+                setVideos(newVideos);
+                if (images.length > 1) {
+                  setImages(images.splice(1));
+                }
+                setCourseType(course_type);
+                setLocation(country);
+                setCourseTags(hashtags);
+  
+            })
+      })();
+    }
     getCreateCourseInfo()
       .then(({_locations, _subTypes, _genres}) => {
         console.log(_subTypes);
@@ -188,6 +225,11 @@ const CreateCourse = ({ style }: any) => {
       setErrorMessage('Please select a location for this course');
       return false;
     }
+    if (Number(examsNumber) > 10) {
+      setErrorMessage('The number of exams must be less or equal than 10');
+      return false;
+    }
+
     return true;
   }
 
@@ -206,6 +248,25 @@ const CreateCourse = ({ style }: any) => {
     } catch(error) {
       console.log(error);
       setErrorMessage('Failed to create the course');
+    }
+  }
+
+  async function updateCourse() {
+    try {
+      if (validateData()) {
+        setErrorMessage('');
+        setUploading(true);
+        const {_images, _videos} = await uploadMedia();
+        putCourseInfo(id, location,
+          courseType, courseDescription, courseTags,
+          _images, subType,
+          courseName, examsNumber,
+          _videos);
+          setUploading(false);
+      }
+    } catch(error) {
+      console.log(error);
+      setErrorMessage('Failed to update the course');
     }
   }
 
@@ -393,7 +454,7 @@ const CreateCourse = ({ style }: any) => {
         <Button 
           mode='contained'
           style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
-          onPress={createCourse}
+          onPress={updateCourse}
           >
           Create course
         </Button>

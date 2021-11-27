@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View } from "react-native";
-import { Portal, Text } from "react-native-paper";
+import { Button, Portal, Text } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
@@ -11,70 +11,76 @@ import Gallery from "./Gallery/Gallery";
 import sendLoginCredentials from "../../../scripts/logIn";
 
 import { getCourseInfo } from "../../../scripts/course";
+import { getUserCredentials } from "../../../userCredentials";
 
 const Course = () => {
+
   const [info, setInfo] = React.useState({
     title: "Titulo del curso muy muy muy largo",
     source: require('../../../images/example.jpg'),
     intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     subscriptionType: "FREE",
-    images: [
-      {
-        title: "Title 1",
-        url: "https://i.imgur.com/UYiroysl.jpg"
-      },
-      {
-        title: "Title 2",
-        url: "https://i.imgur.com/UPrs1EWl.jpg"
-      }
-    ],
-    videos: [
-      {
-        title: "Class 1",
-        uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-        },
-        {
-        title: "Class 2",
-        uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-        }
-    ]
+    images: [] as Array<{title: string, url: string}>,
+    videos: [] as Array<{title: string, uri: string}>,
+    creatorEmail: "",
+    ownEmail: ""
   })
 
   const [showVideo, setShowVideo] = React.useState(true);
   const [showImages, setShowImages] = React.useState(true);
+  const [showCover, setShowCover] = React.useState(false);
 
   useEffect(() => {
     (
       async () => {
-        await sendLoginCredentials("un_mail_random@gmail.com", "una_contrasenia");
         await getCourseInfo()
           .then(({
             id, country, course_type, description, hashtags,
-            images, subscription_type, title, total_exams, videos}) => {
+            images, subscription_type, title, total_exams, _videos,
+            creatorEmail}) => {
+            
             const videosParsed = [];
-            for (let i = 0; i < videos.length; i++) {
+            for (let i = 0; i < Object.keys(_videos).length; i++) {
               videosParsed.push({
-                title: videos[i].name,
-                uri: videos[i].url
+                title: _videos[i].name,
+                uri: _videos[i].url
               })
             };
 
-            if (images.length == 0) {
-              setShowImages(false);
-            }
-            if (videosParsed.length == 0) {
-              setShowImages(false);
+            const imagesParsed = [] as Array<{title: string, url: string}>;
+            for (let i = 1; i < Object.keys(images).length; i++) {
+              imagesParsed.push({
+                title: "",
+                url: images[i]
+              })
             }
 
+            if (Object.keys(images).length > 0) {
+              setShowCover(true);
+            }
+
+            const credentials = getUserCredentials();
+
+            console.log(info.creatorEmail);
             setInfo({
               ...info,
               title: title,
+              source: images[0],
               subscriptionType: subscription_type,
               intro: description,
-              images: images,
-              videos: videosParsed
+              videos: videosParsed,
+              images: imagesParsed,
+              creatorEmail: creatorEmail,
+              ownEmail: credentials.email
             })
           })
+
+          if (Object.keys(info.images).length > 0) {
+            setShowImages(true);
+          }
+
+          console.log(info.creatorEmail);
+          console.log(info.ownEmail);
       }
     )()
   }, [])
@@ -82,7 +88,7 @@ const Course = () => {
   return (
     <View style={{paddingHorizontal: wp(3)}}>
       <View>
-        <BasicInfo info={info} />
+        <BasicInfo info={info} showCover={showCover} />
       </View>
 
       {showVideo ? (
@@ -95,6 +101,17 @@ const Course = () => {
         <Gallery info={info}/>
         ) : null}
 
+      {info.ownEmail == info.creatorEmail ? (
+        // TODO: ir a la pantalla de edición del curso
+        <Button
+          onPress = {() => {console.log("Going to the editor screen, bro!")}}
+          style={{marginTop:hp(3)}}
+        >
+          Edit course
+        </Button>
+      ) : null}
+
+
       <View style={{paddingBottom: hp(10)}}></View>
 
       <Portal>
@@ -103,6 +120,7 @@ const Course = () => {
           <Text>{info.subscriptionType}</Text>
 
           <TouchableOpacity
+            // TODO: que se avise al baka-back que se subscribió
             onPress={() => console.log("presionado!")}
             style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
           >

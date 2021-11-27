@@ -68,7 +68,7 @@ const Profile = ({ profileInfo, navigation, style, userEmail, ownProfile }: any)
         :
         <></>
       }
-      <Courses coursesData={coursesData} />
+      <Courses navigation={navigation} coursesData={coursesData} />
       {(ownProfile !== undefined) ? 
         <Button 
           mode='contained'

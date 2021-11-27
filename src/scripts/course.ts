@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { COURSE_SETUP, CREATE_COURSE, COURSES } from "../endpoints";
+import { COURSE_SETUP, CREATE_COURSE, COURSES, UPDATE_COURSE } from "../endpoints";
 
 export async function getCreateCourseInfo() {
   try {
@@ -54,10 +54,10 @@ export async function sendCreateCourse(title: string, description: string,
   }
 }
 
-export async function getCourseInfo() {
+export async function getCourseInfo(id: string = "619bffa222a2392ec59d8adc") {
   try {
     const res = await sendAPIrequest(() => axios.get(
-    `${API_URL}${COURSES}/6192b41db810e014bbe14315`, getAxiosConfig()));
+    `${API_URL}${COURSES}/${id}`, getAxiosConfig()));
     if (res.data['status'] == 'error') {
       switch (res.data["message"]) {
         default:
@@ -70,15 +70,48 @@ export async function getCourseInfo() {
       country: course['country'],
       course_type: course['course_type'],
       description: course['description'],
-      hashtags: course['hastags'],
+      hashtags: course['hashtags'],
       images: course['images'],
       subscription_type: course['subscription_type'],
       title: course['title'],
       total_exams: course['total_exams'],
-      videos: course['videos']
+      _videos: course['videos'],
+      creatorEmail: course['creator_email']
     })
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error("Error when trying to reach the server"));
+  }
+}
+
+export async function putCourseInfo(id: string, country: string,
+  course_type: string, description: string, hashtags: Array<string>,
+  images: Array<string>, subscription_type: string,
+  title: string, total_exams: string,
+  videos: Array<{name:string, url:string}>) {
+  try {
+    const res = await sendAPIrequest(() => axios.put(
+      `${API_URL}${UPDATE_COURSE}`,{
+        id: id,
+        country: country,
+        course_type: course_type,
+        description: description,
+        hashtags: hashtags,
+        images: images,
+        subscription_type: subscription_type,
+        title: title,
+        total_exams: Number(total_exams),
+        videos: videos
+      },
+    getAxiosConfig()
+    ))
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error('Unkown error in the server'));
+    }
+    return Promise.resolve(''); // Ok!
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
