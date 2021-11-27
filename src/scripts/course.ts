@@ -65,7 +65,6 @@ export async function getCourseInfo() {
       }
     }
     const course = res.data['course'];
-    console.log(course);
     return Promise.resolve({
       id: course['_id'],
       country: course['country'],
@@ -91,9 +90,6 @@ export async function putCourseInfo(id: string, country: string,
   title: string, total_exams: string,
   videos: Array<{name:string, url:string}>) {
   try {
-    console.log(images);
-    console.log(videos);
-    console.log(hashtags);
     const res = await sendAPIrequest(() => axios.put(
       `${API_URL}${UPDATE_COURSE}`,{
         id: id,
@@ -110,7 +106,6 @@ export async function putCourseInfo(id: string, country: string,
     getAxiosConfig()
     ))
     if (res.data['status'] === 'error') {
-      console.log("ocurre aca");
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error('Unkown error in the server'));
     }

@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react'
-import { BackHandler, Modal, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
+import React, { useRef } from 'react'
+import { Modal, SafeAreaView, View } from "react-native"
 import { IconButton } from 'react-native-paper'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import GalleryItem, { SLIDER_WIDTH, ITEM_WIDTH } from './GalleryItem'
+import GalleryItem from './GalleryItem'
 import { heightPercentageToDP as hp,
   widthPercentageToDP as wp } from "react-native-responsive-screen";
 import ImageViewer from 'react-native-image-zoom-viewer';

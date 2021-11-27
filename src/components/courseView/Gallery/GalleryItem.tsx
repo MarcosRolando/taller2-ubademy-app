@@ -1,9 +1,6 @@
 import React from 'react'
-import { Modal, View, Text, StyleSheet, Dimensions, Image } from "react-native";
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, StyleSheet, Image } from "react-native";
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { ParallaxImage } from 'react-native-snap-carousel';
-import ImageViewer from 'react-native-image-zoom-viewer';
 
 export const SLIDER_WIDTH = wp(100) + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)

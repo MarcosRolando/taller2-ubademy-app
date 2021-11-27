@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { List, Subheading } from "react-native-paper";
+import { Subheading } from "react-native-paper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import styles from "../../styles/styles";
 import ClassVideo from "./ClassVideo";
