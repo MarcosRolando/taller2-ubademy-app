@@ -69,7 +69,6 @@ const CreateCourse = ({ style }: any) => {
                 }
                 setSubType(subscription_type);
                 setExamsNumber(total_exams.toString());
-                setVideos([]);
                 const newVideos = [] as Array<{name: string, uri: string}>;
                 for (let i = 0; i < _videos.length; i++) {
                   newVideos.push({
@@ -84,7 +83,6 @@ const CreateCourse = ({ style }: any) => {
                 setCourseType(course_type);
                 setLocation(country);
                 setCourseTags(hashtags);
-  
             })
       })();
     }
