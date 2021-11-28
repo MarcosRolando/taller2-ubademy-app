@@ -54,7 +54,7 @@ export async function sendCreateCourse(title: string, description: string,
   }
 }
 
-export async function getCourseInfo(id: string = "619bffa222a2392ec59d8adc") {
+export async function getCourseInfo(id: string) {
   try {
     const res = await sendAPIrequest(() => axios.get(
     `${API_URL}${COURSES}/${id}`, getAxiosConfig()));

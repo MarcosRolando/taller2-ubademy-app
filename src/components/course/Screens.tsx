@@ -16,11 +16,13 @@ export const CreateCourseScreen = ({navigation}: any) => {
   );
 }
 
-export const ViewCourseScreen = ({navigation}: any) => {
+export const ViewCourseScreen = ({route, navigation}: any) => {
+  const { id } = route.params;
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Course />
+        <Course id={id} />
       </ScrollView>
     </View>
   );

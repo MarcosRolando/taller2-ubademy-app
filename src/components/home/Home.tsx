@@ -27,7 +27,8 @@ export const Home = (props: any) => {
         navigation={props.navigation} 
         onCourseSearch={onCourseSearch}
       />
-      <CourseSearchResults 
+      <CourseSearchResults
+        navigation={props.navigation}
         courseResults={courses}
       />
     </View>

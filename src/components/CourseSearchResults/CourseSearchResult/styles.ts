@@ -30,5 +30,8 @@ export const styles = StyleSheet.create({
     maxWidth: wp(22),
     borderRadius: 5,
     paddingHorizontal: 15,
+  },
+  TouchableHighlight: {
+    borderRadius: 10,
   }
 });

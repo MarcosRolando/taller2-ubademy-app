@@ -40,7 +40,6 @@ export const ProfileScreen = ({navigation}: any) => {
       <ProfileStack.Navigator screenOptions={{headerShown: false}} initialRouteName={PROFILE_INFO}>
         <ProfileStack.Screen name={PROFILE_INFO} component={ProfileInfoSreen} />
         <ProfileStack.Screen name={PROFILE_EDITOR} component={ProfileEditorScreen} />
-        <ProfileStack.Screen name={COURSE} component={CourseScreen} />
       </ProfileStack.Navigator>
     );
 }
@@ -56,13 +55,3 @@ export const UserScreen = ({route, navigation}: any) => {
     </View>
   );
 };
-
-export const CourseScreen = ({navigation}: any) => {
-  return (
-    <View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Course />
-      </ScrollView>
-    </View>
-  );
-}
