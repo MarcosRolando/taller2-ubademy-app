@@ -3,7 +3,7 @@ import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { SEARCH_COURSES } from "../endpoints";
 
-export async function searchCoursesByType(courseType: string) {
+export async function searchCoursesByType(courseType: string, subType: string) {
   try {
     const res = await sendAPIrequest(() => axios.get(
       `${API_URL}${SEARCH_COURSES}/course_type/${courseType}`, getAxiosConfig()));

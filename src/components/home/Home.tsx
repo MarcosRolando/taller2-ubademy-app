@@ -9,8 +9,8 @@ export const Home = (props: any) => {
   const [courses, setCoures] = React.useState([] as Array<{id: string, 
     image: string, subType: string, title: string}>);
 
-  const onCourseSearch = (searchValue: string) => {
-    searchCoursesByType(searchValue)
+  const onCourseSearch = (courseType: string, subType: string) => {
+    searchCoursesByType(courseType, subType)
       .then((_courses: Array<any>) => {
         setCoures(_courses.map(({ _id, image, subscription_type, title}) => 
         { return {id: _id, image: image, subType: subscription_type, title: title}}));

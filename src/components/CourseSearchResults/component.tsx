@@ -7,7 +7,8 @@ export const CourseSearchResults = ({ courseResults }: any) => {
 
   return (
     <View>
-      {courseResults.map((course: any) => <CourseSearchResult course={course} />)}
+      {courseResults.map((course: any, index: number) =>
+       <CourseSearchResult course={course} key={index}/>)}
     </View>
   );
 }

@@ -12,8 +12,8 @@ export const CourseSearchResult = ({ course }: any) => {
         {course.title}
       </Text>
       <Image
-          source={{uri: (!course.image.trim()) ? course.image : 
-            Image.resolveAssetSource(defaultPicture).uri, height: hp(35)}}
+          //source={{uri: course.image}} TODO
+          source={{uri: Image.resolveAssetSource(defaultPicture).uri, height: hp(35)}}
           style={styles.CourseImage}
       />
       <Text style={styles.SubTypeText}>
