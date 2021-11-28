@@ -11,6 +11,8 @@ const ExamCreateUpdate = ({navigation} : any) => {
   const [idCounter, setIdCounter] = React.useState(0);
   const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
 
+  const [isEditing, setIsEditing] = React.useState(false);
+
   const [errorMessage, setErrorMessage] = React.useState("");
 
   function addQuestion() {
@@ -21,13 +23,13 @@ const ExamCreateUpdate = ({navigation} : any) => {
     setIdCounter(idCounter + 1);
   }
 
-  function questionIsEmpty(index : number) {
-    return questions[index].value === "";
-  }
-
   function questionsAreValid(){
     if (questions.length == 0) {
-      setErrorMessage("You can't create an empty exam");
+      if (isEditing) {
+        setErrorMessage("You can't update an empty exam");
+      } else {
+        setErrorMessage("You can't create an empty exam");
+      }
       return false;
     }
     for (let i = 0; i < questions.length; i++) {
@@ -46,10 +48,22 @@ const ExamCreateUpdate = ({navigation} : any) => {
     if (result && questions.length != 0) {
       setErrorMessage("");
       // TODO: enviar al back!
-      console.log("Se envia al back");
+      console.log("Se crea el examen y se lo envía al back!");
       console.log(questions);
     } else {
-      console.log("No se envia al back");
+      console.log("No se crea :(");
+    }
+  }
+
+  function updateExam() {
+    let result = questionsAreValid();
+    if (result && questions.length != 0) {
+      setErrorMessage("");
+      // TODO: enviar al back!
+      console.log("Se updatea el examen y se lo envía al back");
+      console.log(questions);
+    } else {
+      console.log("No se updatea nada :(");
     }
   }
 
@@ -81,11 +95,19 @@ const ExamCreateUpdate = ({navigation} : any) => {
         Add Question
       </Button>
 
-      <Button
-        onPress={() => createExam()}
-      >
-        Create
-      </Button>
+      {isEditing ? (
+        <Button
+          onPress={() => createExam()}
+        >
+          Update
+        </Button>
+        ) : 
+        <Button
+          onPress={() => createExam()}
+        >
+          Create
+        </Button>
+      }
 
       <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
         {errorMessage}
