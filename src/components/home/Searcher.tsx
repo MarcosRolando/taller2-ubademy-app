@@ -7,29 +7,33 @@ import { USER } from "../../routes";
 import { getProfileInfo } from "../../scripts/profile";
 import { newUserProfile } from "../../models/userProfile";
 
-const Searcher = ({navigation}: any) => {
+const Searcher = ({ navigation, onCourseSearch }: any) => {
   const [searchQuery, setSearchQuery] = React.useState({
     value: '',
     placeholder: 'Search',
     color: 'grey'
   });
-  const onChangeSearch = (query: string) => setSearchQuery({placeholder: 'Search', value: query, color: 'grey'});
+  const onChangeSearch = (query: string) => 
+    setSearchQuery({placeholder: 'Search', value: query, color: 'grey'});
 
   function sendQuery() {
-    if (searchQuery.value !== '') {
-      getProfileInfo(searchQuery.value)
-      .then(({_name, _email, _location, _subType, _image, _genres}) => {
-        const userProfile = newUserProfile(_name, _email, _location, _subType, _image, _genres);
-        navigation.navigate(USER, { userProfile });
-      })
-      .catch((error) => {
-        setSearchQuery({
-          value: '', 
-          placeholder: 'That user does not exist',
-          color: colors.error
-        })
-      });
-    }
+    // TODO chequear que se busque por tipo de curso
+    onCourseSearch(searchQuery.value);
+     
+    // if (searchQuery.value !== '') { TODO
+    //   getProfileInfo(searchQuery.value)
+    //   .then(({_name, _email, _location, _subType, _image, _genres}) => {
+    //     const userProfile = newUserProfile(_name, _email, _location, _subType, _image, _genres);
+    //     navigation.navigate(USER, { userProfile });
+    //   })
+    //   .catch((error) => {
+    //     setSearchQuery({
+    //       value: '', 
+    //       placeholder: 'That user does not exist',
+    //       color: colors.error
+    //     })
+    //   });
+    // }
   }
 
   return (
