@@ -1,9 +1,10 @@
 import React from "react";
-import { SafeAreaView, Text, View } from "react-native";
-import { Button, TextInput, Title, HelperText } from "react-native-paper";
+import { SafeAreaView, Text } from "react-native";
+import { Button } from "react-native-paper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
+import Question from "./Question";
 
 const ExamCreateUpdate = ({navigation} : any) => {
 
@@ -46,6 +47,7 @@ const ExamCreateUpdate = ({navigation} : any) => {
       setErrorMessage("");
       // TODO: enviar al back!
       console.log("Se envia al back");
+      console.log(questions);
     } else {
       console.log("No se envia al back");
     }
@@ -55,38 +57,12 @@ const ExamCreateUpdate = ({navigation} : any) => {
     const questionsToRender = [] as any;
     for (let i = 0; i < questions.length; i++) {
       questionsToRender.push(
-        <View key={i}>
-          <TextInput
-            label="Enter a question"
-            value={questions[i].value}
-            right={
-              <TextInput.Icon
-                name="close-circle"
-                onPress={() => {
-                  setQuestions(questions.filter((question) => question.id !== questions[i].id ))
-                }}
-              />
-            }
-            multiline={true}
-            onChangeText={(newValue) => {
-              setQuestions(questions.map((question) => {
-                if (question.id === questions[i].id) {
-                  question.value = newValue;
-                }
-                return question;
-              }))
-            }}
-        />
-
-          <HelperText
-            type="error"
-            visible={questionIsEmpty(i)}
-          >
-            This question is empty
-          </HelperText>
-      </View>
-      
-      )
+      <Question
+        key={i}
+        i={i}
+        questions={questions}
+        setQuestions={setQuestions}
+      />)
     }
     return questionsToRender;
   }
