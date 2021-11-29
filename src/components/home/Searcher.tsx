@@ -4,6 +4,9 @@ import colors from "../../styles/colors";
 import { StyleSheet, View } from "react-native";
 import { widthPercentageToDP, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import DropDown from "react-native-paper-dropdown";
+import { getProfileInfo } from "../../scripts/profile";
+import { USER } from "../../routes";
+import { newUserProfile } from "../../models/userProfile";
 
 const Searcher = ({ navigation, onCourseSearch }: any) => {
   const [searchQuery, setSearchQuery] = React.useState({
@@ -23,21 +26,23 @@ const Searcher = ({ navigation, onCourseSearch }: any) => {
     setSearchQuery({placeholder: 'Search', value: query, color: 'grey'});
 
   function sendQuery() {
-    onCourseSearch(selectedCourseType, selectedSubType);
-    // if (searchQuery.value !== '') { TODO
-    //   getProfileInfo(searchQuery.value)
-    //   .then(({_name, _email, _location, _subType, _image, _genres}) => {
-    //     const userProfile = newUserProfile(_name, _email, _location, _subType, _image, _genres);
-    //     navigation.navigate(USER, { userProfile });
-    //   })
-    //   .catch((error) => {
-    //     setSearchQuery({
-    //       value: '', 
-    //       placeholder: 'That user does not exist',
-    //       color: colors.error
-    //     })
-    //   });
-    // }
+    if (searchQuery.value !== '') {
+      getProfileInfo(searchQuery.value)
+      .then(({_name, _email, _location, _subType, _image, _genres}) => {
+        const userProfile = newUserProfile(_name, _email, _location, _subType, _image, _genres);
+        navigation.navigate(USER, { userProfile });
+      })
+      .catch((error) => {
+        console.log(error)
+        setSearchQuery({
+          value: '', 
+          placeholder: 'That user does not exist',
+          color: colors.error
+        })
+      });
+    } else {
+      onCourseSearch(selectedCourseType, selectedSubType); // TODO despues mejorar esto
+    }
   }
 
   return (

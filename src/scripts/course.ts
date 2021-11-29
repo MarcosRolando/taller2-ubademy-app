@@ -47,7 +47,7 @@ export async function sendCreateCourse(title: string, description: string,
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    return Promise.resolve('');
+    return Promise.resolve(res.data['id']);
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
