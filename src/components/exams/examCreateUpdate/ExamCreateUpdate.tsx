@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView, Text } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { Button } from "react-native-paper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
@@ -14,10 +15,33 @@ const ExamCreateUpdate = ({navigation} : any) => {
 
   const [idCounter, setIdCounter] = React.useState(0);
   const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
-
   const [isEditing, setIsEditing] = React.useState(true);
-
   const [errorMessage, setErrorMessage] = React.useState("");
+
+  useEffect(() => {
+    return () => {
+      if (isEditing) {
+        // TODO: pedirle al baka-back la data
+        // Lo que sigue es de prueba:
+        const newQuestions = [
+          {
+            id: 0,
+            value: "Pregunta 1: esto es una pregunta?"
+          },
+          {
+            id: 1,
+            value: "Pregunta 2: lo de arriba era una pregunta?"
+          },
+          {
+            id: 2,
+            value: "Pregunta 3: no sé qué más preguntar?"
+          }
+        ];
+        setQuestions(newQuestions);
+        setIdCounter(newQuestions.length);
+      }
+    }
+  }, [])
 
   function addQuestion() {
     setQuestions([...questions, {
@@ -86,38 +110,40 @@ const ExamCreateUpdate = ({navigation} : any) => {
   }
 
   return (
-    <SafeAreaView style={styles.profileTitle}>
-      <Text style={{fontSize:50, color: colors.primary}}>
-        Create Exam
-      </Text>
+    <ScrollView>
+      <SafeAreaView style={styles.profileTitle}>
+        <Text style={{fontSize:50, color: colors.primary}}>
+          Create Exam
+        </Text>
 
-      {renderQuestions()}
+        {renderQuestions()}
 
-      <Button
-        onPress={() => addQuestion()}
-      >
-        Add Question
-      </Button>
-
-      {isEditing ? (
         <Button
-          onPress={() => createExam()}
+          onPress={() => addQuestion()}
         >
-          Update
+          Add Question
         </Button>
-        ) : 
-        <Button
-          onPress={() => createExam()}
-        >
-          Create
-        </Button>
-      }
 
-      <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
-        {errorMessage}
-      </Text>
+        {isEditing ? (
+          <Button
+            onPress={() => createExam()}
+          >
+            Update
+          </Button>
+          ) : 
+          <Button
+            onPress={() => createExam()}
+          >
+            Create
+          </Button>
+        }
 
-    </SafeAreaView>
+        <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
+          {errorMessage}
+        </Text>
+
+      </SafeAreaView>
+    </ScrollView>
   )
 }
 

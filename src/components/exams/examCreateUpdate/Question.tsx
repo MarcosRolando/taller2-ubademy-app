@@ -1,9 +1,6 @@
 import React from "react";
-import { SafeAreaView, Text, View } from "react-native";
-import { Button, TextInput, Title, HelperText } from "react-native-paper";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import colors from "../../../styles/colors";
-import styles from "../../../styles/styles";
+import { View } from "react-native";
+import { TextInput, HelperText } from "react-native-paper";
 
 const MESSAGE_ERROR_EMPTY_QUESTION = "This question is empty";
 
