@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {SignupScreen, LoginScreen, ProfileSetupScreen} from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE, EXAM_CREATE_UPDATE} from './src/routes';
+import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE, EXAM_CREATE_UPDATE, EXAM} from './src/routes';
 import {AppRegistry, LogBox} from 'react-native';
 import colors from './src/styles/colors';
 import {UbademyTheme, NavigationTheme} from './src/styles/themes';
@@ -15,6 +15,7 @@ import Root from './src/components/Root';
 
 import { getApps, initializeApp } from 'firebase/app';
 import ExamCreateUpdate from './src/components/exams/examCreateUpdate/ExamCreateUpdate';
+import Exam from './src/components/exams/exam/Exam';
 
 // Optionally import the services that you want to use
 //import {...} from "firebase/auth";
@@ -84,7 +85,7 @@ export default function App() {
         <NavigationContainer theme={NavigationTheme}>
           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
             <Stack.Group>
-              <Stack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdate} />
+              <Stack.Screen name={EXAM} component={Exam} />
             </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>
