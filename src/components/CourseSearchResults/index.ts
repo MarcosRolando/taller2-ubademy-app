@@ -1,0 +1,1 @@
+export { CourseSearchResults } from './component';

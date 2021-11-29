@@ -47,14 +47,14 @@ export async function sendCreateCourse(title: string, description: string,
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    return Promise.resolve('');
+    return Promise.resolve(res.data['id']);
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
 
-export async function getCourseInfo(id: string = "619bffa222a2392ec59d8adc") {
+export async function getCourseInfo(id: string) {
   try {
     const res = await sendAPIrequest(() => axios.get(
     `${API_URL}${COURSES}/${id}`, getAxiosConfig()));
@@ -113,5 +113,24 @@ export async function putCourseInfo(id: string, country: string,
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+
+export async function getCourseFilterData() {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+    `${API_URL}${COURSES}/${/*TODO*/3}`, getAxiosConfig()));
+    if (res.data['status'] == 'error') {
+      switch (res.data["message"]) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    return Promise.resolve({ _courseTypes: res.data['course_types'], 
+      _subTypes: res.data['subscription_types']});
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error("Error when trying to reach the server"));
   }
 }

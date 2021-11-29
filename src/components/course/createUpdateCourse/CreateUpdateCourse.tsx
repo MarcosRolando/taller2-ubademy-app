@@ -11,8 +11,9 @@ import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } from "../../../scripts/course";
 import CourseTags from "./CourseTags";
+import { COURSE } from "../../../routes";
 
-const CreateCourse = ({ style }: any) => {
+const CreateCourse = ({ style, navigation }: any) => {
   const[uploading, setUploading] = React.useState(false);
 
   const [id, setId] = React.useState('');
@@ -237,11 +238,11 @@ const CreateCourse = ({ style }: any) => {
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
-        sendCreateCourse(courseName, courseDescription, 
+        const _id = await sendCreateCourse(courseName, courseDescription, 
           examsNumber, subType, courseType, location, courseTags, 
           _images, _videos);
         setUploading(false);
-        //TODO ir a la pantalla del curso creado
+        navigation.navigate(COURSE, { id: _id })
       }
     } catch(error) {
       console.log(error);
