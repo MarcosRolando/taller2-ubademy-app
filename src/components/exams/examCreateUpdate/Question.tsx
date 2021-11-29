@@ -5,6 +5,8 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
 
+const MESSAGE_ERROR_EMPTY_QUESTION = "This question is empty";
+
 const Question = (props : any) => {
   function questionIsEmpty(index : number) {
     return props.questions[index].value === "";
@@ -38,7 +40,7 @@ const Question = (props : any) => {
         type="error"
         visible={questionIsEmpty(props.i)}
       >
-        This question is empty
+        {MESSAGE_ERROR_EMPTY_QUESTION}
       </HelperText>
     </View>
   )

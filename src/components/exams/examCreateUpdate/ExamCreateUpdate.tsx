@@ -6,12 +6,16 @@ import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
 import Question from "./Question";
 
+const MESSAGE_ERROR_CREATE_EMPTY_EXAM = "You can't create an empty exam";
+const MESSAGE_ERROR_UPDATE_EMPTY_EXAM = "You can't update an empty exam";
+const MESSAGE_ERROR_EMPTY_QUESTIONS = "There's still empty questions";
+
 const ExamCreateUpdate = ({navigation} : any) => {
 
   const [idCounter, setIdCounter] = React.useState(0);
   const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
 
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [isEditing, setIsEditing] = React.useState(true);
 
   const [errorMessage, setErrorMessage] = React.useState("");
 
@@ -26,16 +30,16 @@ const ExamCreateUpdate = ({navigation} : any) => {
   function questionsAreValid(){
     if (questions.length == 0) {
       if (isEditing) {
-        setErrorMessage("You can't update an empty exam");
+        setErrorMessage(MESSAGE_ERROR_UPDATE_EMPTY_EXAM);
       } else {
-        setErrorMessage("You can't create an empty exam");
+        setErrorMessage(MESSAGE_ERROR_CREATE_EMPTY_EXAM);
       }
       return false;
     }
     for (let i = 0; i < questions.length; i++) {
       let value = questions[i].value;
       if (value === "") {
-        setErrorMessage("There's still empty questions");
+        setErrorMessage(MESSAGE_ERROR_EMPTY_QUESTIONS);
         return false;
       }
     }
