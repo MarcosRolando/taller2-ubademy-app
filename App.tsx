@@ -46,25 +46,25 @@ LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const Stack = createNativeStackNavigator();
 
-// export default function App() {
-//   return (
-//     <PaperProvider theme={UbademyTheme}>
-//       <StatusBar style='light' />
-//       <SafeAreaProvider style={{backgroundColor: colors.background}}>
-//         <NavigationContainer theme={NavigationTheme}>
-//           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
-//             <Stack.Group>
-//               <Stack.Screen name={LOGIN} component={LoginScreen} />
-//               <Stack.Screen name={SIGNUP} component={SignupScreen} />
-//               <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
-//             </Stack.Group>
-//             <Stack.Screen name={ROOT} component={Root} />
-//           </Stack.Navigator>
-//         </NavigationContainer>
-//       </SafeAreaProvider>
-//     </PaperProvider>
-//   );
-// }
+export default function App() {
+  return (
+    <PaperProvider theme={UbademyTheme}>
+      <StatusBar style='light' />
+      <SafeAreaProvider style={{backgroundColor: colors.background}}>
+        <NavigationContainer theme={NavigationTheme}>
+          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
+            <Stack.Group>
+              <Stack.Screen name={LOGIN} component={LoginScreen} />
+              <Stack.Screen name={SIGNUP} component={SignupScreen} />
+              <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
+            </Stack.Group>
+            <Stack.Screen name={ROOT} component={Root} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </PaperProvider>
+  );
+}
 
 // export default function App() {
 //   return (
@@ -77,21 +77,21 @@ const Stack = createNativeStackNavigator();
 //   );
 // }
 
-export default function App() {
-  return (
-    <PaperProvider theme={UbademyTheme}>
-      <StatusBar style='light' />
-      <SafeAreaProvider style={{backgroundColor: colors.background}}>
-        <NavigationContainer theme={NavigationTheme}>
-          <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
-            <Stack.Group>
-              <Stack.Screen name={EXAM} component={Exam} />
-            </Stack.Group>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </PaperProvider>
-  );
-}
+// export default function App() {
+//   return (
+//     <PaperProvider theme={UbademyTheme}>
+//       <StatusBar style='light' />
+//       <SafeAreaProvider style={{backgroundColor: colors.background}}>
+//         <NavigationContainer theme={NavigationTheme}>
+//           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
+//             <Stack.Group>
+//               <Stack.Screen name={EXAM} component={Exam} />
+//             </Stack.Group>
+//           </Stack.Navigator>
+//         </NavigationContainer>
+//       </SafeAreaProvider>
+//     </PaperProvider>
+//   );
+// }
 
 AppRegistry.registerComponent('ubademy', () => App);

@@ -9,11 +9,12 @@ import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 import sendLoginCredentials from "../../../scripts/logIn";
+import ExamList from "./ExamsList";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
 
-const Course = () => {
+const Course = (props : any) => {
 
   const [info, setInfo] = React.useState({
     title: "Titulo del curso muy muy muy largo",
@@ -29,6 +30,8 @@ const Course = () => {
   const [showVideo, setShowVideo] = React.useState(true);
   const [showImages, setShowImages] = React.useState(true);
   const [showCover, setShowCover] = React.useState(false);
+
+  const [showExams, setShowExams] = React.useState(true);
 
   useEffect(() => {
     (
@@ -101,6 +104,10 @@ const Course = () => {
         <Gallery info={info}/>
         ) : null}
 
+      {showExams ? (
+        <ExamList/>
+        ) : <></>}
+
       {info.ownEmail == info.creatorEmail ? (
         // TODO: ir a la pantalla de edición del curso
         <Button
@@ -110,7 +117,6 @@ const Course = () => {
           Edit course
         </Button>
       ) : null}
-
 
       <View style={{paddingBottom: hp(10)}}></View>
 
