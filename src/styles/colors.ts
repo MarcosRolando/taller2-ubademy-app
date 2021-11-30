@@ -3,4 +3,5 @@ export default {
   second:'#c2e0f4',
   error: '#CF6679',
   background: '#121212',
+  text: '#DEDEDE'
 };

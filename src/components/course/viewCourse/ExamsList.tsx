@@ -4,6 +4,7 @@ import { List, Subheading } from "react-native-paper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import styles from "../../../styles/styles";
 import colors from "../../../styles/colors";
+import { DarkTheme } from "react-native-paper";
 
 const ExamList = () => {
   const [exams, setExams] = React.useState([
@@ -41,14 +42,16 @@ const ExamList = () => {
     const examsToRender = [];
     for (let i = 0; i < exams.length; i++) {
       if (exams[i].published) {
+        let isDisabled = exams[i].solved;
         examsToRender.push(
           <List.Item
             key={exams[i].examName}
             title={exams[i].examName}
-            disabled={exams[i].solved}
-            left={props => <List.Icon {...props} icon="lead-pencil"/>}
+            disabled={isDisabled}
+            left={props => <List.Icon {...props}
+              icon="lead-pencil"/>}
             onPress={() => console.log("a resolver!")}
-            style={{backgroundColor:colors.background}}
+            titleStyle={{color:isDisabled ? DarkTheme.colors.disabled : colors.text}}
           />
         )
       }
