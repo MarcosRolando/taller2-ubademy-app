@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View } from "react-native";
-import { Button, Portal, Text } from "react-native-paper";
+import { Button, Portal, Text, FAB } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
@@ -10,6 +10,7 @@ import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 import sendLoginCredentials from "../../../scripts/logIn";
 import ExamList from "./ExamsList";
+import { StyleSheet } from 'react-native';
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
@@ -30,8 +31,8 @@ const Course = (props : any) => {
   const [showVideo, setShowVideo] = React.useState(true);
   const [showImages, setShowImages] = React.useState(true);
   const [showCover, setShowCover] = React.useState(false);
-
   const [showExams, setShowExams] = React.useState(true);
+  const [showContent, setShowContent] = React.useState(true);
 
   useEffect(() => {
     (
@@ -138,9 +139,21 @@ const Course = (props : any) => {
           </TouchableOpacity>
 
         </View>
+
       </Portal>
+
+
     </View>
   );
 }
+
+const stylesS = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+})
 
 export default Course;

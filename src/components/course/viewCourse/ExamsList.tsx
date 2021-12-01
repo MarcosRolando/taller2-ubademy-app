@@ -5,6 +5,8 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import styles from "../../../styles/styles";
 import colors from "../../../styles/colors";
 import { DarkTheme } from "react-native-paper";
+import { useNavigation } from "@react-navigation/core";
+import { EXAM, ROOT } from "../../../routes";
 
 const ExamList = () => {
   const [exams, setExams] = React.useState([
@@ -37,6 +39,7 @@ const ExamList = () => {
       questions: ["Pregunta 1: H", "Pregunta 2: I"],
     },
   ])
+  const navigation = useNavigation();
 
   function renderExams() {
     const examsToRender = [];
@@ -50,7 +53,7 @@ const ExamList = () => {
             disabled={isDisabled}
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}
-            onPress={() => console.log("a resolver!")}
+            onPress={() => navigation.navigate(EXAM as never, {title:"hello"} as never)}
             titleStyle={{color:isDisabled ? DarkTheme.colors.disabled : colors.text}}
           />
         )

@@ -3,7 +3,7 @@ import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT,
 import {StatusBar} from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {SignupScreen, LoginScreen, ProfileSetupScreen} from './src/components/register/Screens';
+import {SignupScreen, LoginScreen, ProfileSetupScreen, ExamScreen} from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE, EXAM_CREATE_UPDATE, EXAM} from './src/routes';
 import {AppRegistry, LogBox} from 'react-native';
@@ -57,6 +57,7 @@ export default function App() {
               <Stack.Screen name={LOGIN} component={LoginScreen} />
               <Stack.Screen name={SIGNUP} component={SignupScreen} />
               <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
+              <Stack.Screen name={EXAM} component={ExamScreen} />
             </Stack.Group>
             <Stack.Screen name={ROOT} component={Root} />
           </Stack.Navigator>

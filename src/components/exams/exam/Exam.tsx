@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, Subheading, TextInput } from "react-native-paper";
 import colors from "../../../styles/colors";
+import { useNavigation } from "@react-navigation/core";
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
-const Exam = (props: any) => {
+const Exam = ({title}: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     setQuestions([
@@ -33,6 +35,7 @@ const Exam = (props: any) => {
     // TODO: mandarle al baka-back
     setIsFinished(true);
     console.log(answers);
+    console.log(title);
   }
 
   function renderQuestions() {

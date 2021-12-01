@@ -5,6 +5,7 @@ import { heightPercentageToDP as hp,
     widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Login from './Login'; 
 import ProfileSetup from './ProfileSetup';
+import Exam from '../exams/exam/Exam';
 
 export const SignupScreen = ({navigation}: any) => {
     return (
@@ -31,6 +32,17 @@ export const LoginScreen = ({navigation}: any) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Login navigation={navigation} style={styles.screen}/>
+      </ScrollView>
+    </View>
+  );
+}
+
+export const ExamScreen = ({route, navigation}: any) => {
+  const {title} = route.params;
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Exam title={title} />
       </ScrollView>
     </View>
   );
