@@ -1,12 +1,16 @@
 import * as React from 'react';
 import {View} from 'react-native';
-import {TextInput, Button, Text} from 'react-native-paper';
+import {TextInput, Button, Text, IconButton} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styles/themes';
 import sendLoginCredentials from '../../scripts/logIn';
 import { ROOT } from '../../routes';
 import colors from '../../styles/colors';
+import * as LocalAuthentication from 'expo-local-authentication';
+import * as SecureStore from 'expo-secure-store';
+import { setAccessToken } from '../../apiWrapper';
+import { setUserCredentials } from '../../userCredentials';
 
 
 const LoginCredentials = (props: any) => {
@@ -19,6 +23,7 @@ const LoginCredentials = (props: any) => {
     style: Themes.textInput,
   });
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [registerFingerprint, setRegisterFingerprint] = React.useState(false);
 
   function sendCredentials() {
     if (!username.value.trim()) {
@@ -31,13 +36,33 @@ const LoginCredentials = (props: any) => {
       setErrorMessage('Please enter your password');
       return;
     }
-    sendLoginCredentials(username.value, password.value)
+    sendLoginCredentials(username.value, password.value, registerFingerprint)
       .then(() => {
+        setErrorMessage('');
         props.navigation.navigate(ROOT);
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);
       });
+  }
+
+  async function fingerprintLogin() {
+    try {
+      const response = await LocalAuthentication.authenticateAsync();
+      if (!response.success) return;
+      const jwt = await SecureStore.getItemAsync('ubademy-biometric-jwt');
+      if (jwt !== null) {
+        setAccessToken(jwt);
+        setUserCredentials(String(await SecureStore.getItemAsync('ubademy-email')), '');
+        setErrorMessage('');
+        props.navigation.navigate(ROOT);
+        return;
+      }
+      setErrorMessage('Login with your credentials to setup the fingerprint login');
+      setRegisterFingerprint(true);
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -72,11 +97,18 @@ const LoginCredentials = (props: any) => {
         </Text>
       </View>
       <Button
-        mode='contained' 
-        style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
+        mode='contained'
+        style={{marginTop: hp(1), marginHorizontal: wp(8)}}
         onPress={sendCredentials}>
-          Log In
+          Login
       </Button>
+      <IconButton
+        icon='fingerprint'
+        color={colors.primary}
+        size={wp(10)}
+        style={{position: 'absolute', bottom: hp(-1.2), left: wp(62), margin: 0}}
+        onPress={fingerprintLogin}>
+      </IconButton>
     </View>
   );
 };
