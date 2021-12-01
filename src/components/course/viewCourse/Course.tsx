@@ -32,7 +32,7 @@ const Course = (props : any) => {
   const [showImages, setShowImages] = React.useState(true);
   const [showCover, setShowCover] = React.useState(false);
   const [showExams, setShowExams] = React.useState(true);
-  const [showContent, setShowContent] = React.useState(true);
+  const [isSubscribed, setIsSubscribe] = React.useState(true);
 
   useEffect(() => {
     (
@@ -95,53 +95,55 @@ const Course = (props : any) => {
         <BasicInfo info={info} showCover={showCover} />
       </View>
 
-      {showVideo ? (
-        <CourseList info={info}/>
-        ) : null}
+      {isSubscribed ? (
+        <>
+          {showVideo ? (
+            <CourseList info={info}/>
+            ) : null}
 
-      <View style={{marginBottom: hp(3)}}></View>
+          <View style={{marginBottom: hp(3)}}></View>
 
-      {showImages ? (
-        <Gallery info={info}/>
-        ) : null}
+          {showImages ? (
+            <Gallery info={info}/>
+            ) : null}
 
-      {showExams ? (
-        <ExamList/>
-        ) : <></>}
+          {showExams ? (
+            <ExamList/>
+            ) : <></>}
 
-      {info.ownEmail == info.creatorEmail ? (
-        // TODO: ir a la pantalla de edición del curso
-        <Button
-          onPress = {() => {console.log("Going to the editor screen, bro!")}}
-          style={{marginTop:hp(3)}}
-        >
-          Edit course
-        </Button>
-      ) : null}
+          {info.ownEmail == info.creatorEmail ? (
+            // TODO: ir a la pantalla de edición del curso
+            <Button
+              onPress = {() => {console.log("Going to the editor screen, bro!")}}
+              style={{marginTop:hp(3)}}
+            >
+              Edit course
+            </Button>
+          ) : null}
+            </>
+          ) :
+        <>
+          <Portal>
+            <View style={styles.viewOnFront}>
 
-      <View style={{paddingBottom: hp(10)}}></View>
+              <Text>{info.subscriptionType}</Text>
 
-      <Portal>
-        <View style={styles.viewOnFront}>
+              <TouchableOpacity
+                // TODO: que se avise al baka-back que se subscribió
+                onPress={() => console.log("presionado!")}
+                style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
+              >
 
-          <Text>{info.subscriptionType}</Text>
-
-          <TouchableOpacity
-            // TODO: que se avise al baka-back que se subscribió
-            onPress={() => console.log("presionado!")}
-            style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
-          >
-
-            <Text style={{}}
-              >SUBSCRIBE
-            </Text>
-            
-          </TouchableOpacity>
-
-        </View>
-
-      </Portal>
-
+                <Text style={{}}
+                  >SUBSCRIBE
+                </Text>
+                
+              </TouchableOpacity>
+              
+            </View>
+          </Portal>
+        </>
+      }
 
     </View>
   );
