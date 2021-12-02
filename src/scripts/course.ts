@@ -13,6 +13,7 @@ export async function getCreateCourseInfo() {
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    console.log(res.data);
     return Promise.resolve({
       _locations: res.data['locations'],
       _subTypes: res.data['subscriptions'],
@@ -41,6 +42,7 @@ export async function sendCreateCourse(title: string, description: string,
       images: images,
       videos: videos
     }, getAxiosConfig()));
+    console.log(res.data);
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:
@@ -54,7 +56,7 @@ export async function sendCreateCourse(title: string, description: string,
   }
 }
 
-export async function getCourseInfo(id: string = "619bffa222a2392ec59d8adc") {
+export async function getCourseInfo(id: string = "61a7e42fd2398ad27a7d0099") {
   try {
     const res = await sendAPIrequest(() => axios.get(
     `${API_URL}${COURSES}/${id}`, getAxiosConfig()));

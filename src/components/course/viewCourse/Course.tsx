@@ -33,6 +33,7 @@ const Course = (props : any) => {
   const [showCover, setShowCover] = React.useState(false);
   const [showExams, setShowExams] = React.useState(true);
   const [isSubscribed, setIsSubscribe] = React.useState(true);
+  const [isCreator, setIsCreator] = React.useState(false);
 
   useEffect(() => {
     (
@@ -95,7 +96,7 @@ const Course = (props : any) => {
         <BasicInfo info={info} showCover={showCover} />
       </View>
 
-      {isSubscribed ? (
+      {(isSubscribed || isCreator) ? (
         <>
           {showVideo ? (
             <CourseList info={info}/>
@@ -108,10 +109,10 @@ const Course = (props : any) => {
             ) : null}
 
           {showExams ? (
-            <ExamList/>
+            <ExamList onlyView={isCreator}/>
             ) : <></>}
 
-          {info.ownEmail == info.creatorEmail ? (
+          {isCreator ? (
             // TODO: ir a la pantalla de edición del curso
             <Button
               onPress = {() => {console.log("Going to the editor screen, bro!")}}
@@ -148,14 +149,5 @@ const Course = (props : any) => {
     </View>
   );
 }
-
-const stylesS = StyleSheet.create({
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  },
-})
 
 export default Course;

@@ -38,7 +38,7 @@ const CreateCourse = ({ style }: any) => {
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
 
-  const [isEditing, setIsEditing] = React.useState(true);
+  const [isEditing, setIsEditing] = React.useState(false);
 
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
@@ -217,10 +217,10 @@ const CreateCourse = ({ style }: any) => {
       setErrorMessage('Please enter the amount of exams');
       return false;
     }
-    if (!subType.trim()) {
-      setErrorMessage('Please select a subscription type');
-      return false;
-    }
+    // if (!subType.trim()) {
+    //   setErrorMessage('Please select a subscription type');
+    //   return false;
+    // }
     if (!location.trim()) {
       setErrorMessage('Please select a location for this course');
       return false;
@@ -235,7 +235,8 @@ const CreateCourse = ({ style }: any) => {
 
   async function createCourse() {
     try {
-      if (!validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
+      if (true) { // TODO despues cambiarlo a que no te deje si hay algo mal
+        console.log("creandoo");
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
@@ -454,7 +455,7 @@ const CreateCourse = ({ style }: any) => {
         <Button 
           mode='contained'
           style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
-          onPress={updateCourse}
+          onPress={createCourse}
           >
           Create course
         </Button>

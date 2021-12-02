@@ -38,11 +38,11 @@ export const LoginScreen = ({navigation}: any) => {
 }
 
 export const ExamScreen = ({route, navigation}: any) => {
-  const {title} = route.params;
+  const {title, onlyView} = route.params;
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Exam title={title} />
+        <Exam title={title} onlyView={onlyView} />
       </ScrollView>
     </View>
   );

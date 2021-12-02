@@ -6,10 +6,11 @@ import { useNavigation } from "@react-navigation/core";
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
-const Exam = ({title}: any) => {
+const Exam = ({title, onlyView}: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
+  //const [onlyView, setOnlyView] = React.useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -44,10 +45,11 @@ const Exam = ({title}: any) => {
       questionsToRender.push(
         <View key={i}>
           <Subheading>
-            {"Pregunta " + (i + 1).toString() + ": " + questions[i]}
+            {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
-          <TextInput
+          {!onlyView ? (
+            <TextInput
             placeholder={QUESTION_PLACEHOLDER}
             disabled={isFinished}
             multiline={true}
@@ -59,9 +61,10 @@ const Exam = ({title}: any) => {
                 return answer;
               }))
             }}
-          >
+            >
+            </TextInput>
+          ) : <></>}
 
-          </TextInput>
         </View>
       )
     }
@@ -72,17 +75,19 @@ const Exam = ({title}: any) => {
     <ScrollView>
       <SafeAreaView>
         <Text style={{fontSize:50, color: colors.primary}}>
-          Create Exam
+          Exam
         </Text>
 
       {renderQuestions()}
 
-      <Button
+      {!onlyView ? (
+        <Button
         disabled={isFinished}
         onPress={() => sendExam()}
-      >
-        Send
-      </Button>
+        >
+          Send
+        </Button>
+      ) : <></>}
 
       </SafeAreaView>
     </ScrollView>

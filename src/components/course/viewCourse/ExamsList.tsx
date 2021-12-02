@@ -8,7 +8,7 @@ import { DarkTheme } from "react-native-paper";
 import { useNavigation } from "@react-navigation/core";
 import { EXAM, ROOT } from "../../../routes";
 
-const ExamList = () => {
+const ExamList = (props : any) => {
   const [exams, setExams] = React.useState([
     {
       idCourse: 666,
@@ -53,7 +53,12 @@ const ExamList = () => {
             disabled={isDisabled}
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}
-            onPress={() => navigation.navigate(EXAM as never, {title:"hello"} as never)}
+            onPress={() => 
+              navigation.navigate(EXAM as never, {
+                title:"hello",
+                onlyView: props.onlyView
+              } as never)
+            }
             titleStyle={{color:isDisabled ? DarkTheme.colors.disabled : colors.text}}
           />
         )
