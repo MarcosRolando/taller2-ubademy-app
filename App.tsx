@@ -5,9 +5,9 @@ import React, { useEffect } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {SignupScreen, LoginScreen,
   ProfileSetupScreen, ExamScreen,
-  ExamCreateUpdateScreen} from './src/components/register/Screens';
+  ExamCreateScreen} from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE, EXAM_CREATE_UPDATE, EXAM} from './src/routes';
+import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE, EXAM_CREATE_UPDATE, EXAM, EXAM_CREATE} from './src/routes';
 import {AppRegistry, LogBox} from 'react-native';
 import colors from './src/styles/colors';
 import {UbademyTheme, NavigationTheme} from './src/styles/themes';
@@ -60,7 +60,7 @@ export default function App() {
               <Stack.Screen name={SIGNUP} component={SignupScreen} />
               <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
               <Stack.Screen name={EXAM} component={ExamScreen} />
-              <Stack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
+              <Stack.Screen name={EXAM_CREATE} component={ExamCreateScreen} />
             </Stack.Group>
             <Stack.Screen name={ROOT} component={Root} />
           </Stack.Navigator>

@@ -25,3 +25,4 @@ export const PROFILE_EDITOR = 'ProfileEditor';
 // Exams routes
 export const EXAM = "Exam"
 export const EXAM_CREATE_UPDATE = 'CreateExam';
+export const EXAM_CREATE = 'Create Exam';

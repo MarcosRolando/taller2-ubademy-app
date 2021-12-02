@@ -1,22 +1,24 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
-import { SafeAreaView, Text } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, SafeAreaView, Text } from "react-native";
+import { HelperText, TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
 import Question from "./Question";
 
+const MESSAGE_ERROR_EMPTY_NAME = "The name is empty";
 const MESSAGE_ERROR_CREATE_EMPTY_EXAM = "You can't create an empty exam";
 const MESSAGE_ERROR_UPDATE_EMPTY_EXAM = "You can't update an empty exam";
 const MESSAGE_ERROR_EMPTY_QUESTIONS = "There's still empty questions";
 
-const ExamCreateUpdate = ({setExamIsValid} : any) => {
+const ExamCreateUpdate = (props : any) => {
 
+  const [name, setName] = React.useState("");
   const [idCounter, setIdCounter] = React.useState(0);
   const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [isEditing, setIsEditing] = React.useState(props.isEditing);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [isDone, setIsDone] = React.useState(false);
 
@@ -47,6 +49,10 @@ const ExamCreateUpdate = ({setExamIsValid} : any) => {
     }
   }, [])
 
+  function nameIsEmpty() {
+    return name === "";
+  }
+
   function addQuestion() {
     setQuestions([...questions, {
       id: idCounter,
@@ -56,6 +62,10 @@ const ExamCreateUpdate = ({setExamIsValid} : any) => {
   }
 
   function questionsAreValid(){
+    if (name.length == 0) {
+      setErrorMessage(MESSAGE_ERROR_EMPTY_NAME);
+      return false;
+    }
     if (questions.length == 0) {
       if (isEditing) {
         setErrorMessage(MESSAGE_ERROR_UPDATE_EMPTY_EXAM);
@@ -82,8 +92,8 @@ const ExamCreateUpdate = ({setExamIsValid} : any) => {
       // TODO: enviar al back!
       console.log("Se crea el examen y se lo envía al back!");
       console.log(questions);
+      console.log(name);
       setIsDone(true);
-      setExamIsValid(true)
       navigation.goBack();
 
     } else {
@@ -124,6 +134,20 @@ const ExamCreateUpdate = ({setExamIsValid} : any) => {
           Create Exam
         </Text>
 
+        <TextInput
+          label={"Exam's name"}
+          value={name}
+          onChangeText={(newName) => setName(newName)}
+        >
+        </TextInput>
+
+        <HelperText
+          type="error"
+          visible={nameIsEmpty()}
+        >
+          {MESSAGE_ERROR_EMPTY_NAME}
+        </HelperText>
+
         {renderQuestions()}
 
         <Button
@@ -134,7 +158,7 @@ const ExamCreateUpdate = ({setExamIsValid} : any) => {
 
         {isEditing ? (
           <Button
-            onPress={() => createExam()}
+            onPress={() => updateExam()}
           >
             Update
           </Button>

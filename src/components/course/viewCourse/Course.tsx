@@ -14,10 +14,13 @@ import { StyleSheet } from 'react-native';
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
+import { useNavigation } from "@react-navigation/core";
+import { EXAM_CREATE } from "../../../routes";
 
 const Course = (props : any) => {
 
   const [info, setInfo] = React.useState({
+    id: "12",
     title: "Titulo del curso muy muy muy largo",
     source: require('../../../images/example.jpg'),
     intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -33,7 +36,16 @@ const Course = (props : any) => {
   const [showCover, setShowCover] = React.useState(false);
   const [showExams, setShowExams] = React.useState(true);
   const [isSubscribed, setIsSubscribe] = React.useState(true);
-  const [isCreator, setIsCreator] = React.useState(false);
+  const [isCreator, setIsCreator] = React.useState(true);
+
+  const navigation = useNavigation();
+
+  function goToExamCreateScreen(name: string) {
+    navigation.navigate(EXAM_CREATE as never, {
+      id: info.id,
+      isEditing: false
+    } as never);
+  }
 
   useEffect(() => {
     (
@@ -43,7 +55,7 @@ const Course = (props : any) => {
             id, country, course_type, description, hashtags,
             images, subscription_type, title, total_exams, _videos,
             creatorEmail}) => {
-            
+          
             const videosParsed = [];
             for (let i = 0; i < Object.keys(_videos).length; i++) {
               videosParsed.push({
@@ -69,6 +81,7 @@ const Course = (props : any) => {
             console.log(info.creatorEmail);
             setInfo({
               ...info,
+              id: id,
               title: title,
               source: images[0],
               subscriptionType: subscription_type,
@@ -114,12 +127,21 @@ const Course = (props : any) => {
 
           {isCreator ? (
             // TODO: ir a la pantalla de edición del curso
-            <Button
-              onPress = {() => {console.log("Going to the editor screen, bro!")}}
-              style={{marginTop:hp(3)}}
-            >
-              Edit course
-            </Button>
+            <View>
+              <Button
+                onPress = {() => {console.log("Going to the editor screen, bro!")}}
+                style={{marginTop:hp(3)}}
+              >
+                Edit course
+              </Button>
+
+              <Button
+                onPress = {() => goToExamCreateScreen()}
+                style={{marginTop:hp(3)}}
+              >
+                Add Exam
+              </Button>
+            </View>
           ) : null}
             </>
           ) :
