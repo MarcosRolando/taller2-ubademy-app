@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
 import { SafeAreaView, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -11,12 +12,15 @@ const MESSAGE_ERROR_CREATE_EMPTY_EXAM = "You can't create an empty exam";
 const MESSAGE_ERROR_UPDATE_EMPTY_EXAM = "You can't update an empty exam";
 const MESSAGE_ERROR_EMPTY_QUESTIONS = "There's still empty questions";
 
-const ExamCreateUpdate = ({navigation} : any) => {
+const ExamCreateUpdate = ({setExamIsValid} : any) => {
 
   const [idCounter, setIdCounter] = React.useState(0);
   const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
-  const [isEditing, setIsEditing] = React.useState(true);
+  const [isEditing, setIsEditing] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [isDone, setIsDone] = React.useState(false);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     return () => {
@@ -78,6 +82,10 @@ const ExamCreateUpdate = ({navigation} : any) => {
       // TODO: enviar al back!
       console.log("Se crea el examen y se lo envía al back!");
       console.log(questions);
+      setIsDone(true);
+      setExamIsValid(true)
+      navigation.goBack();
+
     } else {
       console.log("No se crea :(");
     }
@@ -137,6 +145,12 @@ const ExamCreateUpdate = ({navigation} : any) => {
             Create
           </Button>
         }
+
+        <Button
+          onPress={() => navigation.goBack()}
+        >
+          Go Back
+        </Button>
 
         <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
           {errorMessage}

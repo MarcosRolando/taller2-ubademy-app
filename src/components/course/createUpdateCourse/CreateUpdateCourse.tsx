@@ -11,6 +11,8 @@ import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } from "../../../scripts/course";
 import CourseTags from "./CourseTags";
+import { useNavigation } from "@react-navigation/core";
+import { EXAM_CREATE_UPDATE } from "../../../routes";
 
 const CreateCourse = ({ style }: any) => {
   const[uploading, setUploading] = React.useState(false);
@@ -39,12 +41,26 @@ const CreateCourse = ({ style }: any) => {
   const [location, setLocation] = React.useState('');
 
   const [isEditing, setIsEditing] = React.useState(false);
+  const [examIsValid, setExamIsValid] = React.useState(false);
+  
+  const navigation = useNavigation();
 
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
     "Tag 5", "Tag 6", "Tag 7", "Tag 8",
     "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
   const [courseTags, setCourseTags] = React.useState([] as Array<string>);
+
+  useEffect(() => {
+    if (examIsValid) {
+      console.log("termino de crearse!");
+    }
+    return (() => {
+      if (examIsValid) {
+        setExamIsValid(false);
+      }
+    })
+  }, [examIsValid])
 
   useEffect(() => {
     (async () => {
@@ -451,14 +467,35 @@ const CreateCourse = ({ style }: any) => {
             Add video
           </Button>
         </View>
+
+        <Button
+          mode='contained'
+          style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
+          onPress={() => navigation.navigate(EXAM_CREATE_UPDATE as never, {
+            examIsValid: examIsValid,
+            setExamIsValid: setExamIsValid
+          } as never)}
+        >
+          Add Exam
+        </Button>
         
+        {isEditing ? (
+          <Button 
+            mode='contained'
+            style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
+            onPress={updateCourse}
+          >
+            Update course
+        </Button>
+        ) : 
         <Button 
           mode='contained'
           style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
           onPress={createCourse}
-          >
+        >
           Create course
         </Button>
+        }
 
         <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
           {errorMessage}

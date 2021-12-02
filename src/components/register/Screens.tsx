@@ -6,6 +6,7 @@ import { heightPercentageToDP as hp,
 import Login from './Login'; 
 import ProfileSetup from './ProfileSetup';
 import Exam from '../exams/exam/Exam';
+import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
 
 export const SignupScreen = ({navigation}: any) => {
     return (
@@ -43,6 +44,17 @@ export const ExamScreen = ({route, navigation}: any) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Exam title={title} onlyView={onlyView} />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
+  const { setExamIsValid } = route.params;
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ExamCreateUpdate setExamIsValid={setExamIsValid}/>
       </ScrollView>
     </View>
   );
