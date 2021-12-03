@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
 import { ScrollView, SafeAreaView, Text } from "react-native";
 import { HelperText, TextInput } from "react-native-paper";
@@ -21,8 +20,6 @@ const ExamCreateUpdate = (props : any) => {
   const [isEditing, setIsEditing] = React.useState(props.isEditing);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [isDone, setIsDone] = React.useState(false);
-
-  const navigation = useNavigation();
 
   useEffect(() => {
     return () => {
@@ -94,8 +91,7 @@ const ExamCreateUpdate = (props : any) => {
       console.log(questions);
       console.log(name);
       setIsDone(true);
-      navigation.goBack();
-
+      props.navigation.goBack();
     } else {
       console.log("No se crea :(");
     }
@@ -171,7 +167,7 @@ const ExamCreateUpdate = (props : any) => {
         }
 
         <Button
-          onPress={() => navigation.goBack()}
+          onPress={() => props.navigation.goBack()}
         >
           Go Back
         </Button>

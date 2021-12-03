@@ -1,11 +1,10 @@
 import React from "react";
 import { View } from "react-native";
-import { List, Subheading, TextInput } from "react-native-paper";
+import { List, Subheading } from "react-native-paper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import styles from "../../../styles/styles";
 import colors from "../../../styles/colors";
 import { DarkTheme } from "react-native-paper";
-import { useNavigation } from "@react-navigation/core";
 import { EXAM } from "../../../routes";
 
 const ExamList = (props : any) => {
@@ -39,7 +38,6 @@ const ExamList = (props : any) => {
       questions: ["Pregunta 1: H", "Pregunta 2: I"],
     },
   ])
-  const navigation = useNavigation();
 
   function renderExams() {
     const examsToRender = [];
@@ -54,10 +52,10 @@ const ExamList = (props : any) => {
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}
             onPress={() => 
-              navigation.navigate(EXAM as never, {
+              props.navigation.navigate(EXAM, {
                 title:"hello",
                 onlyView: props.onlyView
-              } as never)
+              })
             }
             titleStyle={{color:isDisabled ? DarkTheme.colors.disabled : colors.text}}
           />

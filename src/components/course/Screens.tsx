@@ -5,6 +5,9 @@ import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Course from './viewCourse/Course';
+import Exam from '../exams/exam/Exam';
+import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
+
 
 export const CreateCourseScreen = ({navigation}: any) => {
   return (
@@ -22,7 +25,31 @@ export const ViewCourseScreen = ({route, navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Course id={id} />
+        <Course id={id} navigation={navigation} />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const ExamScreen = ({route, navigation}: any) => {
+  const {title, onlyView} = route.params;
+  
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Exam title={title} onlyView={onlyView} navigation={navigation} />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
+  const {id, name, isEditing} = route.params;
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ExamCreateUpdate id={id} isEditing={isEditing} name={name} />
       </ScrollView>
     </View>
   );

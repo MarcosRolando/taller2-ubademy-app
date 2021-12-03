@@ -12,10 +12,9 @@ import ExamList from "./ExamsList";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
-import { useNavigation } from "@react-navigation/core";
-import { EXAM_CREATE } from "../../../routes";
+import { EXAM_CREATE_UPDATE } from "../../../routes";
 
-const Course = ({ id }: any) => {
+const Course = ({ id, navigation }: any) => {
 
   const [info, setInfo] = React.useState({
     id: '',
@@ -36,13 +35,12 @@ const Course = ({ id }: any) => {
   const [isSubscribed, setIsSubscribe] = React.useState(true);
   const [isCreator, setIsCreator] = React.useState(true);
 
-  const navigation = useNavigation();
-
   function goToExamCreateScreen() {
-    navigation.navigate(EXAM_CREATE as never, {
+    navigation.navigate(EXAM_CREATE_UPDATE, {
       id: info.id,
-      name:""
-    } as never);
+      name: "",
+      isEditing: false
+    });
   }
 
   useEffect(() => {

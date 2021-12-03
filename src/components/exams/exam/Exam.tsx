@@ -2,16 +2,14 @@ import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, Subheading, TextInput } from "react-native-paper";
 import colors from "../../../styles/colors";
-import { useNavigation } from "@react-navigation/core";
-import { EXAM_UPDATE } from "../../../routes";
+import { EXAM_CREATE_UPDATE } from "../../../routes";
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
-const Exam = ({title, onlyView, idCourse}: any) => {
+const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     setQuestions([
@@ -33,10 +31,11 @@ const Exam = ({title, onlyView, idCourse}: any) => {
   }, [])
 
   function goToExamUpdateScreen() {
-    navigation.navigate(EXAM_UPDATE as never, {
+    navigation.navigate(EXAM_CREATE_UPDATE, {
       id: idCourse,
-      name:title
-    } as never)
+      name: title,
+      isEditing: true
+    })
   }
 
   function sendExam() {
