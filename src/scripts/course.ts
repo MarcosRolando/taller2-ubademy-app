@@ -85,7 +85,7 @@ export async function getCourseInfo(id: string = "61a7e42fd2398ad27a7d0099") {
   }
 }
 
-export async function putCourseInfo(id: string, country: string,
+export async function putCourseInfo(_id: string, country: string,
   course_type: string, description: string, hashtags: Array<string>,
   images: Array<string>, subscription_type: string,
   title: string, total_exams: string,
@@ -93,7 +93,7 @@ export async function putCourseInfo(id: string, country: string,
   try {
     const res = await sendAPIrequest(() => axios.put(
       `${API_URL}${UPDATE_COURSE}`,{
-        id: id,
+        id: _id,
         country: country,
         course_type: course_type,
         description: description,

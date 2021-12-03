@@ -10,12 +10,12 @@ import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
-  const {_id, _isEditing} = route.params;
+  const {id, isEditing} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CreateUpdateCourse _id={_id} _isEditing={_isEditing} style={styles.screen} />
+        <CreateUpdateCourse id={id} isEditing={isEditing} style={styles.screen} />
       </ScrollView>
     </View>
   );

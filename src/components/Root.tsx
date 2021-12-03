@@ -67,7 +67,7 @@ const Root = () => {
       <Drawer.Screen 
         name={CREATE_UPDATE_COURSE}
         component={CreateUpdateCourseScreen}
-        initialParams={{_id:"", _isEditing:false}}
+        initialParams={{id:"", isEditing:false}}
         options={{
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faChalkboard } />

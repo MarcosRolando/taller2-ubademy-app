@@ -45,8 +45,8 @@ const Course = ({ id, navigation }: any) => {
 
   function goToEditCourse() {
     navigation.navigate(CREATE_UPDATE_COURSE, {
-      _id: info.id,
-      _isEditing: true
+      id: info.id,
+      isEditing: true
     });
   }
 

@@ -13,10 +13,10 @@ import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } f
 import CourseTags from "./CourseTags";
 import { COURSE } from "../../../routes";
 
-const CreateUpdateCourse = ({ _id, _isEditing, style, navigation }: any) => {
+const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
   const[uploading, setUploading] = React.useState(false);
 
-  const [id, setId] = React.useState(_id);
+  const [_id, setId] = React.useState(id);
 
   const [courseName, setCoursenName] = React.useState('');
   const [courseDescription, setCourseDescription] = React.useState('');
@@ -39,7 +39,6 @@ const CreateUpdateCourse = ({ _id, _isEditing, style, navigation }: any) => {
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
 
-  const [isEditing, setIsEditing] = React.useState(_isEditing);
   const [examIsValid, setExamIsValid] = React.useState(false);
 
   const [tags, setTags] = React.useState(
@@ -269,7 +268,7 @@ const CreateUpdateCourse = ({ _id, _isEditing, style, navigation }: any) => {
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
-        putCourseInfo(id, location,
+        putCourseInfo(_id, location,
           courseType, courseDescription, courseTags,
           _images, subType,
           courseName, examsNumber,
