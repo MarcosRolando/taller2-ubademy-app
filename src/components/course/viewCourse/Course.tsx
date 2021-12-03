@@ -13,7 +13,6 @@ import ExamList from "./ExamsList";
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
-import { Props } from "react-native-image-zoom-viewer/built/image-viewer.type";
 
 const Course = ({ id, navigation }: any) => {
 
