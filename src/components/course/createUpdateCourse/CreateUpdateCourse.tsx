@@ -13,7 +13,7 @@ import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } f
 import CourseTags from "./CourseTags";
 import { COURSE } from "../../../routes";
 
-const CreateCourse = ({ style, navigation }: any) => {
+const CreateUpdateCourse = ({ style, navigation }: any) => {
   const[uploading, setUploading] = React.useState(false);
 
   const [id, setId] = React.useState('');
@@ -492,4 +492,4 @@ const CreateCourse = ({ style, navigation }: any) => {
   );
 }
 
-export default CreateCourse;
+export default CreateUpdateCourse;

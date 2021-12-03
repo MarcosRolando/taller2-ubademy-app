@@ -12,7 +12,7 @@ import ExamList from "./ExamsList";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
-import { EXAM_CREATE_UPDATE } from "../../../routes";
+import { EXAM_CREATE_UPDATE, CREATE_UPDATE_COURSE } from "../../../routes";
 
 const Course = ({ id, navigation }: any) => {
 
@@ -40,6 +40,13 @@ const Course = ({ id, navigation }: any) => {
       id: info.id,
       name: "",
       isEditing: false
+    });
+  }
+
+  function goToEditCourse() {
+    navigation.navigate(CREATE_UPDATE_COURSE, {
+      id: info.id,
+      isEditing: true
     });
   }
 
@@ -117,7 +124,7 @@ const Course = ({ id, navigation }: any) => {
             // TODO: ir a la pantalla de edición del curso
             <View>
               <Button
-                onPress = {() => {console.log("Going to the editor screen, bro!")}}
+                onPress = {() => goToEditCourse()}
                 style={{marginTop:hp(3)}}
               >
                 Edit course

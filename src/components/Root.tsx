@@ -1,7 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +14,7 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen} from './home/Screens';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-import { CreateCourseScreen, ExamCreateUpdateScreen, ExamScreen, ViewCourseScreen } from './course/Screens';
+import { CreateUpdateCourseScreen, ExamCreateUpdateScreen, ExamScreen, ViewCourseScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Drawer = createDrawerNavigator();
@@ -65,8 +65,9 @@ const Root = () => {
         ),
       }} />
       <Drawer.Screen 
-        name={CREATE_COURSE}
-        component={CreateCourseScreen}
+        name={CREATE_UPDATE_COURSE}
+        component={CreateUpdateCourseScreen}
+        initialParams={{id:"", isEditing:false}}
         options={{
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faChalkboard } />

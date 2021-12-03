@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import CreateCourse from './createUpdateCourse/CreateUpdateCourse';
+import CreateUpdateCourse from './createUpdateCourse/CreateUpdateCourse';
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -9,11 +9,13 @@ import Exam from '../exams/exam/Exam';
 import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
 
 
-export const CreateCourseScreen = ({navigation}: any) => {
+export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
+  const {id, isEditing} = route.params;
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CreateCourse style={styles.screen} />
+        <CreateUpdateCourse id={id} isEditing={isEditing} style={styles.screen} />
       </ScrollView>
     </View>
   );
