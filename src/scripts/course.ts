@@ -42,7 +42,6 @@ export async function sendCreateCourse(title: string, description: string,
       images: images,
       videos: videos
     }, getAxiosConfig()));
-    console.log(res.data);
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:

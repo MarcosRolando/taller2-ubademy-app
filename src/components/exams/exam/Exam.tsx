@@ -41,8 +41,6 @@ const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
   function sendExam() {
     // TODO: mandarle al baka-back
     setIsFinished(true);
-    console.log(answers);
-    console.log(title);
   }
 
   function renderQuestions() {

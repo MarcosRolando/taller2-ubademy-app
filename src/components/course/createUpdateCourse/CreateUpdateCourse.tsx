@@ -246,7 +246,7 @@ const CreateCourse = ({ style, navigation }: any) => {
 
   async function createCourse() {
     try {
-      if (true) { // TODO despues cambiarlo a que no te deje si hay algo mal
+      if (validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
         console.log("creandoo");
         setErrorMessage('');
         setUploading(true);
