@@ -15,18 +15,18 @@ import { getUserCredentials } from "../../../userCredentials";
 import { useNavigation } from "@react-navigation/core";
 import { EXAM_CREATE } from "../../../routes";
 
-const Course = (props : any) => {
+const Course = ({ id }: any) => {
 
   const [info, setInfo] = React.useState({
-    id: "12",
-    title: "Titulo del curso muy muy muy largo",
-    source: require('../../../images/example.jpg'),
-    intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    subscriptionType: "FREE",
+    id: '',
+    title: '',
+    cover: undefined,
+    intro: '',
+    subscriptionType: '',
     images: [] as Array<{title: string, url: string}>,
     videos: [] as Array<{title: string, uri: string}>,
-    creatorEmail: "",
-    ownEmail: ""
+    creatorEmail: '',
+    ownEmail: ''
   })
 
   const [showVideo, setShowVideo] = React.useState(true);
@@ -48,7 +48,7 @@ const Course = (props : any) => {
   useEffect(() => {
     (
       async () => {
-        await getCourseInfo()
+        await getCourseInfo(id)
           .then(({
             id, country, course_type, description, hashtags,
             images, subscription_type, title, total_exams, _videos,
@@ -69,19 +69,14 @@ const Course = (props : any) => {
                 url: images[i]
               })
             }
-
-            if (Object.keys(images).length > 0) {
-              setShowCover(true);
-            }
-
+            
             const credentials = getUserCredentials();
 
-            console.log(info.creatorEmail);
             setInfo({
               ...info,
               id: id,
               title: title,
-              source: images[0],
+              cover: images[0],
               subscriptionType: subscription_type,
               intro: description,
               videos: videosParsed,
@@ -94,9 +89,6 @@ const Course = (props : any) => {
           if (Object.keys(info.images).length > 0) {
             setShowImages(true);
           }
-
-          console.log(info.creatorEmail);
-          console.log(info.ownEmail);
       }
     )()
   }, [])
@@ -104,7 +96,7 @@ const Course = (props : any) => {
   return (
     <View style={{paddingHorizontal: wp(3)}}>
       <View>
-        <BasicInfo info={info} showCover={showCover} />
+        <BasicInfo info={info} cover={info.cover}/>
       </View>
 
       {(isSubscribed || isCreator) ? (

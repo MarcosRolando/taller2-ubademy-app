@@ -6,6 +6,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import styles from '../../styles/styles';
 import { COURSE } from '../../routes';
 
+const ID_TEST = "61a7e42fd2398ad27a7d0099"; // TODO: que el baka-back nos mande los ids
+
 const Courses = ({coursesData, navigation}: any) => {
   function renderCourses(coursesName : any) : any[] {
     const courses: any = [];
@@ -14,7 +16,7 @@ const Courses = ({coursesData, navigation}: any) => {
           <List.Item
           key={i}
           title={coursesName[i].name}
-          onPress={() => navigation.navigate(COURSE)}/>,
+          onPress={() => navigation.navigate(COURSE, {id: ID_TEST})}/>,
       );
     }
     return courses;

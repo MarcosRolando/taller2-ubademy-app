@@ -4,10 +4,11 @@ import {setAccessToken} from '../apiWrapper';
 import {LOGIN} from '../endpoints';
 import {setUserCredentials} from '../userCredentials';
 import {ERROR_BAD_LOGIN} from '../apiErrorMessages';
+import * as SecureStore from 'expo-secure-store';
 
-export default async function sendLoginCredentials(email: string, password: string) {
+export default async function sendLoginCredentials(email: string, password: string, registerFingerprint: boolean) {
   try {
-    const res = await axios.post(`${API_URL}${LOGIN}`, {email: email, password: password});
+    const res = await axios.post(`${API_URL}${LOGIN}`, {email: email, password: password, biometric: registerFingerprint});
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         case ERROR_BAD_LOGIN:
@@ -18,6 +19,11 @@ export default async function sendLoginCredentials(email: string, password: stri
     }
     setUserCredentials(email, password);
     setAccessToken(res.data['access_token']);
+    console.log(res.data['access_token']);
+    if (registerFingerprint) {
+      await SecureStore.setItemAsync('ubademy-biometric-jwt', res.data['access_token']);
+      await SecureStore.setItemAsync('ubademy-email', email);
+    }
     return Promise.resolve('');
   } catch (error) {
     console.log(error);

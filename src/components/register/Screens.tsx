@@ -7,6 +7,7 @@ import Login from './Login';
 import ProfileSetup from './ProfileSetup';
 import Exam from '../exams/exam/Exam';
 import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
+import Course from '../course/viewCourse/Course';
 
 export const SignupScreen = ({navigation}: any) => {
     return (
@@ -33,6 +34,17 @@ export const LoginScreen = ({navigation}: any) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Login navigation={navigation} style={styles.screen}/>
+      </ScrollView>
+    </View>
+  );
+}
+
+export const CourseScreen = ({route, navigation}: any) => {
+  const { id } = route.params;
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Course id={id}/>
       </ScrollView>
     </View>
   );

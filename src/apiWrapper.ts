@@ -9,7 +9,7 @@ let config = {
   headers: { Authorization: '' }
 };
 
-export function setAccessToken(newAccessToken: 'string') {
+export function setAccessToken(newAccessToken: string) {
   accessToken = newAccessToken;
   config = {
     headers: { Authorization: `Bearer ${accessToken}` }
