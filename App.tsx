@@ -3,12 +3,10 @@ import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT,
 import {StatusBar} from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {SignupScreen, LoginScreen,
-  ProfileSetupScreen, ExamScreen,
-  ExamCreateScreen,
-  ExamUpdateScreen} from './src/components/register/Screens';
+import { SignupScreen, LoginScreen,
+  ProfileSetupScreen } from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE, EXAM_CREATE_UPDATE, EXAM, EXAM_CREATE, EXAM_UPDATE} from './src/routes';
+import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP} from './src/routes';
 import {AppRegistry, LogBox} from 'react-native';
 import colors from './src/styles/colors';
 import {UbademyTheme, NavigationTheme} from './src/styles/themes';
@@ -17,8 +15,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
 
 import { getApps, initializeApp } from 'firebase/app';
-import ExamCreateUpdate from './src/components/exams/examCreateUpdate/ExamCreateUpdate';
-import Exam from './src/components/exams/exam/Exam';
 
 // Optionally import the services that you want to use
 //import {...} from "firebase/auth";
@@ -60,9 +56,6 @@ export default function App() {
               <Stack.Screen name={LOGIN} component={LoginScreen} />
               <Stack.Screen name={SIGNUP} component={SignupScreen} />
               <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
-              <Stack.Screen name={EXAM} component={ExamScreen} />
-              <Stack.Screen name={EXAM_CREATE} component={ExamCreateScreen} />
-              <Stack.Screen name={EXAM_UPDATE} component={ExamUpdateScreen} />
             </Stack.Group>
             <Stack.Screen name={ROOT} component={Root} />
           </Stack.Navigator>
@@ -71,33 +64,5 @@ export default function App() {
     </PaperProvider>
   );
 }
-
-// export default function App() {
-//   return (
-//     <PaperProvider theme={UbademyTheme}>
-//       <StatusBar style='light' />
-//       <SafeAreaProvider style={{backgroundColor: colors.background}}>
-//         <ExamCreateUpdate/>
-//       </SafeAreaProvider>
-//     </PaperProvider>
-//   );
-// }
-
-// export default function App() {
-//   return (
-//     <PaperProvider theme={UbademyTheme}>
-//       <StatusBar style='light' />
-//       <SafeAreaProvider style={{backgroundColor: colors.background}}>
-//         <NavigationContainer theme={NavigationTheme}>
-//           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
-//             <Stack.Group>
-//               <Stack.Screen name={EXAM} component={Exam} />
-//             </Stack.Group>
-//           </Stack.Navigator>
-//         </NavigationContainer>
-//       </SafeAreaProvider>
-//     </PaperProvider>
-//   );
-// }
 
 AppRegistry.registerComponent('ubademy', () => App);
