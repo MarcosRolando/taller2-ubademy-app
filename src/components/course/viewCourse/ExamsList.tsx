@@ -6,7 +6,7 @@ import styles from "../../../styles/styles";
 import colors from "../../../styles/colors";
 import { DarkTheme } from "react-native-paper";
 import { useNavigation } from "@react-navigation/core";
-import { EXAM, ROOT } from "../../../routes";
+import { EXAM } from "../../../routes";
 
 const ExamList = (props : any) => {
   const [exams, setExams] = React.useState([

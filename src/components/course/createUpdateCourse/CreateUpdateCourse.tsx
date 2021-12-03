@@ -11,8 +11,6 @@ import DropDown from "react-native-paper-dropdown";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } from "../../../scripts/course";
 import CourseTags from "./CourseTags";
-import { useNavigation } from "@react-navigation/core";
-import { EXAM_CREATE_UPDATE } from "../../../routes";
 
 const CreateCourse = ({ style }: any) => {
   const[uploading, setUploading] = React.useState(false);
@@ -42,8 +40,6 @@ const CreateCourse = ({ style }: any) => {
 
   const [isEditing, setIsEditing] = React.useState(false);
   const [examIsValid, setExamIsValid] = React.useState(false);
-  
-  const navigation = useNavigation();
 
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
@@ -467,17 +463,6 @@ const CreateCourse = ({ style }: any) => {
             Add video
           </Button>
         </View>
-
-        <Button
-          mode='contained'
-          style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
-          onPress={() => navigation.navigate(EXAM_CREATE_UPDATE as never, {
-            examIsValid: examIsValid,
-            setExamIsValid: setExamIsValid
-          } as never)}
-        >
-          Add Exam
-        </Button>
         
         {isEditing ? (
           <Button 

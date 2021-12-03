@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View } from "react-native";
-import { Button, Portal, Text, FAB } from "react-native-paper";
+import { Button, Portal, Text } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
@@ -8,9 +8,7 @@ import styles from "../../../styles/styles";
 import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
-import sendLoginCredentials from "../../../scripts/logIn";
 import ExamList from "./ExamsList";
-import { StyleSheet } from 'react-native';
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";

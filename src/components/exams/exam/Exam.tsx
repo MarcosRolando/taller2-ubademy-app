@@ -11,7 +11,6 @@ const Exam = ({title, onlyView, idCourse}: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
-  //const [onlyView, setOnlyView] = React.useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
