@@ -13,10 +13,10 @@ import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } f
 import CourseTags from "./CourseTags";
 import { COURSE } from "../../../routes";
 
-const CreateUpdateCourse = ({ style, navigation }: any) => {
+const CreateUpdateCourse = ({ _id, _isEditing, style, navigation }: any) => {
   const[uploading, setUploading] = React.useState(false);
 
-  const [id, setId] = React.useState('');
+  const [id, setId] = React.useState(_id);
 
   const [courseName, setCoursenName] = React.useState('');
   const [courseDescription, setCourseDescription] = React.useState('');
@@ -39,7 +39,7 @@ const CreateUpdateCourse = ({ style, navigation }: any) => {
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
 
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [isEditing, setIsEditing] = React.useState(_isEditing);
   const [examIsValid, setExamIsValid] = React.useState(false);
 
   const [tags, setTags] = React.useState(
