@@ -3,10 +3,11 @@ import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, Subheading, TextInput } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { useNavigation } from "@react-navigation/core";
+import { EXAM_UPDATE } from "../../../routes";
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
-const Exam = ({title, onlyView}: any) => {
+const Exam = ({title, onlyView, idCourse}: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
@@ -31,6 +32,13 @@ const Exam = ({title, onlyView}: any) => {
     console.log(questions.length);
     console.log(answers);
   }, [])
+
+  function goToExamUpdateScreen() {
+    navigation.navigate(EXAM_UPDATE as never, {
+      id: idCourse,
+      name:title
+    } as never)
+  }
 
   function sendExam() {
     // TODO: mandarle al baka-back
@@ -75,7 +83,7 @@ const Exam = ({title, onlyView}: any) => {
     <ScrollView>
       <SafeAreaView>
         <Text style={{fontSize:50, color: colors.primary}}>
-          Exam
+          {title}
         </Text>
 
       {renderQuestions()}
@@ -87,7 +95,13 @@ const Exam = ({title, onlyView}: any) => {
         >
           Send
         </Button>
-      ) : <></>}
+      ) : 
+      <Button
+        onPress={() => goToExamUpdateScreen()}
+      >
+        Edit
+      </Button>
+      }
 
       </SafeAreaView>
     </ScrollView>

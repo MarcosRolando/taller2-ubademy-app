@@ -40,10 +40,10 @@ const Course = (props : any) => {
 
   const navigation = useNavigation();
 
-  function goToExamCreateScreen(name: string) {
+  function goToExamCreateScreen() {
     navigation.navigate(EXAM_CREATE as never, {
       id: info.id,
-      isEditing: false
+      name:""
     } as never);
   }
 

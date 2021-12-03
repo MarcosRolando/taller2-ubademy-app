@@ -26,3 +26,4 @@ export const PROFILE_EDITOR = 'ProfileEditor';
 export const EXAM = "Exam"
 export const EXAM_CREATE_UPDATE = 'CreateExam';
 export const EXAM_CREATE = 'Create Exam';
+export const EXAM_UPDATE = 'Update Exam';

@@ -15,7 +15,7 @@ const MESSAGE_ERROR_EMPTY_QUESTIONS = "There's still empty questions";
 
 const ExamCreateUpdate = (props : any) => {
 
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState(props.name);
   const [idCounter, setIdCounter] = React.useState(0);
   const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
   const [isEditing, setIsEditing] = React.useState(props.isEditing);
