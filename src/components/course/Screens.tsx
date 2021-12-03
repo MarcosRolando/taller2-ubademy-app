@@ -33,7 +33,7 @@ export const ViewCourseScreen = ({route, navigation}: any) => {
 
 export const ExamScreen = ({route, navigation}: any) => {
   const {title, onlyView} = route.params;
-  
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -49,7 +49,7 @@ export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ExamCreateUpdate id={id} isEditing={isEditing} name={name} />
+        <ExamCreateUpdate id={id} isEditing={isEditing} name={name} navigation={navigation} />
       </ScrollView>
     </View>
   );
