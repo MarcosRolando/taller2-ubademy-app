@@ -15,7 +15,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
 
 import { getApps, initializeApp } from 'firebase/app';
-import { MenuScreen } from './src/components/course/Screens';
 
 // Optionally import the services that you want to use
 //import {...} from "firebase/auth";
@@ -46,26 +45,6 @@ LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const Stack = createNativeStackNavigator();
 
-// export default function App() {
-//   return (
-//     <PaperProvider theme={UbademyTheme}>
-//       <StatusBar style='light' />
-//       <SafeAreaProvider style={{backgroundColor: colors.background}}>
-//         <NavigationContainer theme={NavigationTheme}>
-//           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
-//             <Stack.Group>
-//               <Stack.Screen name={LOGIN} component={LoginScreen} />
-//               <Stack.Screen name={SIGNUP} component={SignupScreen} />
-//               <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
-//             </Stack.Group>
-//             <Stack.Screen name={ROOT} component={Root} />
-//           </Stack.Navigator>
-//         </NavigationContainer>
-//       </SafeAreaProvider>
-//     </PaperProvider>
-//   );
-// }
-
 export default function App() {
   return (
     <PaperProvider theme={UbademyTheme}>
@@ -74,8 +53,11 @@ export default function App() {
         <NavigationContainer theme={NavigationTheme}>
           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={LOGIN}>
             <Stack.Group>
-              <Stack.Screen name={COURSE_MENU} component={MenuScreen} />
+              <Stack.Screen name={LOGIN} component={LoginScreen} />
+              <Stack.Screen name={SIGNUP} component={SignupScreen} />
+              <Stack.Screen name={PROFILE_SETUP} component={ProfileSetupScreen} />
             </Stack.Group>
+            <Stack.Screen name={ROOT} component={Root} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

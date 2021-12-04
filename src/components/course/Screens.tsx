@@ -58,11 +58,12 @@ export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
   );
 }
 
-export const MenuScreen = (navigation: any) => {
+export const MenuScreen = ({route, navigation}: any) => {
+  const {id} = route.params;
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Menu />
+        <Menu id={id} navigation={navigation}/>
       </ScrollView>
     </View>
   );

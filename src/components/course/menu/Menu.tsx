@@ -1,14 +1,15 @@
 import React from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
-import { List, Text } from "react-native-paper";
+import { ScrollView } from "react-native";
+import { List, Title } from "react-native-paper";
+import { COURSE } from "../../../routes";
 import styles from "../../../styles/styles";
-import colors from "../../../styles/colors";
 
-const Menu = (props: any) => {
+const Menu = ({id, navigation}: any) => {
 
   function goToCourseScreen() {
     //TODO:
-    console.log("a la pantalla de curso!")
+    console.log("a la pantalla de curso!");
+    navigation.navigate(COURSE, {id: id});
   }
 
   function goToExamsScreen() {
@@ -23,10 +24,10 @@ const Menu = (props: any) => {
 
   return (
     <ScrollView>
-
-      <Text style={styles.profileTitle}>
+      
+      <Title style={styles.profileTitle}>
         Menu
-      </Text>
+      </Title>
 
       <List.Item
         title={"See course"}
