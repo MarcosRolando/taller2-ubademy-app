@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, TouchableOpacity, Text, Image, ActivityIndicator, StyleSheet } from 'react-native'
 import colors from '../../styles/colors';
 
-export const GoogleButton = ({ color, backgroundColor, style, onPress, props }) => {
+export const GoogleButton = ({ color, backgroundColor, style, onPress, ...props }) => {
   return (
     <TouchableOpacity style={[
       styles.container,
