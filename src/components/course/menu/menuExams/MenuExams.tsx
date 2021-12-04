@@ -17,7 +17,6 @@ const MenuExams = ({id, navigation}: any) => {
       <ExamList
         onlyView={false}
         id={id}
-        
         navigation={navigation} />
 
     </ScrollView>

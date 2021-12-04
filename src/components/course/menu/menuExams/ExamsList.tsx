@@ -66,7 +66,7 @@ const ExamList = (props : any) => {
   }
 
   return (
-    <View>
+    <View style={styles.menu}>
 
       {renderExams()}
 
