@@ -1,18 +1,24 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
 import { List, Title } from "react-native-paper";
-import { COURSE, COURSE_MENU_EXAMS } from "../../../routes";
+import { COURSE, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_EDIT } from "../../../routes";
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { getUserCredentials } from "../../../userCredentials";
 
 const Menu = ({id, navigation}: any) => {
+  const [isCreator, setIsCreator] = React.useState(true);
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
   }
 
   function goToExamsScreen() {
-    navigation.navigate(COURSE_MENU_EXAMS, {id: id})
+    if (isCreator) {
+      navigation.navigate(COURSE_MENU_EXAMS_EDIT, {id: id})
+    } else {
+      navigation.navigate(COURSE_MENU_EXAMS, {id: id})
+    }
   }
 
   function goToStudentsScreen(){
