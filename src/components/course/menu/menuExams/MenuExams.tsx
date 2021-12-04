@@ -3,6 +3,7 @@ import { ScrollView, View } from "react-native";
 import { List, Title } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import ExamList from "./ExamsList";
 
 const MenuExams = ({id, navigation}: any) => {
 
@@ -13,14 +14,11 @@ const MenuExams = ({id, navigation}: any) => {
         Exams
       </Title>
 
-      <View style={styles.menu}>
-        <List.Item
-          title={"See course"}
-          right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-          onPress={() => console.log("uwu")}
-        />
-
-      </View>
+      <ExamList
+        onlyView={false}
+        id={id}
+        
+        navigation={navigation} />
 
     </ScrollView>
   )
