@@ -7,6 +7,7 @@ import { heightPercentageToDP as hp,
 import Course from './viewCourse/Course';
 import Exam from '../exams/exam/Exam';
 import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
+import Menu from './menu/Menu';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -52,6 +53,16 @@ export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ExamCreateUpdate id={id} isEditing={isEditing} name={name} navigation={navigation} />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const MenuScreen = (navigation: any) => {
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Menu />
       </ScrollView>
     </View>
   );
