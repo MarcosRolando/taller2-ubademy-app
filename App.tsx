@@ -3,16 +3,16 @@ import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT,
 import {StatusBar} from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {SignupScreen, LoginScreen, ProfileSetupScreen} from './src/components/register/Screens';
+import { SignupScreen, LoginScreen,
+  ProfileSetupScreen } from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE} from './src/routes';
+import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP} from './src/routes';
 import {AppRegistry, LogBox} from 'react-native';
 import colors from './src/styles/colors';
 import {UbademyTheme, NavigationTheme} from './src/styles/themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
-import Course from './src/components/courseView/Course';
 
 import { getApps, initializeApp } from 'firebase/app';
 

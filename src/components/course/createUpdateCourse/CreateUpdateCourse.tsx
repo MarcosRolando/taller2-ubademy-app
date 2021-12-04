@@ -13,10 +13,10 @@ import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } f
 import CourseTags from "./CourseTags";
 import { COURSE } from "../../../routes";
 
-const CreateCourse = ({ style, navigation }: any) => {
+const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
   const[uploading, setUploading] = React.useState(false);
 
-  const [id, setId] = React.useState('');
+  const [_id, setId] = React.useState(id);
 
   const [courseName, setCoursenName] = React.useState('');
   const [courseDescription, setCourseDescription] = React.useState('');
@@ -39,13 +39,24 @@ const CreateCourse = ({ style, navigation }: any) => {
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
 
-  const [isEditing, setIsEditing] = React.useState(true);
+  const [examIsValid, setExamIsValid] = React.useState(false);
 
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
     "Tag 5", "Tag 6", "Tag 7", "Tag 8",
     "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
   const [courseTags, setCourseTags] = React.useState([] as Array<string>);
+
+  useEffect(() => {
+    if (examIsValid) {
+      console.log("termino de crearse!");
+    }
+    return (() => {
+      if (examIsValid) {
+        setExamIsValid(false);
+      }
+    })
+  }, [examIsValid])
 
   useEffect(() => {
     (async () => {
@@ -216,10 +227,10 @@ const CreateCourse = ({ style, navigation }: any) => {
       setErrorMessage('Please enter the amount of exams');
       return false;
     }
-    if (!subType.trim()) {
-      setErrorMessage('Please select a subscription type');
-      return false;
-    }
+    // if (!subType.trim()) {
+    //   setErrorMessage('Please select a subscription type');
+    //   return false;
+    // }
     if (!location.trim()) {
       setErrorMessage('Please select a location for this course');
       return false;
@@ -234,7 +245,8 @@ const CreateCourse = ({ style, navigation }: any) => {
 
   async function createCourse() {
     try {
-      if (!validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
+      if (validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
+        console.log("creandoo");
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
@@ -256,7 +268,7 @@ const CreateCourse = ({ style, navigation }: any) => {
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
-        putCourseInfo(id, location,
+        putCourseInfo(_id, location,
           courseType, courseDescription, courseTags,
           _images, subType,
           courseName, examsNumber,
@@ -450,13 +462,23 @@ const CreateCourse = ({ style, navigation }: any) => {
           </Button>
         </View>
         
+        {isEditing ? (
+          <Button 
+            mode='contained'
+            style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
+            onPress={updateCourse}
+          >
+            Update course
+        </Button>
+        ) : 
         <Button 
           mode='contained'
           style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
-          onPress={updateCourse}
-          >
+          onPress={createCourse}
+        >
           Create course
         </Button>
+        }
 
         <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
           {errorMessage}
@@ -469,4 +491,4 @@ const CreateCourse = ({ style, navigation }: any) => {
   );
 }
 
-export default CreateCourse;
+export default CreateUpdateCourse;

@@ -8,13 +8,16 @@ import styles from "../../../styles/styles";
 import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
+import ExamList from "./ExamsList";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
+import { EXAM_CREATE_UPDATE, CREATE_UPDATE_COURSE } from "../../../routes";
 
-const Course = ({ id }: any) => {
+const Course = ({ id, navigation }: any) => {
 
   const [info, setInfo] = React.useState({
+    id: '',
     title: '',
     cover: undefined,
     intro: '',
@@ -27,6 +30,25 @@ const Course = ({ id }: any) => {
 
   const [showVideo, setShowVideo] = React.useState(true);
   const [showImages, setShowImages] = React.useState(true);
+  const [showCover, setShowCover] = React.useState(false);
+  const [showExams, setShowExams] = React.useState(true);
+  const [isSubscribed, setIsSubscribe] = React.useState(true);
+  const [isCreator, setIsCreator] = React.useState(true);
+
+  function goToExamCreateScreen() {
+    navigation.navigate(EXAM_CREATE_UPDATE, {
+      id: info.id,
+      name: "",
+      isEditing: false
+    });
+  }
+
+  function goToEditCourse() {
+    navigation.navigate(CREATE_UPDATE_COURSE, {
+      id: info.id,
+      isEditing: true
+    });
+  }
 
   useEffect(() => {
     (
@@ -36,7 +58,7 @@ const Course = ({ id }: any) => {
             id, country, course_type, description, hashtags,
             images, subscription_type, title, total_exams, _videos,
             creatorEmail}) => {
-            
+          
             const videosParsed = [];
             for (let i = 0; i < Object.keys(_videos).length; i++) {
               videosParsed.push({
@@ -57,6 +79,7 @@ const Course = ({ id }: any) => {
 
             setInfo({
               ...info,
+              id: id,
               title: title,
               cover: images[0],
               subscriptionType: subscription_type,
@@ -81,48 +104,65 @@ const Course = ({ id }: any) => {
         <BasicInfo info={info} cover={info.cover}/>
       </View>
 
-      {showVideo ? (
-        <CourseList info={info}/>
-        ) : null}
+      {(isSubscribed || isCreator) ? (
+        <>
+          {showVideo ? (
+            <CourseList info={info}/>
+            ) : null}
 
-      <View style={{marginBottom: hp(3)}}></View>
+          <View style={{marginBottom: hp(3)}}></View>
 
-      {showImages ? (
-        <Gallery info={info}/>
-        ) : null}
+          {showImages ? (
+            <Gallery info={info}/>
+            ) : null}
 
-      {info.ownEmail == info.creatorEmail ? (
-        // TODO: ir a la pantalla de edición del curso
-        <Button
-          onPress = {() => {console.log("Going to the editor screen, bro!")}}
-          style={{marginTop:hp(3)}}
-        >
-          Edit course
-        </Button>
-      ) : null}
+          {showExams ? (
+            <ExamList onlyView={isCreator} navigation={navigation} />
+            ) : <></>}
 
+          {isCreator ? (
+            // TODO: ir a la pantalla de edición del curso
+            <View>
+              <Button
+                onPress = {() => goToEditCourse()}
+                style={{marginTop:hp(3)}}
+              >
+                Edit course
+              </Button>
 
-      <View style={{paddingBottom: hp(10)}}></View>
+              <Button
+                onPress = {() => goToExamCreateScreen()}
+                style={{marginTop:hp(3)}}
+              >
+                Add Exam
+              </Button>
+            </View>
+          ) : null}
+            </>
+          ) :
+        <>
+          <Portal>
+            <View style={styles.viewOnFront}>
 
-      <Portal>
-        <View style={styles.viewOnFront}>
+              <Text>{info.subscriptionType}</Text>
 
-          <Text>{info.subscriptionType}</Text>
+              <TouchableOpacity
+                // TODO: que se avise al baka-back que se subscribió
+                onPress={() => console.log("presionado!")}
+                style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
+              >
 
-          <TouchableOpacity
-            // TODO: que se avise al baka-back que se subscribió
-            onPress={() => console.log("presionado!")}
-            style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
-          >
+                <Text style={{}}
+                  >SUBSCRIBE
+                </Text>
+                
+              </TouchableOpacity>
+              
+            </View>
+          </Portal>
+        </>
+      }
 
-            <Text style={{}}
-              >SUBSCRIBE
-            </Text>
-            
-          </TouchableOpacity>
-
-        </View>
-      </Portal>
     </View>
   );
 }
