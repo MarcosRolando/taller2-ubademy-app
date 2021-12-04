@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT, THE DOCUMENTATION SAYS SO!
 
 import {StatusBar} from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {SignupScreen, LoginScreen, ProfileSetupScreen} from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -12,7 +12,6 @@ import {UbademyTheme, NavigationTheme} from './src/styles/themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
-import Course from './src/components/courseView/Course';
 
 import { getApps, initializeApp } from 'firebase/app';
 
