@@ -13,7 +13,6 @@ export async function getCreateCourseInfo() {
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve({
       _locations: res.data['locations'],
       _subTypes: res.data['subscriptions'],
