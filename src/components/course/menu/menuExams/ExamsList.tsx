@@ -1,7 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { List, Subheading } from "react-native-paper";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { List } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import colors from "../../../../styles/colors";
 import { DarkTheme } from "react-native-paper";

@@ -4,7 +4,6 @@ import { ScrollView } from "react-native";
 import DropDown from "react-native-paper-dropdown";
 import ExamList from "./ExamsList";
 import styles from "../../../../styles/styles";
-import colors from "../../../../styles/colors";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const examTypes = [

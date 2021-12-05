@@ -4,7 +4,6 @@ import { List, Title } from "react-native-paper";
 import { COURSE, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_EDIT } from "../../../routes";
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { getUserCredentials } from "../../../userCredentials";
 
 const Menu = ({id, navigation}: any) => {
   const [isCreator, setIsCreator] = React.useState(true);
