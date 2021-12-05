@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT, THE DOCUMENTATION SAYS SO!
 
 import {StatusBar} from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import { SignupScreen, LoginScreen,
   ProfileSetupScreen } from './src/components/register/Screens';

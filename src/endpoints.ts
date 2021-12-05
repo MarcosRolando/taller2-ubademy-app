@@ -1,5 +1,6 @@
 export const SIGNUP = 'sign_up';
 export const LOGIN = 'login';
+export const OAUTH_LOGIN = 'oauth_login';
 export const SIGNUP_PROFILE = 'profile_setup'; 
 export const LOCATIONS = 'locations'; 
 export const COURSES = 'courses'; 

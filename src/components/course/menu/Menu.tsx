@@ -48,7 +48,7 @@ const Menu = ({id, navigation}: any) => {
         <List.Item
           title={"See students"}
           right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-          onPress={goToCourseScreen}
+          onPress={goToStudentsScreen}
         />
       </View>
 

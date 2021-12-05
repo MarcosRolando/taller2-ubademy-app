@@ -1,16 +1,20 @@
+// @ts-nocheck
+// Otherwise the linter complains about some stuff in GoogleButton and the Google sign in API
 import * as React from 'react';
 import {View} from 'react-native';
 import {TextInput, Button, Text, IconButton} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styles/themes';
-import sendLoginCredentials from '../../scripts/logIn';
-import { ROOT } from '../../routes';
+import { sendGoogleCredentials, sendLoginCredentials } from '../../scripts/logIn';
+import { PROFILE_SETUP, ROOT } from '../../routes';
 import colors from '../../styles/colors';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { setAccessToken } from '../../apiWrapper';
 import { setUserCredentials } from '../../userCredentials';
+import * as Google from 'expo-google-app-auth';
+import { GoogleButton } from '../GoogleButton';
 
 
 const LoginCredentials = (props: any) => {
@@ -25,7 +29,7 @@ const LoginCredentials = (props: any) => {
   const [errorMessage, setErrorMessage] = React.useState('');
   const [registerFingerprint, setRegisterFingerprint] = React.useState(false);
 
-  function sendCredentials() {
+  async function sendCredentials() {
     if (!username.value.trim()) {
       setUsername({...username, style:Themes.textInputWrong});
       setErrorMessage('Please enter your email');
@@ -44,6 +48,26 @@ const LoginCredentials = (props: any) => {
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);
       });
+  }
+
+  async function googleSignIn() {
+    // First- obtain access token from Expo's Google API
+    const { type, accessToken, user } = await Google.logInAsync({
+      androidClientId: '497052014592-tj6ch9eadt8g40e8qd1d20t7t1e4s3g7.apps.googleusercontent.com',
+    });
+  
+    if (type === 'success') {
+      try {
+        const created = await sendGoogleCredentials(user.email, accessToken);
+        if (created) {
+          props.navigation.navigate(PROFILE_SETUP)
+        } else {
+          props.navigation.navigate(ROOT)
+        }
+      } catch(error: Error) {
+        setErrorMessage(error.message)
+      }
+    } // TODO ver el tema de si hay un error
   }
 
   async function fingerprintLogin() {
@@ -106,9 +130,12 @@ const LoginCredentials = (props: any) => {
         icon='fingerprint'
         color={colors.primary}
         size={wp(10)}
-        style={{position: 'absolute', bottom: hp(-1.2), left: wp(62), margin: 0}}
+        style={{position: 'absolute', bottom: hp(9.2), left: wp(62), margin: 0}}
         onPress={fingerprintLogin}>
       </IconButton>
+      <GoogleButton style={{marginTop: hp(3)}} onPress={googleSignIn}>
+        Sign in with Google
+      </GoogleButton>
     </View>
   );
 };
