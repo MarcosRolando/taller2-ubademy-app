@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ScrollView, SafeAreaView, Text } from "react-native";
-import { HelperText, TextInput } from "react-native-paper";
+import { HelperText, Title, TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
@@ -143,10 +143,10 @@ const ExamCreateUpdate = (props : any) => {
 
   return (
     <ScrollView>
-      <SafeAreaView style={styles.profileTitle}>
-        <Text style={{fontSize:50, color: colors.primary}}>
+      <SafeAreaView>
+        <Title style={styles.profileTitle}>
           Create Exam
-        </Text>
+        </Title>
 
         <TextInput
           label={"Exam's name"}

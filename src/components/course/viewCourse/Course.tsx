@@ -30,8 +30,6 @@ const Course = ({ id, navigation }: any) => {
 
   const [showVideo, setShowVideo] = React.useState(true);
   const [showImages, setShowImages] = React.useState(true);
-  const [showCover, setShowCover] = React.useState(false);
-  const [showExams, setShowExams] = React.useState(true);
   const [isSubscribed, setIsSubscribe] = React.useState(true);
   const [isCreator, setIsCreator] = React.useState(true);
 
@@ -116,10 +114,6 @@ const Course = ({ id, navigation }: any) => {
             <Gallery info={info}/>
             ) : null}
 
-          {showExams ? (
-            <ExamList onlyView={isCreator} navigation={navigation} />
-            ) : <></>}
-
           {isCreator ? (
             // TODO: ir a la pantalla de edición del curso
             <View>
@@ -129,13 +123,7 @@ const Course = ({ id, navigation }: any) => {
               >
                 Edit course
               </Button>
-
-              <Button
-                onPress = {() => goToExamCreateScreen()}
-                style={{marginTop:hp(3)}}
-              >
-                Add Exam
-              </Button>
+              
             </View>
           ) : null}
             </>
