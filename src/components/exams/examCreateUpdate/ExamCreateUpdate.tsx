@@ -7,6 +7,8 @@ import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
 import Question from "./Question";
 
+import { createExam } from "../../../scripts/exam";
+
 const MESSAGE_ERROR_EMPTY_NAME = "The name is empty";
 const MESSAGE_ERROR_CREATE_EMPTY_EXAM = "You can't create an empty exam";
 const MESSAGE_ERROR_UPDATE_EMPTY_EXAM = "You can't update an empty exam";
@@ -19,7 +21,6 @@ const ExamCreateUpdate = (props : any) => {
   const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
   const [isEditing, setIsEditing] = React.useState(props.isEditing);
   const [errorMessage, setErrorMessage] = React.useState("");
-  const [isDone, setIsDone] = React.useState(false);
 
   useEffect(() => {
     return () => {
@@ -82,18 +83,27 @@ const ExamCreateUpdate = (props : any) => {
     return true;
   }
 
-  function createExam() {
-    let result = questionsAreValid();
-    if (result && questions.length != 0) {
-      setErrorMessage("");
-      // TODO: enviar al back!
-      console.log("Se crea el examen y se lo envía al back!");
-      console.log(questions);
-      console.log(name);
-      setIsDone(true);
-      props.navigation.goBack();
-    } else {
-      console.log("No se crea :(");
+  async function createAndSendExam() {
+    try {
+      let result = questionsAreValid();
+      if (result && questions.length != 0) {
+        setErrorMessage("");
+  
+        const parsedQuestions = parseQuestions();
+        await createExam(
+          "61a7e42fd2398ad27a7d0099",
+          parsedQuestions,
+          name,
+          "vi"
+        ).then()
+  
+        props.navigation.goBack();
+      } else {
+        console.log("No se crea :(");
+      }
+    } catch(error) {
+      console.log(error);
+      setErrorMessage('Failed to create exam');
     }
   }
 
@@ -107,6 +117,14 @@ const ExamCreateUpdate = (props : any) => {
     } else {
       console.log("No se updatea nada :(");
     }
+  }
+
+  function parseQuestions() {
+    const parsedQuestions = [] as Array<string>;
+    for (let i = 0; i < questions.length; i++) {
+      parsedQuestions.push(questions[i].value);
+    }
+    return parsedQuestions;
   }
 
   function renderQuestions() {
@@ -160,7 +178,7 @@ const ExamCreateUpdate = (props : any) => {
           </Button>
           ) : 
           <Button
-            onPress={() => createExam()}
+            onPress={() => createAndSendExam()}
           >
             Create
           </Button>

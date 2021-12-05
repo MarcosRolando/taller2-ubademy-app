@@ -8,4 +8,5 @@ export const COURSE_SETUP = 'course_setup';
 export const PROFILE = 'profile';
 export const UPDATE_PROFILE = 'update_profile';
 export const UPDATE_COURSE = 'courses/update_course';
-export const SEARCH_COURSES = 'search_courses'
+export const SEARCH_COURSES = 'search_courses';
+export const CREATE_EXAM = 'courses/create_exam';
