@@ -1,11 +1,10 @@
 import React from "react";
 import { View } from "react-native";
-import { List, Subheading } from "react-native-paper";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import styles from "../../../styles/styles";
-import colors from "../../../styles/colors";
+import { List } from "react-native-paper";
+import styles from "../../../../styles/styles";
+import colors from "../../../../styles/colors";
 import { DarkTheme } from "react-native-paper";
-import { EXAM } from "../../../routes";
+import { EXAM } from "../../../../routes";
 
 const ExamList = (props : any) => {
   const [exams, setExams] = React.useState([
@@ -66,12 +65,10 @@ const ExamList = (props : any) => {
   }
 
   return (
-    <View>
-      <Subheading style={{...styles.profileSubtitle, paddingTop: hp(0), marginTop: hp(3), marginBottom: hp(3)}}>
-        Exams
-      </Subheading>
+    <View style={styles.menu}>
 
       {renderExams()}
+
     </View>
   )
 }

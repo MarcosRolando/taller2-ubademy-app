@@ -16,7 +16,10 @@ export const USER = 'User'; // The screen used for a user profile (not the main 
 
 // Course Routes
 export const COURSE = 'Course';
+export const COURSE_MENU = 'Course menu';
 export const CREATE_UPDATE_COURSE = 'CreateUpdateCourse';
+export const COURSE_MENU_EXAMS = 'Course menu exams';
+export const COURSE_MENU_EXAMS_EDIT = 'Course menu exams edit';
 
 // Profile routes
 export const PROFILE_INFO = 'ProfileInfo';

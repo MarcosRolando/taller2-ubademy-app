@@ -6,7 +6,7 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import { SignupScreen, LoginScreen,
   ProfileSetupScreen } from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP} from './src/routes';
+import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, COURSE_MENU} from './src/routes';
 import {AppRegistry, LogBox} from 'react-native';
 import colors from './src/styles/colors';
 import {UbademyTheme, NavigationTheme} from './src/styles/themes';

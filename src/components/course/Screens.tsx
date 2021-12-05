@@ -7,6 +7,9 @@ import { heightPercentageToDP as hp,
 import Course from './viewCourse/Course';
 import Exam from '../exams/exam/Exam';
 import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
+import Menu from './menu/Menu';
+import MenuExams from './menu/menuExams/MenuExams';
+import MenuExamsEdit from './menu/menuExams/MenuExamsEdit';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -52,6 +55,39 @@ export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ExamCreateUpdate id={id} isEditing={isEditing} name={name} navigation={navigation} />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const MenuScreen = ({route, navigation}: any) => {
+  const {id} = route.params;
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Menu id={id} navigation={navigation}/>
+      </ScrollView>
+    </View>
+  );
+}
+
+export const MenuExamsScreen = ({route, navigation}: any) => {
+  const {id} = route.params;
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <MenuExams id={id} navigation={navigation}/>
+      </ScrollView>
+    </View>
+  );
+}
+
+export const MenuExamsEditScreen = ({route, navigation}: any) => {
+  const {id} = route.params;
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <MenuExamsEdit id={id} navigation={navigation}/>
       </ScrollView>
     </View>
   );
