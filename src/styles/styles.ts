@@ -80,6 +80,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     marginHorizontal: wp(3)
+  },
+  searchbar: {
+    marginHorizontal: wp(4),
+    marginVertical: wp(3),
   }
 });
 
