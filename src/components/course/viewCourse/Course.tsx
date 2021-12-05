@@ -8,7 +8,6 @@ import styles from "../../../styles/styles";
 import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
-import ExamList from "./ExamsList";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
@@ -115,7 +114,6 @@ const Course = ({ id, navigation }: any) => {
             ) : null}
 
           {isCreator ? (
-            // TODO: ir a la pantalla de edición del curso
             <View>
               <Button
                 onPress = {() => goToEditCourse()}
@@ -123,7 +121,7 @@ const Course = ({ id, navigation }: any) => {
               >
                 Edit course
               </Button>
-              
+
             </View>
           ) : null}
             </>

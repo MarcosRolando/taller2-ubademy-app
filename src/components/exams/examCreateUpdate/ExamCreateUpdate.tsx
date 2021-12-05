@@ -99,7 +99,7 @@ const ExamCreateUpdate = (props : any) => {
   
         props.navigation.goBack();
       } else {
-        console.log("No se crea :(");
+        // TODO: informar que no se creo
       }
     } catch(error) {
       console.log(error);
