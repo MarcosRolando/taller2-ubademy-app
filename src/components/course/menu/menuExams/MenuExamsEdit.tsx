@@ -35,7 +35,7 @@ const MenuExamsEdit = ({id, navigation}: any) => {
         list={examTypes}
       />
 
-      <ExamList navigation={navigation} onlyView={true}/>
+      <ExamList id={id} navigation={navigation} onlyView={true}/>
     </ScrollView>
   )
 }

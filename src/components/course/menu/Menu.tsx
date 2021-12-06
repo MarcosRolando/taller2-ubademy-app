@@ -20,6 +20,10 @@ const Menu = ({id, navigation}: any) => {
     }
   }
 
+  function goToStudentsExamsScreen() {
+
+  }
+
   function goToStudentsScreen(){
     //TODO:
     console.log("a la pantalla con la lista de alumnos!")
@@ -40,9 +44,15 @@ const Menu = ({id, navigation}: any) => {
         />
 
         <List.Item
-          title={"See exams"}
+          title={"See course's exams"}
           right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
           onPress={goToExamsScreen}
+        />
+
+        <List.Item
+          title={"See students' exams"}
+          right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
+          onPress={goToStudentsExamsScreen}
         />
 
         <List.Item

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { View } from "react-native";
-import { List } from "react-native-paper";
+import { Button, List } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import colors from "../../../../styles/colors";
 import { DarkTheme } from "react-native-paper";
 import { EXAM } from "../../../../routes";
+import { getExamList } from "../../../../scripts/exam";
 
 const ExamList = (props : any) => {
   const [exams, setExams] = React.useState([
@@ -38,6 +39,11 @@ const ExamList = (props : any) => {
     },
   ])
 
+  useEffect(() => {
+
+
+  }, [])
+
   function renderExams() {
     const examsToRender = [];
     for (let i = 0; i < exams.length; i++) {
@@ -68,6 +74,14 @@ const ExamList = (props : any) => {
     <View style={styles.menu}>
 
       {renderExams()}
+
+    <Button
+      onPress={() => {
+        getExamList(props.id);
+      }}
+    >
+      printear examenes
+    </Button>
 
     </View>
   )
