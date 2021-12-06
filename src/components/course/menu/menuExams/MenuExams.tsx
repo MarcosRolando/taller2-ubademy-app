@@ -1,11 +1,15 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
-import { Title } from "react-native-paper";
+import { Button, Title } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import ExamList from "./ExamsList";
 
-const MenuExams = ({id, navigation}: any) => {
+const MenuExams = ({id, canEdit, navigation}: any) => {
+
+  function goToCreateExamScreen() {
+    
+  }
 
   return (
     <ScrollView>
@@ -17,7 +21,16 @@ const MenuExams = ({id, navigation}: any) => {
       <ExamList
         onlyView={false}
         id={id}
+        canEdit={canEdit}
         navigation={navigation} />
+
+      {canEdit ? (
+        <Button
+          onPress={goToCreateExamScreen}
+        >
+          Add Exam
+        </Button>
+      ) : <></>}
 
     </ScrollView>
   )

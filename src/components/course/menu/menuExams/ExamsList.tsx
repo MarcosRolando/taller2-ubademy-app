@@ -7,7 +7,7 @@ import { DarkTheme } from "react-native-paper";
 import { EXAM } from "../../../../routes";
 import { getExamList } from "../../../../scripts/exam";
 
-const ExamList = (props : any) => {
+const ExamList = ({id, canEdit, navigation} : any) => {
   const [exams, setExams] = React.useState([
     {
       idCourse: 666,
@@ -57,9 +57,9 @@ const ExamList = (props : any) => {
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}
             onPress={() => 
-              props.navigation.navigate(EXAM, {
+              navigation.navigate(EXAM, {
                 title:"hello",
-                onlyView: props.onlyView
+                onlyView: canEdit
               })
             }
             titleStyle={{color:isDisabled ? DarkTheme.colors.disabled : colors.text}}
@@ -77,7 +77,7 @@ const ExamList = (props : any) => {
 
     <Button
       onPress={() => {
-        getExamList(props.id);
+        getExamList(id);
       }}
     >
       printear examenes

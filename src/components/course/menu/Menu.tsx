@@ -6,22 +6,21 @@ import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const Menu = ({id, navigation}: any) => {
-  const [isCreator, setIsCreator] = React.useState(true);
+  const [canEdit, setCanEdit] = React.useState(true);
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
   }
 
   function goToExamsScreen() {
-    if (isCreator) {
-      navigation.navigate(COURSE_MENU_EXAMS_EDIT, {id: id})
-    } else {
-      navigation.navigate(COURSE_MENU_EXAMS, {id: id})
-    }
+    navigation.navigate(COURSE_MENU_EXAMS, {
+        id: id,
+        canEdit: canEdit
+    })
   }
 
   function goToStudentsExamsScreen() {
-
+    
   }
 
   function goToStudentsScreen(){
