@@ -8,7 +8,7 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const COMMENT_PLACEHOLDER = "Enter your comment..."
 
-const ExamCorrection = ({ idCourse, title, studentEmail, navigation }: any) => {
+const ExamCorrection = ({ idCourse, examTitle, studentEmail, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
@@ -76,7 +76,7 @@ const ExamCorrection = ({ idCourse, title, studentEmail, navigation }: any) => {
     <ScrollView>
       <SafeAreaView>
         <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
-          Hola
+          {examTitle}
         </Title>
 
       {renderQuestions()}

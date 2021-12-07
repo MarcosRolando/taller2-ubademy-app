@@ -47,7 +47,7 @@ const ExamList = ({id, canEdit, canCorrect, navigation} : any) => {
     if (canCorrect) {
       navigation.navigate(EXAM_CORRECTION, {
         id: id,
-        title: "hello",
+        examTitle: "hello",
         canCorrect: canCorrect
       })
     } else {

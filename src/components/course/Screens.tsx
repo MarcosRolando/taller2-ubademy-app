@@ -63,7 +63,7 @@ export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
 }
 
 export const ExamCorrectionScreen = ({route, navigation}: any) => {
-  const {id, name, canCorrect} = route.params;
+  const {id, name, examTitle, canCorrect} = route.params;
 
   return (
     <View>
@@ -71,7 +71,7 @@ export const ExamCorrectionScreen = ({route, navigation}: any) => {
         <ExamCorrection
           id={id}
           canCorrect={canCorrect}
-          title={name}
+          examTitle={examTitle}
           navigation={navigation} />
       </ScrollView>
     </View>
