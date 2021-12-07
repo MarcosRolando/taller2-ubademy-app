@@ -53,6 +53,7 @@ export async function getExamList(
     console.log(courseId)
     const res = await sendAPIrequest(() => axios.get(
       `${API_URL}${COURSES}/${courseId}/${EXAM_GET_LIST}`, getAxiosConfig()));
+      console.log(res.data);
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:
@@ -60,7 +61,7 @@ export async function getExamList(
       }
     }
     console.log(res.data);
-
+    return Promise.resolve(res.data);
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));

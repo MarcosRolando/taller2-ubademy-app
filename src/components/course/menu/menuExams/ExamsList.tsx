@@ -39,10 +39,9 @@ const ExamList = ({id, canEdit, navigation} : any) => {
     },
   ])
 
-  useEffect(() => {
-
-
-  }, [])
+  async function printear() {
+    await getExamList(id);
+  }
 
   function renderExams() {
     const examsToRender = [];
@@ -77,7 +76,7 @@ const ExamList = ({id, canEdit, navigation} : any) => {
 
     <Button
       onPress={() => {
-        getExamList(id);
+        printear();
       }}
     >
       printear examenes
