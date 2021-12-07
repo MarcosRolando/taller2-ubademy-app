@@ -68,6 +68,8 @@ const ExamList = ({id, canEdit, canCorrect, navigation} : any) => {
           <List.Item
             key={exams[i].examName}
             title={exams[i].examName}
+            // TODO: que la descripción cambie si se está corriendo o solo viendo examenes
+            description="Student's email"
             disabled={isDisabled}
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}

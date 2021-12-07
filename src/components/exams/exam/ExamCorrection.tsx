@@ -77,20 +77,20 @@ const ExamCorrection = ({ idCourse, examTitle, studentEmail, navigation }: any) 
     <ScrollView>
       <SafeAreaView>
         <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
-          Correction
+          Corrections
         </Title>
 
         <List.Item
           title={examTitle}
           description="Exam"
-          left={props => <List.Icon {...props} icon="folder" />}
+          left={props => <List.Icon {...props} icon="notebook" />}
         />
 
         {/* TODO: agregar que se vea el mail */}
         <List.Item
           title="email"
           description="Student's email"
-          left={props => <List.Icon {...props} icon="folder" />}
+          left={props => <List.Icon {...props} icon="email" />}
         />
 
       {renderQuestions()}
