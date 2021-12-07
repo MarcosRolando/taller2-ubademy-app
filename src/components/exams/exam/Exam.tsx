@@ -8,7 +8,7 @@ import { useFocusEffect } from '@react-navigation/core';
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
-const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
+const Exam = ({ title, onlyView, courseId, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
@@ -44,7 +44,7 @@ const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
 
   async function callgetExamQuestions(){
     try {
-      await getExamQuestions(idCourse, title);
+      await getExamQuestions(courseId, title);
     } catch (error) {
       alert(error);
     }
@@ -52,7 +52,7 @@ const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
 
   function goToExamUpdateScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
-      id: idCourse,
+      id: courseId,
       name: title,
       isEditing: true
     })

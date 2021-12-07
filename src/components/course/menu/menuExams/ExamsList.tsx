@@ -14,13 +14,13 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
   function goToExamScreen(index: number) {
     if (canCorrect) {
       navigation.navigate(EXAM_CORRECTION, {
-        idCourse: id,
+        courseId: id,
         examTitle: examList[index],
         canCorrect: canCorrect
       })
     } else {
       navigation.navigate(EXAM, {
-        idCourse: id,
+        courseId: id,
         title: examList[index],
         onlyView: canEdit
       })

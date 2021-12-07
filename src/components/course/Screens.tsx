@@ -39,14 +39,14 @@ export const ViewCourseScreen = ({route, navigation}: any) => {
 }
 
 export const ExamScreen = ({route, navigation}: any) => {
-  const {title, idCourse, onlyView} = route.params;
+  const {title, courseId, onlyView} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Exam
           title={title}
-          idCourse={idCourse}
+          courseId={courseId}
           onlyView={onlyView}
           navigation={navigation} />
       </ScrollView>
@@ -55,25 +55,25 @@ export const ExamScreen = ({route, navigation}: any) => {
 }
 
 export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
-  const {id, name, isEditing} = route.params;
+  const {courseId, name, isEditing} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ExamCreateUpdate id={id} isEditing={isEditing} name={name} navigation={navigation} />
+        <ExamCreateUpdate courseId={courseId} isEditing={isEditing} name={name} navigation={navigation} />
       </ScrollView>
     </View>
   );
 }
 
 export const ExamCorrectionScreen = ({route, navigation}: any) => {
-  const {id, name, studentEmail, examTitle, canCorrect} = route.params;
+  const {courseId, name, studentEmail, examTitle, canCorrect} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ExamCorrection
-          id={id}
+          courseId={courseId}
           canCorrect={canCorrect}
           examTitle={examTitle}
           studentEmail={studentEmail}
