@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import { Button, Paragraph, Subheading, TextInput, Title } from "react-native-paper";
+import { Button, List, Paragraph, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
 import styles from "../../../styles/styles";
@@ -46,6 +46,7 @@ const ExamCorrection = ({ idCourse, examTitle, studentEmail, navigation }: any) 
             {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
+          {/* TODO: agregar que se vean las respuestas */}
           <Paragraph>
             Texto
           </Paragraph>
@@ -76,8 +77,21 @@ const ExamCorrection = ({ idCourse, examTitle, studentEmail, navigation }: any) 
     <ScrollView>
       <SafeAreaView>
         <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
-          {examTitle}
+          Correction
         </Title>
+
+        <List.Item
+          title={examTitle}
+          description="Exam"
+          left={props => <List.Icon {...props} icon="folder" />}
+        />
+
+        {/* TODO: agregar que se vea el mail */}
+        <List.Item
+          title="email"
+          description="Student's email"
+          left={props => <List.Icon {...props} icon="folder" />}
+        />
 
       {renderQuestions()}
 
