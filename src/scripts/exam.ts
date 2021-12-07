@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { EXAM_CREATE, EXAM_PUBLISH, EXAM_GET_LIST } from "../endpoints";
+import { EXAM_CREATE, EXAM_PUBLISH, EXAM_GET_LIST, COURSES } from "../endpoints";
 
 export async function createExam(
   courseId: string,
@@ -52,7 +52,7 @@ export async function getExamList(
   try {
     console.log(courseId)
     const res = await sendAPIrequest(() => axios.get(
-      `${API_URL}${courseId}/${EXAM_GET_LIST}`, getAxiosConfig()));
+      `${API_URL}${COURSES}/${courseId}/${EXAM_GET_LIST}`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:
