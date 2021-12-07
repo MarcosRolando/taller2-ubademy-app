@@ -11,6 +11,7 @@ import Menu from './menu/Menu';
 import MenuExams from './menu/menuExams/MenuExams';
 import MenuExamsEdit from './menu/menuExams/MenuExamsEdit';
 import MenuExamsCorrection from './menu/menuExams/MenuExamsCorrection';
+import ExamCorrection from '../exams/exam/ExamCorrection';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -56,6 +57,22 @@ export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ExamCreateUpdate id={id} isEditing={isEditing} name={name} navigation={navigation} />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const ExamCorrectionScreen = ({route, navigation}: any) => {
+  const {id, name, canCorrect} = route.params;
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ExamCorrection
+          id={id}
+          canCorrect={canCorrect}
+          title={name}
+          navigation={navigation} />
       </ScrollView>
     </View>
   );

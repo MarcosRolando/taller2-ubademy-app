@@ -4,10 +4,10 @@ import { Button, List } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import colors from "../../../../styles/colors";
 import { DarkTheme } from "react-native-paper";
-import { EXAM } from "../../../../routes";
+import { EXAM, EXAM_CORRECTION } from "../../../../routes";
 import { getExamList } from "../../../../scripts/exam";
 
-const ExamList = ({id, canEdit, navigation} : any) => {
+const ExamList = ({id, canEdit, canCorrect, navigation} : any) => {
   const [exams, setExams] = React.useState([
     {
       idCourse: 666,
@@ -43,6 +43,22 @@ const ExamList = ({id, canEdit, navigation} : any) => {
     await getExamList(id);
   }
 
+  function goToExamScreen() {
+    if (canCorrect) {
+      navigation.navigate(EXAM_CORRECTION, {
+        id: id,
+        title: "hello",
+        canCorrect: canCorrect
+      })
+    } else {
+      navigation.navigate(EXAM, {
+        id: id,
+        title:"hello",
+        onlyView: canEdit
+      })
+    }
+  }
+
   function renderExams() {
     const examsToRender = [];
     for (let i = 0; i < exams.length; i++) {
@@ -55,11 +71,8 @@ const ExamList = ({id, canEdit, navigation} : any) => {
             disabled={isDisabled}
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}
-            onPress={() => 
-              navigation.navigate(EXAM, {
-                title:"hello",
-                onlyView: canEdit
-              })
+            onPress={() => goToExamScreen()
+              
             }
             titleStyle={{color:isDisabled ? DarkTheme.colors.disabled : colors.text}}
           />

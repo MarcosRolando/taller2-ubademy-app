@@ -7,6 +7,7 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const Menu = ({id, navigation}: any) => {
   const [canEdit, setCanEdit] = React.useState(true);
+  const [canCorrect, setCanCorrect] = React.useState(true);
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
@@ -21,7 +22,8 @@ const Menu = ({id, navigation}: any) => {
 
   function goToStudentsExamsScreen() {
     navigation.navigate(COURSE_MENU_EXAMS_CORRECTION, {
-      
+      id: id,
+      canCorrect: canCorrect
     })
   }
 

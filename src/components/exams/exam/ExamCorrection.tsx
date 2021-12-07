@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import { Button, Paragraph, Subheading, TextInput } from "react-native-paper";
+import { Button, Paragraph, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
+import styles from "../../../styles/styles";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-const QUESTION_PLACEHOLDER = "Enter your answer..."
+const COMMENT_PLACEHOLDER = "Enter your comment..."
 
-const ExamCorrection = ({ idCourse, title, studentEmail,navigation }: any) => {
+const ExamCorrection = ({ idCourse, title, studentEmail, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
@@ -49,17 +51,17 @@ const ExamCorrection = ({ idCourse, title, studentEmail,navigation }: any) => {
           </Paragraph>
 
             <TextInput
-            placeholder={QUESTION_PLACEHOLDER}
-            disabled={isFinished}
-            multiline={true}
-            onChangeText={(newAnswer) => {
-              setAnswers(answers.map((answer) => {
-                if (answer.id === answers[i].id) {
-                  answer.value = newAnswer;
-                }
-                return answer;
-              }))
-            }}
+              placeholder={COMMENT_PLACEHOLDER}
+              disabled={isFinished}
+              multiline={true}
+              onChangeText={(newAnswer) => {
+                setAnswers(answers.map((answer) => {
+                  if (answer.id === answers[i].id) {
+                    answer.value = newAnswer;
+                  }
+                  return answer;
+                }))
+              }}
             >
             </TextInput>
 
@@ -73,9 +75,9 @@ const ExamCorrection = ({ idCourse, title, studentEmail,navigation }: any) => {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Text style={{fontSize:50, color: colors.primary}}>
-          {title}
-        </Text>
+        <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
+          Hola
+        </Title>
 
       {renderQuestions()}
 

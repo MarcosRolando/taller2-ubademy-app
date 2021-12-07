@@ -35,7 +35,7 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
         list={examTypes}
       />
 
-      <ExamList id={id} navigation={navigation} onlyView={true}/>
+      <ExamList id={id} navigation={navigation} canCorrect={true}/>
     </ScrollView>
   )
 }

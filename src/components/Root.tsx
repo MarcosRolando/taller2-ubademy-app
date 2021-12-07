@@ -4,7 +4,8 @@ import {View, Image} from 'react-native';
 import {COURSE, CREATE_UPDATE_COURSE,
    EXAM, EXAM_CREATE_UPDATE,
    EXPLORE, HOME, PROFILE, USER,
-   COURSE_MENU, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_CORRECTION} from '../routes';
+   COURSE_MENU, COURSE_MENU_EXAMS,
+   COURSE_MENU_EXAMS_CORRECTION, EXAM_CORRECTION} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +21,7 @@ import {TouchableHighlight} from 'react-native-gesture-handler';
 import { CreateUpdateCourseScreen,
   ExamCreateUpdateScreen,
   ExamScreen, MenuScreen,
-  ViewCourseScreen, MenuExamsScreen, MenuExamsCorrectionScreen } from './course/Screens';
+  ViewCourseScreen, MenuExamsScreen, MenuExamsCorrectionScreen, ExamCorrectionScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Drawer = createDrawerNavigator();
@@ -58,6 +59,7 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={COURSE_MENU_EXAMS_CORRECTION} component={MenuExamsCorrectionScreen} />
       <HomeStack.Screen name={EXAM} component={ExamScreen} />
       <HomeStack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
+      <HomeStack.Screen name={EXAM_CORRECTION} component={ExamCorrectionScreen} />
     </HomeStack.Navigator>
   );
 };
