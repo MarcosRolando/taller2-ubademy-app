@@ -78,7 +78,8 @@ export async function getExamQuestions(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log("preguntas:", res.data);
+    const data = res.data['exam'];
+    return Promise.resolve(res.data['exam'][0]['questions']);
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));

@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import { Button, Subheading, TextInput } from "react-native-paper";
+import { Button, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
 import { getExamQuestions } from "../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
+import styles from "../../../styles/styles";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
@@ -13,38 +15,54 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
 
-  useEffect(() => {
-    setQuestions([
-      "Shaba daaa shaba?",
-      "Lero lero?",
-      "Pregunta numero tres!",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    ])
-    const answersAux = [] as Array<{id: number, value: string}>;
-    for (let i = 0; i < questions.length; i++) {
-      answersAux.push({
-        id: i,
-        value: ""
-      })
-    }
-    setAnswers(answersAux);
-    console.log(questions.length);
-    console.log(answers);
+  // useEffect(() => {
+  //   setQuestions([
+  //     "Shaba daaa shaba?",
+  //     "Lero lero?",
+  //     "Pregunta numero tres!",
+  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  //   ])
+  //   const answersAux = [] as Array<{id: number, value: string}>;
+  //   for (let i = 0; i < questions.length; i++) {
+  //     answersAux.push({
+  //       id: i,
+  //       value: ""
+  //     })
+  //   }
+  //   setAnswers(answersAux);
+  //   console.log(questions.length);
+  //   console.log(answers);
 
-    (async () => {
-      callgetExamQuestions();
-    })
-  }, [])
+  //   (async () => {
+  //     callGetExamQuestions();
+  //   })
+  // }, [])
+
+  // useFocusEffect(React.useCallback(() => {
+  //     callGetExamQuestions();
+  // }, []))
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const examQuestions = await getExamQuestions(courseId, title);
+  //       console.log("preguntas recibidas",examQuestions);
+  //       setQuestions(examQuestions.questions);
+  //       console.log("preguntas",questions);
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  //   })
+  // }, [])
 
   useFocusEffect(React.useCallback(() => {
-    (async () => {
-      callgetExamQuestions();
-    })();
+    callGetExamQuestions();
   }, []))
 
-  async function callgetExamQuestions(){
+  async function callGetExamQuestions(){
     try {
-      await getExamQuestions(courseId, title);
+      const examQuestions = await getExamQuestions(courseId, title);
+      setQuestions(examQuestions);
     } catch (error) {
       alert(error);
     }
@@ -52,7 +70,7 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
 
   function goToExamUpdateScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
-      id: courseId,
+      courseId: courseId,
       name: title,
       isEditing: true
     })
@@ -65,6 +83,7 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
 
   function renderQuestions() {
     const questionsToRender = [];
+    console.log("largo", questions.length);
     for (let i = 0; i < questions.length; i++) {
       questionsToRender.push(
         <View key={i}>
@@ -98,9 +117,10 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Text style={{fontSize:50, color: colors.primary}}>
+
+        <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
           {title}
-        </Text>
+        </Title>
 
       {renderQuestions()}
 
