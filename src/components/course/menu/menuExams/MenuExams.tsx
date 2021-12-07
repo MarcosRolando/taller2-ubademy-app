@@ -4,11 +4,15 @@ import { Button, Title } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import ExamList from "./ExamsList";
+import { EXAM_CREATE_UPDATE } from "../../../../routes";
 
 const MenuExams = ({id, canEdit, navigation}: any) => {
 
   function goToCreateExamScreen() {
-    
+    navigation.navigate(EXAM_CREATE_UPDATE, {
+      id: id,
+      isEditing: false
+    })
   }
 
   return (

@@ -60,7 +60,6 @@ export async function getExamList(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data);
   } catch (error) {
     console.log(error);

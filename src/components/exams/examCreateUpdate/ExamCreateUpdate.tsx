@@ -144,7 +144,7 @@ const ExamCreateUpdate = (props : any) => {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Title style={styles.profileTitle}>
+        <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
           Create Exam
         </Title>
 
