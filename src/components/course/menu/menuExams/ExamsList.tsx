@@ -11,17 +11,17 @@ import { useFocusEffect } from '@react-navigation/core';
 
 const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
 
-  function goToExamScreen() {
+  function goToExamScreen(index: number) {
     if (canCorrect) {
       navigation.navigate(EXAM_CORRECTION, {
-        id: id,
-        examTitle: "hello",
+        idCourse: id,
+        examTitle: examList[index],
         canCorrect: canCorrect
       })
     } else {
       navigation.navigate(EXAM, {
-        id: id,
-        title:"hello",
+        idCourse: id,
+        title: examList[index],
         onlyView: canEdit
       })
     }
@@ -64,7 +64,7 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
             description="Student's email"
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}
-              onPress={() => goToExamScreen()
+              onPress={() => goToExamScreen(i)
             }
           />
         )

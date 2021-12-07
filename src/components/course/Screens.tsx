@@ -39,12 +39,16 @@ export const ViewCourseScreen = ({route, navigation}: any) => {
 }
 
 export const ExamScreen = ({route, navigation}: any) => {
-  const {title, onlyView} = route.params;
+  const {title, idCourse, onlyView} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Exam title={title} onlyView={onlyView} navigation={navigation} />
+        <Exam
+          title={title}
+          idCourse={idCourse}
+          onlyView={onlyView}
+          navigation={navigation} />
       </ScrollView>
     </View>
   );

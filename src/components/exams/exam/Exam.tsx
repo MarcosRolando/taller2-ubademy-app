@@ -3,6 +3,8 @@ import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, Subheading, TextInput } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
+import { getExamQuestions } from "../../../scripts/exam";
+import { useFocusEffect } from '@react-navigation/core';
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
@@ -28,7 +30,25 @@ const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
     setAnswers(answersAux);
     console.log(questions.length);
     console.log(answers);
+
+    (async () => {
+      callgetExamQuestions();
+    })
   }, [])
+
+  useFocusEffect(React.useCallback(() => {
+    (async () => {
+      callgetExamQuestions();
+    })();
+  }, []))
+
+  async function callgetExamQuestions(){
+    try {
+      await getExamQuestions(idCourse, title);
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   function goToExamUpdateScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
