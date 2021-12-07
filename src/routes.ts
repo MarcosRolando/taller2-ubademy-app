@@ -20,6 +20,7 @@ export const COURSE_MENU = 'Course menu';
 export const CREATE_UPDATE_COURSE = 'CreateUpdateCourse';
 export const COURSE_MENU_EXAMS = 'Course menu exams';
 export const COURSE_MENU_EXAMS_EDIT = 'Course menu exams edit';
+export const COURSE_MENU_EXAMS_CORRECTION = 'Course menu exam correction';
 
 // Profile routes
 export const PROFILE_INFO = 'ProfileInfo';

@@ -10,6 +10,7 @@ import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
 import Menu from './menu/Menu';
 import MenuExams from './menu/menuExams/MenuExams';
 import MenuExamsEdit from './menu/menuExams/MenuExamsEdit';
+import MenuExamsCorrection from './menu/menuExams/MenuExamsCorrection';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -82,12 +83,12 @@ export const MenuExamsScreen = ({route, navigation}: any) => {
   );
 }
 
-export const MenuExamsEditScreen = ({route, navigation}: any) => {
+export const MenuExamsCorrectionScreen = ({route, navigation}: any) => {
   const {id} = route.params;
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MenuExamsEdit id={id} navigation={navigation}/>
+        <MenuExamsCorrection id={id} navigation={navigation}/>
       </ScrollView>
     </View>
   );
