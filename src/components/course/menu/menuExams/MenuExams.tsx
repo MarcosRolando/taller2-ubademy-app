@@ -1,12 +1,17 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { Button, Title } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import ExamList from "./ExamsList";
 import { EXAM_CREATE_UPDATE } from "../../../../routes";
+import { getExamList } from "../../../../scripts/exam";
+import { useFocusEffect } from '@react-navigation/core';
+import colors from "../../../../styles/colors";
 
 const MenuExams = ({id, canEdit, navigation}: any) => {
+  const [examList, setExamList] = React.useState([] as Array<string>);
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   function goToCreateExamScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
@@ -14,6 +19,23 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
       isEditing: false
     })
   }
+
+  async function callGetExamList(id: string) {
+    try {
+      await getExamList(id)
+      .then((exams) => {
+        setExamList(exams);
+      })
+    } catch (error) {
+      setErrorMessage("An error has ocurred");
+    }
+  }
+
+  useFocusEffect(React.useCallback(() => {
+    (async () => {
+      callGetExamList(id);
+    })();
+  }, []))
 
   return (
     <ScrollView>
@@ -25,6 +47,7 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
       <ExamList
         onlyView={false}
         id={id}
+        examList={examList}
         canEdit={canEdit}
         navigation={navigation} />
 
@@ -35,6 +58,10 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
           Add Exam
         </Button>
       ) : <></>}
+
+      <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
+        {errorMessage}
+      </Text>
 
     </ScrollView>
   )

@@ -12,6 +12,8 @@ const examTypes = [
   {label: 'All', value: 'All'}
 ];
 
+const examList = ["Pregunta filtrada"];
+
 const MenuExamsCorrection = ({id, navigation}: any) => {
   const [searchValue, setSearchValue] = React.useState("");
   const [showExamsType, setShowExamsType] = React.useState(false);
@@ -35,7 +37,12 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
         list={examTypes}
       />
 
-      <ExamList id={id} navigation={navigation} canCorrect={true}/>
+      <ExamList
+        id={id}
+        examList={examList}
+        canCorrect={true}
+        navigation={navigation}
+      />
     </ScrollView>
   )
 }

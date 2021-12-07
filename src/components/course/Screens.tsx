@@ -95,7 +95,10 @@ export const MenuExamsScreen = ({route, navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MenuExams id={id} canEdit={canEdit} navigation={navigation}/>
+        <MenuExams 
+          id={id}
+          canEdit={canEdit}
+          navigation={navigation}/>
       </ScrollView>
     </View>
   );

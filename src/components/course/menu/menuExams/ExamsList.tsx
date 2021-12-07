@@ -9,26 +9,7 @@ import { EXAM, EXAM_CORRECTION } from "../../../../routes";
 import { getExamList } from "../../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 
-const ExamList = ({id, canEdit, canCorrect, navigation} : any) => {
-  const [examList, setExamList] = React.useState([] as Array<string>)
-  const [errorMessage, setErrorMessage] = React.useState("");
-
-  async function callGetExamList(id: string) {
-    try {
-      await getExamList(id)
-      .then((exams) => {
-        setExamList(exams);
-      })
-    } catch (error) {
-      setErrorMessage("An error has ocurred");
-    }
-  }
-
-  useFocusEffect(React.useCallback(() => {
-    (async () => {
-      callGetExamList(id);
-    })();
-  }, []))
+const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
 
   function goToExamScreen() {
     if (canCorrect) {
@@ -95,10 +76,6 @@ const ExamList = ({id, canEdit, canCorrect, navigation} : any) => {
     <View style={styles.menu}>
 
       {renderExams()}
-
-      <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
-        {errorMessage}
-      </Text>
 
     </View>
   )
