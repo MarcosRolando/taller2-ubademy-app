@@ -11,7 +11,7 @@ import { heightPercentageToDP as hp,
 import colors from "../../../styles/colors";
 import { getProfileOptionsData, sendUpdateProfile } from "../../../scripts/profile";
 import { PROFILE_INFO } from "../../../routes";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage";
+import Fire from "../../../../Fire";
 
 const ProfileEditor = ({ _name, _location, _likedCourses,
                         navigation, _image }: any) => {
@@ -50,10 +50,10 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
     return true;
   }
 
-  async function uploadMedia() {
+  async function uploadProfilePicture() {
     if (image.changed) {
         try {
-          const image_to_upload = await uploadMediaToFirebase(image.value);
+          const image_to_upload = await Fire.uploadMedia(image.value, name);
           return image_to_upload;
         } catch(error) {
           console.log(error);
@@ -62,40 +62,12 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
     return image.value;
   }
 
-  async function uploadMediaToFirebase(uri: string) {
-    // Why are we using XMLHttpRequest? See:
-    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-    const blob: Blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", uri, true);
-      xhr.send(null);
-    });
-
-    const fileRef = ref(getStorage(), `${name}/${uri.replace(/^.*[\\\/]/, '')}`);
-    
-    await uploadBytes(fileRef, blob);
-
-    // We're done with the blob, close and release it
-    // @ts-ignore
-    blob.close();
-
-    return await getDownloadURL(fileRef);
-  }
-
   async function updateProfile() {
     try {
       if (validateData()) {
         setErrorMessage('');
         setUploading(true);
-        const image_url = await uploadMedia();
+        const image_url = await uploadProfilePicture();
         await sendUpdateProfile(name, location, likedCourses, image_url, 'Free');
         setUploading(false);
         navigation.navigate(PROFILE_INFO);

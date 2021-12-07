@@ -1,10 +1,10 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, CHATS as CHATS, PROFILE, USER} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faChalkboard, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import colors from '../styles/colors';
 import {
   DrawerContentScrollView,
@@ -16,6 +16,7 @@ import {HomeScreen} from './home/Screens';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import { CreateUpdateCourseScreen, ExamCreateUpdateScreen, ExamScreen, ViewCourseScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { ChatListScreen } from './Chats/Screens';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -69,6 +70,8 @@ const Root = () => {
         component={CreateUpdateCourseScreen}
         initialParams={{id:"", isEditing:false}}
         options={{
+          headerTitle: 'Create a course',
+          drawerLabel: 'Create a course',
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faChalkboard } />
       )}}/>
@@ -78,6 +81,13 @@ const Root = () => {
         options={{
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faUserCircle } />
+      )}}/>
+      <Drawer.Screen
+        name={CHATS}
+        component={ChatListScreen}
+        options={{
+          drawerIcon: ({size, color}) => (
+            <FontAwesomeIcon color={color} size={size} icon={ faComments } />
       )}}/>
     </Drawer.Navigator>
   );

@@ -6,7 +6,7 @@ import {TextInput, Button, Text, IconButton} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styles/themes';
-import sendLoginCredentials, { sendGoogleCredentials } from '../../scripts/logIn';
+import { sendLoginCredentials, sendGoogleCredentials } from '../../scripts/logIn';
 import { PROFILE_SETUP, ROOT } from '../../routes';
 import colors from '../../styles/colors';
 import * as LocalAuthentication from 'expo-local-authentication';
