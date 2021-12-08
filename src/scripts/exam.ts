@@ -178,9 +178,29 @@ export async function getFilteredExams(
 
 // TODO: completar esta función cuando esté en el back
 // @app.get('/courses/{course_id}/exam/{exam_name}/{exam_filter}')
-export async function getStudentExam(
+export async function getStudentExamToCorrect(
 
 ) {
+
+}
+
+// @app.get('/courses/{course_id}/exam/{exam_name}/{exam_filter}')
+// projection: questions or completed_exam
+export async function getStudentExamCorrected(
+  courseId: string,
+  examName: string
+) {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+    `${API_URL}${COURSES}/${courseId}/exam/${examName}/completed_exam`
+    ,getAxiosConfig()));
+
+    console.log(res.data);
+    return Promise.resolve(res.data['exam']);
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
 
 }
 

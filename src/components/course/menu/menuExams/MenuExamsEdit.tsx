@@ -6,6 +6,7 @@ import ExamList from "./ExamsList";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+// TODO: ver de borrar
 const examTypes = [
   {label:'Corrected', value:'Corrected'},
   {label:'Not corrected', value:'Not corrected'},

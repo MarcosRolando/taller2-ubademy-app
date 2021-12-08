@@ -12,6 +12,8 @@ import MenuExams from './menu/menuExams/MenuExams';
 import MenuExamsEdit from './menu/menuExams/MenuExamsEdit';
 import MenuExamsCorrection from './menu/menuExams/MenuExamsCorrection';
 import ExamCorrection from '../exams/exam/ExamCorrection';
+import MenuExamOptions from './menu/menuExams/MenuExamOptions';
+import ExamCorrected from '../exams/exam/ExamCorrected';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -89,6 +91,22 @@ export const ExamCorrectionScreen = ({route, navigation}: any) => {
   );
 }
 
+export const ExamCorrectedScreen = ({route, navigation}: any) => {
+  const {courseId, examName} = route.params;
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ExamCorrected
+          courseId={courseId}
+          examName={examName}
+          navigation={navigation}
+        />
+      </ScrollView>
+    </View>
+  );
+}
+
 export const MenuScreen = ({route, navigation}: any) => {
   const {id} = route.params;
   return (
@@ -116,6 +134,7 @@ export const MenuExamsScreen = ({route, navigation}: any) => {
 
 export const MenuExamsCorrectionScreen = ({route, navigation}: any) => {
   const {id} = route.params;
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -123,6 +142,22 @@ export const MenuExamsCorrectionScreen = ({route, navigation}: any) => {
       </ScrollView>
     </View>
   );
+}
+
+export const MenuExamOptionsScreen = ({route, navigation}: any) => {
+   const {courseId, examName} = route.params;
+
+   return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <MenuExamOptions
+          courseId={courseId}
+          examName={examName}
+          navigation={navigation}
+        />
+      </ScrollView>
+    </View>
+   )
 }
 
 const styles = StyleSheet.create({

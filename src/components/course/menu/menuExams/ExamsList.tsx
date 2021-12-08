@@ -5,7 +5,7 @@ import styles from "../../../../styles/styles";
 import colors from "../../../../styles/colors";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { DarkTheme } from "react-native-paper";
-import { EXAM, EXAM_CORRECTION } from "../../../../routes";
+import { EXAM, EXAM_CORRECTION, COURSE_MENU_EXAM_OPTIONS } from "../../../../routes";
 import { getExamList } from "../../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 
@@ -19,11 +19,20 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
         canCorrect: canCorrect
       })
     } else {
-      navigation.navigate(EXAM, {
-        courseId: id,
-        title: examList[index].examName,
-        onlyView: canEdit
-      })
+      if (canEdit) {
+        navigation.navigate(EXAM, {
+          courseId: id,
+          title: examList[index].examName,
+          onlyView: canEdit
+        })
+      // TODO: cambiarlo para ir a otra ventana con opciones
+      } else {
+        console.log("ENTRA ACA");
+        navigation.navigate(COURSE_MENU_EXAM_OPTIONS, {
+          courseId: id,
+          examName: examList[index].examName
+        })
+      }
     }
   }
 
