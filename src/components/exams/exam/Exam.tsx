@@ -8,6 +8,7 @@ import { useFocusEffect } from '@react-navigation/core';
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 
 const Exam = ({ title, onlyView, courseId, navigation }: any) => {
@@ -72,7 +73,8 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
     navigation.navigate(EXAM_CREATE_UPDATE, {
       courseId: courseId,
       name: title,
-      isEditing: true
+      isEditing: true,
+      questions: questions
     })
   }
 

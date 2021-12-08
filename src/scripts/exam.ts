@@ -94,7 +94,7 @@ export async function putEditExam(
 ) {
   try {
     const res = await sendAPIrequest(() => axios.put(
-      `${API_URL}${EXAM_EDIT}`,{
+      `${API_URL}${COURSES}/${EXAM_EDIT}`,{
         course_id: courseId,
         questions: questions,
         exam_name: examName,

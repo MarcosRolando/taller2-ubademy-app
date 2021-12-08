@@ -55,12 +55,18 @@ export const ExamScreen = ({route, navigation}: any) => {
 }
 
 export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
-  const {courseId, name, isEditing} = route.params;
+  const {courseId, name, isEditing, questions} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ExamCreateUpdate courseId={courseId} isEditing={isEditing} name={name} navigation={navigation} />
+        <ExamCreateUpdate
+          courseId={courseId}
+          canEdit={isEditing}
+          examName={name}
+          questions={questions}
+          navigation={navigation}
+        />
       </ScrollView>
     </View>
   );
