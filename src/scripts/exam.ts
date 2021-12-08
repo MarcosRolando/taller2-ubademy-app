@@ -176,3 +176,17 @@ export async function getFilteredExams(
     return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
+
+// TODO: completar esta función cuando esté en el back
+// @app.get('/courses/{course_id}/exam/{exam_name}/{exam_filter}')
+export async function getStudentExam(
+
+) {
+
+}
+
+export async function postGradeExam(
+
+) {
+  
+}

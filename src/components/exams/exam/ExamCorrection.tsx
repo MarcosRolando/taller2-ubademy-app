@@ -4,15 +4,34 @@ import { Button, List, Paragraph, Subheading, TextInput, Title } from "react-nat
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
 import styles from "../../../styles/styles";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import DropDown from "react-native-paper-dropdown";
 
 const COMMENT_PLACEHOLDER = "Enter your comment..."
+
+const examTypes = [
+  {label:'1', value:'1'},
+  {label:'2 corrected', value:'2'},
+  {label: 'All', value: 'none'}
+];
 
 const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
+  const [grade, setGrade] = React.useState('1');
+  const [showGrade, setShowGrade] = React.useState(false);
+  const grades = [] as Array<{label: string, value: string}>;
 
+  function setGrades() {
+    for (let i = 1; i <= 10; i++) {
+      grades.push({
+        label: i.toString(),
+        value: i.toString()
+      })
+    }
+  }
+  setGrades();
 
   useEffect(() => {
     setQuestions([
@@ -95,6 +114,20 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
 
       {renderQuestions()}
 
+      <View style={{marginHorizontal: wp(30)}}>
+        <DropDown
+          visible={showGrade}
+          placeholder={"Select a grade"}
+          mode={"outlined"}
+          showDropDown={() => setShowGrade(true)}
+          onDismiss={() => setShowGrade(false)}
+          value={grade}
+          setValue={(value : any) => {
+            setGrade(value);
+          }}
+          list={grades}
+        />
+      </View>
 
       <Button
         onPress={() => sendCorrections()}
@@ -102,6 +135,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
         Send correction
       </Button>
 
+      <View style={{marginBottom:hp(10)}}></View>
 
       </SafeAreaView>
     </ScrollView>
