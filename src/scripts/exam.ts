@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { EXAM_CREATE, EXAM_PUBLISH, EXAM_GET_LIST, COURSES, EXAM } from "../endpoints";
+import { EXAM_CREATE, EXAM_PUBLISH, EXAM_GET_LIST, COURSES, EXAM, EXAM_EDIT } from "../endpoints";
 
 export async function createExam(
   courseId: string,
@@ -39,13 +39,13 @@ export async function publishExam(
   examCreatorEmail: string 
 ) {
   try {
-
+    const res = await sendAPIrequest(() => axios.get(
+      `${API_URL}${COURSES}/${courseId}/${EXAM_GET_LIST}`, getAxiosConfig()));
   } catch (error) {
 
   }
 }
 
-//TODO: arreglar esta función, que todavía no está en api_gateway
 export async function getExamList(
   courseId: string
 ) {
@@ -80,6 +80,31 @@ export async function getExamQuestions(
     }
     const data = res.data['exam'];
     return Promise.resolve(res.data['exam'][0]['questions']);
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function putEditExam(
+  courseId: string,
+  questions: Array<string>,
+  examName: string,
+  creatorEmail: string
+) {
+  try {
+    const res = await sendAPIrequest(() => axios.put(
+      `${API_URL}${EXAM_EDIT}`,{
+        course_id: courseId,
+        questions: questions,
+        exam_name: examName,
+        exam_creator_email: creatorEmail 
+      }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error('Unkown error in the server'));
+    }
+    return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));

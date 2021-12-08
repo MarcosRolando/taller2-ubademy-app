@@ -132,11 +132,17 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
           Send
         </Button>
       ) : 
-      <Button
-        onPress={() => goToExamUpdateScreen()}
-      >
-        Edit
-      </Button>
+      <View>
+        <Button
+          onPress={() => goToExamUpdateScreen()}
+        >
+          Edit
+        </Button>
+
+        <Button>
+          Publish
+        </Button>
+      </View>
       }
 
       </SafeAreaView>

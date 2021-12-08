@@ -14,3 +14,4 @@ export const EXAM_CREATE = 'courses/create_exam';
 export const EXAM_PUBLISH = 'organized';
 export const EXAM_GET_LIST = 'exams';
 export const EXAM = 'exam';
+export const EXAM_EDIT = 'edit_exam';

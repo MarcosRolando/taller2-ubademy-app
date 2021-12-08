@@ -7,7 +7,7 @@ import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
 import Question from "./Question";
 
-import { createExam } from "../../../scripts/exam";
+import { createExam, putEditExam } from "../../../scripts/exam";
 
 const MESSAGE_ERROR_EMPTY_NAME = "The name is empty";
 const MESSAGE_ERROR_CREATE_EMPTY_EXAM = "You can't create an empty exam";
@@ -107,15 +107,32 @@ const ExamCreateUpdate = (props : any) => {
     }
   }
 
-  function updateExam() {
-    let result = questionsAreValid();
-    if (result && questions.length != 0) {
-      setErrorMessage("");
-      // TODO: enviar al back!
-      console.log("Se updatea el examen y se lo envía al back");
-      console.log(questions);
-    } else {
-      console.log("No se updatea nada :(");
+  async function updateExam() {
+    // let result = questionsAreValid();
+    // if (result && questions.length != 0) {
+    //   setErrorMessage("");
+    //   // TODO: enviar al back!
+    //   console.log("Se updatea el examen y se lo envía al back");
+    //   console.log(questions);
+    // } else {
+    //   console.log("No se updatea nada :(");
+    // }
+    try {
+      let result = questionsAreValid();
+      if (result && questions.length != 0) {
+        const questionParsed = [];
+        for (let i = 0; i < questions.length; i++) {
+          questionParsed.push(questions[i].value);
+        }
+        const res = await putEditExam(
+          "61a7e42fd2398ad27a7d0099",
+          questionParsed,
+          name,
+          "vi"
+        )
+      }
+    } catch (error) {
+      alert(error);
     }
   }
 
