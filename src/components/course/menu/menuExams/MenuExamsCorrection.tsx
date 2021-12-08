@@ -62,9 +62,6 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
         navigation={navigation}
       />
 
-      <Text>
-        {searchValue}
-      </Text>
     </ScrollView>
   )
 }

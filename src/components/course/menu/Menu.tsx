@@ -52,11 +52,15 @@ const Menu = ({id, navigation}: any) => {
           onPress={goToExamsScreen}
         />
 
-        <List.Item
-          title={"See students' exams"}
-          right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-          onPress={goToStudentsExamsScreen}
-        />
+        {canEdit ? (
+
+          <List.Item
+            title={"See students' exams"}
+            right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
+            onPress={goToStudentsExamsScreen}
+          />
+
+        ) : <></>}
 
         <List.Item
           title={"See students"}
