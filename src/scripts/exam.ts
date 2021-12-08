@@ -86,7 +86,7 @@ export async function getExamQuestions(
 ) {
   try {
     const res = await sendAPIrequest(() => axios.get(
-      `${API_URL}${COURSES}/${courseId}/${EXAM}/${examName}/questions`, getAxiosConfig()));
+      `${API_URL}${COURSES}/${courseId}/${EXAM}/${examName}/questions/none`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:
@@ -94,8 +94,7 @@ export async function getExamQuestions(
       }
     }
     const data = res.data['exam'];
-    console.log("res:",res.data['exam'][0]['questions']);
-    return Promise.resolve(res.data['exam'][0]['questions']);
+    return Promise.resolve(res.data['exam']['questions']);
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
@@ -184,15 +183,16 @@ export async function getStudentExamToCorrect(
 
 }
 
-// @app.get('/courses/{course_id}/exam/{exam_name}/{exam_filter}')
+// @app.get('/courses/{course_id}/exam/{exam_name}/{exam_filter}/{student_email}')
 // projection: questions or completed_exam
 export async function getStudentExamCorrected(
   courseId: string,
-  examName: string
+  examName: string,
+  studentEmail: string
 ) {
   try {
     const res = await sendAPIrequest(() => axios.get(
-    `${API_URL}${COURSES}/${courseId}/exam/${examName}/completed_exam`
+    `${API_URL}${COURSES}/${courseId}/${EXAM}/${examName}/completed_exam/${studentEmail}`
     ,getAxiosConfig()));
 
     console.log(res.data);

@@ -14,22 +14,22 @@ import { useFocusEffect } from '@react-navigation/core';
 const COMMENT_PLACEHOLDER = "Enter your comment..."
 const MESSAGE_EXAM_IS_DONE= "The exam's correction has been submitted";
 
-const textoLargo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ";
 
 const ExamCorrected = ({ courseId, examName, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
-  const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
-  const [corrections, setCorrections] = React.useState([] as Array<{id: number, value: string}>);
+  const [answers, setAnswers] = React.useState([] as Array<string>)
+  const [corrections, setCorrections] = React.useState([] as Array<string>);
   const [grade, setGrade] = React.useState("1");
 
   useFocusEffect(React.useCallback(() => {
     (async () => {
       try {
-        const exam = await getStudentExamCorrected(courseId, examName);
+        const exam = await getStudentExamCorrected(courseId, examName, getUserCredentials().email);
         console.log(exam);
-        //setAnswers(exam.answers);
-        //setQuestions(exam.questions);
-        //setCorrections(exam.corrections);
+        console.log("respiestas:", exam.answers);
+        setAnswers(exam.answers);
+        setQuestions(exam.questions);
+        setCorrections(exam.corrections);
         setGrade(exam.mark);
       } catch (error) {
         alert(error);
@@ -37,18 +37,18 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
     })();
   }, []))
 
-  useEffect(() => {
-    (async () => {
-      const answersAux = [] as Array<{id: number, value: string}>;
-      for (let i = 0; i < questions.length; i++) {
-        answersAux.push({
-          id: i,
-          value: ""
-        })
-      }
-      setAnswers(answersAux);
-    })();
-  }, [questions]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const answersAux = [] as Array<{id: number, value: string}>;
+  //     for (let i = 0; i < questions.length; i++) {
+  //       answersAux.push({
+  //         id: i,
+  //         value: ""
+  //       })
+  //     }
+  //     setAnswers(answersAux);
+  //   })();
+  // }, [questions]);
 
 
   function renderQuestions() {
@@ -68,7 +68,7 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
 
             <View style={{width: wp(75)}}>
               <Paragraph style={{flexWrap:"wrap-reverse"}}>
-                {textoLargo}
+                {answers[i]}
               </Paragraph>
             </View>
           </View>
@@ -80,7 +80,7 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
 
             <View style={{width: wp(75)}}>
               <Paragraph style={{color: "skyblue", flexWrap:"wrap-reverse"}}>
-                {textoLargo}
+                {corrections[i]}
               </Paragraph>
             </View>
           </View>
