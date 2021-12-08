@@ -94,8 +94,7 @@ const ExamCreateUpdate = ({examName, canEdit, questions, navigation} : any) => {
         // TODO: informar que no se creo
       }
     } catch(error) {
-      console.log(error);
-      setErrorMessage('Failed to create exam');
+      alert(error);
     }
   }
 
