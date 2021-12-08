@@ -11,7 +11,6 @@ import colors from "../../../../styles/colors";
 
 const MenuExams = ({id, canEdit, navigation}: any) => {
   const [examList, setExamList] = React.useState([] as Array<string>);
-  const [errorMessage, setErrorMessage] = React.useState("");
 
   function goToCreateExamScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
@@ -29,7 +28,7 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
         setExamList(exams);
       })
     } catch (error) {
-      setErrorMessage("An error has ocurred");
+      alert(error);
     }
   }
 
@@ -60,10 +59,6 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
           Add Exam
         </Button>
       ) : <></>}
-
-      <Text style={{color: colors.error, alignSelf: 'center', paddingBottom: hp(4)}}>
-        {errorMessage}
-      </Text>
 
     </ScrollView>
   )

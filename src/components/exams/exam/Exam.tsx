@@ -3,10 +3,14 @@ import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
-import { getExamQuestions, postPublishExam } from "../../../scripts/exam";
+import { getExamQuestions,
+  postPublishExam,
+  postCompleteExam
+} from "../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { getUserCredentials } from "../../../userCredentials";
 
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
@@ -56,6 +60,10 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
   //   })
   // }, [])
 
+  useEffect(() => {
+    setAnswersPlaceholder()
+  }, [questions]);
+
   useFocusEffect(React.useCallback(() => {
     callGetExamQuestions();
   }, []))
@@ -67,6 +75,17 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
     } catch (error) {
       alert(error);
     }
+  }
+
+  function setAnswersPlaceholder() {
+    const answersAux = [] as Array<{id: number, value: string}>;
+    for (let i = 0; i < questions.length; i++) {
+      answersAux.push({
+        id: i,
+        value: ""
+      })
+    }
+    setAnswers(answersAux);
   }
 
   async function callPostPublishExam() {
@@ -86,9 +105,27 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
     })
   }
 
-  function sendExam() {
-    // TODO: mandarle al baka-back
-    setIsFinished(true);
+  async function sendExam() {
+    const studentCredentials = getUserCredentials();
+    const answersParsed = [] as Array<string>;
+    for (let i = 0; i < answers.length; i++) {
+      answersParsed.push(answers[i].value);
+    }
+    console.log("en examen:", answers);
+    console.log("examen parseado:", answersParsed);
+
+    try {
+      const response = await postCompleteExam(
+        courseId,
+        answersParsed,
+        title,
+        studentCredentials.email
+      )
+    } catch (error) {
+      alert(error);
+    }
+
+    //setIsFinished(true);
   }
 
   function renderQuestions() {

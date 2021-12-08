@@ -1,7 +1,10 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { EXAM_CREATE, EXAM_PUBLISH, EXAM_GET_LIST, COURSES, EXAM, EXAM_EDIT } from "../endpoints";
+import { EXAM_CREATE, EXAM_PUBLISH,
+  EXAM_GET_LIST, COURSES, 
+  EXAM, EXAM_EDIT,
+  EXAM_COMPLETE } from "../endpoints";
 
 export async function createExam(
   courseId: string,
@@ -91,6 +94,7 @@ export async function getExamQuestions(
       }
     }
     const data = res.data['exam'];
+    console.log("res:",res.data['exam'][0]['questions']);
     return Promise.resolve(res.data['exam'][0]['questions']);
   } catch (error) {
     console.log(error);
@@ -116,6 +120,33 @@ export async function putEditExam(
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error('Unkown error in the server'));
     }
+    return Promise.resolve(''); // Ok!
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function postCompleteExam(
+  courseId: string,
+  answers: Array<string>,
+  examName: String,
+  studentEmail: String 
+) {
+  try {
+    console.log(answers);
+    const res = await sendAPIrequest(() => axios.post(
+      `${API_URL}${COURSES}/${EXAM_COMPLETE}`,{
+        course_id: courseId,
+        answers: answers,
+        exam_name: examName,
+        student_email: studentEmail 
+      }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error(res.data['message']));
+    }
+    console.log(res.data);
     return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);
