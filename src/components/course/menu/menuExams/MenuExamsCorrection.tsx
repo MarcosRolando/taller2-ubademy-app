@@ -13,17 +13,24 @@ const examTypes = [
   {label: 'All', value: 'none'}
 ];
 
-const examList = ["Pregunta filtrada"];
-
 const MenuExamsCorrection = ({id, navigation}: any) => {
   const [searchValue, setSearchValue] = React.useState("none");
   const [showExamsType, setShowExamsType] = React.useState(false);
+  const [examList, setExamList] = React.useState([] as Array<{examName: string, email: string}>);
 
   useEffect(() => {
-    //console.log(searchValue);
     (async () => {
-      console.log(searchValue);
-      getFilteredExams(id, searchValue);
+      const exams = await getFilteredExams(id, searchValue);
+      console.log(exams);
+
+      const examAux = [];
+      for (let i = 0; i < Object.keys(exams).length; i++) {
+        examAux.push({
+          examName: exams[i].exam_name,
+          email: exams[i].student_email,
+        })
+      }
+      setExamList(examAux);
     })();
   }, [searchValue]);
 

@@ -15,13 +15,13 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
     if (canCorrect) {
       navigation.navigate(EXAM_CORRECTION, {
         courseId: id,
-        examTitle: examList[index],
+        examTitle: examList[index].examName,
         canCorrect: canCorrect
       })
     } else {
       navigation.navigate(EXAM, {
         courseId: id,
-        title: examList[index],
+        title: examList[index].examName,
         onlyView: canEdit
       })
     }
@@ -56,12 +56,15 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
   function renderExams() {
     const examsToRender = [];
     for (let i = 0; i < examList.length; i++) {
+        const examName = examList[i].examName;
+        const email = examList[i].email;
+        console.log(examName);
         examsToRender.push(
           <List.Item
-            key={examList[i]}
-            title={examList[i]}
+            key={i}
+            title={examName}
             // TODO: que la descripción cambie si se está corriendo o solo viendo examenes
-            description="Student's email"
+            description={email}
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}
               onPress={() => goToExamScreen(i)

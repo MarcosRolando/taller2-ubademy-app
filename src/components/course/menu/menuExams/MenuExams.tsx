@@ -10,7 +10,7 @@ import { useFocusEffect } from '@react-navigation/core';
 import colors from "../../../../styles/colors";
 
 const MenuExams = ({id, canEdit, navigation}: any) => {
-  const [examList, setExamList] = React.useState([] as Array<string>);
+  const [examList, setExamList] = React.useState([] as Array<{examName: string, email: string}>);
 
   function goToCreateExamScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
@@ -23,10 +23,16 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
 
   async function callGetExamList(id: string) {
     try {
-      await getExamList(id)
-      .then((exams) => {
-        setExamList(exams);
-      })
+      const exams = await getExamList(id);
+      const examsAux = [] as Array<{examName: string, email: string}>;
+      for (let i = 0; i < exams.length; i++) {
+        examsAux.push({
+          examName: exams[i],
+          email: ""
+        })
+      }
+      setExamList(examsAux);
+      //setExamList(exams);
     } catch (error) {
       alert(error);
     }
