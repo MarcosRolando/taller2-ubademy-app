@@ -2,10 +2,11 @@ import { getApps, initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { serverTimestamp, push, getDatabase, ref as dbRef, off, onChildAdded } from "firebase/database";
+import { serverTimestamp, push, getDatabase, ref as dbRef, off, onChildAdded, get, child } from "firebase/database";
 //import {...} from "firebase/firestore";
 //import {...} from "firebase/functions";
 import { getStorage, getDownloadURL, ref as stoRef, uploadBytes } from "firebase/storage";
+import { getUserProfilePicture } from './src/userProfile';
 
 
 export class Fire {
@@ -44,7 +45,7 @@ export class Fire {
     return createUserWithEmailAndPassword(getAuth(this.app), email, password);
   }
 
-  send = (messages: any, path: string) => {
+  sendMessages = (messages: Array<any>, path: string) => {
     messages.forEach((message: any) => {
       const db_message = {
         text: message.text,
@@ -74,30 +75,65 @@ export class Fire {
 
     return {
       id,
-      chat_id,
-      other_user_email,
-      other_user_avatar
+      chatId: chat_id,
+      otherUserEmail: other_user_email,
+      otherUserAvatar: other_user_avatar
     }
   }
 
   getUserChats = (callback: any) => {
-    onChildAdded(this.getDbRef(`users/${this.uid}`), snapshot => callback(this.parseChat(snapshot)));
+    onChildAdded(this.getDbRef(`users/${this.serializedEmail}`), snapshot => callback(this.parseChat(snapshot)));
   }
 
-  getMessages = (callback: any, path: string) => {
-    onChildAdded(this.getDbRef(`chats/${path}`), snapshot => callback(this.parseMessage(snapshot)));
+  getMessages = (callback: any, chatId: string) => {
+    onChildAdded(this.getDbRef(`chats/${chatId}`), snapshot => callback(this.parseMessage(snapshot)));
   }
 
-  off(path: string) {
-    off(this.getDbRef(`chats/${path}`));
+  getOrCreateChat = async (otherUserEmail: string, otherUserAvatar: string) => {
+    const snapshot = await get(child(this.getDbRef('users'), this.serializedEmail)); // TODO try catch por si hay un error
+    const user_chats = snapshot.val();
+    let chatId = undefined;
+    for (const chat in user_chats) {
+      if (user_chats[chat].other_user_email === otherUserEmail) {
+        chatId = user_chats[chat].chat_id;
+        break;
+      }
+    }
+    // If there was not a previous chat then create it
+    if (chatId === undefined) {
+      const otherUserEmailSerialized = this.serializeEmail(String(otherUserEmail));
+      chatId = push(this.getDbRef('chats/')).key;
+      const userChat = {
+        chat_id: chatId,
+        other_user_email: otherUserEmail,
+        other_user_avatar: otherUserAvatar
+      };
+      push(this.getDbRef(`users/${this.serializedEmail}`), userChat);
+      const otherUserChat = {
+        chat_id: chatId,
+        other_user_email: getAuth(this.app).currentUser?.email,
+        other_user_avatar: getUserProfilePicture()
+      }
+      push(this.getDbRef(`users/${otherUserEmailSerialized}`), otherUserChat);
+    }
+    return chatId;
+  }
+
+  chatOff(chatId: string) {
+    off(this.getDbRef(`chats/${chatId}`));
+  }
+
+  chatsOff() {
+    off(this.getDbRef(`users/${this.serializedEmail}`));
   }
 
   getDbRef(path: string) {
     return dbRef(getDatabase(this.app), path);
   }
 
-  get uid() {
-    return getAuth(this.app).currentUser?.uid;
+  get serializedEmail() {
+    const email = String(getAuth(this.app).currentUser?.email);
+    return this.serializeEmail(email);
   }
 
   uploadMedia = async (uri: string, path: string) => {
@@ -128,6 +164,10 @@ export class Fire {
     return await getDownloadURL(fileRef);
   }
 
+  // Removes the dots from an email, replacing them with an underscore
+  private serializeEmail = (email: String) => {
+    return email.replace(/\./g, '?');
+  }
 }
 
 export default new Fire();

@@ -4,15 +4,15 @@ import Fire from '../../../../Fire';
 import { getUserCredentials } from '../../../userCredentials';
 import { getUserProfilePicture } from '../../../userProfile';
 
-export const Chat = () => {
+export const Chat = ({ chatId, otherUserEmail }: any) => {
   const [messages, setMessages] = useState([] as Array<any>);
   const { email } = getUserCredentials();
   const avatar = getUserProfilePicture();
 
   useEffect(() => {
-    Fire.getMessages(onSend, "unchannelprivado");
+    Fire.getMessages(onSend, chatId);
     return (() => {
-      Fire.off("unchannelprivado")
+      Fire.chatOff(chatId);
     })
   }, [])
 
@@ -23,7 +23,7 @@ export const Chat = () => {
   return (
     <GiftedChat
       messages={messages}
-      onSend={(messages) => Fire.send(messages, "unchannelprivado")}
+      onSend={(messages) => Fire.sendMessages(messages, chatId)}
       user={{
         _id: email,
         avatar: avatar,

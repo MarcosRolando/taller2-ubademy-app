@@ -27,4 +27,5 @@ export const EXAM = "Exam"
 export const EXAM_CREATE_UPDATE = 'CreateUpdateExam';
 
 // Messages routes
-export const CHATS = 'Chats';
+export const CHAT_LIST = 'ChatList';
+export const CHAT = 'Chat';

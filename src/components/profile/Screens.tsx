@@ -1,10 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { COURSE, PROFILE_EDITOR, PROFILE_INFO } from '../../routes';
+import { PROFILE_EDITOR, PROFILE_INFO } from '../../routes';
 import styles from '../../styles/styles';
-import Course from '../course/viewCourse/Course';
-import { getUserCredentials } from '../../userCredentials';
 import Profile from './Profile';
 import ProfileEditor from './profileEditor/ProfileEditor';
 
@@ -14,7 +12,7 @@ const ProfileInfoSreen = ({navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Profile ownProfile userEmail={getUserCredentials().email} 
+        <Profile ownProfile
         style={styles.profile} navigation={navigation} />
       </ScrollView>
     </View>
@@ -50,7 +48,7 @@ export const UserScreen = ({route, navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Profile style={styles.profile} profileInfo={userProfile} />
+        <Profile style={styles.profile} profileInfo={userProfile} navigation={navigation} />
       </ScrollView>
     </View>
   );

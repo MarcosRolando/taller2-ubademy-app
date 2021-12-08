@@ -5,7 +5,7 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Fire from "../../../../Fire";
 import colors from "../../../styles/colors";
-import { Chat } from '../Chat';
+import { CHAT } from "../../../routes";
 
 export const ChatList = ({ navigation }: any) => {
   const [chats, setChats] = React.useState([] as Array<any>);
@@ -13,7 +13,7 @@ export const ChatList = ({ navigation }: any) => {
   useEffect(() => {
     Fire.getUserChats(addChat);
     return (() => {
-      Fire.off("unchannelprivado")
+      Fire.chatsOff();
     })
   }, [])
 
@@ -21,12 +21,16 @@ export const ChatList = ({ navigation }: any) => {
     setChats(previousChats => [chat, ...previousChats]);
   };
 
+  const onChatPress = (chatId: string, otherUserEmail: string) => {
+    navigation.navigate(CHAT, { chatId, otherUserEmail })
+  }
+
   return (
     <View>
       {(chats.length !== 0) ? chats.map(chat => 
-        <TouchableHighlight 
-          key={chat.other_user_email}
-          onPress={() => console.log('HOLA')} 
+        <TouchableHighlight
+          key={chat.id}
+          onPress={() => onChatPress(chat.chatId, chat.otherUserEmail)} 
           style={{margin: hp(1), borderRadius: 5, 
             minHeight: hp(15), justifyContent: 'center',
             backgroundColor: '#2225'}}
@@ -35,18 +39,14 @@ export const ChatList = ({ navigation }: any) => {
           <View style={{flexDirection: 'row', marginLeft: hp(1)}}>
             <Avatar.Image
               size={wp(20)}
-              source={{uri: (chat.other_user_avatar !== '') ? chat.other_user_avatar : undefined}}
+              source={{uri: (chat.otherUserAvatar !== '') ? chat.otherUserAvatar : undefined}}
               />
             <Text style={{color: colors.primary, marginLeft: wp(5), marginTop: hp(2), fontSize: 20}}>
-              {chat.other_user_email}
+              {chat.otherUserEmail}
             </Text>
           </View>
         </TouchableHighlight>) 
       : <></>}
     </View>
   );
-
-  // return (
-  //   <Chat />
-  // );
 }

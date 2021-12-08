@@ -7,12 +7,14 @@ import Courses from './Courses';
 import Intro from './Intro';
 import { heightPercentageToDP as hp,
  widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { PROFILE_EDITOR } from '../../routes';
+import { CHAT, CHATS, PROFILE_EDITOR } from '../../routes';
 import { useFocusEffect } from '@react-navigation/core';
 import { setUserProfilePicture } from '../../userProfile';
+import Fire from '../../../Fire';
+import { getUserCredentials } from '../../userCredentials';
 
 
-const Profile = ({ profileInfo, navigation, style, userEmail, ownProfile }: any) => {
+const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [location, setLocation] = React.useState('');
@@ -36,8 +38,8 @@ const Profile = ({ profileInfo, navigation, style, userEmail, ownProfile }: any)
           courseCollaborator: [...data],
         });
       });
-    if (userEmail !== undefined) {
-      getProfileInfo(userEmail)
+    if (ownProfile !== undefined) {
+      getProfileInfo(getUserCredentials().email)
         .then(({_name, _email, _location, _subType, _image, _genres}) => {
           setName(_name);
           setEmail(_email);
@@ -48,7 +50,7 @@ const Profile = ({ profileInfo, navigation, style, userEmail, ownProfile }: any)
           setLikedCourses(_genres); // TODO mostrarlos aca tambien
         });
     } else {
-      setName(profileInfo.name);
+      setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
       setEmail(profileInfo.email);
       setLocation(profileInfo.location);
       setSubType(profileInfo.subType);
@@ -59,6 +61,11 @@ const Profile = ({ profileInfo, navigation, style, userEmail, ownProfile }: any)
 
   const editProfile = () => {
     navigation.navigate(PROFILE_EDITOR, { name, location, likedCourses, image })
+  }
+
+  const sendMessage = async () => {
+    const chatId = await Fire.getOrCreateChat(profileInfo.email, profileInfo.image);
+    navigation.navigate(CHAT, { chatId: chatId, otherUserEmail: profileInfo.email });
   }
 
   return (
@@ -78,7 +85,12 @@ const Profile = ({ profileInfo, navigation, style, userEmail, ownProfile }: any)
           Edit profile
         </Button>
         :
-        <></>
+        <Button
+          mode='contained'
+          style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+          onPress={sendMessage}>
+          Send message
+        </Button>
       }
     </View>
   );

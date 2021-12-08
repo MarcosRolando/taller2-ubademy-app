@@ -1,7 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, CHATS as CHATS, PROFILE, USER} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHATS, CHAT, CHAT_LIST} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ import {HomeScreen} from './home/Screens';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import { CreateUpdateCourseScreen, ExamCreateUpdateScreen, ExamScreen, ViewCourseScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { ChatListScreen } from './Chats/Screens';
+import { ChatListScreen, ChatScreen, ChatsScreen } from './Chats/Screens';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -50,6 +50,7 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={COURSE} component={ViewCourseScreen} />
       <HomeStack.Screen name={EXAM} component={ExamScreen} />
       <HomeStack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
+      <HomeStack.Screen name={CHAT} component={ChatScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -83,7 +84,7 @@ const Root = () => {
             <FontAwesomeIcon color={color} size={size} icon={ faUserCircle } />
       )}}/>
       <Drawer.Screen
-        name={CHATS}
+        name={CHAT_LIST}
         component={ChatListScreen}
         options={{
           drawerIcon: ({size, color}) => (
