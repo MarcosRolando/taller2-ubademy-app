@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
-import { getExamQuestions } from "../../../scripts/exam";
+import { getExamQuestions, postPublishExam } from "../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
@@ -69,6 +69,14 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
     }
   }
 
+  async function callPostPublishExam() {
+    try {
+      const examQuestions = await postPublishExam(courseId, title, "vi");
+    } catch (error) {
+      alert(error);
+    }
+  }
+
   function goToExamUpdateScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
       courseId: courseId,
@@ -85,7 +93,6 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
 
   function renderQuestions() {
     const questionsToRender = [];
-    console.log("largo", questions.length);
     for (let i = 0; i < questions.length; i++) {
       questionsToRender.push(
         <View key={i}>
@@ -141,7 +148,9 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
           Edit
         </Button>
 
-        <Button>
+        <Button
+          onPress={() => callPostPublishExam()}
+        >
           Publish
         </Button>
       </View>
