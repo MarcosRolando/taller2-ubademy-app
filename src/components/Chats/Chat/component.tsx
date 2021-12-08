@@ -1,8 +1,11 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import Fire from '../../../../Fire';
 import { getUserCredentials } from '../../../userCredentials';
 import { getUserProfilePicture } from '../../../userProfile';
+import { Text, View } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import colors from '../../../styles/colors';
 
 export const Chat = ({ chatId, otherUserEmail }: any) => {
   const [messages, setMessages] = useState([] as Array<any>);
@@ -21,13 +24,20 @@ export const Chat = ({ chatId, otherUserEmail }: any) => {
   };
 
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={(messages) => Fire.sendMessages(messages, chatId)}
-      user={{
-        _id: email,
-        avatar: avatar,
-      }}
-    />
+    <>
+      <View style={{margin: hp(1), backgroundColor: '#2225', borderRadius: 5}}>
+        <Text style={{color: colors.primary, fontSize: 20, alignSelf: 'center'}}>
+          {otherUserEmail}
+        </Text>
+      </View>
+      <GiftedChat
+        messages={messages}
+        onSend={(messages) => Fire.sendMessages(messages, chatId)}
+        user={{
+          _id: email,
+          avatar: avatar,
+        }}
+      />
+    </>
   )
 }

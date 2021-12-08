@@ -1,13 +1,15 @@
 import { getApps, initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
-import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword, signInWithCustomToken,
+GoogleAuthProvider } from "firebase/auth";
 import { serverTimestamp, push, getDatabase, ref as dbRef, off, onChildAdded, get, child } from "firebase/database";
 //import {...} from "firebase/firestore";
 //import {...} from "firebase/functions";
 import { getStorage, getDownloadURL, ref as stoRef, uploadBytes } from "firebase/storage";
 import { getUserProfilePicture } from './src/userProfile';
 
+const googleProvider = new GoogleAuthProvider();
 
 export class Fire {
   app: any;

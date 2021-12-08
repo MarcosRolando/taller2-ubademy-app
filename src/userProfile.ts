@@ -1,6 +1,6 @@
 let profilePicture: string = '';
 
-export function setUserProfilePicture(pictureLink: 'string') {
+export function setUserProfilePicture(pictureLink: string) {
   profilePicture = pictureLink;
 }
 

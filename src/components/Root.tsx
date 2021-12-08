@@ -1,7 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHATS, CHAT, CHAT_LIST} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ import {HomeScreen} from './home/Screens';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import { CreateUpdateCourseScreen, ExamCreateUpdateScreen, ExamScreen, ViewCourseScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { ChatListScreen, ChatScreen, ChatsScreen } from './Chats/Screens';
+import { ChatListScreen, ChatScreen } from './Chats/Screens';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -87,6 +87,8 @@ const Root = () => {
         name={CHAT_LIST}
         component={ChatListScreen}
         options={{
+          headerTitle: 'Chats',
+          drawerLabel: 'Chats',
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faComments } />
       )}}/>
@@ -98,4 +100,5 @@ export default Root;
 
 const homeOptions = {
   headerTintColor: colors.primary,
+  headerTitle: ''
 };

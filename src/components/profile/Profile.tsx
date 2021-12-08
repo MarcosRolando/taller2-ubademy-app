@@ -7,7 +7,7 @@ import Courses from './Courses';
 import Intro from './Intro';
 import { heightPercentageToDP as hp,
  widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { CHAT, CHATS, PROFILE_EDITOR } from '../../routes';
+import { CHAT, PROFILE_EDITOR } from '../../routes';
 import { useFocusEffect } from '@react-navigation/core';
 import { setUserProfilePicture } from '../../userProfile';
 import Fire from '../../../Fire';
@@ -46,7 +46,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           setLocation(_location);
           setSubType(_subType);
           setImage(_image);
-          setUserProfilePicture(_image);
           setLikedCourses(_genres); // TODO mostrarlos aca tambien
         });
     } else {

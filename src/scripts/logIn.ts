@@ -6,6 +6,8 @@ import {setUserCredentials} from '../userCredentials';
 import {ERROR_BAD_LOGIN} from '../apiErrorMessages';
 import * as SecureStore from 'expo-secure-store';
 import Fire from '../../Fire';
+import { setUserProfilePicture } from '../userProfile';
+import { getProfileInfo } from './profile';
 
 export async function sendLoginCredentials(email: string, password: string, registerFingerprint: boolean) {
   try {
@@ -24,7 +26,10 @@ export async function sendLoginCredentials(email: string, password: string, regi
     if (registerFingerprint) {
       await SecureStore.setItemAsync('ubademy-biometric-jwt', res.data['access_token']);
       await SecureStore.setItemAsync('ubademy-email', email);
+      await SecureStore.setItemAsync('ubademy-password', password);
     }
+    const { _image } = await getProfileInfo(email); // Que me juzgue la historia
+    setUserProfilePicture(_image);
     return Promise.resolve('');
   } catch (error) {
     console.log(error);
@@ -45,7 +50,9 @@ export async function sendGoogleCredentials(email: string, accessToken: string) 
     }
     setUserCredentials(email, '');
     setAccessToken(res.data['access_token']);
-    return Promise.resolve(res.data['created']);
+    const { _image } = await getProfileInfo(email); // Que me juzgue la historia
+    setUserProfilePicture(_image);
+    return Promise.resolve({ created: res.data['created'], password: res.data['password'] });
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
