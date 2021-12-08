@@ -9,17 +9,20 @@ import Question from "./Question";
 import { useFocusEffect } from '@react-navigation/core';
 
 import { createExam, putEditExam } from "../../../scripts/exam";
+import { getUserCredentials } from "../../../userCredentials";
 
 const MESSAGE_ERROR_EMPTY_NAME = "The name is empty";
 const MESSAGE_ERROR_CREATE_EMPTY_EXAM = "You can't create an empty exam";
 const MESSAGE_ERROR_UPDATE_EMPTY_EXAM = "You can't update an empty exam";
 const MESSAGE_ERROR_EMPTY_QUESTIONS = "There's still empty questions";
 
-const ExamCreateUpdate = ({examName, canEdit, questions, navigation} : any) => {
+const ExamCreateUpdate = ({courseId, examName, canEdit, questions, navigation} : any) => {
   const [name, setName] = React.useState(examName);
   const [idCounter, setIdCounter] = React.useState(0);
   const [questionList, setQuestionsList] = React.useState([] as Array<{id: number, value: string}>)
   const [errorMessage, setErrorMessage] = React.useState("");
+
+  console.log("courseId:", courseId);
 
   function setQuestions() {
     const questionsAux = [] as Array<{id: number, value: string}>;
@@ -78,15 +81,16 @@ const ExamCreateUpdate = ({examName, canEdit, questions, navigation} : any) => {
   async function createAndSendExam() {
     try {
       let result = questionsAreValid();
+      const credentials = getUserCredentials()
       if (result && questionList.length != 0) {
         setErrorMessage("");
   
         const parsedQuestions = parseQuestions();
         await createExam(
-          "61a7e42fd2398ad27a7d0099",
+          courseId,
           parsedQuestions,
           name,
-          "vi"
+          credentials.email
         ).then()
   
         navigation.goBack();
@@ -115,11 +119,12 @@ const ExamCreateUpdate = ({examName, canEdit, questions, navigation} : any) => {
         for (let i = 0; i < questionList.length; i++) {
           questionParsed.push(questionList[i].value);
         }
+        const credentials = getUserCredentials();
         const res = await putEditExam(
-          "61a7e42fd2398ad27a7d0099",
+          courseId,
           questionParsed,
           name,
-          "vi"
+          credentials.email
         )
       }
     } catch (error) {

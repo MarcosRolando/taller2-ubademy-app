@@ -14,7 +14,7 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
 
   function goToCreateExamScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
-      id: id,
+      courseId: id,
       name: "",
       isEditing: false,
       questions:[]
