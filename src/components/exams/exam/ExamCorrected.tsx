@@ -75,7 +75,7 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
 
           <View style={{flexDirection:"row"}}>
             <Paragraph style={{color: colors.primary, flexDirection:"row", marginRight:wp(2)}}>
-              Corrección:
+              Correction:
             </Paragraph>
 
             <View style={{width: wp(75)}}>
