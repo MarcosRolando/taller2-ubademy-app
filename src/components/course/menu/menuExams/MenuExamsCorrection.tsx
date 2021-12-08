@@ -6,6 +6,7 @@ import ExamList from "./ExamsList";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { getFilteredExams } from "../../../../scripts/exam";
+import { postGradeExam } from "../../../../scripts/exam";
 
 const examTypes = [
   {label:'Corrected', value:'graded'},

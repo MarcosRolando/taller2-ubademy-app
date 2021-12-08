@@ -6,28 +6,24 @@ import { EXAM_CREATE_UPDATE } from "../../../routes";
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import DropDown from "react-native-paper-dropdown";
+import { postGradeExam } from "../../../scripts/exam";
+import { getUserCredentials } from "../../../userCredentials";
 
 const COMMENT_PLACEHOLDER = "Enter your comment..."
-
-const examTypes = [
-  {label:'1', value:'1'},
-  {label:'2 corrected', value:'2'},
-  {label: 'All', value: 'none'}
-];
 
 const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
-  const [grade, setGrade] = React.useState('1');
+  const [grade, setGrade] = React.useState(1);
   const [showGrade, setShowGrade] = React.useState(false);
-  const grades = [] as Array<{label: string, value: string}>;
+  const grades = [] as Array<{label: string, value: number}>;
 
   function setGrades() {
     for (let i = 1; i <= 10; i++) {
       grades.push({
         label: i.toString(),
-        value: i.toString()
+        value: i
       })
     }
   }
@@ -36,24 +32,56 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
   useEffect(() => {
     setQuestions([
       "Shaba daaa shaba?",
-      "Lero lero?",
-      "Pregunta numero tres!",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     ])
-    const answersAux = [] as Array<{id: number, value: string}>;
-    for (let i = 0; i < questions.length; i++) {
-      answersAux.push({
-        id: i,
-        value: ""
-      })
-    }
-    setAnswers(answersAux);
-    console.log(questions.length);
-    console.log(answers);
-  }, [])
+  }, []);
 
-  function sendCorrections() {
-    // TODO
+  useEffect(() => {
+    (async () => {
+      const answersAux = [] as Array<{id: number, value: string}>;
+      for (let i = 0; i < questions.length; i++) {
+        answersAux.push({
+          id: i,
+          value: ""
+        })
+      }
+      setAnswers(answersAux);
+    })();
+  }, [questions]);
+
+  // useEffect(() => {
+  //   setQuestions([
+  //     "Shaba daaa shaba?",
+  //   ])
+  //   const answersAux = [] as Array<{id: number, value: string}>;
+  //   for (let i = 0; i < questions.length; i++) {
+  //     answersAux.push({
+  //       id: i,
+  //       value: ""
+  //     })
+  //   }
+  //   setAnswers(answersAux);
+  //   console.log(questions.length);
+  //   console.log(answers);
+  // }, [])
+
+  async function sendCorrections() {
+    const answersParsed = [] as Array<string>;
+    for (let i = 0; i < answers.length; i++) {
+      answersParsed.push(answers[i].value);
+    }
+    const userCredentials = getUserCredentials();
+    try {
+      await postGradeExam(
+        courseId,
+        answersParsed,
+        examTitle,
+        "vi",
+        userCredentials.email,
+        grade
+      )
+    } catch (error) {
+      alert(error);
+    }
   }
 
   function renderQuestions() {

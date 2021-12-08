@@ -4,7 +4,8 @@ import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { EXAM_CREATE, EXAM_PUBLISH,
   EXAM_GET_LIST, COURSES, 
   EXAM, EXAM_EDIT,
-  EXAM_COMPLETE, EXAM_STUDENTS } from "../endpoints";
+  EXAM_COMPLETE, EXAM_STUDENTS,
+  EXAM_GRADE } from "../endpoints";
 
 export async function createExam(
   courseId: string,
@@ -35,7 +36,6 @@ export async function createExam(
   }
 }
 
-//TODO: hacer esta función 
 export async function postPublishExam(
   courseId: string,
   examName: string,
@@ -158,7 +158,6 @@ export async function getFilteredExams(
   courseId: string,
   filter: string
 ) {
-  console.log("se llama");
   try {
     const res = await sendAPIrequest(() => axios.get(
       `${API_URL}${COURSES}/${courseId}/${EXAM_STUDENTS}/${filter}`
@@ -186,7 +185,33 @@ export async function getStudentExam(
 }
 
 export async function postGradeExam(
-
+  courseId: string,
+  corrections: Array<string>,
+  examName: string,
+  studentEmail: string,
+  professorEmail: string,
+  mark: number
 ) {
-  
+  try {
+    const res = await sendAPIrequest(() => axios.post(
+      `${API_URL}${COURSES}/${EXAM_GRADE}`, {
+        course_id: courseId,
+        corrections: corrections,
+        exam_name: examName,
+        student_email: studentEmail,
+        professor_email: professorEmail,
+        mark: mark
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    console.log(res.data);
+    return Promise.resolve(''); // Ok!
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
 }

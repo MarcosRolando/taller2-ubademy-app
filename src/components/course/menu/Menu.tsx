@@ -6,7 +6,7 @@ import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const Menu = ({id, navigation}: any) => {
-  const [canEdit, setCanEdit] = React.useState(true);
+  const [canEdit, setCanEdit] = React.useState(false);
   const [canCorrect, setCanCorrect] = React.useState(true);
 
   function goToCourseScreen() {
