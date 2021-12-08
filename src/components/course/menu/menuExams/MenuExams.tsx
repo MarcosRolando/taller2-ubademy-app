@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
 import { Button, Title } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
@@ -7,7 +7,6 @@ import ExamList from "./ExamsList";
 import { EXAM_CREATE_UPDATE } from "../../../../routes";
 import { getExamList } from "../../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
-import colors from "../../../../styles/colors";
 
 const MenuExams = ({id, canEdit, navigation}: any) => {
   const [examList, setExamList] = React.useState([] as Array<{examName: string, email: string}>);
@@ -32,7 +31,6 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
         })
       }
       setExamList(examsAux);
-      //setExamList(exams);
     } catch (error) {
       alert(error);
     }

@@ -1,19 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import { Button, Divider, List, Paragraph, Subheading, TextInput, Title } from "react-native-paper";
+import { Divider, Paragraph, Subheading, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
-import { EXAM_CREATE_UPDATE } from "../../../routes";
 import styles from "../../../styles/styles";
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import DropDown from "react-native-paper-dropdown";
-import { postGradeExam } from "../../../scripts/exam";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { getUserCredentials } from "../../../userCredentials";
 import { getStudentExamCorrected } from "../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
-
-const COMMENT_PLACEHOLDER = "Enter your comment..."
-const MESSAGE_EXAM_IS_DONE= "The exam's correction has been submitted";
-
 
 const ExamCorrected = ({ courseId, examName, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
@@ -37,20 +32,6 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
     })();
   }, []))
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const answersAux = [] as Array<{id: number, value: string}>;
-  //     for (let i = 0; i < questions.length; i++) {
-  //       answersAux.push({
-  //         id: i,
-  //         value: ""
-  //       })
-  //     }
-  //     setAnswers(answersAux);
-  //   })();
-  // }, [questions]);
-
-
   function renderQuestions() {
     const questionsToRender = [];
     for (let i = 0; i < questions.length; i++) {
@@ -60,7 +41,6 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
             {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
-          {/* TODO: agregar que se vean las respuestas */}
           <View style={{flexDirection:"row"}}>
             <Paragraph style={{color: colors.primary, flexDirection:"row", marginRight:wp(2)}}>
               My answer:

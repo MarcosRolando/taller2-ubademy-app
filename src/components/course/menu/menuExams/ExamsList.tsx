@@ -1,13 +1,8 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { Button, List } from "react-native-paper";
+import { View } from "react-native";
+import { List } from "react-native-paper";
 import styles from "../../../../styles/styles";
-import colors from "../../../../styles/colors";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { DarkTheme } from "react-native-paper";
 import { EXAM, EXAM_CORRECTION, COURSE_MENU_EXAM_OPTIONS } from "../../../../routes";
-import { getExamList } from "../../../../scripts/exam";
-import { useFocusEffect } from '@react-navigation/core';
 
 const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
 
@@ -26,9 +21,7 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
           title: examList[index].examName,
           onlyView: canEdit
         })
-      // TODO: cambiarlo para ir a otra ventana con opciones
       } else {
-        console.log("ENTRA ACA");
         navigation.navigate(COURSE_MENU_EXAM_OPTIONS, {
           courseId: id,
           examName: examList[index].examName
@@ -73,7 +66,6 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
           <List.Item
             key={i}
             title={examName}
-            // TODO: que la descripción cambie si se está corriendo o solo viendo examenes
             description={email}
             left={props => <List.Icon {...props}
               icon="lead-pencil"/>}

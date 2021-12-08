@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ScrollView, SafeAreaView, Text } from "react-native";
 import { HelperText, Title, TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
@@ -103,15 +103,6 @@ const ExamCreateUpdate = ({courseId, examName, canEdit, questions, navigation} :
   }
 
   async function updateExam() {
-    // let result = questionsAreValid();
-    // if (result && questions.length != 0) {
-    //   setErrorMessage("");
-    //   // TODO: enviar al back!
-    //   console.log("Se updatea el examen y se lo envía al back");
-    //   console.log(questionList);
-    // } else {
-    //   console.log("No se updatea nada :(");
-    // }
     try {
       let result = questionsAreValid();
       if (result && questionList.length != 0) {

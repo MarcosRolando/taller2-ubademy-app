@@ -2,19 +2,21 @@ import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, List, Paragraph, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
-import { EXAM_CREATE_UPDATE } from "../../../routes";
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import DropDown from "react-native-paper-dropdown";
 import { postGradeExam } from "../../../scripts/exam";
 import { getUserCredentials } from "../../../userCredentials";
+import { useFocusEffect } from "@react-navigation/native";
+import { getStudentExamCorrected } from "../../../scripts/exam";
 
 const COMMENT_PLACEHOLDER = "Enter your comment..."
 const MESSAGE_EXAM_IS_DONE= "The exam's correction has been submitted";
 
 const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) => {
-  const [questions, setQuestions] = React.useState([] as Array<string>)
-  const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
+  const [questions, setQuestions] = React.useState([] as Array<string>);
+  const [corrections, setCorrections] = React.useState([] as Array<{id: number, value: string}>)
+  const [answers, setAnswers] = React.useState([] as Array<string>);
   const [isFinished, setIsFinished] = React.useState(false);
   const [isFinishedMessage, setIsFinishedMessage] = React.useState("");
   const [grade, setGrade] = React.useState(1);
@@ -33,11 +35,21 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
   }
   setGrades();
 
-  useEffect(() => {
-    setQuestions([
-      "Shaba daaa shaba?",
-    ])
-  }, []);
+  useFocusEffect(React.useCallback(() => {
+      (async () => {
+        try {
+        const exam = await getStudentExamCorrected(
+          courseId, 
+          examTitle, 
+          studentEmail
+        )
+        setQuestions(exam.questions);
+        setAnswers(exam.answers);
+        } catch (error) {
+          alert(error);
+        }
+      })();
+  }, []))
 
   useEffect(() => {
     (async () => {
@@ -48,30 +60,14 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
           value: ""
         })
       }
-      setAnswers(answersAux);
+      setCorrections(answersAux);
     })();
   }, [questions]);
 
-  // useEffect(() => {
-  //   setQuestions([
-  //     "Shaba daaa shaba?",
-  //   ])
-  //   const answersAux = [] as Array<{id: number, value: string}>;
-  //   for (let i = 0; i < questions.length; i++) {
-  //     answersAux.push({
-  //       id: i,
-  //       value: ""
-  //     })
-  //   }
-  //   setAnswers(answersAux);
-  //   console.log(questions.length);
-  //   console.log(answers);
-  // }, [])
-
   async function sendCorrections() {
     const answersParsed = [] as Array<string>;
-    for (let i = 0; i < answers.length; i++) {
-      answersParsed.push(answers[i].value);
+    for (let i = 0; i < corrections.length; i++) {
+      answersParsed.push(corrections[i].value);
     }
     const userCredentials = getUserCredentials();
     try {
@@ -100,7 +96,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
 
           {/* TODO: agregar que se vean las respuestas */}
           <Paragraph>
-            Texto
+            {answers[i]}
           </Paragraph>
 
             <TextInput
@@ -108,8 +104,8 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
               disabled={isFinished}
               multiline={true}
               onChangeText={(newAnswer) => {
-                setAnswers(answers.map((answer) => {
-                  if (answer.id === answers[i].id) {
+                setCorrections(corrections.map((answer) => {
+                  if (answer.id === corrections[i].id) {
                     answer.value = newAnswer;
                   }
                   return answer;
@@ -140,7 +136,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
 
         {/* TODO: agregar que se vea el mail */}
         <List.Item
-          title="email"
+          title={studentEmail}
           description="Student's email"
           left={props => <List.Icon {...props} icon="email" />}
         />

@@ -22,46 +22,6 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
   const [isFinished, setIsFinished] = React.useState(false);
   const [isFinishedMessage, setIsFinishedMessage] = React.useState("");
 
-  // useEffect(() => {
-  //   setQuestions([
-  //     "Shaba daaa shaba?",
-  //     "Lero lero?",
-  //     "Pregunta numero tres!",
-  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-  //   ])
-  //   const answersAux = [] as Array<{id: number, value: string}>;
-  //   for (let i = 0; i < questions.length; i++) {
-  //     answersAux.push({
-  //       id: i,
-  //       value: ""
-  //     })
-  //   }
-  //   setAnswers(answersAux);
-  //   console.log(questions.length);
-  //   console.log(answers);
-
-  //   (async () => {
-  //     callGetExamQuestions();
-  //   })
-  // }, [])
-
-  // useFocusEffect(React.useCallback(() => {
-  //     callGetExamQuestions();
-  // }, []))
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const examQuestions = await getExamQuestions(courseId, title);
-  //       console.log("preguntas recibidas",examQuestions);
-  //       setQuestions(examQuestions.questions);
-  //       console.log("preguntas",questions);
-  //     } catch (error) {
-  //       alert(error);
-  //     }
-  //   })
-  // }, [])
-
   useEffect(() => {
     setAnswersPlaceholder()
   }, [questions]);

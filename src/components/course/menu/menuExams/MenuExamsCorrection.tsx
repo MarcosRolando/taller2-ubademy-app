@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
-import { Title, Text } from "react-native-paper";
+import { Title } from "react-native-paper";
 import { ScrollView } from "react-native";
 import DropDown from "react-native-paper-dropdown";
 import ExamList from "./ExamsList";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { getFilteredExams } from "../../../../scripts/exam";
-import { postGradeExam } from "../../../../scripts/exam";
 
 const examTypes = [
   {label:'Corrected', value:'graded'},
