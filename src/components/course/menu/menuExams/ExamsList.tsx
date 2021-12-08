@@ -16,7 +16,8 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
       navigation.navigate(EXAM_CORRECTION, {
         courseId: id,
         examTitle: examList[index].examName,
-        canCorrect: canCorrect
+        canCorrect: canCorrect,
+        studentEmail: examList[index].email
       })
     } else {
       if (canEdit) {

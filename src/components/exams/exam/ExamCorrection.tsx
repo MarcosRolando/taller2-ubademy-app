@@ -21,6 +21,8 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
   const [showGrade, setShowGrade] = React.useState(false);
   const grades = [] as Array<{label: string, value: number}>;
 
+  console.log("email:", studentEmail)
+
   function setGrades() {
     for (let i = 1; i <= 10; i++) {
       grades.push({
@@ -77,7 +79,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
         courseId,
         answersParsed,
         examTitle,
-        "vi",
+        studentEmail,
         userCredentials.email,
         grade
       )

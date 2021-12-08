@@ -26,11 +26,11 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
       try {
         const exam = await getStudentExamCorrected(courseId, examName, getUserCredentials().email);
         console.log(exam);
-        console.log("respiestas:", exam.answers);
         setAnswers(exam.answers);
         setQuestions(exam.questions);
         setCorrections(exam.corrections);
         setGrade(exam.mark);
+        console.log(exam.mark)
       } catch (error) {
         alert(error);
       }
@@ -100,17 +100,27 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
           Corrections
         </Title>
 
-        <Divider style={{marginTop:wp(2), marginBottom:wp(2)}}/>
+        {corrections !== undefined ? (
+          <View>
+            <Divider style={{marginTop:wp(2), marginBottom:wp(2)}}/>
 
-        {renderQuestions()}
+            {renderQuestions()}
 
-        <View style={{alignItems:"center"}}>
+            <View style={{alignItems:"center"}}>
 
-          <Text style={{color:colors.primary,fontSize:wp(8)}}>
-            Grade: {grade}
-          </Text>
+              <Text style={{color:colors.primary,fontSize:wp(8)}}>
+                Grade: {grade}
+              </Text>
 
-        </View>
+            </View>
+          </View>
+        ) : 
+          <View style={{alignItems:"center"}}>
+            <Text style={{color:colors.primary}}>
+              Still not graded
+            </Text>
+          </View>
+        }
 
       </SafeAreaView>
     </ScrollView>
