@@ -9,7 +9,6 @@ import { heightPercentageToDP as hp,
  widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { CHAT, PROFILE_EDITOR } from '../../routes';
 import { useFocusEffect } from '@react-navigation/core';
-import { setUserProfilePicture } from '../../userProfile';
 import Fire from '../../../Fire';
 import { getUserCredentials } from '../../userCredentials';
 
