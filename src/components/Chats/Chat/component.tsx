@@ -1,39 +1,32 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import Fire from '../../../../Fire';
+import { getUserCredentials } from '../../../userCredentials';
+import { getUserProfilePicture } from '../../../userProfile';
 
 export const Chat = () => {
   const [messages, setMessages] = useState([] as Array<any>);
+  const { email } = getUserCredentials();
+  const avatar = getUserProfilePicture();
 
   useEffect(() => {
-    Fire.get(onSend);
+    Fire.getMessages(onSend, "unchannelprivado");
     return (() => {
-      Fire.off()
+      Fire.off("unchannelprivado")
     })
-    // setMessages([
-    //   {
-    //     _id: 1,
-    //     text: 'Hello developer',
-    //     createdAt: new Date(),
-    //     user: {
-    //       _id: 2,
-    //       name: 'React Native',
-    //       avatar: 'https://placeimg.com/140/140/any',
-    //     },
-    //   },
-    // ])
   }, [])
 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, [])
+  const onSend = (message: any) => {
+    setMessages(previousMessages => GiftedChat.append(previousMessages, message));
+  };
 
   return (
     <GiftedChat
       messages={messages}
-      onSend={Fire.send}
+      onSend={(messages) => Fire.send(messages, "unchannelprivado")}
       user={{
-        _id: 1,
+        _id: email,
+        avatar: avatar,
       }}
     />
   )

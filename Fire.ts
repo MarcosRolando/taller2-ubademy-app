@@ -1,7 +1,7 @@
 import { getApps, initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
-import { signInAnonymously, onAuthStateChanged, getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { serverTimestamp, push, getDatabase, ref as dbRef, off, onChildAdded } from "firebase/database";
 //import {...} from "firebase/firestore";
 //import {...} from "firebase/functions";
@@ -13,8 +13,6 @@ export class Fire {
 
   constructor() {
     this.init();
-    //this.checkAuth();
-    this.login();
   }
 
   init = () => {
@@ -38,33 +36,29 @@ export class Fire {
     }
   }
 
-  login = () => {
-
+  login = (email: string, password: string) => {
+    return signInWithEmailAndPassword(getAuth(this.app), email, password);
   }
 
-  checkAuth = () => {
-    onAuthStateChanged(getAuth(this.app), user => {
-      if (!user) {
-        signInAnonymously(this.app);
-      }
-    });
+  register = async (email: string, password: string) => {
+    return createUserWithEmailAndPassword(getAuth(this.app), email, password);
   }
 
-  send = (messages: any) => {
-    messages.forEach((item: any) => {
-      const message = {
-        text: item.text,
+  send = (messages: any, path: string) => {
+    messages.forEach((message: any) => {
+      const db_message = {
+        text: message.text,
         timestamp: serverTimestamp(),
-        user: item.user
-      }
-      push(this.db, message);
+        user: message.user
+      };
+      push(this.getDbRef(`chats/${path}`), db_message);
     })
   }
 
-  parse = (message: any) => {
+  parseMessage = (message: any) => {
     const { user, text, timestamp } = message.val();
     const { key: _id } = message;
-    const createdAt = new Date(timestamp)
+    const createdAt = new Date(timestamp);
 
     return {
       _id,
@@ -74,23 +68,39 @@ export class Fire {
     }
   }
 
-  get = (callback: any) => {
-    onChildAdded(this.db, snapshot => callback(this.parse(snapshot)))
+  parseChat = (chat: any) => {
+    const { chat_id, other_user_email, other_user_avatar } = chat.val();
+    const { key: id } = chat;
+
+    return {
+      id,
+      chat_id,
+      other_user_email,
+      other_user_avatar
+    }
   }
 
-  off() {
-    off(this.db);
+  getUserChats = (callback: any) => {
+    onChildAdded(this.getDbRef(`users/${this.uid}`), snapshot => callback(this.parseChat(snapshot)));
   }
 
-  get db() {
-    return dbRef(getDatabase(this.app), "messages");
+  getMessages = (callback: any, path: string) => {
+    onChildAdded(this.getDbRef(`chats/${path}`), snapshot => callback(this.parseMessage(snapshot)));
+  }
+
+  off(path: string) {
+    off(this.getDbRef(`chats/${path}`));
+  }
+
+  getDbRef(path: string) {
+    return dbRef(getDatabase(this.app), path);
   }
 
   get uid() {
-    return (getAuth(this.app).currentUser || {}).uid; 
+    return getAuth(this.app).currentUser?.uid;
   }
 
-  async uploadMedia(uri: string, path: string) {
+  uploadMedia = async (uri: string, path: string) => {
     // Why are we using XMLHttpRequest? See:
     // https://github.com/expo/expo/issues/2402#issuecomment-443726662
     const blob: Blob = await new Promise((resolve, reject) => {

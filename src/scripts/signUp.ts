@@ -4,6 +4,7 @@ import {SIGNUP, UPDATE_PROFILE} from '../endpoints';
 import {sendAPIrequest, setAccessToken, getAxiosConfig} from '../apiWrapper';
 import {setUserCredentials} from '../userCredentials';
 import {ERROR_EMAIL_USED} from '../apiErrorMessages';
+import Fire from '../../Fire';
 
 export async function sendSignupCredentials(email: string, password: string) {
   try {
@@ -21,6 +22,7 @@ export async function sendSignupCredentials(email: string, password: string) {
     }
     setUserCredentials(email, password);
     setAccessToken(res.data['access_token']);
+    await Fire.register(email, password);
     return Promise.resolve('');
   } catch (error) {
     console.log(error);

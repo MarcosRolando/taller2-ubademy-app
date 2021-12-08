@@ -5,6 +5,7 @@ import {LOGIN, OAUTH_LOGIN} from '../endpoints';
 import {setUserCredentials} from '../userCredentials';
 import {ERROR_BAD_LOGIN} from '../apiErrorMessages';
 import * as SecureStore from 'expo-secure-store';
+import Fire from '../../Fire';
 
 export async function sendLoginCredentials(email: string, password: string, registerFingerprint: boolean) {
   try {
@@ -19,6 +20,7 @@ export async function sendLoginCredentials(email: string, password: string, regi
     }
     setUserCredentials(email, password);
     setAccessToken(res.data['access_token']);
+    await Fire.login(email, password);
     if (registerFingerprint) {
       await SecureStore.setItemAsync('ubademy-biometric-jwt', res.data['access_token']);
       await SecureStore.setItemAsync('ubademy-email', email);

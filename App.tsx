@@ -13,23 +13,6 @@ import {UbademyTheme, NavigationTheme} from './src/styles/themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
-import { getApps, initializeApp } from 'firebase/app';
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyArPPUfADD66LcZiH6_xFMltsJ7qB4BvGw",
-  authDomain: "ubademy-ee2aa.firebaseapp.com",
-  databaseURL: "https://ubademy-ee2aa-default-rtdb.firebaseio.com",
-    projectId: "ubademy-ee2aa",
-  storageBucket: "ubademy-ee2aa.appspot.com",
-  messagingSenderId: "252066049243",
-  appId: "1:252066049243:web:e49b3b02fc3f5d5b6670fe",
-  measurementId: "G-YKTHQBDKSD"
-};
-// Editing this file with fast refresh will reinitialize the app on every refresh, let's not do that
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
 
 // Firebase sets some timeers for a long period, which will trigger some warnings.
 LogBox.ignoreLogs([`Setting a timer for a long period`]);

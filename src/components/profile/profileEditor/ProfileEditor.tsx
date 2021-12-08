@@ -12,6 +12,7 @@ import colors from "../../../styles/colors";
 import { getProfileOptionsData, sendUpdateProfile } from "../../../scripts/profile";
 import { PROFILE_INFO } from "../../../routes";
 import Fire from "../../../../Fire";
+import { setUserProfilePicture } from "../../../userProfile";
 
 const ProfileEditor = ({ _name, _location, _likedCourses,
                         navigation, _image }: any) => {
@@ -68,6 +69,7 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
         setErrorMessage('');
         setUploading(true);
         const image_url = await uploadProfilePicture();
+        setUserProfilePicture(image_url);
         await sendUpdateProfile(name, location, likedCourses, image_url, 'Free');
         setUploading(false);
         navigation.navigate(PROFILE_INFO);
