@@ -16,3 +16,4 @@ export const EXAM_GET_LIST = 'exams';
 export const EXAM = 'exam';
 export const EXAM_EDIT = 'edit_exam';
 export const EXAM_COMPLETE = 'complete_exam';
+export const EXAM_STUDENTS = 'students_exams';

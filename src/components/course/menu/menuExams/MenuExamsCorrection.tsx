@@ -1,22 +1,31 @@
-import React from "react";
-import { Title } from "react-native-paper";
+import React, {useEffect} from "react";
+import { Title, Text } from "react-native-paper";
 import { ScrollView } from "react-native";
 import DropDown from "react-native-paper-dropdown";
 import ExamList from "./ExamsList";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { getFilteredExams } from "../../../../scripts/exam";
 
 const examTypes = [
-  {label:'Corrected', value:'Corrected'},
-  {label:'Not corrected', value:'Not corrected'},
-  {label: 'All', value: 'All'}
+  {label:'Corrected', value:'graded'},
+  {label:'Not corrected', value:'not_graded'},
+  {label: 'All', value: 'none'}
 ];
 
 const examList = ["Pregunta filtrada"];
 
 const MenuExamsCorrection = ({id, navigation}: any) => {
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState("none");
   const [showExamsType, setShowExamsType] = React.useState(false);
+
+  useEffect(() => {
+    //console.log(searchValue);
+    (async () => {
+      console.log(searchValue);
+      getFilteredExams(id, searchValue);
+    })();
+  }, [searchValue]);
 
   return (
     <ScrollView>
@@ -27,6 +36,7 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
       <DropDown
         visible={showExamsType}
         placeholder={"Select an exam type"}
+        
         mode={"outlined"}
         showDropDown={() => setShowExamsType(true)}
         onDismiss={() => setShowExamsType(false)}
@@ -43,6 +53,10 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
         canCorrect={true}
         navigation={navigation}
       />
+
+      <Text>
+        {searchValue}
+      </Text>
     </ScrollView>
   )
 }
