@@ -10,11 +10,13 @@ import { postGradeExam } from "../../../scripts/exam";
 import { getUserCredentials } from "../../../userCredentials";
 
 const COMMENT_PLACEHOLDER = "Enter your comment..."
+const MESSAGE_EXAM_IS_DONE= "The exam's correction has been submitted";
 
 const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
+  const [isFinishedMessage, setIsFinishedMessage] = React.useState("");
   const [grade, setGrade] = React.useState(1);
   const [showGrade, setShowGrade] = React.useState(false);
   const grades = [] as Array<{label: string, value: number}>;
@@ -79,6 +81,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
         userCredentials.email,
         grade
       )
+      setIsFinishedMessage(MESSAGE_EXAM_IS_DONE);
     } catch (error) {
       alert(error);
     }
@@ -140,6 +143,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
           left={props => <List.Icon {...props} icon="email" />}
         />
 
+
       {renderQuestions()}
 
       <View style={{marginHorizontal: wp(30)}}>
@@ -157,11 +161,19 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
         />
       </View>
 
+      <View style={{alignContent:"center", alignItems:"center"}}>
+
       <Button
         onPress={() => sendCorrections()}
       >
         Send correction
       </Button>
+
+      <Text style={{color:colors.primary}}>
+        {isFinishedMessage}
+      </Text>
+
+      </View>
 
       <View style={{marginBottom:hp(10)}}></View>
 

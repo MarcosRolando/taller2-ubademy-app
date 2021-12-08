@@ -14,11 +14,13 @@ import { getUserCredentials } from "../../../userCredentials";
 
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
+const MESSAGE_EXAM_IS_DONE= "The exam has been submitted";
 
 const Exam = ({ title, onlyView, courseId, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
+  const [isFinishedMessage, setIsFinishedMessage] = React.useState("");
 
   // useEffect(() => {
   //   setQuestions([
@@ -111,8 +113,6 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
     for (let i = 0; i < answers.length; i++) {
       answersParsed.push(answers[i].value);
     }
-    console.log("en examen:", answers);
-    console.log("examen parseado:", answersParsed);
 
     try {
       const response = await postCompleteExam(
@@ -120,12 +120,14 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
         answersParsed,
         title,
         studentCredentials.email
-      )
+      );
+
+      setIsFinished(true);
+      setIsFinishedMessage(MESSAGE_EXAM_IS_DONE);
     } catch (error) {
       alert(error);
     }
 
-    //setIsFinished(true);
   }
 
   function renderQuestions() {
@@ -171,12 +173,18 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
       {renderQuestions()}
 
       {!onlyView ? (
-        <Button
-        disabled={isFinished}
-        onPress={() => sendExam()}
-        >
-          Send
-        </Button>
+        <View style={{alignItems: "center"}}>
+          <Button
+          disabled={isFinished}
+          onPress={() => sendExam()}
+          >
+            Send
+          </Button>
+
+          <Text style={{color: colors.primary}}>
+            {isFinishedMessage}
+          </Text>
+        </View>
       ) : 
       <View>
         <Button
