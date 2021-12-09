@@ -10,6 +10,10 @@ import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
 import Menu from './menu/Menu';
 import MenuExams from './menu/menuExams/MenuExams';
 import MenuExamsEdit from './menu/menuExams/MenuExamsEdit';
+import MenuExamsCorrection from './menu/menuExams/MenuExamsCorrection';
+import ExamCorrection from '../exams/exam/ExamCorrection';
+import MenuExamOptions from './menu/menuExams/MenuExamOptions';
+import ExamCorrected from '../exams/exam/ExamCorrected';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -37,24 +41,67 @@ export const ViewCourseScreen = ({route, navigation}: any) => {
 }
 
 export const ExamScreen = ({route, navigation}: any) => {
-  const {title, onlyView} = route.params;
+  const {title, courseId, onlyView} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Exam title={title} onlyView={onlyView} navigation={navigation} />
+        <Exam
+          title={title}
+          courseId={courseId}
+          onlyView={onlyView}
+          navigation={navigation} />
       </ScrollView>
     </View>
   );
 }
 
 export const ExamCreateUpdateScreen = ({route, navigation}: any) => {
-  const {id, name, isEditing} = route.params;
+  const {courseId, name, isEditing, questions} = route.params;
 
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ExamCreateUpdate id={id} isEditing={isEditing} name={name} navigation={navigation} />
+        <ExamCreateUpdate
+          courseId={courseId}
+          canEdit={isEditing}
+          examName={name}
+          questions={questions}
+          navigation={navigation}
+        />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const ExamCorrectionScreen = ({route, navigation}: any) => {
+  const {courseId, name, studentEmail, examTitle, canCorrect} = route.params;
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ExamCorrection
+          courseId={courseId}
+          canCorrect={canCorrect}
+          examTitle={examTitle}
+          studentEmail={studentEmail}
+          navigation={navigation} />
+      </ScrollView>
+    </View>
+  );
+}
+
+export const ExamCorrectedScreen = ({route, navigation}: any) => {
+  const {courseId, examName} = route.params;
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ExamCorrected
+          courseId={courseId}
+          examName={examName}
+          navigation={navigation}
+        />
       </ScrollView>
     </View>
   );
@@ -72,25 +119,45 @@ export const MenuScreen = ({route, navigation}: any) => {
 }
 
 export const MenuExamsScreen = ({route, navigation}: any) => {
-  const {id} = route.params;
+  const {id, canEdit} = route.params;
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MenuExams id={id} navigation={navigation}/>
+        <MenuExams 
+          id={id}
+          canEdit={canEdit}
+          navigation={navigation}/>
       </ScrollView>
     </View>
   );
 }
 
-export const MenuExamsEditScreen = ({route, navigation}: any) => {
+export const MenuExamsCorrectionScreen = ({route, navigation}: any) => {
   const {id} = route.params;
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MenuExamsEdit id={id} navigation={navigation}/>
+        <MenuExamsCorrection id={id} navigation={navigation}/>
       </ScrollView>
     </View>
   );
+}
+
+export const MenuExamOptionsScreen = ({route, navigation}: any) => {
+   const {courseId, examName} = route.params;
+
+   return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <MenuExamOptions
+          courseId={courseId}
+          examName={examName}
+          navigation={navigation}
+        />
+      </ScrollView>
+    </View>
+   )
 }
 
 const styles = StyleSheet.create({

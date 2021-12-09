@@ -2,9 +2,13 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
 import {COURSE, CREATE_UPDATE_COURSE,
-   EXAM, EXAM_CREATE_UPDATE,
-   EXPLORE, HOME, PROFILE, USER,
-   COURSE_MENU, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_EDIT} from '../routes';
+  EXAM, EXAM_CREATE_UPDATE,
+  EXPLORE, HOME, PROFILE, USER,
+  COURSE_MENU, COURSE_MENU_EXAMS,
+  COURSE_MENU_EXAMS_CORRECTION, EXAM_CORRECTION,
+  COURSE_MENU_EXAM_OPTIONS,
+  EXAM_CORRECTED
+} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +24,9 @@ import {TouchableHighlight} from 'react-native-gesture-handler';
 import { CreateUpdateCourseScreen,
   ExamCreateUpdateScreen,
   ExamScreen, MenuScreen,
-  ViewCourseScreen, MenuExamsScreen, MenuExamsEditScreen } from './course/Screens';
+  ViewCourseScreen, MenuExamsScreen,
+  MenuExamsCorrectionScreen, ExamCorrectionScreen,
+  MenuExamOptionsScreen, ExamCorrectedScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Drawer = createDrawerNavigator();
@@ -55,9 +61,12 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={COURSE} component={ViewCourseScreen} />
       <HomeStack.Screen name={COURSE_MENU} component={MenuScreen} />
       <HomeStack.Screen name={COURSE_MENU_EXAMS} component={MenuExamsScreen} />
-      <HomeStack.Screen name={COURSE_MENU_EXAMS_EDIT} component={MenuExamsEditScreen} />
+      <HomeStack.Screen name={COURSE_MENU_EXAMS_CORRECTION} component={MenuExamsCorrectionScreen} />
+      <HomeStack.Screen name={COURSE_MENU_EXAM_OPTIONS} component={MenuExamOptionsScreen} />
       <HomeStack.Screen name={EXAM} component={ExamScreen} />
       <HomeStack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
+      <HomeStack.Screen name={EXAM_CORRECTION} component={ExamCorrectionScreen} />
+      <HomeStack.Screen name={EXAM_CORRECTED} component={ExamCorrectedScreen} />
     </HomeStack.Navigator>
   );
 };

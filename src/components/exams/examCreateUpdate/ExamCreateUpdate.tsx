@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ScrollView, SafeAreaView, Text } from "react-native";
 import { HelperText, Title, TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
@@ -6,53 +6,45 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
 import Question from "./Question";
+import { useFocusEffect } from '@react-navigation/core';
 
-import { createExam } from "../../../scripts/exam";
+import { createExam, putEditExam } from "../../../scripts/exam";
+import { getUserCredentials } from "../../../userCredentials";
 
 const MESSAGE_ERROR_EMPTY_NAME = "The name is empty";
 const MESSAGE_ERROR_CREATE_EMPTY_EXAM = "You can't create an empty exam";
 const MESSAGE_ERROR_UPDATE_EMPTY_EXAM = "You can't update an empty exam";
 const MESSAGE_ERROR_EMPTY_QUESTIONS = "There's still empty questions";
 
-const ExamCreateUpdate = (props : any) => {
-
-  const [name, setName] = React.useState(props.name);
+const ExamCreateUpdate = ({courseId, examName, canEdit, questions, navigation} : any) => {
+  const [name, setName] = React.useState(examName);
   const [idCounter, setIdCounter] = React.useState(0);
-  const [questions, setQuestions] = React.useState([] as Array<{id: number, value: string}>)
-  const [isEditing, setIsEditing] = React.useState(props.isEditing);
+  const [questionList, setQuestionsList] = React.useState([] as Array<{id: number, value: string}>)
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  useEffect(() => {
-    return () => {
-      if (isEditing) {
-        // TODO: pedirle al baka-back la data
-        // Lo que sigue es de prueba:
-        const newQuestions = [
-          {
-            id: 0,
-            value: "Pregunta 1: esto es una pregunta?"
-          },
-          {
-            id: 1,
-            value: "Pregunta 2: lo de arriba era una pregunta?"
-          },
-          {
-            id: 2,
-            value: "Pregunta 3: no sé qué más preguntar?"
-          }
-        ];
-        setQuestions(newQuestions);
-        setIdCounter(newQuestions.length);
-      }
+  function setQuestions() {
+    const questionsAux = [] as Array<{id: number, value: string}>;
+    var i = idCounter;
+    for (i = 0; i < questions.length; i++) {
+      questionsAux.push({
+        id: i,
+        value: questions[i]
+      })
     }
-  }, [])
+    setQuestionsList(questionsAux);
+    setIdCounter(i);
+  }
+
+  useFocusEffect(React.useCallback(() => {
+    setQuestions();
+  }, []))
 
   function nameIsEmpty() {
     return name === "";
   }
 
   function addQuestion() {
-    setQuestions([...questions, {
+    setQuestionsList([...questionList, {
       id: idCounter,
       value: ""
     }])
@@ -64,16 +56,16 @@ const ExamCreateUpdate = (props : any) => {
       setErrorMessage(MESSAGE_ERROR_EMPTY_NAME);
       return false;
     }
-    if (questions.length == 0) {
-      if (isEditing) {
+    if (questionList.length == 0) {
+      if (canEdit) {
         setErrorMessage(MESSAGE_ERROR_UPDATE_EMPTY_EXAM);
       } else {
         setErrorMessage(MESSAGE_ERROR_CREATE_EMPTY_EXAM);
       }
       return false;
     }
-    for (let i = 0; i < questions.length; i++) {
-      let value = questions[i].value;
+    for (let i = 0; i < questionList.length; i++) {
+      let value = questionList[i].value;
       if (value === "") {
         setErrorMessage(MESSAGE_ERROR_EMPTY_QUESTIONS);
         return false;
@@ -86,56 +78,65 @@ const ExamCreateUpdate = (props : any) => {
   async function createAndSendExam() {
     try {
       let result = questionsAreValid();
-      if (result && questions.length != 0) {
+      const credentials = getUserCredentials()
+      if (result && questionList.length != 0) {
         setErrorMessage("");
   
         const parsedQuestions = parseQuestions();
         await createExam(
-          "61a7e42fd2398ad27a7d0099",
+          courseId,
           parsedQuestions,
           name,
-          "vi"
+          credentials.email
         ).then()
   
-        props.navigation.goBack();
+        navigation.goBack();
       } else {
         // TODO: informar que no se creo
       }
     } catch(error) {
-      console.log(error);
-      setErrorMessage('Failed to create exam');
+      alert(error);
     }
   }
 
-  function updateExam() {
-    let result = questionsAreValid();
-    if (result && questions.length != 0) {
-      setErrorMessage("");
-      // TODO: enviar al back!
-      console.log("Se updatea el examen y se lo envía al back");
-      console.log(questions);
-    } else {
-      console.log("No se updatea nada :(");
+  async function updateExam() {
+    try {
+      let result = questionsAreValid();
+      if (result && questionList.length != 0) {
+        const questionParsed = [];
+        for (let i = 0; i < questionList.length; i++) {
+          questionParsed.push(questionList[i].value);
+        }
+        const credentials = getUserCredentials();
+        const res = await putEditExam(
+          courseId,
+          questionParsed,
+          name,
+          credentials.email
+        )
+      }
+    } catch (error) {
+      alert(error);
     }
   }
 
   function parseQuestions() {
     const parsedQuestions = [] as Array<string>;
-    for (let i = 0; i < questions.length; i++) {
-      parsedQuestions.push(questions[i].value);
+    for (let i = 0; i < questionList.length; i++) {
+      parsedQuestions.push(questionList[i].value);
     }
     return parsedQuestions;
   }
 
   function renderQuestions() {
     const questionsToRender = [] as any;
-    for (let i = 0; i < questions.length; i++) {
+    for (let i = 0; i < questionList.length; i++) {
       questionsToRender.push(
       <Question
         key={i}
         i={i}
-        questions={questions}
-        setQuestions={setQuestions}
+        questionsList={questionList}
+        setQuestionsList={setQuestionsList}
       />)
     }
     return questionsToRender;
@@ -144,9 +145,16 @@ const ExamCreateUpdate = (props : any) => {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Title style={styles.profileTitle}>
-          Create Exam
-        </Title>
+
+        {canEdit ? (
+          <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
+            Edit exam
+          </Title>
+        ) : 
+          <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
+            Create exam
+          </Title>
+        }
 
         <TextInput
           label={"Exam's name"}
@@ -170,7 +178,7 @@ const ExamCreateUpdate = (props : any) => {
           Add Question
         </Button>
 
-        {isEditing ? (
+        {canEdit ? (
           <Button
             onPress={() => updateExam()}
           >
@@ -185,7 +193,7 @@ const ExamCreateUpdate = (props : any) => {
         }
 
         <Button
-          onPress={() => props.navigation.goBack()}
+          onPress={() => navigation.goBack()}
         >
           Go Back
         </Button>
