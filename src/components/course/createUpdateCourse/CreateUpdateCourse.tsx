@@ -243,24 +243,12 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
         navigation.navigate(COURSE_MENU, { id: _id })
       }
     } catch(error) {
-      console.log(error);
       setErrorMessage('Failed to create the course');
     }
   }
 
   async function updateCourse() {
     try {
-      console.log("parametros:");
-      console.log(_id);
-      console.log(location);
-      console.log(courseType);
-      console.log(courseDescription);
-      console.log(courseTags);
-      console.log(examsNumber);
-      console.log(subType);
-      console.log();
-      console.log();
-
       if (validateData()) {
         setErrorMessage('');
         setUploading(true);
