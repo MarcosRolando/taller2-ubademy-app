@@ -1,7 +1,12 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION} from '../routes';
+import {
+  COURSE_MENU, COURSE_MENU_EXAMS,
+  COURSE_MENU_EXAMS_CORRECTION,
+  COURSE_MENU_EXAM_OPTIONS,
+} from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +19,12 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen} from './home/Screens';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-import { CreateUpdateCourseScreen, ExamCreateUpdateScreen, ExamScreen, ViewCourseScreen } from './course/Screens';
+import { CreateUpdateCourseScreen,
+  ExamCreateUpdateScreen,
+  ExamScreen, MenuScreen,
+  ViewCourseScreen, MenuExamsScreen,
+  MenuExamsCorrectionScreen, ExamCorrectionScreen,
+  MenuExamOptionsScreen, ExamCorrectedScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { ChatListScreen, ChatScreen } from './Chats/Screens';
 
@@ -48,9 +58,15 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={HOME} component={HomeScreen} />
       <HomeStack.Screen name={USER} component={UserScreen} />
       <HomeStack.Screen name={COURSE} component={ViewCourseScreen} />
+      <HomeStack.Screen name={COURSE_MENU} component={MenuScreen} />
+      <HomeStack.Screen name={COURSE_MENU_EXAMS} component={MenuExamsScreen} />
+      <HomeStack.Screen name={COURSE_MENU_EXAMS_CORRECTION} component={MenuExamsCorrectionScreen} />
+      <HomeStack.Screen name={COURSE_MENU_EXAM_OPTIONS} component={MenuExamOptionsScreen} />
       <HomeStack.Screen name={EXAM} component={ExamScreen} />
       <HomeStack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
       <HomeStack.Screen name={CHAT} component={ChatScreen} />
+      <HomeStack.Screen name={EXAM_CORRECTION} component={ExamCorrectionScreen} />
+      <HomeStack.Screen name={EXAM_CORRECTED} component={ExamCorrectedScreen} />
     </HomeStack.Navigator>
   );
 };

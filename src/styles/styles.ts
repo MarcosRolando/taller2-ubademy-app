@@ -76,6 +76,15 @@ const styles = StyleSheet.create({
   fieldView: {
     paddingHorizontal: wp(5)
   },
+  menu: {
+    justifyContent: "center",
+    alignContent: "center",
+    marginHorizontal: wp(3)
+  },
+  searchbar: {
+    marginHorizontal: wp(4),
+    marginVertical: wp(3),
+  }
 });
 
 export default styles;

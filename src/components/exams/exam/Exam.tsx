@@ -1,23 +1,45 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import { Button, Subheading, TextInput } from "react-native-paper";
+import { Button, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
 import { EXAM_CREATE_UPDATE } from "../../../routes";
+import { getExamQuestions,
+  postPublishExam,
+  postCompleteExam
+} from "../../../scripts/exam";
+import { useFocusEffect } from '@react-navigation/core';
+import styles from "../../../styles/styles";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { getUserCredentials } from "../../../userCredentials";
+
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
+const MESSAGE_EXAM_IS_DONE= "The exam has been submitted";
 
-const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
+const Exam = ({ title, onlyView, courseId, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
+  const [isFinishedMessage, setIsFinishedMessage] = React.useState("");
 
   useEffect(() => {
-    setQuestions([
-      "Shaba daaa shaba?",
-      "Lero lero?",
-      "Pregunta numero tres!",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    ])
+    setAnswersPlaceholder()
+  }, [questions]);
+
+  useFocusEffect(React.useCallback(() => {
+    callGetExamQuestions();
+  }, []))
+
+  async function callGetExamQuestions(){
+    try {
+      const examQuestions = await getExamQuestions(courseId, title);
+      setQuestions(examQuestions);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  function setAnswersPlaceholder() {
     const answersAux = [] as Array<{id: number, value: string}>;
     for (let i = 0; i < questions.length; i++) {
       answersAux.push({
@@ -26,21 +48,46 @@ const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
       })
     }
     setAnswers(answersAux);
-    console.log(questions.length);
-    console.log(answers);
-  }, [])
+  }
+
+  async function callPostPublishExam() {
+    try {
+      const examQuestions = await postPublishExam(courseId, title, "vi");
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   function goToExamUpdateScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
-      id: idCourse,
+      courseId: courseId,
       name: title,
-      isEditing: true
+      isEditing: true,
+      questions: questions
     })
   }
 
-  function sendExam() {
-    // TODO: mandarle al baka-back
-    setIsFinished(true);
+  async function sendExam() {
+    const studentCredentials = getUserCredentials();
+    const answersParsed = [] as Array<string>;
+    for (let i = 0; i < answers.length; i++) {
+      answersParsed.push(answers[i].value);
+    }
+
+    try {
+      const response = await postCompleteExam(
+        courseId,
+        answersParsed,
+        title,
+        studentCredentials.email
+      );
+
+      setIsFinished(true);
+      setIsFinishedMessage(MESSAGE_EXAM_IS_DONE);
+    } catch (error) {
+      alert(error);
+    }
+
   }
 
   function renderQuestions() {
@@ -78,25 +125,40 @@ const Exam = ({ title, onlyView, idCourse, navigation }: any) => {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Text style={{fontSize:50, color: colors.primary}}>
+
+        <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
           {title}
-        </Text>
+        </Title>
 
       {renderQuestions()}
 
       {!onlyView ? (
-        <Button
-        disabled={isFinished}
-        onPress={() => sendExam()}
-        >
-          Send
-        </Button>
+        <View style={{alignItems: "center"}}>
+          <Button
+          disabled={isFinished}
+          onPress={() => sendExam()}
+          >
+            Send
+          </Button>
+
+          <Text style={{color: colors.primary}}>
+            {isFinishedMessage}
+          </Text>
+        </View>
       ) : 
-      <Button
-        onPress={() => goToExamUpdateScreen()}
-      >
-        Edit
-      </Button>
+      <View>
+        <Button
+          onPress={() => goToExamUpdateScreen()}
+        >
+          Edit
+        </Button>
+
+        <Button
+          onPress={() => callPostPublishExam()}
+        >
+          Publish
+        </Button>
+      </View>
       }
 
       </SafeAreaView>

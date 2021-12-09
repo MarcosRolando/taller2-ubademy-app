@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import {Subheading, List} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import styles from '../../styles/styles';
-import { COURSE } from '../../routes';
+import { COURSE_MENU } from '../../routes';
 
 const ID_TEST = "61a7e42fd2398ad27a7d0099"; // TODO: que el baka-back nos mande los ids
 
@@ -16,7 +16,8 @@ const Courses = ({coursesData, navigation}: any) => {
           <List.Item
           key={i}
           title={coursesName[i].name}
-          onPress={() => navigation.navigate(COURSE, {id: ID_TEST})}/>,
+          onPress={() => navigation.navigate(COURSE_MENU, {id: ID_TEST})}
+          />,
       );
     }
     return courses;

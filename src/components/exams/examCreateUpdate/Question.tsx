@@ -4,28 +4,28 @@ import { TextInput, HelperText } from "react-native-paper";
 
 const MESSAGE_ERROR_EMPTY_QUESTION = "This question is empty";
 
-const Question = (props : any) => {
+const Question = ({i, questionsList, setQuestionsList} : any) => {
   function questionIsEmpty(index : number) {
-    return props.questions[index].value === "";
+    return questionsList[index].value === "";
   }
 
   return(
-    <View key={props.i}>
+    <View key={i}>
       <TextInput
         label="Enter a question"
-        value={props.questions[props.i].value}
+        value={questionsList[i].value}
         right={
           <TextInput.Icon
             name="close-circle"
             onPress={() => {
-              props.setQuestions(props.questions.filter((question: any) => question.id !== props.questions[props.i].id ))
+              setQuestionsList(questionsList.filter((question: any) => question.id !== questionsList[i].id ))
             }}
           />
         }
         multiline={true}
         onChangeText={(newValue) => {
-          props.setQuestions(props.questions.map((question: any) => {
-            if (question.id === props.questions[props.i].id) {
+          setQuestionsList(questionsList.map((question: any) => {
+            if (question.id === questionsList[i].id) {
               question.value = newValue;
             }
             return question;
@@ -35,7 +35,7 @@ const Question = (props : any) => {
 
       <HelperText
         type="error"
-        visible={questionIsEmpty(props.i)}
+        visible={questionIsEmpty(i)}
       >
         {MESSAGE_ERROR_EMPTY_QUESTION}
       </HelperText>

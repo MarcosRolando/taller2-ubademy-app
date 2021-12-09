@@ -39,24 +39,11 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
 
-  const [examIsValid, setExamIsValid] = React.useState(false);
-
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
     "Tag 5", "Tag 6", "Tag 7", "Tag 8",
     "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
   const [courseTags, setCourseTags] = React.useState([] as Array<string>);
-
-  useEffect(() => {
-    if (examIsValid) {
-      console.log("termino de crearse!");
-    }
-    return (() => {
-      if (examIsValid) {
-        setExamIsValid(false);
-      }
-    })
-  }, [examIsValid])
 
   useEffect(() => {
     (async () => {
@@ -246,7 +233,6 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
   async function createCourse() {
     try {
       if (validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
-        console.log("creandoo");
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
