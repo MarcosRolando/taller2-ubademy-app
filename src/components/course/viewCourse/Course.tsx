@@ -8,6 +8,7 @@ import styles from "../../../styles/styles";
 import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
@@ -47,53 +48,99 @@ const Course = ({ id, navigation }: any) => {
     });
   }
 
-  useEffect(() => {
-    (
-      async () => {
-        await getCourseInfo(id)
-          .then(({
-            id, country, course_type, description, hashtags,
-            images, subscription_type, title, total_exams, _videos,
-            creatorEmail}) => {
+  // useEffect(() => {
+  //   (
+  //     async () => {
+  //       await getCourseInfo(id)
+  //         .then(({
+  //           id, country, course_type, description, hashtags,
+  //           images, subscription_type, title, total_exams, _videos,
+  //           creatorEmail}) => {
           
-            const videosParsed = [];
-            for (let i = 0; i < Object.keys(_videos).length; i++) {
-              videosParsed.push({
-                title: _videos[i].name,
-                uri: _videos[i].url
-              })
-            };
+  //           const videosParsed = [];
+  //           for (let i = 0; i < Object.keys(_videos).length; i++) {
+  //             videosParsed.push({
+  //               title: _videos[i].name,
+  //               uri: _videos[i].url
+  //             })
+  //           };
 
-            const imagesParsed = [] as Array<{title: string, url: string}>;
-            for (let i = 1; i < Object.keys(images).length; i++) {
-              imagesParsed.push({
-                title: "",
-                url: images[i]
-              })
-            }
+  //           const imagesParsed = [] as Array<{title: string, url: string}>;
+  //           for (let i = 1; i < Object.keys(images).length; i++) {
+  //             imagesParsed.push({
+  //               title: "",
+  //               url: images[i]
+  //             })
+  //           }
             
-            const credentials = getUserCredentials();
+  //           const credentials = getUserCredentials();
 
-            setInfo({
-              ...info,
-              id: id,
-              title: title,
-              cover: images[0],
-              subscriptionType: subscription_type,
-              intro: description,
-              videos: videosParsed,
-              images: imagesParsed,
-              creatorEmail: creatorEmail,
-              ownEmail: credentials.email
-            })
+  //           setInfo({
+  //             ...info,
+  //             id: id,
+  //             title: title,
+  //             cover: images[0],
+  //             subscriptionType: subscription_type,
+  //             intro: description,
+  //             videos: videosParsed,
+  //             images: imagesParsed,
+  //             creatorEmail: creatorEmail,
+  //             ownEmail: credentials.email
+  //           })
+  //         })
+
+  //         if (Object.keys(info.images).length > 0) {
+  //           setShowImages(true);
+  //         }
+  //     }
+  //   )()
+  // }, [])
+
+  useFocusEffect(React.useCallback(() => {
+    (async () => {
+      await getCourseInfo(id)
+      .then(({
+        id, country, course_type, description, hashtags,
+        images, subscription_type, title, total_exams, _videos,
+        creatorEmail}) => {
+      
+        const videosParsed = [];
+        for (let i = 0; i < Object.keys(_videos).length; i++) {
+          videosParsed.push({
+            title: _videos[i].name,
+            uri: _videos[i].url
           })
+        };
 
-          if (Object.keys(info.images).length > 0) {
-            setShowImages(true);
-          }
+        const imagesParsed = [] as Array<{title: string, url: string}>;
+        for (let i = 1; i < Object.keys(images).length; i++) {
+          imagesParsed.push({
+            title: "",
+            url: images[i]
+          })
+        }
+        
+        const credentials = getUserCredentials();
+
+        setInfo({
+          ...info,
+          id: id,
+          title: title,
+          cover: images[0],
+          subscriptionType: subscription_type,
+          intro: description,
+          videos: videosParsed,
+          images: imagesParsed,
+          creatorEmail: creatorEmail,
+          ownEmail: credentials.email
+        })
+      })
+
+      if (Object.keys(info.images).length > 0) {
+        setShowImages(true);
       }
-    )()
-  }, [])
+    })();
+  }, []))
 
   return (
     <View style={{paddingHorizontal: wp(3)}}>

@@ -22,7 +22,11 @@ export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CreateUpdateCourse id={id} isEditing={isEditing} style={styles.screen} />
+        <CreateUpdateCourse 
+          id={id}
+          isEditing={isEditing}
+          navigation={navigation}
+          style={styles.screen} />
       </ScrollView>
     </View>
   );

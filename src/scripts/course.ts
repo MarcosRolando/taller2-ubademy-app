@@ -47,6 +47,7 @@ export async function sendCreateCourse(title: string, description: string,
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    console.log(res.data);
     return Promise.resolve(res.data['id']);
   } catch (error) {
     console.log(error);

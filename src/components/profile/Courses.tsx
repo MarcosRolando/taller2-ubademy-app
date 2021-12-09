@@ -6,7 +6,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import styles from '../../styles/styles';
 import { COURSE_MENU } from '../../routes';
 
-const ID_TEST = "61a7e42fd2398ad27a7d0099"; // TODO: que el baka-back nos mande los ids
+//const ID_TEST = "61a7e42fd2398ad27a7d0099"; // TODO: que el baka-back nos mande los ids
+const ID_TEST = "61b15aa4dc7a666240da34ae";
 
 const Courses = ({coursesData, navigation}: any) => {
   function renderCourses(coursesName : any) : any[] {

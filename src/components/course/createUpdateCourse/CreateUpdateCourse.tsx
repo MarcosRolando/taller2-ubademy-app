@@ -10,7 +10,7 @@ import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } from "../../../scripts/course";
 import CourseTags from "./CourseTags";
-import { COURSE } from "../../../routes";
+import { COURSE_MENU } from "../../../routes";
 import Fire from '../../../../Fire';
 
 const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
@@ -56,7 +56,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
     })();
     if (isEditing) {
       (async () => {
-        await getCourseInfo()
+        await getCourseInfo(id)
             .then(({
               id, country, course_type, description, hashtags,
               images, subscription_type, title, total_exams, _videos}) => {
@@ -240,7 +240,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
           examsNumber, subType, courseType, location, courseTags, 
           _images, _videos);
         setUploading(false);
-        navigation.navigate(COURSE, { id: _id })
+        navigation.navigate(COURSE_MENU, { id: _id })
       }
     } catch(error) {
       console.log(error);
@@ -250,6 +250,17 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
 
   async function updateCourse() {
     try {
+      console.log("parametros:");
+      console.log(_id);
+      console.log(location);
+      console.log(courseType);
+      console.log(courseDescription);
+      console.log(courseTags);
+      console.log(examsNumber);
+      console.log(subType);
+      console.log();
+      console.log();
+
       if (validateData()) {
         setErrorMessage('');
         setUploading(true);
