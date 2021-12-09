@@ -21,8 +21,6 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
   useEffect(() => {
     (async () => {
       const exams = await getFilteredExams(id, searchValue);
-      console.log(exams);
-
       const examAux = [];
       for (let i = 0; i < Object.keys(exams).length; i++) {
         examAux.push({

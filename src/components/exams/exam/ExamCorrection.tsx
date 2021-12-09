@@ -22,9 +22,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
   const [grade, setGrade] = React.useState(1);
   const [showGrade, setShowGrade] = React.useState(false);
   const grades = [] as Array<{label: string, value: number}>;
-
-  console.log("email:", studentEmail)
-
+  
   function setGrades() {
     for (let i = 1; i <= 10; i++) {
       grades.push({
@@ -94,7 +92,6 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
             {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
-          {/* TODO: agregar que se vean las respuestas */}
           <Paragraph>
             {answers[i]}
           </Paragraph>
@@ -134,7 +131,6 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
           left={props => <List.Icon {...props} icon="notebook" />}
         />
 
-        {/* TODO: agregar que se vea el mail */}
         <List.Item
           title={studentEmail}
           description="Student's email"

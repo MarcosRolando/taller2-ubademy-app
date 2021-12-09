@@ -54,7 +54,6 @@ export async function postPublishExam(
             return Promise.reject(new Error(res.data['message']));
         }
       }
-      console.log(res.data);
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
@@ -133,7 +132,6 @@ export async function postCompleteExam(
   studentEmail: String 
 ) {
   try {
-    console.log(answers);
     const res = await sendAPIrequest(() => axios.post(
       `${API_URL}${COURSES}/${EXAM_COMPLETE}`,{
         course_id: courseId,
@@ -145,7 +143,6 @@ export async function postCompleteExam(
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error(res.data['message']));
     }
-    console.log(res.data);
     return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);
@@ -167,7 +164,6 @@ export async function getFilteredExams(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data['exams']);
   } catch (error) {
     console.log(error);
@@ -195,7 +191,6 @@ export async function getStudentExamCorrected(
     `${API_URL}${COURSES}/${courseId}/${EXAM}/${examName}/completed_exam/${studentEmail}`
     ,getAxiosConfig()));
 
-    console.log(res.data);
     return Promise.resolve(res.data['exam']);
   } catch (error) {
     console.log(error);
@@ -228,7 +223,6 @@ export async function postGradeExam(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);

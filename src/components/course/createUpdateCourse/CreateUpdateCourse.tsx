@@ -233,7 +233,6 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
   async function createCourse() {
     try {
       if (validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
-        console.log("creandoo");
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();

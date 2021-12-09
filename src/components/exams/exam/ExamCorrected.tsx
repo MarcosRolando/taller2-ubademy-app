@@ -20,12 +20,10 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
     (async () => {
       try {
         const exam = await getStudentExamCorrected(courseId, examName, getUserCredentials().email);
-        console.log(exam);
         setAnswers(exam.answers);
         setQuestions(exam.questions);
         setCorrections(exam.corrections);
         setGrade(exam.mark);
-        console.log(exam.mark)
       } catch (error) {
         alert(error);
       }

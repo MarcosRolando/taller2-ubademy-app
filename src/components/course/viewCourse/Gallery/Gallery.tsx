@@ -39,7 +39,6 @@ const CarouselCards = (props: any) => {
       setModalVisible(true);
     }
     console.log(props.info.images);
-    console.log(data);
   }
 
 

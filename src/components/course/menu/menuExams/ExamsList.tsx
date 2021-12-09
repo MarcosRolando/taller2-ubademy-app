@@ -61,7 +61,6 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
     for (let i = 0; i < examList.length; i++) {
         const examName = examList[i].examName;
         const email = examList[i].email;
-        console.log(examName);
         examsToRender.push(
           <List.Item
             key={i}

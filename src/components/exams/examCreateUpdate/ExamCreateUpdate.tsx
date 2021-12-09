@@ -22,8 +22,6 @@ const ExamCreateUpdate = ({courseId, examName, canEdit, questions, navigation} :
   const [questionList, setQuestionsList] = React.useState([] as Array<{id: number, value: string}>)
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  console.log("courseId:", courseId);
-
   function setQuestions() {
     const questionsAux = [] as Array<{id: number, value: string}>;
     var i = idCounter;
@@ -39,7 +37,6 @@ const ExamCreateUpdate = ({courseId, examName, canEdit, questions, navigation} :
 
   useFocusEffect(React.useCallback(() => {
     setQuestions();
-    console.log("idcounter:",idCounter);
   }, []))
 
   function nameIsEmpty() {
