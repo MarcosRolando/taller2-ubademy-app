@@ -24,9 +24,9 @@ export const CourseSearchResult = ({ course, navigation }: any) => {
             {course.title}
           </Text>
           <Image
-              source={{uri: course.image}}
-              style={styles.CourseImage}
-              />
+            source={{uri: course.image, height:hp(35)}}
+            style={styles.CourseImage}
+          />
           <Text style={styles.SubTypeText}>
             {course.subType}
           </Text>
