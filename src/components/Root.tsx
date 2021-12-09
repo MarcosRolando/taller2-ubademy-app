@@ -1,17 +1,15 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE,
-  EXAM, EXAM_CREATE_UPDATE,
-  EXPLORE, HOME, PROFILE, USER,
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION} from '../routes';
+import {
   COURSE_MENU, COURSE_MENU_EXAMS,
-  COURSE_MENU_EXAMS_CORRECTION, EXAM_CORRECTION,
+  COURSE_MENU_EXAMS_CORRECTION,
   COURSE_MENU_EXAM_OPTIONS,
-  EXAM_CORRECTED
 } from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faChalkboard, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import colors from '../styles/colors';
 import {
   DrawerContentScrollView,
@@ -28,6 +26,7 @@ import { CreateUpdateCourseScreen,
   MenuExamsCorrectionScreen, ExamCorrectionScreen,
   MenuExamOptionsScreen, ExamCorrectedScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { ChatListScreen, ChatScreen } from './Chats/Screens';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -65,6 +64,7 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={COURSE_MENU_EXAM_OPTIONS} component={MenuExamOptionsScreen} />
       <HomeStack.Screen name={EXAM} component={ExamScreen} />
       <HomeStack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
+      <HomeStack.Screen name={CHAT} component={ChatScreen} />
       <HomeStack.Screen name={EXAM_CORRECTION} component={ExamCorrectionScreen} />
       <HomeStack.Screen name={EXAM_CORRECTED} component={ExamCorrectedScreen} />
     </HomeStack.Navigator>
@@ -87,6 +87,8 @@ const Root = () => {
         component={CreateUpdateCourseScreen}
         initialParams={{id:"", isEditing:false}}
         options={{
+          headerTitle: 'Create a course',
+          drawerLabel: 'Create a course',
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faChalkboard } />
       )}}/>
@@ -97,6 +99,15 @@ const Root = () => {
           drawerIcon: ({size, color}) => (
             <FontAwesomeIcon color={color} size={size} icon={ faUserCircle } />
       )}}/>
+      <Drawer.Screen
+        name={CHAT_LIST}
+        component={ChatListScreen}
+        options={{
+          headerTitle: 'Chats',
+          drawerLabel: 'Chats',
+          drawerIcon: ({size, color}) => (
+            <FontAwesomeIcon color={color} size={size} icon={ faComments } />
+      )}}/>
     </Drawer.Navigator>
   );
 };
@@ -105,4 +116,5 @@ export default Root;
 
 const homeOptions = {
   headerTintColor: colors.primary,
+  headerTitle: ''
 };

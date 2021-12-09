@@ -8,10 +8,10 @@ import colors from "../../../styles/colors";
 import defaultPicture from '../../../../assets/default-course-image.jpg';
 import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } from "../../../scripts/course";
 import CourseTags from "./CourseTags";
 import { COURSE } from "../../../routes";
+import Fire from '../../../../Fire';
 
 const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
   const[uploading, setUploading] = React.useState(false);
@@ -271,45 +271,17 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
     let _images = [] as Array<string>;
     let _videos = [] as Array<{name:string, url:string}>;
     try {
-      _images.push(await uploadMediaToFirebase(courseImage));
+      _images.push(await Fire.uploadMedia(courseImage, courseName));
       for (const imageToUpload of images) {
-        _images.push(await uploadMediaToFirebase(imageToUpload));
+        _images.push(await Fire.uploadMedia(imageToUpload, courseName));
       }
       for (const videoToUpload of videos) {
-        _videos.push({name: videoToUpload.name, url: await uploadMediaToFirebase(videoToUpload.uri)});
+        _videos.push({name: videoToUpload.name, url: await Fire.uploadMedia(videoToUpload.uri, courseName)});
       }
     } catch(error) {
       console.log(error);
     }
     return {_images, _videos};
-  }
-
-  async function uploadMediaToFirebase(uri: string) {
-    // Why are we using XMLHttpRequest? See:
-    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-    const blob: Blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", uri, true);
-      xhr.send(null);
-    });
-
-    const fileRef = ref(getStorage(), `${courseName}/${uri.replace(/^.*[\\\/]/, '')}`);
-    
-    await uploadBytes(fileRef, blob);
-
-    // We're done with the blob, close and release it
-    // @ts-ignore
-    blob.close();
-
-    return await getDownloadURL(fileRef);
   }
 
   function maybeRenderUploadingOverlay() {

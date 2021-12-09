@@ -30,5 +30,9 @@ export const PROFILE_EDITOR = 'ProfileEditor';
 // Exams routes
 export const EXAM = "Exam"
 export const EXAM_CREATE_UPDATE = 'CreateUpdateExam';
+
+// Messages routes
+export const CHAT_LIST = 'ChatList';
+export const CHAT = 'Chat';
 export const EXAM_CORRECTION = 'Correct exam';
 export const EXAM_CORRECTED = 'Corrected exam';

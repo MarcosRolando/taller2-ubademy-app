@@ -6,7 +6,7 @@ import {TextInput, Button, Text, IconButton} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { Themes } from '../../styles/themes';
-import { sendGoogleCredentials, sendLoginCredentials } from '../../scripts/logIn';
+import { sendLoginCredentials, sendGoogleCredentials } from '../../scripts/logIn';
 import { PROFILE_SETUP, ROOT } from '../../routes';
 import colors from '../../styles/colors';
 import * as LocalAuthentication from 'expo-local-authentication';
@@ -15,10 +15,11 @@ import { setAccessToken } from '../../apiWrapper';
 import { setUserCredentials } from '../../userCredentials';
 import * as Google from 'expo-google-app-auth';
 import { GoogleButton } from '../GoogleButton';
+import Fire from '../../../Fire';
 
 
 const LoginCredentials = (props: any) => {
-  const [username, setUsername] = React.useState({
+  const [email, setEmail] = React.useState({
     value: '',
     style: Themes.textInput,
   });
@@ -30,8 +31,8 @@ const LoginCredentials = (props: any) => {
   const [registerFingerprint, setRegisterFingerprint] = React.useState(false);
 
   async function sendCredentials() {
-    if (!username.value.trim()) {
-      setUsername({...username, style:Themes.textInputWrong});
+    if (!email.value.trim()) {
+      setEmail({...email, style:Themes.textInputWrong});
       setErrorMessage('Please enter your email');
       return;
     }
@@ -40,7 +41,7 @@ const LoginCredentials = (props: any) => {
       setErrorMessage('Please enter your password');
       return;
     }
-    sendLoginCredentials(username.value, password.value, registerFingerprint)
+    sendLoginCredentials(email.value, password.value, registerFingerprint)
       .then(() => {
         setErrorMessage('');
         props.navigation.navigate(ROOT);
@@ -58,7 +59,8 @@ const LoginCredentials = (props: any) => {
   
     if (type === 'success') {
       try {
-        const created = await sendGoogleCredentials(user.email, accessToken);
+        const { created, password } = await sendGoogleCredentials(user.email, accessToken);
+        await Fire.login(email, password);
         if (created) {
           props.navigation.navigate(PROFILE_SETUP)
         } else {
@@ -77,7 +79,10 @@ const LoginCredentials = (props: any) => {
       const jwt = await SecureStore.getItemAsync('ubademy-biometric-jwt');
       if (jwt !== null) {
         setAccessToken(jwt);
-        setUserCredentials(String(await SecureStore.getItemAsync('ubademy-email')), '');
+        const email = String(await SecureStore.getItemAsync('ubademy-email'));
+        const password = String(await SecureStore.getItemAsync('ubademy-password'));
+        setUserCredentials(email, password);
+        await Fire.login(email, password);
         setErrorMessage('');
         props.navigation.navigate(ROOT);
         return;
@@ -94,13 +99,13 @@ const LoginCredentials = (props: any) => {
       <TextInput
         label='Email'
         textContentType='emailAddress'
-        value={username.value}
+        value={email.value}
         onChangeText={(newUsername) => {
-          setUsername({...username, value:newUsername, style:Themes.textInput});
+          setEmail({...email, value:newUsername, style:Themes.textInput});
         }}
         mode='outlined'
         style={{paddingBottom: hp(1)}}
-        theme={username.style}
+        theme={email.style}
         disableFullscreenUI={true}
       />
       <TextInput

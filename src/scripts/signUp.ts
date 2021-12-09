@@ -4,6 +4,8 @@ import {SIGNUP, UPDATE_PROFILE} from '../endpoints';
 import {sendAPIrequest, setAccessToken, getAxiosConfig} from '../apiWrapper';
 import {setUserCredentials} from '../userCredentials';
 import {ERROR_EMAIL_USED} from '../apiErrorMessages';
+import Fire from '../../Fire';
+import { setUserProfilePicture } from '../userProfile';
 
 export async function sendSignupCredentials(email: string, password: string) {
   try {
@@ -21,6 +23,8 @@ export async function sendSignupCredentials(email: string, password: string) {
     }
     setUserCredentials(email, password);
     setAccessToken(res.data['access_token']);
+    
+    await Fire.register(email, password);
     return Promise.resolve('');
   } catch (error) {
     console.log(error);
@@ -35,12 +39,13 @@ export async function sendSignupProfile(username: string, location: string, cour
       country: location,
       interesting_genres: courses,
       subscription_type: 'Free',
-      profile_picture: 'none'
+      profile_picture: 'https://firebasestorage.googleapis.com/v0/b/ubademy-ee2aa.appspot.com/o/default-ubademy-profile-pic.jpeg?alt=media&token=4ea6baf0-333b-47e3-b486-2864fdb9eec2'
     }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error('Unkown error in the server'));
     }
+    setUserProfilePicture('https://firebasestorage.googleapis.com/v0/b/ubademy-ee2aa.appspot.com/o/default-ubademy-profile-pic.jpeg?alt=media&token=4ea6baf0-333b-47e3-b486-2864fdb9eec2');
     return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);

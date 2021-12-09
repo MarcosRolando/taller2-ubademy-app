@@ -10,22 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import colors from '../../../../styles/colors'
 
-
-const data = [
-  {
-    title: "John 1",
-    url:
-      "https://i.imgur.com/UYiroysl.jpg",
-  },
-  {
-    title: "John 2",
-    url:
-      "https://i.imgur.com/UPrs1EWl.jpg",
-  },
-]
-
-
-
 const CarouselCards = (props: any) => {
   const [indexCarousel, setIndexCarousel] = React.useState(0)
   const [indexZoom, setIndexZoom] = React.useState(0);
@@ -38,7 +22,6 @@ const CarouselCards = (props: any) => {
     } else {
       setModalVisible(true);
     }
-    console.log(props.info.images);
   }
 
 
