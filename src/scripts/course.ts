@@ -47,7 +47,6 @@ export async function sendCreateCourse(title: string, description: string,
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data['id']);
   } catch (error) {
     console.log(error);
@@ -55,7 +54,7 @@ export async function sendCreateCourse(title: string, description: string,
   }
 }
 
-export async function getCourseInfo(id: string = "61a7e42fd2398ad27a7d0099") {
+export async function getCourseInfo(id: string) {
   try {
     const res = await sendAPIrequest(() => axios.get(
     `${API_URL}${COURSES}/${id}`, getAxiosConfig()));

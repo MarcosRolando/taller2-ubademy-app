@@ -62,7 +62,7 @@ const Searcher = ({ navigation, onCourseSearch }: any) => {
         style={{...styles.searchbar}}
         iconColor={colors.primary}
         onIconPress={sendQuery}
-        />
+      />
       <View style={{flexDirection: 'row', flex: 1, marginHorizontal: wp(5)}}>
         <View style={{flex: 1, marginRight: wp(3)}}>
           <DropDown
