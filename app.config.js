@@ -4,4 +4,7 @@ export default {
     extra: {
       API_URL: (process.env.PROD != undefined) ? "https://ubademy-api-gate.herokuapp.com/" : "http://192.168.43.215:8516/",
     },
+    android: {
+      package: "ubademy.apk"
+    }
 };

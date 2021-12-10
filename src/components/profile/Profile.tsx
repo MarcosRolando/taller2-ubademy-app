@@ -76,7 +76,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
       }
       <Courses navigation={navigation} coursesData={coursesData} />
       {(ownProfile !== undefined) ? 
-        <Button 
+        <Button
           mode='contained'
           style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
           onPress={editProfile}>

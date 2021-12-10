@@ -243,6 +243,8 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
         navigation.navigate(COURSE_MENU, { id: _id })
       }
     } catch(error) {
+      console.log(error);
+      setUploading(false);
       setErrorMessage('Failed to create the course');
     }
   }
@@ -428,7 +430,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
             Update course
         </Button>
         ) : 
-        <Button 
+        <Button
           mode='contained'
           style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
           onPress={createCourse}
