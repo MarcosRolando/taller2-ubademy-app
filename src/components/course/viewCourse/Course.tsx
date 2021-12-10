@@ -100,8 +100,7 @@ const Course = ({ id, navigation }: any) => {
         <BasicInfo info={info} cover={info.cover}/>
       </View>
 
-      {(isSubscribed || isCreator) ? (
-        <>
+
           {showVideo ? (
             <CourseList info={info}/>
             ) : null}
@@ -122,31 +121,9 @@ const Course = ({ id, navigation }: any) => {
               </Button>
 
             </View>
-          ) : null}
-            </>
-          ) :
-        <>
-          <Portal>
-            <View style={styles.viewOnFront}>
+          ) : <></> }
 
-              <Text>{info.subscriptionType}</Text>
 
-              <TouchableOpacity
-                // TODO: que se avise al baka-back que se subscribió
-                onPress={() => console.log("presionado!")}
-                style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
-              >
-
-                <Text style={{}}
-                  >SUBSCRIBE
-                </Text>
-                
-              </TouchableOpacity>
-              
-            </View>
-          </Portal>
-        </>
-      }
 
     </View>
   );

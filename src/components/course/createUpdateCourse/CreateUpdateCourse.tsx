@@ -33,7 +33,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
 
   const [showSubTypes, setShowSubTypes] = React.useState(false);
   const [subTypesList, setSubTypesList] = React.useState([] as Array<{label:string, value:string}>);
-  const [subType, setSubType] = React.useState('');
+  const [subType, setSubType] = React.useState('Free');
 
   const [showLocations, setShowLocations] = React.useState(false);
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);

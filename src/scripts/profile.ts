@@ -35,7 +35,7 @@ export async function getProfileOptionsData() {
     const res = await sendAPIrequest(() => axios.get(`${API_URL}${SIGNUP_PROFILE}`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
-      return Promise.reject(new Error('Unkown error in the server'));
+      return Promise.reject(new Error(res.data['message']));
     }
     return Promise.resolve({locations: res.data['locations'] as Array <string>, 
       courses: res.data['course_genres'] as Array<string>});
@@ -58,7 +58,7 @@ export async function sendUpdateProfile(username: string, location: string, cour
     }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       console.log(res.data['message']); // Should never happen!
-      return Promise.reject(new Error('Unkown error in the server'));
+      return Promise.reject(new Error(res.data['message']));
     }
     return Promise.resolve(''); // Ok!
   } catch (error) {
