@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, View, TouchableOpacity } from "react-native";
 import { List, Title, Button, Portal, Text } from "react-native-paper";
-import { COURSE, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_CORRECTION } from "../../../routes";
+import { COURSE, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_CORRECTION, COURSE_STUDENTS } from "../../../routes";
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
@@ -34,8 +34,9 @@ const Menu = ({id, navigation}: any) => {
   }
 
   function goToStudentsScreen(){
-    //TODO:
-    console.log("a la pantalla con la lista de alumnos!")
+    navigation.navigate(COURSE_STUDENTS, {
+      courseId: id
+    })
   }
 
   async function subscribeToCourse() {

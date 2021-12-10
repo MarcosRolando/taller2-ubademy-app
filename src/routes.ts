@@ -22,6 +22,7 @@ export const COURSE_MENU_EXAMS = 'Course menu exams';
 export const COURSE_MENU_EXAMS_EDIT = 'Course menu exams edit';
 export const COURSE_MENU_EXAMS_CORRECTION = 'Course menu exam correction';
 export const COURSE_MENU_EXAM_OPTIONS = 'Exam options';
+export const COURSE_STUDENTS = 'Course students';
 
 // Profile routes
 export const PROFILE_INFO = 'ProfileInfo';

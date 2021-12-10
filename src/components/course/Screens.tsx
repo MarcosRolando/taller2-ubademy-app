@@ -9,11 +9,11 @@ import Exam from '../exams/exam/Exam';
 import ExamCreateUpdate from '../exams/examCreateUpdate/ExamCreateUpdate';
 import Menu from './menu/Menu';
 import MenuExams from './menu/menuExams/MenuExams';
-import MenuExamsEdit from './menu/menuExams/MenuExamsEdit';
 import MenuExamsCorrection from './menu/menuExams/MenuExamsCorrection';
 import ExamCorrection from '../exams/exam/ExamCorrection';
 import MenuExamOptions from './menu/menuExams/MenuExamOptions';
 import ExamCorrected from '../exams/exam/ExamCorrected';
+import MenuStudents from './menu/menuExams/MenuStudents';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -116,7 +116,7 @@ export const MenuScreen = ({route, navigation}: any) => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Menu id={id} navigation={navigation}/>
+        <Menu id={id} navigation={navigation} />
       </ScrollView>
     </View>
   );
@@ -162,6 +162,21 @@ export const MenuExamOptionsScreen = ({route, navigation}: any) => {
       </ScrollView>
     </View>
    )
+}
+
+export const MenuStudentsScreen = ({route, navigation}: any) => {
+  const {courseId} = route.params;
+
+  return (
+   <View>
+     <ScrollView showsVerticalScrollIndicator={false}>
+       <MenuStudents
+         courseId={courseId}
+         navigation={navigation}
+       />
+     </ScrollView>
+   </View>
+  )
 }
 
 const styles = StyleSheet.create({
