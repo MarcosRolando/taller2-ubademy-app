@@ -1,7 +1,7 @@
 import React from 'react';
 import { View} from 'react-native';
 import { ActivityIndicator, Button } from 'react-native-paper';
-import { getCoursesData, getProfileInfo } from '../../scripts/profile';
+import { getMyCourses, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
 import Intro from './Intro';
@@ -23,21 +23,17 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [loading, setLoading] = React.useState(true);
 
 
-  const [coursesData, setCoursesData] = React.useState({
-    courseStudent: [] as any,
-    courseProfessor: [] as any,
-    courseCollaborator: [] as any,
+  const [courses, setCourses] = React.useState({
+    student: [] as Array<any>,
+    creator: [] as Array<any>,
+    collaborator: [] as Array<any>,
   });
 
   useFocusEffect(React.useCallback(() => { 
     (async () => {
       try {
-        const data = await getCoursesData();
-        setCoursesData({
-          courseStudent: [...data],
-          courseProfessor: [...data],
-          courseCollaborator: [...data],
-        });
+        const _courses = await getMyCourses();
+        setCourses(_courses);
         if (ownProfile !== undefined) {
           const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
           setName(_name);
@@ -87,7 +83,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
         :
         <></>
       }
-      <Courses navigation={navigation} coursesData={coursesData} />
+      <Courses navigation={navigation} courses={courses} />
       {(ownProfile !== undefined) ? 
         <Button
           mode='contained'

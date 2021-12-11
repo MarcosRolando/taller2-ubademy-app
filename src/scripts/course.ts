@@ -3,7 +3,8 @@ import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { COURSE_SETUP, CREATE_COURSE,
   COURSES, UPDATE_COURSE,
-  COURSE_SUBSCRIBE } from "../endpoints";
+  COURSE_SUBSCRIBE, STUDENTS,
+  COURSE_UNSUBSCRIBE } from "../endpoints";
 
 export async function getCreateCourseInfo() {
   try {
@@ -139,21 +140,58 @@ export async function getCourseFilterData() {
 
 export async function postSubscribeToCourse(
   courseId: string) {
-try {
-  const res = await sendAPIrequest(() => axios.post(
-    `${API_URL}${COURSES}/${COURSE_SUBSCRIBE}`, {
-    course_id: courseId,
-    useuser_email: ""
-  }, getAxiosConfig()));
-  if (res.data['status'] === 'error') {
-    switch (res.data['message']) {
-      default:
-        return Promise.reject(new Error(res.data['message']));
+  try {
+    const res = await sendAPIrequest(() => axios.post(
+      `${API_URL}${COURSES}/${COURSE_SUBSCRIBE}`, {
+      course_id: courseId
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
     }
+    return Promise.resolve("");
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
   }
-  return Promise.resolve("");
-} catch (error) {
-  console.log(error);
-  return Promise.reject(new Error('Error when trying to reach the server'));
 }
+
+export async function postUnsubscribeToCourse(
+  courseId: string) {
+    try {
+      const res = await sendAPIrequest(() => axios.post(
+        `${API_URL}${COURSES}/${COURSE_UNSUBSCRIBE}`, {
+        course_id: courseId,
+        useuser_email: ""
+      }, getAxiosConfig()));
+      if (res.data['status'] === 'error') {
+        switch (res.data['message']) {
+          default:
+            return Promise.reject(new Error(res.data['message']));
+        }
+      }
+      return Promise.resolve("");
+    } catch (error) {
+      console.log(error);
+      return Promise.reject(new Error('Error when trying to reach the server'));
+    }
+}
+
+export async function getStudentsExams(courseId: string, examName: string) {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+    `${API_URL}${COURSES}/${courseId}/${examName}/${STUDENTS}`, getAxiosConfig()));
+    if (res.data['status'] == 'error') {
+      switch (res.data["message"]) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    return Promise.resolve(res.data['names']);
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error("Error when trying to reach the server"));
+  }
 }

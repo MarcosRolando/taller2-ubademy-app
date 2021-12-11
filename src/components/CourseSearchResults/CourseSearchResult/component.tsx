@@ -2,15 +2,13 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 import { styles } from "./styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-// @ts-ignore
-import defaultPicture from '../../../../assets/default-course-image.jpg';
 import { TouchableHighlight } from "react-native-gesture-handler";
 import colors from "../../../styles/colors";
-import { COURSE } from "../../../routes";
+import { COURSE_MENU } from "../../../routes";
 
 export const CourseSearchResult = ({ course, navigation }: any) => {
   const navigateToCourse = (id: string) => {
-    navigation.navigate(COURSE, { id });
+    navigation.navigate(COURSE_MENU, { id });
   }
 
   return (
