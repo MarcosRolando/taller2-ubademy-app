@@ -9,6 +9,7 @@ import { CHAT } from "../../../routes";
 
 export const ChatList = ({ navigation }: any) => {
   const [chats, setChats] = React.useState([] as Array<any>);
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     Fire.getUserChats(addChat);
@@ -24,6 +25,12 @@ export const ChatList = ({ navigation }: any) => {
   const onChatPress = (chatId: string, otherUserEmail: string) => {
     navigation.navigate(CHAT, { chatId, otherUserEmail })
   }
+
+  if (chats.length === 0) return (
+    <Text>
+      No chats here :(
+    </Text>
+  );
 
   return (
     <View>

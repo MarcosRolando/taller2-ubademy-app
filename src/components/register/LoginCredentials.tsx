@@ -140,10 +140,11 @@ const LoginCredentials = (props: any) => {
         icon='fingerprint'
         color={colors.primary}
         size={wp(10)}
+        disabled={loading}
         style={{position: 'absolute', bottom: hp(9.2), left: wp(62), margin: 0}}
         onPress={fingerprintLogin}>
       </IconButton>
-      <GoogleButton style={{marginTop: hp(3)}} onPress={googleSignIn}>
+      <GoogleButton disabled={loading} style={{marginTop: hp(3)}} onPress={googleSignIn}>
         Sign in with Google
       </GoogleButton>
     </View>

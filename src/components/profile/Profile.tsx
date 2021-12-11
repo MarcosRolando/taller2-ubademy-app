@@ -1,6 +1,6 @@
 import React from 'react';
 import { View} from 'react-native';
-import { Button } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
 import { getCoursesData, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
@@ -20,6 +20,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [subType, setSubType] = React.useState('');
   const [likedCourses, setLikedCourses] = React.useState([] as Array<string>);
   const [image, setImage] = React.useState(undefined);
+  const [loading, setLoading] = React.useState(true);
 
 
   const [coursesData, setCoursesData] = React.useState({
@@ -28,33 +29,37 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     courseCollaborator: [] as any,
   });
 
-  useFocusEffect(React.useCallback(() => {
-    getCoursesData()
-      .then((data) => {
+  useFocusEffect(React.useCallback(() => { 
+    (async () => {
+      try {
+        const data = await getCoursesData();
         setCoursesData({
           courseStudent: [...data],
           courseProfessor: [...data],
           courseCollaborator: [...data],
         });
-      });
-    if (ownProfile !== undefined) {
-      getProfileInfo(getUserCredentials().email)
-        .then(({_name, _email, _location, _subType, _image, _genres}) => {
+        if (ownProfile !== undefined) {
+          const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
           setName(_name);
           setEmail(_email);
           setLocation(_location);
           setSubType(_subType);
           setImage(_image);
           setLikedCourses(_genres); // TODO mostrarlos aca tambien
-        });
-    } else {
-      setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
-      setEmail(profileInfo.email);
-      setLocation(profileInfo.location);
-      setSubType(profileInfo.subType);
-      setImage(profileInfo.image);
-      setLikedCourses(profileInfo.genres); // TODO mostrarlos aca tambien
-    }
+        } else {
+          setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
+          setEmail(profileInfo.email);
+          setLocation(profileInfo.location);
+          setSubType(profileInfo.subType);
+          setImage(profileInfo.image);
+          setLikedCourses(profileInfo.genres); // TODO mostrarlos aca tambien
+        }
+      } catch(error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []));
 
   const editProfile = () => {
@@ -65,6 +70,8 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     const chatId = await Fire.getOrCreateChat(profileInfo.email, profileInfo.image);
     navigation.navigate(CHAT, { chatId: chatId, otherUserEmail: profileInfo.email });
   }
+
+  if (loading) return <ActivityIndicator size="large" />
 
   return (
     <View style={style}>

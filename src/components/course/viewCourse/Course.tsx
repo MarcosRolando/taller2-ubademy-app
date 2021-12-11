@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View } from "react-native";
-import { Button, Portal, Text } from "react-native-paper";
-import { TouchableOpacity } from "react-native";
+import { ActivityIndicator, Button } from "react-native-paper";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import colors from "../../../styles/colors";
-import styles from "../../../styles/styles";
 import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
@@ -32,6 +29,7 @@ const Course = ({ id, navigation }: any) => {
   const [showImages, setShowImages] = React.useState(true);
   const [isSubscribed, setIsSubscribe] = React.useState(true);
   const [isCreator, setIsCreator] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
 
   function goToExamCreateScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
@@ -50,12 +48,11 @@ const Course = ({ id, navigation }: any) => {
 
   useFocusEffect(React.useCallback(() => {
     (async () => {
-      await getCourseInfo(id)
-      .then(({
-        id, country, course_type, description, hashtags,
-        images, subscription_type, title, total_exams, _videos,
-        creatorEmail}) => {
-      
+      try{
+        const { country, course_type, description, hashtags,
+          images, subscription_type, title, total_exams, _videos,
+          creatorEmail } = await getCourseInfo(id);
+
         const videosParsed = [];
         for (let i = 0; i < Object.keys(_videos).length; i++) {
           videosParsed.push({
@@ -86,13 +83,18 @@ const Course = ({ id, navigation }: any) => {
           creatorEmail: creatorEmail,
           ownEmail: credentials.email
         })
-      })
-
-      if (Object.keys(info.images).length > 0) {
-        setShowImages(true);
+        if (Object.keys(info.images).length > 0) {
+          setShowImages(true);
+        }
+      } catch(error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []))
+
+  if (loading) return <ActivityIndicator size='large' />
 
   return (
     <View style={{paddingHorizontal: wp(3)}}>
@@ -100,31 +102,26 @@ const Course = ({ id, navigation }: any) => {
         <BasicInfo info={info} cover={info.cover}/>
       </View>
 
+      {showVideo ? (
+        <CourseList info={info}/>
+        ) : null}
 
-          {showVideo ? (
-            <CourseList info={info}/>
-            ) : null}
+      <View style={{marginBottom: hp(3)}}></View>
 
-          <View style={{marginBottom: hp(3)}}></View>
+      {showImages ? (
+        <Gallery info={info}/>
+        ) : null}
 
-          {showImages ? (
-            <Gallery info={info}/>
-            ) : null}
-
-          {isCreator ? (
-            <View>
-              <Button
-                onPress = {() => goToEditCourse()}
-                style={{marginTop:hp(3)}}
-              >
-                Edit course
-              </Button>
-
-            </View>
-          ) : <></> }
-
-
-
+      {isCreator ? (
+        <View>
+          <Button
+            onPress = {() => goToEditCourse()}
+            style={{marginTop:hp(3)}}
+          >
+            Edit course
+          </Button>
+        </View>
+      ) : <></> }
     </View>
   );
 }
