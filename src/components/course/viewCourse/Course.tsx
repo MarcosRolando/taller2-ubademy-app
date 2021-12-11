@@ -94,7 +94,13 @@ const Course = ({ id, navigation }: any) => {
     })();
   }, []))
 
-  if (loading) return <ActivityIndicator size='large' />
+  if (loading) {
+    return (
+      <View style={{marginTop: hp(5)}}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
 
   return (
     <View style={{paddingHorizontal: wp(3)}}>

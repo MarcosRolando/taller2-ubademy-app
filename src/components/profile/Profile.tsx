@@ -71,7 +71,13 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     navigation.navigate(CHAT, { chatId: chatId, otherUserEmail: profileInfo.email });
   }
 
-  if (loading) return <ActivityIndicator size="large" />
+  if (loading) {
+    return (
+      <View style={{marginTop: hp(5)}}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
 
   return (
     <View style={style}>

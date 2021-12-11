@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { useSearchCoursesByType } from "../../hooks/useSearchCoursesByType";
 import { CourseSearchResults } from "../CourseSearchResults";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Searcher from "./Searcher";
 
 export const Home = (props: any) => {
@@ -32,7 +33,9 @@ export const Home = (props: any) => {
         onCourseSearch={onCourseSearch}
       />
       {(loading) ?
-        <ActivityIndicator size='large' />
+        <View style={{marginTop: hp(5)}}>
+          <ActivityIndicator size='large' />
+        </View>
       :
         <CourseSearchResults
           navigation={props.navigation}
