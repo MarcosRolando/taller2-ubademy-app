@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE } from "../endpoints";
+import { MY_COURSES, PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE } from "../endpoints";
 
 export async function getProfileInfo(email: string) {
   try {
@@ -77,4 +77,23 @@ export async function getCoursesData() {
   } catch (error) {
     console.error(error);
   } // TODO usar axios
+}
+
+export async function getMyCourses() {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+      `${API_URL}${MY_COURSES}`, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error(res.data['message']));
+    }
+    return Promise.resolve({
+      creator: res.data['creator'] as Array <{_id: string, title: string}>, 
+      collaborator: res.data['collaborator'] as Array <{_id: string, title: string}>,
+      student: res.data['student'] as Array <{_id: string, title: string}>,
+    });
+  } catch (error) {
+    console.log('Error when trying to reach the server');
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
 }

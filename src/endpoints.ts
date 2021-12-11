@@ -21,3 +21,4 @@ export const EXAM_GRADE = 'grade_exam';
 export const COURSE_SUBSCRIBE = 'subscribe';
 export const COURSE_UNSUBSCRIBE = 'unsubscribe'
 export const STUDENTS = 'students';
+export const MY_COURSES = 'my_courses';
