@@ -7,24 +7,22 @@ import { Subheading, List } from 'react-native-paper';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import styles from '../../styles/styles';
 import { COURSE_MENU } from '../../routes';
-import { MY_COURSES } from '../../endpoints';
 import { useFocusEffect } from '@react-navigation/native';
 import { getMyCourses } from '../../scripts/profile';
 
-//const ID_TEST = "61a7e42fd2398ad27a7d0099"; // TODO: que el baka-back nos mande los ids
-//const ID_TEST = "61b15aa4dc7a666240da34ae";
-const ID_TEST = "61b3f83126f2a6d0965df668";
-
-const Courses = ({coursesData, navigation}: any) => {
+const Courses = ({navigation}: any) => {
   const [studentCourses, setStudentCourses] = 
     React.useState([] as Array <{_id: string, title: string}>);
-  const [showStudentCourses, setShowStudentCourses] = React.useState(false);
+  const [showStudentCourses, setShowStudentCourses] =
+    React.useState(false);
   const [creatorCourses, setCreatorCourses] =
     React.useState([] as Array <{_id: string, title: string}>);
-  const [showCreatorCourses, setShowCreatorCourses] = React.useState(false);
+  const [showCreatorCourses, setShowCreatorCourses] =
+    React.useState(false);
   const [collaboratorCourses, setCollaboratorCourses] =
     React.useState([] as Array <{_id: string, title: string}>);
-  const [showCollaboratorCourses, setShowCollaboratorCourses] = React.useState(false);
+  const [showCollaboratorCourses, setShowCollaboratorCourses] =
+    React.useState(false);
 
   function renderCourses(coursesName : any) : any[] {
     const courses: any = [];
@@ -35,7 +33,8 @@ const Courses = ({coursesData, navigation}: any) => {
           <List.Item
           key={i}
           title={coursesName[i].title}
-          onPress={() => navigation.navigate(COURSE_MENU, {id: coursesName[i]._id})}
+          onPress={() => navigation.navigate(
+            COURSE_MENU, {id: coursesName[i]._id})}
           />,
       );
     }
@@ -44,10 +43,14 @@ const Courses = ({coursesData, navigation}: any) => {
 
   useFocusEffect(React.useCallback(() => {
     (async () => {
-      const courses = await getMyCourses();
-      setStudentCourses(courses.student);
-      setCreatorCourses(courses.creator);
-      setCollaboratorCourses(courses.collaborator);
+      try {
+        const courses = await getMyCourses();
+        setStudentCourses(courses.student);
+        setCreatorCourses(courses.creator);
+        setCollaboratorCourses(courses.collaborator);
+      } catch (error) {
+        alert(error);
+      }
     })();
   }, []))
 
@@ -82,6 +85,7 @@ const Courses = ({coursesData, navigation}: any) => {
 
   return (
     <View>
+
       {(showStudentCourses ||
         showCreatorCourses ||
         showCollaboratorCourses) ? (
