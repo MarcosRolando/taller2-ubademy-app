@@ -22,7 +22,9 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
         const exam = await getStudentExamCorrected(courseId, examName, getUserCredentials().email);
         setAnswers(exam.answers);
         setQuestions(exam.questions);
-        setCorrections(exam.corrections);
+        if (exam.corrections !== undefined) {
+          setCorrections(exam.corrections);
+        }
         setGrade(exam.mark);
       } catch (error) {
         alert(error);
@@ -78,7 +80,7 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
           Corrections
         </Title>
 
-        {corrections !== undefined ? (
+        {corrections.length > 0 ? (
           <View>
             <Divider style={{marginTop:wp(2), marginBottom:wp(2)}}/>
 

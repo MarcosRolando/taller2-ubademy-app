@@ -6,7 +6,7 @@ import { SEARCH_COURSES } from "../endpoints";
 export async function searchCoursesByType(courseType: string, subType: string) {
   try {
     const res = await sendAPIrequest(() => axios.get(
-      `${API_URL}${SEARCH_COURSES}/course_type/${courseType}`, getAxiosConfig()));
+      `${API_URL}${SEARCH_COURSES}/${courseType}/${subType}`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:

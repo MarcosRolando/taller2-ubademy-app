@@ -29,14 +29,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   });
 
   useFocusEffect(React.useCallback(() => {
-    getCoursesData()
-      .then((data) => {
-        setCoursesData({
-          courseStudent: [...data],
-          courseProfessor: [...data],
-          courseCollaborator: [...data],
-        });
-      });
     if (ownProfile !== undefined) {
       getProfileInfo(getUserCredentials().email)
         .then(({_name, _email, _location, _subType, _image, _genres}) => {
@@ -74,7 +66,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
         :
         <></>
       }
-      <Courses navigation={navigation} coursesData={coursesData} />
+      <Courses navigation={navigation} />
       {(ownProfile !== undefined) ? 
         <Button 
           mode='contained'

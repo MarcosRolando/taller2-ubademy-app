@@ -10,7 +10,7 @@ import { Button, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } from "../../../scripts/course";
 import CourseTags from "./CourseTags";
-import { COURSE } from "../../../routes";
+import { COURSE_MENU } from "../../../routes";
 import Fire from '../../../../Fire';
 
 const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
@@ -33,7 +33,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
 
   const [showSubTypes, setShowSubTypes] = React.useState(false);
   const [subTypesList, setSubTypesList] = React.useState([] as Array<{label:string, value:string}>);
-  const [subType, setSubType] = React.useState('');
+  const [subType, setSubType] = React.useState('Free');
 
   const [showLocations, setShowLocations] = React.useState(false);
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
@@ -56,7 +56,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
     })();
     if (isEditing) {
       (async () => {
-        await getCourseInfo()
+        await getCourseInfo(id)
             .then(({
               id, country, course_type, description, hashtags,
               images, subscription_type, title, total_exams, _videos}) => {
@@ -240,10 +240,9 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
           examsNumber, subType, courseType, location, courseTags, 
           _images, _videos);
         setUploading(false);
-        navigation.navigate(COURSE, { id: _id })
+        navigation.navigate(COURSE_MENU, { id: _id })
       }
     } catch(error) {
-      console.log(error);
       setErrorMessage('Failed to create the course');
     }
   }

@@ -18,3 +18,7 @@ export const EXAM_EDIT = 'edit_exam';
 export const EXAM_COMPLETE = 'complete_exam';
 export const EXAM_STUDENTS = 'students_exams';
 export const EXAM_GRADE = 'grade_exam';
+export const COURSE_SUBSCRIBE = 'subscribe';
+export const COURSE_UNSUBSCRIBE = 'unsubscribe'
+export const STUDENTS = 'students';
+export const MY_COURSES = 'my_courses';

@@ -6,6 +6,7 @@ import {
   COURSE_MENU, COURSE_MENU_EXAMS,
   COURSE_MENU_EXAMS_CORRECTION,
   COURSE_MENU_EXAM_OPTIONS,
+  COURSE_STUDENTS
 } from '../routes';
 import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -24,7 +25,7 @@ import { CreateUpdateCourseScreen,
   ExamScreen, MenuScreen,
   ViewCourseScreen, MenuExamsScreen,
   MenuExamsCorrectionScreen, ExamCorrectionScreen,
-  MenuExamOptionsScreen, ExamCorrectedScreen } from './course/Screens';
+  MenuExamOptionsScreen, ExamCorrectedScreen, MenuStudentsScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { ChatListScreen, ChatScreen } from './Chats/Screens';
 
@@ -62,6 +63,7 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={COURSE_MENU_EXAMS} component={MenuExamsScreen} />
       <HomeStack.Screen name={COURSE_MENU_EXAMS_CORRECTION} component={MenuExamsCorrectionScreen} />
       <HomeStack.Screen name={COURSE_MENU_EXAM_OPTIONS} component={MenuExamOptionsScreen} />
+      <HomeStack.Screen name={COURSE_STUDENTS} component={MenuStudentsScreen} />
       <HomeStack.Screen name={EXAM} component={ExamScreen} />
       <HomeStack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
       <HomeStack.Screen name={CHAT} component={ChatScreen} />

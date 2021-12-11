@@ -2,7 +2,7 @@ import React from "react";
 import { Searchbar } from "react-native-paper";
 import colors from "../../styles/colors";
 import { StyleSheet, View } from "react-native";
-import { widthPercentageToDP, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import DropDown from "react-native-paper-dropdown";
 import { getProfileInfo } from "../../scripts/profile";
 import { USER } from "../../routes";
@@ -15,12 +15,19 @@ const Searcher = ({ navigation, onCourseSearch }: any) => {
     color: 'grey'
   });
   const [showCoursesType, setShowCoursesType] = React.useState(false);
-  const [coursesType, setCoursesType] = React.useState([{label:'Art', value:'Art'}, {label:'Programming', value:'Programming'}]);
-  const [selectedCourseType, setSelectedCourseType] = React.useState('');
+  const [coursesType, setCoursesType] = React.useState([
+    {label:'Any', value:'none'},
+    {label:'Art', value:'Art'},
+    {label:'Programming', value:'Programming'}]);
+  const [selectedCourseType, setSelectedCourseType] = React.useState('none');
 
   const [showSubType, setShowSubType] = React.useState(false);
-  const [subTypes, setSubTypes] = React.useState([{label:'Free', value:'Free'}, {label:'Gold', value:'Gold'}]);
-  const [selectedSubType, setSelectedSubType] = React.useState('');
+  const [subTypes, setSubTypes] = React.useState([{label:'Any', value:'none'},
+    {label:'Free', value:'Free'},
+    {label:'Silver', value:'Silver'},
+    {label:'Gold', value:'Gold'},
+    {label:'Platinum', value:'Platinum'}]);
+  const [selectedSubType, setSelectedSubType] = React.useState('none');
 
   const onChangeSearch = (query: string) => 
     setSearchQuery({placeholder: 'Search', value: query, color: 'grey'});
@@ -55,7 +62,7 @@ const Searcher = ({ navigation, onCourseSearch }: any) => {
         style={{...styles.searchbar}}
         iconColor={colors.primary}
         onIconPress={sendQuery}
-        />
+      />
       <View style={{flexDirection: 'row', flex: 1, marginHorizontal: wp(5)}}>
         <View style={{flex: 1, marginRight: wp(3)}}>
           <DropDown
