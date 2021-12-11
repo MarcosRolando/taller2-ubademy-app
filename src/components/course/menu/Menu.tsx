@@ -6,14 +6,15 @@ import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { postSubscribeToCourse } from "../../../scripts/course";
+import { postSubscribeToCourse,
+  postUnsubscribeToCourse } from "../../../scripts/course";
 
 const Menu = ({id, navigation}: any) => {
   const [canEdit, setCanEdit] = React.useState(false);
   const [canCorrect, setCanCorrect] = React.useState(true);
 
   const [buttonAux, setButtonAux] = React.useState("Student");
-  const [seePortal, setSeePortal] = React.useState(true);
+  const [seePortal, setSeePortal] = React.useState(false);
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
@@ -42,6 +43,14 @@ const Menu = ({id, navigation}: any) => {
   async function subscribeToCourse() {
     try {
       const res = await postSubscribeToCourse(id);
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  async function unsubscribeToCourse() {
+    try {
+      const res = await postUnsubscribeToCourse(id);
     } catch (error) {
       alert(error)
     }
@@ -116,7 +125,14 @@ const Menu = ({id, navigation}: any) => {
           
         </View>
       </Portal>
-      ): <></>}
+      ):
+        <Button
+          color={colors.error}
+          onPress={() => unsubscribeToCourse()}
+          >
+          Unsubscribe
+        </Button>
+      }
 
     </ScrollView>
   )

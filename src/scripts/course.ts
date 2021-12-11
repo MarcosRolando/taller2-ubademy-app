@@ -3,7 +3,8 @@ import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { COURSE_SETUP, CREATE_COURSE,
   COURSES, UPDATE_COURSE,
-  COURSE_SUBSCRIBE, STUDENTS } from "../endpoints";
+  COURSE_SUBSCRIBE, STUDENTS,
+  COURSE_UNSUBSCRIBE } from "../endpoints";
 
 export async function getCreateCourseInfo() {
   try {
@@ -158,6 +159,30 @@ export async function postSubscribeToCourse(
     return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
+
+export async function postUnsubscribeToCourse(
+  courseId: string) {
+    try {
+      console.log(courseId);
+      const res = await sendAPIrequest(() => axios.post(
+        `${API_URL}${COURSES}/${COURSE_UNSUBSCRIBE}`, {
+        course_id: courseId,
+        useuser_email: ""
+      }, getAxiosConfig()));
+      if (res.data['status'] === 'error') {
+        switch (res.data['message']) {
+          default:
+            return Promise.reject(new Error(res.data['message']));
+        }
+      }
+      console.log(res.data);
+      return Promise.resolve("");
+    } catch (error) {
+      console.log(error);
+      return Promise.reject(new Error('Error when trying to reach the server'));
+    }
+}
+
 
 // TODO: probar que esto ande cuando el baka-back lo arregle
 export async function getStudentsExams(courseId: string, examName: string) {
