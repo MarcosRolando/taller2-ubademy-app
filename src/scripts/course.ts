@@ -50,7 +50,6 @@ export async function sendCreateCourse(title: string, description: string,
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data['id']);
   } catch (error) {
     console.log(error);
@@ -142,7 +141,6 @@ export async function getCourseFilterData() {
 export async function postSubscribeToCourse(
   courseId: string) {
   try {
-    console.log(courseId);
     const res = await sendAPIrequest(() => axios.post(
       `${API_URL}${COURSES}/${COURSE_SUBSCRIBE}`, {
       course_id: courseId,
@@ -164,7 +162,6 @@ export async function postSubscribeToCourse(
 export async function postUnsubscribeToCourse(
   courseId: string) {
     try {
-      console.log(courseId);
       const res = await sendAPIrequest(() => axios.post(
         `${API_URL}${COURSES}/${COURSE_UNSUBSCRIBE}`, {
         course_id: courseId,
@@ -176,7 +173,6 @@ export async function postUnsubscribeToCourse(
             return Promise.reject(new Error(res.data['message']));
         }
       }
-      console.log(res.data);
       return Promise.resolve("");
     } catch (error) {
       console.log(error);
@@ -186,7 +182,6 @@ export async function postUnsubscribeToCourse(
 
 export async function getStudentsExams(courseId: string, examName: string) {
   try {
-    console.log(examName);
     const res = await sendAPIrequest(() => axios.get(
     `${API_URL}${COURSES}/${courseId}/${examName}/${STUDENTS}`, getAxiosConfig()));
     if (res.data['status'] == 'error') {

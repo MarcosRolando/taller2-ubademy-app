@@ -13,7 +13,6 @@ export async function searchCoursesByType(courseType: string, subType: string) {
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data['courses']);
     return Promise.resolve(res.data['courses']);
   } catch (error) {
     console.log(error);

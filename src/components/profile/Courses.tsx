@@ -27,8 +27,6 @@ const Courses = ({navigation}: any) => {
   function renderCourses(coursesName : any) : any[] {
     const courses: any = [];
     for (let i = 0; i < coursesName.length; i++) {
-      console.log("title:", coursesName[i].title);
-      console.log("id:", coursesName[i]._id);
       courses.push(
           <List.Item
           key={i}
