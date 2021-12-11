@@ -140,7 +140,6 @@ export async function getCourseFilterData() {
 export async function postSubscribeToCourse(
   courseId: string) {
 try {
-  console.log(courseId);
   const res = await sendAPIrequest(() => axios.post(
     `${API_URL}${COURSES}/${COURSE_SUBSCRIBE}`, {
     course_id: courseId,
