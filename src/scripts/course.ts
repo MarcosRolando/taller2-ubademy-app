@@ -143,8 +143,7 @@ export async function postSubscribeToCourse(
   try {
     const res = await sendAPIrequest(() => axios.post(
       `${API_URL}${COURSES}/${COURSE_SUBSCRIBE}`, {
-      course_id: courseId,
-      useuser_email: ""
+      course_id: courseId
     }, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {

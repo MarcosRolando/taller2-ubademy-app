@@ -22,6 +22,7 @@ const SignupCredentials = (props: any) => {
     theme: Themes.textInput,
   });
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   function sendCredentials() {
     if (!email.value.trim()) {
@@ -48,13 +49,15 @@ const SignupCredentials = (props: any) => {
       setErrorMessage('Passwords must match');
       return;
     }
+    setLoading(true);
     sendSignupCredentials(email.value, password.value)
       .then(() => {
         props.navigation.navigate(PROFILE_SETUP)
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -101,7 +104,9 @@ const SignupCredentials = (props: any) => {
           {errorMessage}
         </Text>
       </View>
-      <Button 
+      <Button
+        loading={loading}
+        disabled={loading}
         mode='contained'
         style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
         onPress={sendCredentials}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View} from 'react-native';
-import { Button } from 'react-native-paper';
-import { getCoursesData, getProfileInfo } from '../../scripts/profile';
+import { ActivityIndicator, Button } from 'react-native-paper';
+import { getMyCourses, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
 import Intro from './Intro';
@@ -20,33 +20,42 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [subType, setSubType] = React.useState('');
   const [likedCourses, setLikedCourses] = React.useState([] as Array<string>);
   const [image, setImage] = React.useState(undefined);
+  const [loading, setLoading] = React.useState(true);
 
 
-  const [coursesData, setCoursesData] = React.useState({
-    courseStudent: [] as any,
-    courseProfessor: [] as any,
-    courseCollaborator: [] as any,
+  const [courses, setCourses] = React.useState({
+    student: [] as Array<any>,
+    creator: [] as Array<any>,
+    collaborator: [] as Array<any>,
   });
 
-  useFocusEffect(React.useCallback(() => {
-    if (ownProfile !== undefined) {
-      getProfileInfo(getUserCredentials().email)
-        .then(({_name, _email, _location, _subType, _image, _genres}) => {
+  useFocusEffect(React.useCallback(() => { 
+    (async () => {
+      try {
+        const _courses = await getMyCourses();
+        setCourses(_courses);
+        if (ownProfile !== undefined) {
+          const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
           setName(_name);
           setEmail(_email);
           setLocation(_location);
           setSubType(_subType);
           setImage(_image);
           setLikedCourses(_genres); // TODO mostrarlos aca tambien
-        });
-    } else {
-      setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
-      setEmail(profileInfo.email);
-      setLocation(profileInfo.location);
-      setSubType(profileInfo.subType);
-      setImage(profileInfo.image);
-      setLikedCourses(profileInfo.genres); // TODO mostrarlos aca tambien
-    }
+        } else {
+          setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
+          setEmail(profileInfo.email);
+          setLocation(profileInfo.location);
+          setSubType(profileInfo.subType);
+          setImage(profileInfo.image);
+          setLikedCourses(profileInfo.genres); // TODO mostrarlos aca tambien
+        }
+      } catch(error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []));
 
   const editProfile = () => {
@@ -58,6 +67,14 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     navigation.navigate(CHAT, { chatId: chatId, otherUserEmail: profileInfo.email });
   }
 
+  if (loading) {
+    return (
+      <View style={{marginTop: hp(5)}}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
+
   return (
     <View style={style}>
       <Intro username={name} image={image} />
@@ -66,9 +83,9 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
         :
         <></>
       }
-      <Courses navigation={navigation} />
+      <Courses navigation={navigation} courses={courses} />
       {(ownProfile !== undefined) ? 
-        <Button 
+        <Button
           mode='contained'
           style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
           onPress={editProfile}>

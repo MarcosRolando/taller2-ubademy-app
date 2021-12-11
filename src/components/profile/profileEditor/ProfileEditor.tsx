@@ -24,6 +24,7 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
   const [likedCourses, setLikedCourses] = React.useState(_likedCourses);
   const [uploading, setUploading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     getProfileOptionsData()
@@ -36,7 +37,8 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   function validateData() {
@@ -101,6 +103,14 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
       );
     }
   };
+
+  if (loading) {
+    return (
+      <View style={{marginTop: hp(5)}}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
 
   return (
     <View style={{paddingHorizontal: wp(3)}}>

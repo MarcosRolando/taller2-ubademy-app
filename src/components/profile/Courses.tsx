@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { faChalkboardTeacher,
   faUserFriends,
   faUserGraduate } from '@fortawesome/free-solid-svg-icons';
@@ -7,22 +7,8 @@ import { Subheading, List } from 'react-native-paper';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import styles from '../../styles/styles';
 import { COURSE_MENU } from '../../routes';
-import { useFocusEffect } from '@react-navigation/native';
-import { getMyCourses } from '../../scripts/profile';
 
-const Courses = ({navigation}: any) => {
-  const [studentCourses, setStudentCourses] = 
-    React.useState([] as Array <{_id: string, title: string}>);
-  const [showStudentCourses, setShowStudentCourses] =
-    React.useState(false);
-  const [creatorCourses, setCreatorCourses] =
-    React.useState([] as Array <{_id: string, title: string}>);
-  const [showCreatorCourses, setShowCreatorCourses] =
-    React.useState(false);
-  const [collaboratorCourses, setCollaboratorCourses] =
-    React.useState([] as Array <{_id: string, title: string}>);
-  const [showCollaboratorCourses, setShowCollaboratorCourses] =
-    React.useState(false);
+const Courses = ({ navigation, courses }: any) => {
 
   function renderCourses(coursesName : any) : any[] {
     const courses: any = [];
@@ -39,54 +25,16 @@ const Courses = ({navigation}: any) => {
     return courses;
   }
 
-  useFocusEffect(React.useCallback(() => {
-    (async () => {
-      try {
-        const courses = await getMyCourses();
-        setStudentCourses(courses.student);
-        setCreatorCourses(courses.creator);
-        setCollaboratorCourses(courses.collaborator);
-      } catch (error) {
-        alert(error);
-      }
-    })();
-  }, []))
-
-  useEffect(() => {
-    if (studentCourses.length > 0) {
-      setShowStudentCourses(true);
-    } else {
-      setShowStudentCourses(false);
-    }
-  }, [studentCourses]);
-
-  useEffect(() => {
-    if (creatorCourses.length > 0) {
-      setShowCreatorCourses(true);
-    } else {
-      setShowCreatorCourses(false);
-    }
-  }, [creatorCourses]);
-
-  useEffect(() => {
-    if (collaboratorCourses.length > 0) {
-      setShowCollaboratorCourses(true);
-    } else {
-      setShowCollaboratorCourses(false);
-    }
-  }, [collaboratorCourses]);
-
-
-  const coursesStudent = renderCourses(studentCourses);
-  const courseProfessor = renderCourses(creatorCourses);
-  const courseCollaborator = renderCourses(collaboratorCourses);
+  const coursesStudent = renderCourses(courses.student);
+  const courseProfessor = renderCourses(courses.creator);
+  const courseCollaborator = renderCourses(courses.collaborator);
 
   return (
     <View>
 
-      {(showStudentCourses ||
-        showCreatorCourses ||
-        showCollaboratorCourses) ? (
+      {(courses.student.length !== 0 ||
+        courses.creator.length !== 0 ||
+        courses.collaborator.length !== 0) ? (
 
         <Subheading style={styles.profileSubtitle}>
           Courses
@@ -94,7 +42,7 @@ const Courses = ({navigation}: any) => {
           
       ) : <></> }
 
-      {showStudentCourses ? (
+      {courses.student.length !== 0 ? (
         <List.Accordion
           title="Student"
           left={(props) => <List.Icon {...props}
@@ -105,7 +53,7 @@ const Courses = ({navigation}: any) => {
         </List.Accordion>
       ) : <></> }
 
-      {showCreatorCourses ? (
+      {courses.creator.length !== 0 ? (
         <List.Accordion
           title="Teacher"
           left={(props) => <List.Icon {...props}
@@ -116,7 +64,7 @@ const Courses = ({navigation}: any) => {
         </List.Accordion>
       ) : <></> }
 
-      {showCollaboratorCourses ? (
+      {courses.collaborator.length !== 0 ? (
         <List.Accordion
           title="Collaborator"
           left={(props) => <List.Icon {...props}

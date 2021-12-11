@@ -15,6 +15,7 @@ const ProfileSetup = (props: any) => {
       value: '',
       theme: Themes.textInput,
     });
+    const [loading, setLoading] = React.useState(false);
     const [showLocations, setShowLocations] = React.useState(false);
     const [location, setLocation] = React.useState('');
     const [locationList, setLocationList] = React.useState([] as Array<{label:string, value:string}>);
@@ -53,6 +54,7 @@ const ProfileSetup = (props: any) => {
         setErrorMessage('Please choose a location');
         return;
       }
+      setLoading(true);
       let coursesToSend = courses.split(',').filter((course) => (course !== ''));
       sendSignupProfile(username.value, location, coursesToSend)
         .then(() => {
@@ -60,7 +62,8 @@ const ProfileSetup = (props: any) => {
         },
         (errorMsg: Error) => {
           setErrorMessage(errorMsg.message);
-        });
+        })
+        .finally(() => setLoading(false));
     }
 
     return (
@@ -109,7 +112,9 @@ const ProfileSetup = (props: any) => {
             {errorMessage}
           </Text>
         </View>
-        <Button 
+        <Button
+          loading={loading}
+          disabled={loading}
           mode='contained'
           style={{marginVertical: hp(1), marginHorizontal: wp(8)}}
           onPress={sendData}>

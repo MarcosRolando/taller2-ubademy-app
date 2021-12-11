@@ -67,18 +67,6 @@ export async function sendUpdateProfile(username: string, location: string, cour
   }
 }
 
-export async function getCoursesData() {
-  try {
-    const response = await fetch(
-        'https://reqres.in/api/unknown',
-    );
-    const json = await response.json();
-    return json.data;
-  } catch (error) {
-    console.error(error);
-  } // TODO usar axios
-}
-
 export async function getMyCourses() {
   try {
     const res = await sendAPIrequest(() => axios.get(

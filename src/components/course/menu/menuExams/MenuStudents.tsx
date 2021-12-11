@@ -3,8 +3,6 @@ import { ScrollView, View } from "react-native";
 import { List, Title } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import ExamList from "./ExamsList";
-import { EXAM_CREATE_UPDATE } from "../../../../routes";
 import { getExamList } from "../../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';

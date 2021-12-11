@@ -27,7 +27,6 @@ export async function createExam(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data['id']);
 
   } catch (error) {

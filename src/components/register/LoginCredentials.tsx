@@ -27,6 +27,7 @@ const LoginCredentials = (props: any) => {
     value: '',
     style: Themes.textInput,
   });
+  const [loading, setLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const [registerFingerprint, setRegisterFingerprint] = React.useState(false);
 
@@ -41,6 +42,7 @@ const LoginCredentials = (props: any) => {
       setErrorMessage('Please enter your password');
       return;
     }
+    setLoading(true);
     sendLoginCredentials(email.value, password.value, registerFingerprint)
       .then(() => {
         setErrorMessage('');
@@ -48,7 +50,8 @@ const LoginCredentials = (props: any) => {
       },
       (errorMsg: Error) => {
         setErrorMessage(errorMsg.message);
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   async function googleSignIn() {
@@ -127,6 +130,8 @@ const LoginCredentials = (props: any) => {
       </View>
       <Button
         mode='contained'
+        loading={loading}
+        disabled={loading}
         style={{marginTop: hp(1), marginHorizontal: wp(8)}}
         onPress={sendCredentials}>
           Login
@@ -135,10 +140,11 @@ const LoginCredentials = (props: any) => {
         icon='fingerprint'
         color={colors.primary}
         size={wp(10)}
+        disabled={loading}
         style={{position: 'absolute', bottom: hp(9.2), left: wp(62), margin: 0}}
         onPress={fingerprintLogin}>
       </IconButton>
-      <GoogleButton style={{marginTop: hp(3)}} onPress={googleSignIn}>
+      <GoogleButton disabled={loading} style={{marginTop: hp(3)}} onPress={googleSignIn}>
         Sign in with Google
       </GoogleButton>
     </View>

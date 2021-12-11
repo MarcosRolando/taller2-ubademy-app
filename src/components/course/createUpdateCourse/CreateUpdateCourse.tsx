@@ -12,6 +12,7 @@ import { getCreateCourseInfo, sendCreateCourse, getCourseInfo, putCourseInfo } f
 import CourseTags from "./CourseTags";
 import { COURSE_MENU } from "../../../routes";
 import Fire from '../../../../Fire';
+import { useFocusEffect } from "@react-navigation/native";
 
 const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
   const[uploading, setUploading] = React.useState(false);
@@ -33,11 +34,13 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
 
   const [showSubTypes, setShowSubTypes] = React.useState(false);
   const [subTypesList, setSubTypesList] = React.useState([] as Array<{label:string, value:string}>);
-  const [subType, setSubType] = React.useState('Free');
+  const [subType, setSubType] = React.useState('');
 
   const [showLocations, setShowLocations] = React.useState(false);
   const [locationsList, setLocationsList] = React.useState([] as Array<{label:string, value:string}>);
   const [location, setLocation] = React.useState('');
+
+  const [loading, setLoading] = React.useState(true);
 
   const [tags, setTags] = React.useState(
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4",
@@ -45,61 +48,62 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
     "Tag 9", "Tag 10", "Tag 11","Tag 12"]);
   const [courseTags, setCourseTags] = React.useState([] as Array<string>);
 
-  useEffect(() => {
+  useFocusEffect(React.useCallback(() => {
     (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+      try {
+        if (Platform.OS !== 'web') {
+          const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+          }
         }
-      }
-    })();
-    if (isEditing) {
-      (async () => {
-        await getCourseInfo(id)
-            .then(({
-              id, country, course_type, description, hashtags,
-              images, subscription_type, title, total_exams, _videos}) => {
-                setId(id);
-                setCoursenName(title);
-                setCourseDescription(description);
-                if (images.length > 0) {
-                  setCourseImage(images[0]);
-                }
-                setSubType(subscription_type);
-                setExamsNumber(total_exams.toString());
-                const newVideos = [] as Array<{name: string, uri: string}>;
-                for (let i = 0; i < _videos.length; i++) {
-                  newVideos.push({
-                    name: _videos[i].name,
-                    uri: _videos[i].url
-                  })
-                }
-                setVideos(newVideos);
-                if (images.length > 1) {
-                  setImages(images.splice(1));
-                }
-                setCourseType(course_type);
-                setLocation(country);
-                setCourseTags(hashtags);
+        if (isEditing) {
+          const { country, course_type, description, hashtags,
+            images, subscription_type, title, total_exams, _videos } = await getCourseInfo(id);
+          setId(id);
+          setCoursenName(title);
+          setCourseDescription(description);
+          if (images.length > 0) {
+            setCourseImage(images[0]);
+          }
+          setSubType(subscription_type);
+          setExamsNumber(total_exams.toString());
+          const newVideos = [] as Array<{name: string, uri: string}>;
+          for (let i = 0; i < _videos.length; i++) {
+            newVideos.push({
+              name: _videos[i].name,
+              uri: _videos[i].url
             })
-      })();
-    }
-    getCreateCourseInfo()
-      .then(({_locations, _subTypes, _genres}) => {
-        console.log(_subTypes);
+          }
+          setVideos(newVideos);
+          if (images.length > 1) {
+            setImages(images.splice(1));
+          }
+          setCourseType(course_type);
+          setLocation(country);
+          setCourseTags(hashtags);
+        }
+        const {_locations, _subTypes, _genres} = await getCreateCourseInfo();
         const nLocations = _locations.map((location: any) => {
           return {label:location, value:location};
         });
         const nGenres = _genres.map((genre: any) => {
           return {label:genre, value:genre};
-        })
-        //const nSubTypes = _subTypes.keys(); //TODO
+        });
+        let nSubTypes = [] as Array<{label:string, value:string}>;
+        for (const _subType in _subTypes) {
+          nSubTypes.push({label: _subType, value: _subType});
+        }
         setLocationsList(nLocations); 
-        //setSubTypesList(_subTypes.keys);
+        setSubTypesList(nSubTypes);
         setCoursesList(nGenres);
-      });
-  }, []);
+      } catch(error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []));
 
   async function pickCourseImage() {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -214,10 +218,10 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
       setErrorMessage('Please enter the amount of exams');
       return false;
     }
-    // if (!subType.trim()) {
-    //   setErrorMessage('Please select a subscription type');
-    //   return false;
-    // }
+    if (!subType.trim()) {
+      setErrorMessage('Please select a subscription type');
+      return false;
+    }
     if (!location.trim()) {
       setErrorMessage('Please select a location for this course');
       return false;
@@ -232,7 +236,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
 
   async function createCourse() {
     try {
-      if (validateData()) { // TODO despues cambiarlo a que no te deje si hay algo mal
+      if (validateData()) {
         setErrorMessage('');
         setUploading(true);
         const {_images, _videos} = await uploadMedia();
@@ -243,6 +247,8 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
         navigation.navigate(COURSE_MENU, { id: _id })
       }
     } catch(error) {
+      console.log(error);
+      setUploading(false);
       setErrorMessage('Failed to create the course');
     }
   }
@@ -304,6 +310,14 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
       );
     }
   };
+
+  if (loading) {
+    return (
+      <View style={{marginTop: hp(5)}}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
 
   return (
     <View>
@@ -428,7 +442,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
             Update course
         </Button>
         ) : 
-        <Button 
+        <Button
           mode='contained'
           style={{marginVertical: hp(4), marginHorizontal: wp(8)}}
           onPress={createCourse}

@@ -1,15 +1,19 @@
 import React from "react";
 import { View } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import { useSearchCoursesByType } from "../../hooks/useSearchCoursesByType";
 import { CourseSearchResults } from "../CourseSearchResults";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Searcher from "./Searcher";
 
 export const Home = (props: any) => {
   const { searchCoursesByType } = useSearchCoursesByType();
   const [courses, setCoures] = React.useState([] as Array<{id: string, 
     image: string, subType: string, title: string}>);
+  const [loading, setLoading] = React.useState(false);
 
   const onCourseSearch = (courseType: string, subType: string) => {
+    setLoading(true);
     searchCoursesByType(courseType, subType)
       .then((_courses: Array<any>) => {
         setCoures(_courses.map(({ _id, image, subscription_type, title}) => 
@@ -19,6 +23,7 @@ export const Home = (props: any) => {
         // TODO
         console.log(error.message);
       })
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -27,10 +32,16 @@ export const Home = (props: any) => {
         navigation={props.navigation} 
         onCourseSearch={onCourseSearch}
       />
-      <CourseSearchResults
-        navigation={props.navigation}
-        courseResults={courses}
-      />
+      {(loading) ?
+        <View style={{marginTop: hp(5)}}>
+          <ActivityIndicator size='large' />
+        </View>
+      :
+        <CourseSearchResults
+          navigation={props.navigation}
+          courseResults={courses}
+        />
+      }
     </View>
   );
 }
