@@ -9,7 +9,11 @@ import { getExamList } from "../../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 
 const MenuExams = ({id, canEdit, navigation}: any) => {
-  const [examList, setExamList] = React.useState([] as Array<{examName: string, email: string}>);
+  const [examList, setExamList] = React.useState([] as Array<{
+    examName: string,
+    email: string
+    isPublished: boolean
+  }>);
 
   function goToCreateExamScreen() {
     navigation.navigate(EXAM_CREATE_UPDATE, {
@@ -23,11 +27,16 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
   async function callGetExamList(id: string) {
     try {
       const exams = await getExamList(id, "none");
-      const examsAux = [] as Array<{examName: string, email: string}>;
+      const examsAux = [] as Array<{
+        examName: string,
+        email: string, 
+        isPublished: boolean
+    }>;
       for (let i = 0; i < exams.length; i++) {
         examsAux.push({
           examName: exams[i].exam_name,
-          email: ""
+          email: "",
+          isPublished: exams[i].is_published
         })
       }
       setExamList(examsAux);
