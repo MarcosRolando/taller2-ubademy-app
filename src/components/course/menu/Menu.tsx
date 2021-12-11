@@ -10,11 +10,11 @@ import { postSubscribeToCourse,
   postUnsubscribeToCourse } from "../../../scripts/course";
 
 const Menu = ({id, navigation}: any) => {
-  const [canEdit, setCanEdit] = React.useState(false);
+  const [canEdit, setCanEdit] = React.useState(true);
   const [canCorrect, setCanCorrect] = React.useState(true);
 
   const [buttonAux, setButtonAux] = React.useState("Student");
-  const [seePortal, setSeePortal] = React.useState(false);
+  const [seePortal, setSeePortal] = React.useState(true);
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});

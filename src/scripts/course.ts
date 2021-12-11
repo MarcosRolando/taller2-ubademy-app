@@ -50,6 +50,7 @@ export async function sendCreateCourse(title: string, description: string,
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    console.log(res.data);
     return Promise.resolve(res.data['id']);
   } catch (error) {
     console.log(error);
@@ -183,8 +184,6 @@ export async function postUnsubscribeToCourse(
     }
 }
 
-
-// TODO: probar que esto ande cuando el baka-back lo arregle
 export async function getStudentsExams(courseId: string, examName: string) {
   try {
     console.log(examName);
@@ -196,7 +195,7 @@ export async function getStudentsExams(courseId: string, examName: string) {
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
+    return Promise.resolve(res.data['names']);
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error("Error when trying to reach the server"));

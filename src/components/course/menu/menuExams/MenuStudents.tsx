@@ -49,9 +49,8 @@ const MenuStudents = ({courseId, navigation}: any) => {
   useEffect(() => {
       (async () => {
         try {
-        // TODO: probar que esto ande cuando el baka-back lo arregle
-        // y mostrar los estudiantes filtrados
         const res = await getStudentsExams(courseId, exam);
+        setStudentsList(res);
       } catch (error) {
         alert(error);
       }
@@ -61,11 +60,11 @@ const MenuStudents = ({courseId, navigation}: any) => {
   function renderStudents() {
     const studentsToRender = [];
     
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < studentsList.length; i++) {
       studentsToRender.push(
         <List.Item
         key={i}
-        title="First Item"
+        title={studentsList[i]}
         left={
           props => <List.Icon {...props} icon={(props) => 
             <List.Icon {...props} icon={({size, color}) => (
