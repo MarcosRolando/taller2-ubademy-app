@@ -60,17 +60,20 @@ export async function postPublishExam(
 }
 
 export async function getExamList(
-  courseId: string
+  courseId: string,
+  filter: string
 ) {
+  console.log(courseId);
   try {
     const res = await sendAPIrequest(() => axios.get(
-      `${API_URL}${COURSES}/${courseId}/${EXAM_GET_LIST}`, getAxiosConfig()));
+      `${API_URL}${COURSES}/${courseId}/${EXAM_GET_LIST}/${filter}`, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    console.log(res.data);
     return Promise.resolve(res.data['exams']);
   } catch (error) {
     console.log(error);

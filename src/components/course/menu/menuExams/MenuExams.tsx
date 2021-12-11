@@ -22,11 +22,11 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
 
   async function callGetExamList(id: string) {
     try {
-      const exams = await getExamList(id);
+      const exams = await getExamList(id, "none");
       const examsAux = [] as Array<{examName: string, email: string}>;
       for (let i = 0; i < exams.length; i++) {
         examsAux.push({
-          examName: exams[i],
+          examName: exams[i].exam_name,
           email: ""
         })
       }

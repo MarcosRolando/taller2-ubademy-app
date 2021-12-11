@@ -8,13 +8,18 @@ import colors from "../../../styles/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { postSubscribeToCourse,
   postUnsubscribeToCourse } from "../../../scripts/course";
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { getMyCourses } from "../../../scripts/profile";
+
 
 const Menu = ({id, navigation}: any) => {
-  const [canEdit, setCanEdit] = React.useState(true);
+  const [canEdit, setCanEdit] = React.useState(false);
   const [canCorrect, setCanCorrect] = React.useState(true);
 
   const [buttonAux, setButtonAux] = React.useState("Student");
   const [seePortal, setSeePortal] = React.useState(true);
+
+  const isFocused = useIsFocused();
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
@@ -55,6 +60,37 @@ const Menu = ({id, navigation}: any) => {
       alert(error)
     }
   }
+
+  useFocusEffect(React.useCallback(() => {
+    (async () => {
+      const myCourses = await getMyCourses();
+      
+      for (let i = 0; i < myCourses.student.length; i++) {
+        if (myCourses.student[i]._id === id) {
+          setCanEdit(false);
+          setCanCorrect(false);
+          console.log("es estudiante");
+          break;
+        }
+      }
+      for (let i = 0; i < myCourses.collaborator.length; i++) {
+        if (myCourses.collaborator[i]._id === id) {
+          setCanEdit(false);
+          setCanCorrect(true);
+          console.log("es colaborador");
+          break;
+        }
+      }
+      for (let i = 0; i < myCourses.creator.length; i++) {
+        if (myCourses.creator[i]._id === id) {
+          setCanEdit(true);
+          setCanCorrect(true);
+          console.log("es profesor");
+          break;
+        }
+      }
+    })();
+  }, []))
 
   return (
     <ScrollView>
@@ -107,7 +143,7 @@ const Menu = ({id, navigation}: any) => {
         {buttonAux}
       </Button>
 
-      {seePortal ? (
+      {(seePortal && isFocused) ? (
         <Portal>
         <View style={styles.viewOnFront}>
 
