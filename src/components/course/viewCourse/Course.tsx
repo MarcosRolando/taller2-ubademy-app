@@ -26,8 +26,8 @@ const Course = ({ id, navigation }: any) => {
     ownEmail: ''
   })
 
-  const [showVideo, setShowVideo] = React.useState(true);
-  const [showImages, setShowImages] = React.useState(true);
+  const [showVideo, setShowVideo] = React.useState(false);
+  const [showImages, setShowImages] = React.useState(false);
   const [isSubscribed, setIsSubscribe] = React.useState(true);
   const [isCreator, setIsCreator] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
@@ -56,6 +56,8 @@ const Course = ({ id, navigation }: any) => {
 
         const videosParsed = [];
         const imagesParsed = [] as Array<{title: string, url: string}>;
+        
+        
         if (info_level !== 'basic') {
           for (let i = 0; i < Object.keys(_videos).length; i++) {
             videosParsed.push({
@@ -69,6 +71,14 @@ const Course = ({ id, navigation }: any) => {
               title: "",
               url: images[i]
             })
+          }
+
+          if (imagesParsed.length > 0) {
+            setShowImages(true);
+          }
+
+          if (videosParsed.length > 0) {
+            setShowVideo(true);
           }
         }
         
@@ -139,13 +149,13 @@ const Course = ({ id, navigation }: any) => {
 
       {showVideo ? (
         <CourseList info={info}/>
-        ) : null}
+        ) : <></> }
 
       <View style={{marginBottom: hp(3)}}></View>
 
       {showImages ? (
-        <Gallery info={info}/>
-        ) : null}
+        <Gallery info={info} />
+        ) : <></> }
 
       {isCreator ? (
         <View>
