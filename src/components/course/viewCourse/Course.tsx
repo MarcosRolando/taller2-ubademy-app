@@ -49,27 +49,30 @@ const Course = ({ id, navigation }: any) => {
   useFocusEffect(React.useCallback(() => {
     (async () => {
       try{
-        const { country, course_type, description, hashtags,
+        const { info_level, country, course_type, description, hashtags,
           images, subscription_type, title, total_exams, _videos,
           creatorEmail } = await getCourseInfo(id);
 
         const videosParsed = [];
-        for (let i = 0; i < Object.keys(_videos).length; i++) {
-          videosParsed.push({
-            title: _videos[i].name,
-            uri: _videos[i].url
-          })
-        };
-
         const imagesParsed = [] as Array<{title: string, url: string}>;
-        for (let i = 1; i < Object.keys(images).length; i++) {
-          imagesParsed.push({
-            title: "",
-            url: images[i]
-          })
+        if (info_level !== 'basic') {
+          for (let i = 0; i < Object.keys(_videos).length; i++) {
+            videosParsed.push({
+              title: _videos[i].name,
+              uri: _videos[i].url
+            })
+          };
+          
+          for (let i = 1; i < Object.keys(images).length; i++) {
+            imagesParsed.push({
+              title: "",
+              url: images[i]
+            })
+          }
         }
         
         const credentials = getUserCredentials();
+        console.log(images[0])
 
         setInfo({
           ...info,

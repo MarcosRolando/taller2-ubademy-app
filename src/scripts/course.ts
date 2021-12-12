@@ -70,6 +70,7 @@ export async function getCourseInfo(id: string) {
     }
     const course = res.data['course'];
     return Promise.resolve({
+      info_level: res.data['info_level'],
       id: course['_id'],
       country: course['country'],
       course_type: course['course_type'],
