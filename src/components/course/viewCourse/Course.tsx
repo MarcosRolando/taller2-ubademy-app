@@ -6,6 +6,7 @@ import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 import { useFocusEffect } from "@react-navigation/native";
+import { getMyCourses } from "../../../scripts/profile";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
@@ -92,6 +93,32 @@ const Course = ({ id, navigation }: any) => {
         console.log(error);
       } finally {
         setLoading(false);
+      }
+    })();
+
+    (async () => {
+      const myCourses = await getMyCourses();
+
+      for (let i = 0; i < myCourses.student.length; i++) {
+        if (myCourses.student[i]._id === id) {
+          setIsCreator(false);
+          setIsSubscribe(true)
+          break;
+        }
+      }
+      for (let i = 0; i < myCourses.collaborator.length; i++) {
+        if (myCourses.collaborator[i]._id === id) {
+          setIsCreator(false);
+          setIsSubscribe(true)
+          break;
+        }
+      }
+      for (let i = 0; i < myCourses.creator.length; i++) {
+        if (myCourses.creator[i]._id === id) {
+          setIsCreator(true);
+          setIsSubscribe(true)
+          break;
+        }
       }
     })();
   }, []))

@@ -77,7 +77,6 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(false);
           setSeePortal(false);
           setShowUnsubscribe(true);
-          console.log("es estudiante");
           break;
         }
       }
@@ -86,7 +85,6 @@ const Menu = ({id, navigation}: any) => {
           setCanEdit(false);
           setCanCorrect(true);
           setSeePortal(false);
-          console.log("es colaborador");
           break;
         }
       }
@@ -95,7 +93,6 @@ const Menu = ({id, navigation}: any) => {
           setCanEdit(true);
           setCanCorrect(true);
           setSeePortal(false);
-          console.log("es profesor");
           break;
         }
       }
