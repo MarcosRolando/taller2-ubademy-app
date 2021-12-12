@@ -11,7 +11,6 @@ const AddCollaborator = ({courseId, showAddCollaborator, setShowAddCollaborator}
   const hideDialog = () => setShowAddCollaborator(false);
 
   async function addCollaborator() {
-    console.log(collaboratorEmail);
     try {
       const res = await postAddCollaborator(courseId, collaboratorEmail);
       setCollaboratorEmail("");

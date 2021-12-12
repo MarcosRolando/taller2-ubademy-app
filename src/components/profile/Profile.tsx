@@ -22,6 +22,8 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [likedCourses, setLikedCourses] = React.useState([] as Array<string>);
   const [image, setImage] = React.useState(undefined);
   const [loading, setLoading] = React.useState(true);
+  const [passedCourses, setPassedCourses] =
+    React.useState([] as Array<{creator_email: string, title: string}>)
 
 
   const [courses, setCourses] = React.useState({
@@ -34,8 +36,9 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     (async () => {
       try {
         const _courses = await getMyCourses();
-        const passedCourses = await getPassedCourses();
+        const _passedCourses = await getPassedCourses();
         setCourses(_courses);
+        setPassedCourses(_passedCourses);
         if (ownProfile !== undefined) {
           const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
           setName(_name);
@@ -85,7 +88,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
         :
         <></>
       }
-      <Badges />
+      <Badges passedCourses={passedCourses} />
       <Courses navigation={navigation} courses={courses} />
       {(ownProfile !== undefined) ? 
         <Button

@@ -95,8 +95,10 @@ export async function getPassedCourses() {
       console.log(res.data['message']); // Should never happen!
       return Promise.reject(new Error(res.data['message']));
     }
-    console.log(res.data);
-
+    console.log(res.data['passed_courses_names']);
+    return Promise.resolve(
+      res.data['passed_courses_names'] as Array<{creator_email: string, title: string}>
+    );
   } catch (error) {
     console.log('Error when trying to reach the server');
     return Promise.reject(new Error('Error when trying to reach the server'));

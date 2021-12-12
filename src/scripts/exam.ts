@@ -63,7 +63,6 @@ export async function getExamList(
   courseId: string,
   filter: string
 ) {
-  console.log(courseId);
   try {
     const res = await sendAPIrequest(() => axios.get(
       `${API_URL}${COURSES}/${courseId}/${EXAM_GET_LIST}/${filter}`, getAxiosConfig()));
@@ -73,7 +72,6 @@ export async function getExamList(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data['exams']);
   } catch (error) {
     console.log(error);

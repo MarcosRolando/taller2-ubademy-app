@@ -1,52 +1,40 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Image, FlatList, Text, StyleSheet, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { block } from "react-native-reanimated";
+import { Subheading } from "react-native-paper";
 import { heightPercentageToDP as hp,
    widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../styles/colors";
-
-const DATA = [
-  {
-    id: '1',
-    title: 'First Item',
-  },
-  {
-    id: '2',
-    title: 'Second Item y mucho texto para rellenar',
-  },
-  {
-    id: '3',
-    title: 'Third Item',
-  },
-  {
-    id: '4',
-    title: '4 Item',
-  },
-  {
-    id: '5',
-    title: '5 Item',
-  },
-];
+import styles from "../../styles/styles";
 
 const Item = ({ title }: any) => (
-  <View style={styles.item}>
-    <TouchableOpacity>
-      <View style={styles.itemContainer}>
-        <Image
-          source={require("../../images/badge.png")}
-          style={{flex: 1, width: undefined, height: undefined, resizeMode: "cover"}}
-        ></Image>
+  <View style={stylesLocal.item}>
+    <View style={stylesLocal.itemContainer}>
+      <Image
+        source={require("../../images/badge.png")}
+        style={{flex: 1, width: undefined, height: undefined, resizeMode: "cover"}}
+      ></Image>
 
-        <Text style={styles.text}>
-          {title}
-        </Text>
-      </View>
-    </TouchableOpacity>
+      <Text style={stylesLocal.text}>
+        {title}
+      </Text>
+    </View>
   </View>
 );
 
-const Badges = () => {
+const Badges = ({passedCourses} : any) => {
+  const [data, setData] = React.useState([] as Array<{id: string, title: string}>)
+
+  useEffect(() => {
+    const dataAux = [] as Array<{id: string, title: string}>;
+    for (let i = 0; i < Object.keys(passedCourses).length; i++) {
+      dataAux.push({
+        id: i.toString(),
+        title: passedCourses[i].title
+      })
+    }
+    setData(dataAux);
+  }, [passedCourses])
+
 
   const renderItem = ({ item }: any) => (
     <Item title={item.title} />
@@ -54,11 +42,19 @@ const Badges = () => {
 
   return (
     <View>
+      
+      {(Object.keys(passedCourses).length > 0) ? (
+        <Subheading style={styles.profileSubtitle}>
+          Certificates
+        </Subheading>
+      ) : <></>}
+
+
       <FlatList
-      horizontal
-      data={DATA}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
+        horizontal
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
       />
     </View>
   )
@@ -66,7 +62,7 @@ const Badges = () => {
 
 export default Badges;
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   item: {
     marginVertical: wp(5),
     marginHorizontal: wp(5)
