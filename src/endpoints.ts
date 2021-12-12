@@ -25,3 +25,6 @@ export const MY_COURSES = 'my_courses';
 export const COURSE_ADD_COLLABORATOR = 'add_collaborator';
 export const COURSE_VIEW = 'courses/data';
 export const PROFILE_PASSED_COURSES = 'courses/passing';
+
+export const SUBSCRIPTION_TYPES = 'subscription_types';
+export const COURSE_GENRES = 'course_genres';
