@@ -5,7 +5,7 @@ import { COURSE_SETUP, CREATE_COURSE,
   COURSES, UPDATE_COURSE,
   COURSE_SUBSCRIBE, STUDENTS,
   COURSE_UNSUBSCRIBE, 
-  COURSE_ADD_COLLABORATOR} from "../endpoints";
+  COURSE_ADD_COLLABORATOR, COURSE_VIEW} from "../endpoints";
 
 export async function getCreateCourseInfo() {
   try {
@@ -61,7 +61,7 @@ export async function sendCreateCourse(title: string, description: string,
 export async function getCourseInfo(id: string) {
   try {
     const res = await sendAPIrequest(() => axios.get(
-    `${API_URL}${COURSES}/${id}`, getAxiosConfig()));
+    `${API_URL}${COURSE_VIEW}/${id}`, getAxiosConfig()));
     if (res.data['status'] == 'error') {
       switch (res.data["message"]) {
         default:
@@ -205,7 +205,6 @@ export async function postAddCollaborator(
     const res = await sendAPIrequest(() => axios.post(
       `${API_URL}${COURSES}/${COURSE_ADD_COLLABORATOR}`, {
         course_id: courseId,
-        user_email: "",
         collaborator_email: collaboratorEmail,
     }, getAxiosConfig()));
     if (res.data['status'] === 'error') {

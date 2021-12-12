@@ -48,11 +48,12 @@ export async function sendGoogleCredentials(email: string, accessToken: string) 
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    console.log(res.data);
     setUserCredentials(email, '');
     setAccessToken(res.data['access_token']);
     const { _image } = await getProfileInfo(email); // Que me juzgue la historia
     setUserProfilePicture(_image);
-    return Promise.resolve({ created: res.data['created'], password: res.data['password'] });
+    return Promise.resolve({ created: res.data['created'], password: res.data['firebase_password'] });
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));

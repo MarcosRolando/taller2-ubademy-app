@@ -1,7 +1,7 @@
 import React from 'react';
 import { View} from 'react-native';
 import { ActivityIndicator, Button } from 'react-native-paper';
-import { getMyCourses, getProfileInfo } from '../../scripts/profile';
+import { getMyCourses, getPassedCourses, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
 import Intro from './Intro';
@@ -11,6 +11,7 @@ import { CHAT, PROFILE_EDITOR } from '../../routes';
 import { useFocusEffect } from '@react-navigation/core';
 import Fire from '../../../Fire';
 import { getUserCredentials } from '../../userCredentials';
+import Badges from './Badges';
 
 
 const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
@@ -33,6 +34,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     (async () => {
       try {
         const _courses = await getMyCourses();
+        const passedCourses = await getPassedCourses();
         setCourses(_courses);
         if (ownProfile !== undefined) {
           const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
@@ -83,6 +85,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
         :
         <></>
       }
+      <Badges />
       <Courses navigation={navigation} courses={courses} />
       {(ownProfile !== undefined) ? 
         <Button

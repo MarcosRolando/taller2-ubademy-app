@@ -23,3 +23,5 @@ export const COURSE_UNSUBSCRIBE = 'unsubscribe'
 export const STUDENTS = 'students';
 export const MY_COURSES = 'my_courses';
 export const COURSE_ADD_COLLABORATOR = 'add_collaborator';
+export const COURSE_VIEW = 'courses/data';
+export const PROFILE_PASSED_COURSES = 'courses/passing';

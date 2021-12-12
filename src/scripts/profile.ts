@@ -1,7 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { MY_COURSES, PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE } from "../endpoints";
+import { MY_COURSES, PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE,
+  PROFILE_PASSED_COURSES } from "../endpoints";
 
 export async function getProfileInfo(email: string) {
   try {
@@ -80,6 +81,22 @@ export async function getMyCourses() {
       collaborator: res.data['collaborator'] as Array <{_id: string, title: string}>,
       student: res.data['student'] as Array <{_id: string, title: string}>,
     });
+  } catch (error) {
+    console.log('Error when trying to reach the server');
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function getPassedCourses() {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+      `${API_URL}${PROFILE_PASSED_COURSES}`, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      console.log(res.data['message']); // Should never happen!
+      return Promise.reject(new Error(res.data['message']));
+    }
+    console.log(res.data);
+
   } catch (error) {
     console.log('Error when trying to reach the server');
     return Promise.reject(new Error('Error when trying to reach the server'));

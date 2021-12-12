@@ -63,13 +63,18 @@ const LoginCredentials = (props: any) => {
     if (type === 'success') {
       try {
         const { created, password } = await sendGoogleCredentials(user.email, accessToken);
-        await Fire.login(email, password);
         if (created) {
+          console.log(user.email);
+          console.log(password);
+          await Fire.register(user.email, password);
           props.navigation.navigate(PROFILE_SETUP)
         } else {
+          console.log("entor al else");
+          await Fire.login(user.email, password);
           props.navigation.navigate(ROOT)
         }
       } catch(error: Error) {
+        console.log(error.message);
         setErrorMessage(error.message)
       }
     } // TODO ver el tema de si hay un error
