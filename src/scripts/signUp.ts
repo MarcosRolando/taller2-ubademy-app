@@ -23,7 +23,6 @@ export async function sendSignupCredentials(email: string, password: string) {
     }
     setUserCredentials(email, password);
     setAccessToken(res.data['access_token']);
-    
     await Fire.register(email, password);
     return Promise.resolve('');
   } catch (error) {

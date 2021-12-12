@@ -19,7 +19,8 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
         navigation.navigate(EXAM, {
           courseId: id,
           title: examList[index].examName,
-          onlyView: canEdit
+          onlyView: canEdit,
+          isPublished: examList[index].isPublished
         })
       } else {
         navigation.navigate(COURSE_MENU_EXAM_OPTIONS, {

@@ -21,8 +21,14 @@ const MenuStudents = ({courseId, navigation}: any) => {
   useFocusEffect(React.useCallback(() => {
     (async () => {
       try {
-      const exams = await getExamList(courseId);
-      setExamList(exams);
+        const exams = await getExamList(courseId, 'none');
+        const examListAux = [] as Array<string>;
+        for (let i = 0; i < exams.length; i++) {
+          if (exams[i].is_published) {
+            examListAux.push(exams[i].exam_name);
+          }
+        }
+        setExamList(examListAux);
       } catch (error) {
         alert(error);
       }

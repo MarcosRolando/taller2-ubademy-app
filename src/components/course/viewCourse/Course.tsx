@@ -6,6 +6,7 @@ import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 import { useFocusEffect } from "@react-navigation/native";
+import { getMyCourses } from "../../../scripts/profile";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
@@ -25,8 +26,8 @@ const Course = ({ id, navigation }: any) => {
     ownEmail: ''
   })
 
-  const [showVideo, setShowVideo] = React.useState(true);
-  const [showImages, setShowImages] = React.useState(true);
+  const [showVideo, setShowVideo] = React.useState(false);
+  const [showImages, setShowImages] = React.useState(false);
   const [isSubscribed, setIsSubscribe] = React.useState(true);
   const [isCreator, setIsCreator] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
@@ -49,24 +50,36 @@ const Course = ({ id, navigation }: any) => {
   useFocusEffect(React.useCallback(() => {
     (async () => {
       try{
-        const { country, course_type, description, hashtags,
+        const { info_level, country, course_type, description, hashtags,
           images, subscription_type, title, total_exams, _videos,
           creatorEmail } = await getCourseInfo(id);
 
         const videosParsed = [];
-        for (let i = 0; i < Object.keys(_videos).length; i++) {
-          videosParsed.push({
-            title: _videos[i].name,
-            uri: _videos[i].url
-          })
-        };
-
         const imagesParsed = [] as Array<{title: string, url: string}>;
-        for (let i = 1; i < Object.keys(images).length; i++) {
-          imagesParsed.push({
-            title: "",
-            url: images[i]
-          })
+        
+        
+        if (info_level !== 'basic') {
+          for (let i = 0; i < Object.keys(_videos).length; i++) {
+            videosParsed.push({
+              title: _videos[i].name,
+              uri: _videos[i].url
+            })
+          };
+          
+          for (let i = 1; i < Object.keys(images).length; i++) {
+            imagesParsed.push({
+              title: "",
+              url: images[i]
+            })
+          }
+
+          if (imagesParsed.length > 0) {
+            setShowImages(true);
+          }
+
+          if (videosParsed.length > 0) {
+            setShowVideo(true);
+          }
         }
         
         const credentials = getUserCredentials();
@@ -92,6 +105,32 @@ const Course = ({ id, navigation }: any) => {
         setLoading(false);
       }
     })();
+
+    (async () => {
+      const myCourses = await getMyCourses();
+
+      for (let i = 0; i < myCourses.student.length; i++) {
+        if (myCourses.student[i]._id === id) {
+          setIsCreator(false);
+          setIsSubscribe(true)
+          break;
+        }
+      }
+      for (let i = 0; i < myCourses.collaborator.length; i++) {
+        if (myCourses.collaborator[i]._id === id) {
+          setIsCreator(false);
+          setIsSubscribe(true)
+          break;
+        }
+      }
+      for (let i = 0; i < myCourses.creator.length; i++) {
+        if (myCourses.creator[i]._id === id) {
+          setIsCreator(true);
+          setIsSubscribe(true)
+          break;
+        }
+      }
+    })();
   }, []))
 
   if (loading) {
@@ -110,13 +149,13 @@ const Course = ({ id, navigation }: any) => {
 
       {showVideo ? (
         <CourseList info={info}/>
-        ) : null}
+        ) : <></> }
 
       <View style={{marginBottom: hp(3)}}></View>
 
       {showImages ? (
-        <Gallery info={info}/>
-        ) : null}
+        <Gallery info={info} />
+        ) : <></> }
 
       {isCreator ? (
         <View>

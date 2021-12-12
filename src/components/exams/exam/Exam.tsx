@@ -16,7 +16,7 @@ import { getUserCredentials } from "../../../userCredentials";
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 const MESSAGE_EXAM_IS_DONE= "The exam has been submitted";
 
-const Exam = ({ title, onlyView, courseId, navigation }: any) => {
+const Exam = ({ title, onlyView, courseId, isPublished, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
@@ -147,17 +147,24 @@ const Exam = ({ title, onlyView, courseId, navigation }: any) => {
         </View>
       ) : 
       <View>
-        <Button
-          onPress={() => goToExamUpdateScreen()}
-        >
-          Edit
-        </Button>
+        {!isPublished ? (
+          <View>
+            
+            <Button
+              onPress={() => goToExamUpdateScreen()}
+            >
+              Edit
+            </Button>
 
-        <Button
-          onPress={() => callPostPublishExam()}
-        >
-          Publish
-        </Button>
+            <Button
+              onPress={() => callPostPublishExam()}
+            >
+              Publish
+            </Button>
+          
+          </View>
+        ) : <></>}
+
       </View>
       }
 

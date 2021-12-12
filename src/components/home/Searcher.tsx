@@ -7,6 +7,9 @@ import DropDown from "react-native-paper-dropdown";
 import { getProfileInfo } from "../../scripts/profile";
 import { USER } from "../../routes";
 import { newUserProfile } from "../../models/userProfile";
+import { useFocusEffect } from "@react-navigation/native";
+import { getSearchCourseFilters } from "../../scripts/search";
+import { amber100 } from "react-native-paper/lib/typescript/styles/colors";
 
 const Searcher = ({ navigation, onCourseSearch }: any) => {
   const [searchQuery, setSearchQuery] = React.useState({
@@ -15,19 +18,34 @@ const Searcher = ({ navigation, onCourseSearch }: any) => {
     color: 'grey'
   });
   const [showCoursesType, setShowCoursesType] = React.useState(false);
-  const [coursesType, setCoursesType] = React.useState([
-    {label:'Any', value:'none'},
-    {label:'Art', value:'Art'},
-    {label:'Programming', value:'Programming'}]);
+  const [coursesType, setCoursesType] = React.useState([] as Array<any>);
   const [selectedCourseType, setSelectedCourseType] = React.useState('none');
 
   const [showSubType, setShowSubType] = React.useState(false);
-  const [subTypes, setSubTypes] = React.useState([{label:'Any', value:'none'},
-    {label:'Free', value:'Free'},
-    {label:'Silver', value:'Silver'},
-    {label:'Gold', value:'Gold'},
-    {label:'Platinum', value:'Platinum'}]);
+  const [subTypes, setSubTypes] = React.useState([] as Array<any>);
   const [selectedSubType, setSelectedSubType] = React.useState('none');
+
+  useFocusEffect(React.useCallback(() => {
+    (async () => {
+      try {
+        const { _genres, _subTypes } = await getSearchCourseFilters();
+        setCoursesType(_genres.map((_genre: any) => {
+          if (_genre === 'Any') {
+            return {label:_genre, value: 'none'}
+          }
+          return {label:_genre, value:_genre};
+        }));
+        setSubTypes(_subTypes.map((_subType: any) => {
+          if (_subType === 'Any') {
+            return {label:_subType, value: 'none'}
+          }
+          return {label:_subType, value:_subType};
+        }));
+      } catch(error) {
+        console.log(error);
+      }
+    })();
+  }, []))
 
   const onChangeSearch = (query: string) => 
     setSearchQuery({placeholder: 'Search', value: query, color: 'grey'});
