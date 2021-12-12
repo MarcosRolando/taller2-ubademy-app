@@ -20,15 +20,19 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
 
   useEffect(() => {
     (async () => {
-      const exams = await getFilteredExams(id, searchValue);
-      const examAux = [];
-      for (let i = 0; i < Object.keys(exams).length; i++) {
-        examAux.push({
-          examName: exams[i].exam_name,
-          email: exams[i].student_email,
-        })
+      try {
+        const exams = await getFilteredExams(id, searchValue);
+        const examAux = [];
+        for (let i = 0; i < Object.keys(exams).length; i++) {
+          examAux.push({
+            examName: exams[i].exam_name,
+            email: exams[i].student_email,
+          })
+        }
+        setExamList(examAux);
+      } catch (error) {
+        alert(error);
       }
-      setExamList(examAux);
     })();
   }, [searchValue]);
 
