@@ -72,7 +72,6 @@ const Course = ({ id, navigation }: any) => {
         }
         
         const credentials = getUserCredentials();
-        console.log(images[0])
 
         setInfo({
           ...info,

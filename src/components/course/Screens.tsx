@@ -166,7 +166,7 @@ export const MenuExamOptionsScreen = ({route, navigation}: any) => {
 }
 
 export const MenuStudentsScreen = ({route, navigation}: any) => {
-  const {courseId} = route.params;
+  const { courseId } = route.params;
 
   return (
    <View>

@@ -21,7 +21,7 @@ const MenuStudents = ({courseId, navigation}: any) => {
   useFocusEffect(React.useCallback(() => {
     (async () => {
       try {
-      const exams = await getExamList(courseId);
+      const exams = await getExamList(courseId, 'none');
       setExamList(exams);
       } catch (error) {
         alert(error);

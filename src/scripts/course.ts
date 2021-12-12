@@ -38,9 +38,9 @@ export async function sendCreateCourse(title: string, description: string,
       title: title,
       description: description,
       total_exams: Number(totalExams),
-      subscription_type: 'Free',
-      course_type: 'Art',
-      country: 'Argentina',
+      subscription_type: subscriptionType,
+      course_type: courseType,
+      country: country,
       hashtags: hashtags,
       images: images,
       videos: videos
@@ -140,8 +140,7 @@ export async function getCourseFilterData() {
   }
 }
 
-export async function postSubscribeToCourse(
-  courseId: string) {
+export async function postSubscribeToCourse(courseId: string) {
   try {
     const res = await sendAPIrequest(() => axios.post(
       `${API_URL}${COURSES}/${COURSE_SUBSCRIBE}`, {

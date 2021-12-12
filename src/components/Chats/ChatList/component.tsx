@@ -27,9 +27,11 @@ export const ChatList = ({ navigation }: any) => {
   }
 
   if (chats.length === 0) return (
-    <Text>
-      No chats here :(
-    </Text>
+    <View style={{flex: 1}}>
+      <Text style={{color: colors.primary, marginTop: hp(5), alignSelf: 'center', fontSize: 20}}>
+        No chats here :(
+      </Text>
+    </View>
   );
 
   return (
