@@ -54,6 +54,8 @@ const Menu = ({id, navigation}: any) => {
   async function subscribeToCourse() {
     try {
       const res = await postSubscribeToCourse(id);
+      setSeePortal(false);
+      setShowUnsubscribe(true);
     } catch (error) {
       alert(error)
     }
@@ -62,6 +64,8 @@ const Menu = ({id, navigation}: any) => {
   async function unsubscribeToCourse() {
     try {
       const res = await postUnsubscribeToCourse(id);
+      setSeePortal(true);
+      setShowUnsubscribe(false);
     } catch (error) {
       alert(error)
     }
@@ -149,22 +153,22 @@ const Menu = ({id, navigation}: any) => {
 
       {seePortal ? (
         <Portal>
-        <View style={styles.viewOnFront}>
+          <View style={styles.viewOnFront}>
 
-          <Text>FREE</Text>
+            <Text>FREE</Text>
 
-          <TouchableOpacity
-            // TODO: que se avise al baka-back que se subscribió
-            onPress={() => subscribeToCourse()}
-            style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
-          >
-            <Text style={{}}
-              >SUBSCRIBE
-            </Text>
-          </TouchableOpacity>
-          
-        </View>
-      </Portal>
+            <TouchableOpacity
+              // TODO: que se avise al baka-back que se subscribió
+              onPress={() => subscribeToCourse()}
+              style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
+            >
+              <Text style={{}}
+                >SUBSCRIBE
+              </Text>
+            </TouchableOpacity>
+            
+          </View>
+        </Portal>
       ) : <></> }
 
       {showUnsubscribe ? (
