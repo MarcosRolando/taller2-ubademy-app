@@ -4,7 +4,8 @@ import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { COURSE_SETUP, CREATE_COURSE,
   COURSES, UPDATE_COURSE,
   COURSE_SUBSCRIBE, STUDENTS,
-  COURSE_UNSUBSCRIBE } from "../endpoints";
+  COURSE_UNSUBSCRIBE, 
+  COURSE_ADD_COLLABORATOR} from "../endpoints";
 
 export async function getCreateCourseInfo() {
   try {
@@ -193,5 +194,30 @@ export async function getStudentsExams(courseId: string, examName: string) {
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error("Error when trying to reach the server"));
+  }
+}
+
+export async function postAddCollaborator(
+  courseId: string,
+  collaboratorEmail: string
+) {
+  try {
+    const res = await sendAPIrequest(() => axios.post(
+      `${API_URL}${COURSES}/${COURSE_ADD_COLLABORATOR}`, {
+        course_id: courseId,
+        user_email: "",
+        collaborator_email: collaboratorEmail,
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    console.log(res.data);
+    return Promise.resolve(''); // Ok!
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
