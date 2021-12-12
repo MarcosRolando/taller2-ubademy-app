@@ -213,7 +213,6 @@ export async function postAddCollaborator(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(''); // Ok!
   } catch (error) {
     console.log(error);

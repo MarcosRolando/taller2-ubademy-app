@@ -64,12 +64,9 @@ const LoginCredentials = (props: any) => {
       try {
         const { created, password } = await sendGoogleCredentials(user.email, accessToken);
         if (created) {
-          console.log(user.email);
-          console.log(password);
           await Fire.register(user.email, password);
           props.navigation.navigate(PROFILE_SETUP)
         } else {
-          console.log("entor al else");
           await Fire.login(user.email, password);
           props.navigation.navigate(ROOT)
         }

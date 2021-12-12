@@ -48,7 +48,6 @@ export async function sendGoogleCredentials(email: string, accessToken: string) 
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     setUserCredentials(email, '');
     setAccessToken(res.data['access_token']);
     const { _image } = await getProfileInfo(email); // Que me juzgue la historia
