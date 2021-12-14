@@ -28,17 +28,9 @@ const Course = ({ id, navigation }: any) => {
 
   const [showVideo, setShowVideo] = React.useState(false);
   const [showImages, setShowImages] = React.useState(false);
-  const [isSubscribed, setIsSubscribe] = React.useState(true);
-  const [isCreator, setIsCreator] = React.useState(true);
+  const [isSubscribed, setIsSubscribe] = React.useState(false);
+  const [isCreator, setIsCreator] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
-
-  function goToExamCreateScreen() {
-    navigation.navigate(EXAM_CREATE_UPDATE, {
-      id: info.id,
-      name: "",
-      isEditing: false
-    });
-  }
 
   function goToEditCourse() {
     navigation.navigate(CREATE_UPDATE_COURSE, {
@@ -147,13 +139,13 @@ const Course = ({ id, navigation }: any) => {
         <BasicInfo info={info} cover={info.cover}/>
       </View>
 
-      {showVideo ? (
+      {(showVideo && isSubscribed) ? (
         <CourseList info={info}/>
         ) : <></> }
 
       <View style={{marginBottom: hp(3)}}></View>
 
-      {showImages ? (
+      {(showImages && isSubscribed) ? (
         <Gallery info={info} />
         ) : <></> }
 
