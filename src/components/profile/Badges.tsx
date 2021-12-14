@@ -39,7 +39,6 @@ function generateHTML(
       const { uri } = await Print.printToFileAsync({
         html
       });
-      console.log('File has been saved to:', uri);
       await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
     } catch (error) {
       alert(error);
