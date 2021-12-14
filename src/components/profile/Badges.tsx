@@ -6,16 +6,14 @@ import { heightPercentageToDP as hp,
 import colors from "../../styles/colors";
 import styles from "../../styles/styles";
 import * as Print from 'expo-print';
-import * as MediaLibrary from "expo-media-library";
 import { shareAsync } from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
-import { downloadAsync } from "expo-file-system";
-
+import { getUserCredentials } from "../../userCredentials";
 
 function generateHTML(
   courseName: string,
-  studentName: string,
   creatorName: string) {
+  
+  const studentName = getUserCredentials().email;
   const html =
   `
   <div style="width:800px; height:600px; padding:20px; text-align:center; border: 10px solid #787878">
@@ -27,7 +25,7 @@ function generateHTML(
     <span style="font-size:30px"><b>${studentName}</b></span><br/><br/>
     <span style="font-size:25px"><i>has completed the course</i></span> <br/><br/>
     <span style="font-size:30px">${courseName}</span> <br/><br/>
-    <span style="font-size:25px"><i>created by/i></span> <br/><br/>
+    <span style="font-size:25px"><i>created by</i></span> <br/><br/>
     <span style="font-size:30px">${creatorName}</span> <br/><br/>
   </div>
   </div>
@@ -35,19 +33,22 @@ function generateHTML(
   return html;
 }
 
-  const printToFile = async () => {
-    // On iOS/android prints the given html. On web prints the HTML from the current page.
-    const html = generateHTML("curso", "estudiante", "creador");
-    const { uri } = await Print.printToFileAsync({
-      html
-    });
-    console.log('File has been saved to:', uri);
-    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+  const printToFile = async (title: string, creator: string) => {
+    try {
+      const html = generateHTML(title, creator);
+      const { uri } = await Print.printToFileAsync({
+        html
+      });
+      console.log('File has been saved to:', uri);
+      await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+    } catch (error) {
+      alert(error);
+    }
   }
 
-const Item = ({ title }: any) => (
+const Item = ({ title, creator }: any) => (
   <View style={stylesLocal.item}>
-    <TouchableOpacity onPress={() => printToFile()}>
+    <TouchableOpacity onPress={() => printToFile(title, creator)}>
     <View style={stylesLocal.itemContainer}>
       <Image
         source={require("../../images/badge.png")}
@@ -63,14 +64,15 @@ const Item = ({ title }: any) => (
 );
 
 const Badges = ({passedCourses} : any) => {
-  const [data, setData] = React.useState([] as Array<{id: string, title: string}>)
+  const [data, setData] = React.useState([] as Array<{id: string, title: string, creator: string}>)
 
   useEffect(() => {
-    const dataAux = [] as Array<{id: string, title: string}>;
+    const dataAux = [] as Array<{id: string, title: string, creator: string}>;
     for (let i = 0; i < Object.keys(passedCourses).length; i++) {
       dataAux.push({
         id: i.toString(),
-        title: passedCourses[i].title
+        title: passedCourses[i].title,
+        creator: passedCourses[i].creator_email
       })
     }
     setData(dataAux);
@@ -78,7 +80,7 @@ const Badges = ({passedCourses} : any) => {
 
 
   const renderItem = ({ item }: any) => (
-    <Item title={item.title} />
+    <Item title={item.title} creator={item.creator} />
   );
 
   return (
