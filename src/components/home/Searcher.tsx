@@ -9,7 +9,6 @@ import { USER } from "../../routes";
 import { newUserProfile } from "../../models/userProfile";
 import { useFocusEffect } from "@react-navigation/native";
 import { getSearchCourseFilters } from "../../scripts/search";
-import { amber100 } from "react-native-paper/lib/typescript/styles/colors";
 
 const Searcher = ({ navigation, onCourseSearch }: any) => {
   const [searchQuery, setSearchQuery] = React.useState({
