@@ -21,7 +21,6 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
   const [isFinishedMessage, setIsFinishedMessage] = React.useState("");
-  console.log("es profe", isProfessor);
 
   useEffect(() => {
     setAnswersPlaceholder()

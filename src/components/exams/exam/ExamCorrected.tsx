@@ -21,7 +21,6 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
     (async () => {
       try {
         const exam = await getStudentExamCorrected(courseId, examName, getUserCredentials().email);
-        console.log(exam);
         if (exam !== undefined) {
           setAnswers(exam.answers);
           setQuestions(exam.questions);

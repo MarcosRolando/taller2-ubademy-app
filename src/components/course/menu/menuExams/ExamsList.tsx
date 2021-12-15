@@ -6,11 +6,8 @@ import { EXAM, EXAM_CORRECTION, COURSE_MENU_EXAM_OPTIONS } from "../../../../rou
 
 const ExamList = ({id, examList, canEdit, isProfessor, canCorrect, navigation} : any) => {
 
-  
-  console.log(canCorrect);
   function goToExamScreen(index: number) {
     if (canCorrect) {
-      console.log("entra a cancorrect");
       navigation.navigate(EXAM_CORRECTION, {
         courseId: id,
         examTitle: examList[index].examName,
