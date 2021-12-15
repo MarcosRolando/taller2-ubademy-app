@@ -45,7 +45,7 @@ export const ViewCourseScreen = ({route, navigation}: any) => {
 }
 
 export const ExamScreen = ({route, navigation}: any) => {
-  const {title, courseId, onlyView, isPublished} = route.params;
+  const {title, courseId, onlyView, isPublished, isProfessor} = route.params;
 
   return (
     <View>
@@ -55,6 +55,7 @@ export const ExamScreen = ({route, navigation}: any) => {
           courseId={courseId}
           onlyView={onlyView}
           isPublished={isPublished}
+          isProfessor={isProfessor}
           navigation={navigation} />
       </ScrollView>
     </View>
@@ -124,13 +125,14 @@ export const MenuScreen = ({route, navigation}: any) => {
 }
 
 export const MenuExamsScreen = ({route, navigation}: any) => {
-  const {id, canEdit} = route.params;
+  const {id, canEdit, isProfessor} = route.params;
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <MenuExams 
           id={id}
           canEdit={canEdit}
+          isProfessor={isProfessor}
           navigation={navigation}/>
       </ScrollView>
     </View>
