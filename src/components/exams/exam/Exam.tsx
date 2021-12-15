@@ -16,7 +16,7 @@ import { getUserCredentials } from "../../../userCredentials";
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 const MESSAGE_EXAM_IS_DONE= "The exam has been submitted";
 
-const Exam = ({ title, onlyView, courseId, isPublished, navigation }: any) => {
+const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
   const [answers, setAnswers] = React.useState([] as Array<{id: number, value: string}>)
   const [isFinished, setIsFinished] = React.useState(false);
@@ -99,10 +99,9 @@ const Exam = ({ title, onlyView, courseId, isPublished, navigation }: any) => {
             {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
-          {!onlyView ? (
             <TextInput
             placeholder={QUESTION_PLACEHOLDER}
-            disabled={isFinished}
+            disabled={isFinished || isProfessor}
             multiline={true}
             onChangeText={(newAnswer) => {
               setAnswers(answers.map((answer) => {
@@ -114,7 +113,6 @@ const Exam = ({ title, onlyView, courseId, isPublished, navigation }: any) => {
             }}
             >
             </TextInput>
-          ) : <></>}
 
         </View>
       )
@@ -132,7 +130,7 @@ const Exam = ({ title, onlyView, courseId, isPublished, navigation }: any) => {
 
       {renderQuestions()}
 
-      {!onlyView ? (
+      {!isProfessor ? (
         <View style={{alignItems: "center"}}>
           <Button
           disabled={isFinished}
@@ -147,7 +145,7 @@ const Exam = ({ title, onlyView, courseId, isPublished, navigation }: any) => {
         </View>
       ) : 
       <View>
-        {!isPublished ? (
+        {(!isPublished && onlyView) ? (
           <View>
             
             <Button

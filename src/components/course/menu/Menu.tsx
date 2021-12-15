@@ -16,6 +16,7 @@ import AddCollaborator from "./AddCollaborator";
 const Menu = ({id, navigation}: any) => {
   const [canEdit, setCanEdit] = React.useState(false);
   const [canCorrect, setCanCorrect] = React.useState(false);
+  const [isProfessor, setIsProfessor] = React.useState(false);
 
   const [seePortal, setSeePortal] = React.useState(true);
   const [showUnsubscribe, setShowUnsubscribe] = React.useState(false);
@@ -30,7 +31,8 @@ const Menu = ({id, navigation}: any) => {
   function goToExamsScreen() {
     navigation.navigate(COURSE_MENU_EXAMS, {
         id: id,
-        canEdit: canEdit
+        canEdit: canEdit,
+        isProfessor: isProfessor
     })
   }
 
@@ -89,6 +91,7 @@ const Menu = ({id, navigation}: any) => {
           setCanEdit(false);
           setCanCorrect(true);
           setSeePortal(false);
+          setIsProfessor(true);
           break;
         }
       }
@@ -97,6 +100,7 @@ const Menu = ({id, navigation}: any) => {
           setCanEdit(true);
           setCanCorrect(true);
           setSeePortal(false);
+          setIsProfessor(true);
           break;
         }
       }

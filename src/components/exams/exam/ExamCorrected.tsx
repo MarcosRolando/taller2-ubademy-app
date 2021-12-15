@@ -15,17 +15,21 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
   const [answers, setAnswers] = React.useState([] as Array<string>)
   const [corrections, setCorrections] = React.useState([] as Array<string>);
   const [grade, setGrade] = React.useState("1");
+  const [showCorrections, setShowCorrections] = React.useState(false);
 
   useFocusEffect(React.useCallback(() => {
     (async () => {
       try {
         const exam = await getStudentExamCorrected(courseId, examName, getUserCredentials().email);
-        setAnswers(exam.answers);
-        setQuestions(exam.questions);
-        if (exam.corrections !== undefined) {
-          setCorrections(exam.corrections);
+        if (exam !== undefined) {
+          setAnswers(exam.answers);
+          setQuestions(exam.questions);
+          if (exam.corrections !== undefined) {
+            setShowCorrections(true);
+            setCorrections(exam.corrections);
+            setGrade(exam.mark);
+          }
         }
-        setGrade(exam.mark);
       } catch (error) {
         alert(error);
       }
@@ -80,7 +84,7 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
           Corrections
         </Title>
 
-        {corrections.length > 0 ? (
+        {showCorrections ? (
           <View>
             <Divider style={{marginTop:wp(2), marginBottom:wp(2)}}/>
 
@@ -96,7 +100,7 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
           </View>
         ) : 
           <View style={{alignItems:"center"}}>
-            <Text style={{color:colors.primary}}>
+            <Text style={{color:colors.primary, marginTop: hp(40)}}>
               Still not graded
             </Text>
           </View>
