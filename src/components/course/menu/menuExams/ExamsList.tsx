@@ -4,10 +4,13 @@ import { List } from "react-native-paper";
 import styles from "../../../../styles/styles";
 import { EXAM, EXAM_CORRECTION, COURSE_MENU_EXAM_OPTIONS } from "../../../../routes";
 
-const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
+const ExamList = ({id, examList, canEdit, isProfessor, canCorrect, navigation} : any) => {
 
+  
+  console.log(canCorrect);
   function goToExamScreen(index: number) {
     if (canCorrect) {
+      console.log("entra a cancorrect");
       navigation.navigate(EXAM_CORRECTION, {
         courseId: id,
         examTitle: examList[index].examName,
@@ -15,10 +18,11 @@ const ExamList = ({id, examList, canEdit, canCorrect, navigation} : any) => {
         studentEmail: examList[index].email
       })
     } else {
-      if (canEdit) {
+      if (isProfessor) {
         navigation.navigate(EXAM, {
           courseId: id,
           title: examList[index].examName,
+          isProfessor: isProfessor,
           onlyView: canEdit,
           isPublished: examList[index].isPublished
         })

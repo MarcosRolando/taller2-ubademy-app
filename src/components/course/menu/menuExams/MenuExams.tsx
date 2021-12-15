@@ -8,7 +8,7 @@ import { EXAM_CREATE_UPDATE } from "../../../../routes";
 import { getExamList } from "../../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 
-const MenuExams = ({id, canEdit, navigation}: any) => {
+const MenuExams = ({id, canEdit, isProfessor, navigation}: any) => {
   const [examList, setExamList] = React.useState([] as Array<{
     examName: string,
     email: string
@@ -63,6 +63,7 @@ const MenuExams = ({id, canEdit, navigation}: any) => {
         id={id}
         examList={examList}
         canEdit={canEdit}
+        isProfessor={isProfessor}
         navigation={navigation} />
 
       {canEdit ? (
