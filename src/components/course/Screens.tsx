@@ -14,6 +14,7 @@ import ExamCorrection from '../exams/exam/ExamCorrection';
 import MenuExamOptions from './menu/menuExams/MenuExamOptions';
 import ExamCorrected from '../exams/exam/ExamCorrected';
 import MenuStudents from './menu/menuExams/MenuStudents';
+import Reviews from './menu/reviews/Reviews';
 
 
 export const CreateUpdateCourseScreen = ({route, navigation}: any) => {
@@ -180,6 +181,18 @@ export const MenuStudentsScreen = ({route, navigation}: any) => {
      </ScrollView>
    </View>
   )
+}
+
+export const CourseReviewsScreen = ({route, navigation}: any) => {
+  const { courseId } = route.params;
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Reviews courseId={courseId} />
+      </ScrollView>
+    </View>
+   )
 }
 
 const styles = StyleSheet.create({
