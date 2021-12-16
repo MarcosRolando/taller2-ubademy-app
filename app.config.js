@@ -8,8 +8,8 @@ export default {
       package: "ubademy.apk",
       config: {
         googleSignIn: {
-          apiKey: AIzaSyDwz6kInmqnhRQTqcvgU7Xg7z7B9DJX2Fc,
-          certificateHash: BD03E8B521F1D7589AB02CE5B6DE04DB72C8B759
+          apiKey: "AIzaSyDwz6kInmqnhRQTqcvgU7Xg7z7B9DJX2Fc",
+          certificateHash: "BD03E8B521F1D7589AB02CE5B6DE04DB72C8B759"
         }
       }
     }
