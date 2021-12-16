@@ -52,7 +52,6 @@ const Reviews = ({courseId} : any) => {
 
   function alreadyLeftAReview() {
     for (let i = 0; i < gradingsList.length; i++) {
-      console.log(gradingsList[i].student_email);
       if (gradingsList[i].student_email == getUserCredentials().email) {
         return true;
       }

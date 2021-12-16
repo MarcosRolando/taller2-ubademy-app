@@ -227,9 +227,6 @@ export async function postGradeCourse(
   comment: string,
   grade: number
 ) {
-  console.log("courseId", courseId);
-  console.log("comment", comment);
-  console.log("number", grade)
   try {
     const res = await sendAPIrequest(() => axios.post(
       `${API_URL}${COURSE_GRADE}`, {
