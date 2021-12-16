@@ -12,6 +12,7 @@ import { useFocusEffect } from '@react-navigation/core';
 import Fire from '../../../Fire';
 import { getUserCredentials } from '../../userCredentials';
 import Badges from './Badges';
+import ChangeSubscription from './ChangeSubscription';
 
 
 const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
@@ -24,7 +25,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [loading, setLoading] = React.useState(true);
   const [passedCourses, setPassedCourses] =
     React.useState([] as Array<{creator_email: string, title: string}>)
-
+  const [showChangeSub, setShowChangeSub] = React.useState(false);
 
   const [courses, setCourses] = React.useState({
     student: [] as Array<any>,
@@ -67,6 +68,11 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     navigation.navigate(PROFILE_EDITOR, { name, location, likedCourses, image })
   }
 
+  function changeSubscription() {
+    setShowChangeSub(true);
+  }
+  
+
   const sendMessage = async () => {
     const chatId = await Fire.getOrCreateChat(profileInfo.email, profileInfo.image);
     navigation.navigate(CHAT, { chatId: chatId, otherUserEmail: profileInfo.email });
@@ -91,12 +97,23 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
       <Badges passedCourses={passedCourses} />
       <Courses navigation={navigation} courses={courses} />
       {(ownProfile !== undefined) ? 
-        <Button
-          mode='contained'
-          style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
-          onPress={editProfile}>
-          Edit profile
-        </Button>
+      <View>
+          <Button
+            mode='contained'
+            style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+            onPress={editProfile}
+          >
+            Edit profile
+          </Button>
+
+          <Button
+            mode='contained'
+            style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+            onPress={changeSubscription}
+          >
+            Change subscription
+          </Button>
+        </View>
         :
         <Button
           mode='contained'
@@ -105,6 +122,13 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           Send message
         </Button>
       }
+
+      <ChangeSubscription
+        subscription={subType}
+        showChangeSub={showChangeSub}
+        setShowChangeSub={setShowChangeSub}
+      />
+
     </View>
   );
 };
