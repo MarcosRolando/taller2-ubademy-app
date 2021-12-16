@@ -1,7 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS} from '../routes';
 import {
   COURSE_MENU, COURSE_MENU_EXAMS,
   COURSE_MENU_EXAMS_CORRECTION,
@@ -25,7 +25,7 @@ import { CreateUpdateCourseScreen,
   ExamScreen, MenuScreen,
   ViewCourseScreen, MenuExamsScreen,
   MenuExamsCorrectionScreen, ExamCorrectionScreen,
-  MenuExamOptionsScreen, ExamCorrectedScreen, MenuStudentsScreen } from './course/Screens';
+  MenuExamOptionsScreen, ExamCorrectedScreen, MenuStudentsScreen, CourseReviewsScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { ChatListScreen, ChatScreen } from './Chats/Screens';
 
@@ -64,6 +64,7 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={COURSE_MENU_EXAMS_CORRECTION} component={MenuExamsCorrectionScreen} />
       <HomeStack.Screen name={COURSE_MENU_EXAM_OPTIONS} component={MenuExamOptionsScreen} />
       <HomeStack.Screen name={COURSE_STUDENTS} component={MenuStudentsScreen} />
+      <HomeStack.Screen name={COURSE_REVIEWS} component={CourseReviewsScreen} />
       <HomeStack.Screen name={EXAM} component={ExamScreen} />
       <HomeStack.Screen name={EXAM_CREATE_UPDATE} component={ExamCreateUpdateScreen} />
       <HomeStack.Screen name={CHAT} component={ChatScreen} />

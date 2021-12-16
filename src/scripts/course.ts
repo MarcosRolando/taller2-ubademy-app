@@ -5,7 +5,9 @@ import { COURSE_SETUP, CREATE_COURSE,
   COURSES, UPDATE_COURSE,
   COURSE_SUBSCRIBE, STUDENTS,
   COURSE_UNSUBSCRIBE, 
-  COURSE_ADD_COLLABORATOR, COURSE_VIEW} from "../endpoints";
+  COURSE_ADD_COLLABORATOR, COURSE_VIEW,
+  COURSE_GRADE,
+  STUDENTS_GRADINGS} from "../endpoints";
 
 export async function getCreateCourseInfo() {
   try {
@@ -217,5 +219,61 @@ export async function postAddCollaborator(
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function postGradeCourse(
+  courseId: string,
+  comment: string,
+  grade: number
+) {
+  console.log("courseId", courseId);
+  console.log("comment", comment);
+  console.log("number", grade)
+  try {
+    const res = await sendAPIrequest(() => axios.post(
+      `${API_URL}${COURSE_GRADE}`, {
+        course_id: courseId,
+        comment: comment,
+        grade: grade
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    console.log(res.data);
+    return Promise.resolve(''); // Ok!
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function getStudentsGradings(
+  courseId: string
+  ) {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+    `${API_URL}${STUDENTS_GRADINGS}${courseId}`, getAxiosConfig()));
+    if (res.data['status'] == 'error') {
+      switch (res.data["message"]) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    console.log(res.data);
+    return Promise.resolve({
+      average: res.data["average"] as number,
+      gradings: res.data["gradings"] as Array<{
+        comment:string,
+        grade: number,
+        student_email: string
+      }>
+    });
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error("Error when trying to reach the server"));
   }
 }
