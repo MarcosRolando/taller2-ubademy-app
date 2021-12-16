@@ -263,7 +263,6 @@ export async function getStudentsGradings(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve({
       average: res.data["average"] as number,
       gradings: res.data["gradings"] as Array<{
