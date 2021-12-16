@@ -58,6 +58,7 @@ const LoginCredentials = (props: any) => {
     // First- obtain access token from Expo's Google API
     const { type, accessToken, user } = await Google.logInAsync({
       androidClientId: '497052014592-tj6ch9eadt8g40e8qd1d20t7t1e4s3g7.apps.googleusercontent.com',
+      androidStandaloneAppClientId: '252066049243-9a40aic3esf3kep54rblgponfctj4mei.apps.googleusercontent.com'
     });
   
     if (type === 'success') {
