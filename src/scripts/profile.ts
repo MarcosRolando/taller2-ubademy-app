@@ -2,7 +2,9 @@ import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { MY_COURSES, PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE,
-  PROFILE_PASSED_COURSES } from "../endpoints";
+  PROFILE_PASSED_COURSES, 
+  SUB_TYPES,
+  SUB_MODIFY} from "../endpoints";
 
 export async function getProfileInfo(email: string) {
   try {
@@ -101,6 +103,45 @@ export async function getPassedCourses() {
     );
   } catch (error) {
     console.log('Error when trying to reach the server');
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function getSubTypes() {
+  try {
+    const res = await sendAPIrequest(() => axios.get(
+      `${API_URL}${SUB_TYPES}`, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    return Promise.resolve(res.data["types"] as Array<string>);
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+
+export async function postModifySub(
+  subscription: string
+) {
+  try {
+    const res = await sendAPIrequest(() => axios.post(
+      `${API_URL}${SUB_MODIFY}`, {
+        new_subscription: subscription,
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    console.log(res.data);
+    return Promise.resolve(''); // Ok!
+  } catch (error) {
+    console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
