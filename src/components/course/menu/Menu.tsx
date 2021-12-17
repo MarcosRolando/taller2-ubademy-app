@@ -6,7 +6,7 @@ import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { postSubscribeToCourse,
+import { getCourseInfo, postSubscribeToCourse,
   postUnsubscribeToCourse } from "../../../scripts/course";
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { getMyCourses } from "../../../scripts/profile";
@@ -21,6 +21,9 @@ const Menu = ({id, navigation}: any) => {
   const [seePortal, setSeePortal] = React.useState(true);
   const [showUnsubscribe, setShowUnsubscribe] = React.useState(false);
   const [showAddCollaborator, setShowAddCollaborator] = React.useState(false);
+
+  const [title, setTitle] = React.useState("");
+  const [subType, setSubType] = React.useState("Free");
 
   const isFocused = useIsFocused();
 
@@ -111,13 +114,23 @@ const Menu = ({id, navigation}: any) => {
         }
       }
     })();
+
+    (async () => {
+      try {
+        const info = await getCourseInfo(id);
+        setTitle(info.title);
+        setSubType(info.subscription_type);
+      } catch (error) {
+        alert(error)
+      }
+    })();
   }, []))
 
   return (
-    <ScrollView>
+    <ScrollView style={{marginHorizontal:wp(2)}}>
       
       <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
-        Menu
+        {title}
       </Title>
 
       <View style={styles.menu}>
@@ -171,7 +184,7 @@ const Menu = ({id, navigation}: any) => {
         <Portal>
           <View style={styles.viewOnFront}>
 
-            <Text>FREE</Text>
+            <Text>{subType}</Text>
 
             <TouchableOpacity
               // TODO: que se avise al baka-back que se subscribió
