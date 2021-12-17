@@ -57,6 +57,7 @@ const ChangeSubscription = ({subscription}: any) => {
   async function pay() {
     try {
       const res = await postPaySub(sub);
+      alert(res.message);
     } catch (error) {
       alert(error);
     }

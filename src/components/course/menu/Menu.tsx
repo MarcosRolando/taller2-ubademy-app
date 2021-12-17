@@ -17,6 +17,7 @@ const Menu = ({id, navigation}: any) => {
   const [canEdit, setCanEdit] = React.useState(false);
   const [canCorrect, setCanCorrect] = React.useState(false);
   const [isProfessor, setIsProfessor] = React.useState(false);
+  const [canSeeExams, setCanSeeExams] = React.useState(false);
 
   const [seePortal, setSeePortal] = React.useState(true);
   const [showUnsubscribe, setShowUnsubscribe] = React.useState(false);
@@ -25,8 +26,6 @@ const Menu = ({id, navigation}: any) => {
   const [title, setTitle] = React.useState("");
   const [subType, setSubType] = React.useState("Free");
   const [cover, setCover] = React.useState(undefined);
-
-  const isFocused = useIsFocused();
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
@@ -93,6 +92,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(false);
           setSeePortal(false);
           setShowUnsubscribe(true);
+          setCanSeeExams(true);
           break;
         }
       }
@@ -102,6 +102,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(true);
           setSeePortal(false);
           setIsProfessor(true);
+          setCanSeeExams(true);
           break;
         }
       }
@@ -111,6 +112,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(true);
           setSeePortal(false);
           setIsProfessor(true);
+          setCanSeeExams(true);
           break;
         }
       }
@@ -151,11 +153,13 @@ const Menu = ({id, navigation}: any) => {
           onPress={goToCourseScreen}
         />
 
-        <List.Item
-          title={"See course's exams"}
-          right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-          onPress={goToExamsScreen}
-        />
+        {canSeeExams ? (
+          <List.Item
+            title={"See course's exams"}
+            right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
+            onPress={goToExamsScreen}
+          />
+        ) : <></>}
 
         {canCorrect ? (
 
