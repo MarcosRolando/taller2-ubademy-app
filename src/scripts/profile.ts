@@ -4,7 +4,8 @@ import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
 import { MY_COURSES, PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE,
   PROFILE_PASSED_COURSES, 
   SUB_TYPES,
-  SUB_MODIFY} from "../endpoints";
+  SUB_MODIFY,
+  SUB_PAY} from "../endpoints";
 
 export async function getProfileInfo(email: string) {
   try {
@@ -16,6 +17,7 @@ export async function getProfileInfo(email: string) {
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    console.log(res.data);
     const data = res.data['profile'];
     return Promise.resolve({
       _name: data['name'],
@@ -139,9 +141,32 @@ export async function postModifySub(
       }
     }
     console.log(res.data);
-    return Promise.resolve(''); // Ok!
+    return Promise.resolve(res.data); // Ok!
   } catch (error) {
     console.log(error);
     return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
+
+export async function postPaySub(
+  subscription: string
+) {
+  try {
+    const res = await sendAPIrequest(() => axios.post(
+      `${API_URL}${SUB_PAY}`, {
+        new_subscription: subscription,
+    }, getAxiosConfig()));
+    if (res.data['status'] === 'error') {
+      switch (res.data['message']) {
+        default:
+          return Promise.reject(new Error(res.data['message']));
+      }
+    }
+    console.log(res.data);
+    return Promise.resolve(res.data); // Ok!
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(new Error('Error when trying to reach the server'));
+  }
+}
+

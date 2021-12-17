@@ -29,6 +29,7 @@ export const COURSE_GRADE = 'grade_course';
 export const STUDENTS_GRADINGS ='student_gradings/';
 export const SUB_TYPES = 'subscription_types';
 export const SUB_MODIFY = 'modify_subscription';
+export const SUB_PAY = 'pay_subscription';
 
 export const SUBSCRIPTION_TYPES = 'subscription_types';
 export const COURSE_GENRES = 'course_genres';

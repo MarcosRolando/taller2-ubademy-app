@@ -28,6 +28,7 @@ export const COURSE_REVIEWS = 'Course reviews';
 // Profile routes
 export const PROFILE_INFO = 'ProfileInfo';
 export const PROFILE_EDITOR = 'ProfileEditor';
+export const SUB_CHANGE= 'Change subscription';
 
 // Exams routes
 export const EXAM = "Exam"

@@ -1,14 +1,14 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS, SUB_CHANGE} from '../routes';
 import {
   COURSE_MENU, COURSE_MENU_EXAMS,
   COURSE_MENU_EXAMS_CORRECTION,
   COURSE_MENU_EXAM_OPTIONS,
   COURSE_STUDENTS
 } from '../routes';
-import {ProfileScreen, UserScreen} from './profile/Screens';
+import {ChangeSubscriptionScreen, ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import colors from '../styles/colors';
@@ -70,6 +70,7 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={CHAT} component={ChatScreen} />
       <HomeStack.Screen name={EXAM_CORRECTION} component={ExamCorrectionScreen} />
       <HomeStack.Screen name={EXAM_CORRECTED} component={ExamCorrectedScreen} />
+      <HomeStack.Screen name={SUB_CHANGE} component={ChangeSubscriptionScreen} />
     </HomeStack.Navigator>
   );
 };

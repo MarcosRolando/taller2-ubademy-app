@@ -7,7 +7,7 @@ import Courses from './Courses';
 import Intro from './Intro';
 import { heightPercentageToDP as hp,
  widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { CHAT, PROFILE_EDITOR } from '../../routes';
+import { CHAT, PROFILE_EDITOR, SUB_CHANGE } from '../../routes';
 import { useFocusEffect } from '@react-navigation/core';
 import Fire from '../../../Fire';
 import { getUserCredentials } from '../../userCredentials';
@@ -65,11 +65,12 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   }, []));
 
   const editProfile = () => {
-    navigation.navigate(PROFILE_EDITOR, { name, location, likedCourses, image })
+    navigation.navigate(PROFILE_EDITOR, { name, location, likedCourses, image });
   }
 
   function changeSubscription() {
-    setShowChangeSub(true);
+    console.log(subType);
+    navigation.navigate(SUB_CHANGE, {subscription: subType});
   }
   
 
@@ -122,12 +123,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           Send message
         </Button>
       }
-
-      <ChangeSubscription
-        subscription={subType}
-        showChangeSub={showChangeSub}
-        setShowChangeSub={setShowChangeSub}
-      />
 
     </View>
   );
