@@ -70,7 +70,6 @@ export async function getCourseInfo(id: string) {
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     const course = res.data['course'];
     return Promise.resolve({
       info_level: res.data['info_level'],
@@ -260,6 +259,7 @@ export async function getStudentsGradings(
           return Promise.reject(new Error(res.data['message']));
       }
     }
+    console.log("data:", res.data);
     return Promise.resolve({
       average: res.data["average"] as number,
       gradings: res.data["gradings"] as Array<{

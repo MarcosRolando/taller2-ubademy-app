@@ -18,7 +18,6 @@ export async function getProfileInfo(email: string) {
       }
     }
     const data = res.data['profile'];
-    console.log(data);
     return Promise.resolve({
       _name: data['name'],
       _email: data['email'],

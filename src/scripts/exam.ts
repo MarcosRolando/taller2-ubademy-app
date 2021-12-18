@@ -191,6 +191,7 @@ export async function getStudentExamCorrected(
     `${API_URL}${COURSES}/${courseId}/${EXAM}/${examName}/completed_exam/${studentEmail}`
     ,getAxiosConfig()));
 
+    console.log(res.data);
     return Promise.resolve(res.data['exam']);
   } catch (error) {
     console.log(error);

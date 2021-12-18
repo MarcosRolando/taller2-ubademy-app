@@ -5,8 +5,6 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 
 const Tags = ({ hashtags }: any) => {
-  console.log("aca estan:")
-  console.log(hashtags);
 
   function renderTags() {
     const tagsToRender = [];

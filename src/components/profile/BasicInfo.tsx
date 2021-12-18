@@ -6,7 +6,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAt, faGlobeAmericas, faStar} from '@fortawesome/free-solid-svg-icons';
 
 const BasicInfo = ({email, location, subType}: any) => {
-  console.log(location);
   return (
     <View >
       <Subheading style={styles.profileSubtitle}>
