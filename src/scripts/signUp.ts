@@ -6,12 +6,14 @@ import {setUserCredentials} from '../userCredentials';
 import {ERROR_EMAIL_USED} from '../apiErrorMessages';
 import Fire from '../../Fire';
 import { setUserProfilePicture } from '../userProfile';
+import { getExpoToken } from '../expoToken';
 
 export async function sendSignupCredentials(email: string, password: string) {
   try {
     const res = await axios.post(`${API_URL}${SIGNUP}`, {
       email: email,
       password: password,
+      expo_token: getExpoToken()
     });
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {

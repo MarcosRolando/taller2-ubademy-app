@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {View} from 'react-native';
+import React, { useEffect } from 'react';
+import {Platform, View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import { heightPercentageToDP as hp, 
   widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -7,6 +7,7 @@ import { Themes } from '../../styles/themes';
 import { sendSignupCredentials } from '../../scripts/signUp';
 import colors from '../../styles/colors';
 import { PROFILE_SETUP } from '../../routes';
+
 
 const SignupCredentials = (props: any) => {
   const [email, setEmail] = React.useState({

@@ -6,6 +6,7 @@ import { getUserProfilePicture } from '../../../userProfile';
 import { Text, View } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import colors from '../../../styles/colors';
+import { sendMessageNotification } from '../../../scripts/chats';
 
 export const Chat = ({ chatId, otherUserEmail }: any) => {
   const [messages, setMessages] = useState([] as Array<any>);
@@ -32,7 +33,10 @@ export const Chat = ({ chatId, otherUserEmail }: any) => {
       </View>
       <GiftedChat
         messages={messages}
-        onSend={(messages) => Fire.sendMessages(messages, chatId)}
+        onSend={(messages) => {
+          Fire.sendMessages(messages, chatId);
+          sendMessageNotification(otherUserEmail, messages[0].text);
+        }}
         user={{
           _id: email,
           avatar: avatar,
