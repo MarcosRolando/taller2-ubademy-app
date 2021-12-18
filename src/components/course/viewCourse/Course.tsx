@@ -2,7 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import { ActivityIndicator, Button, Title, Subheading } from "react-native-paper";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 import { useFocusEffect } from "@react-navigation/native";
@@ -11,7 +10,7 @@ import styles from "../../../styles/styles";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
-import { EXAM_CREATE_UPDATE, CREATE_UPDATE_COURSE } from "../../../routes";
+import { CREATE_UPDATE_COURSE } from "../../../routes";
 
 const Course = ({ id, navigation }: any) => {
 

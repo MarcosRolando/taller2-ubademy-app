@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { Chip, List, Paragraph, TextInput } from "react-native-paper";
+import { View } from "react-native";
+import { Chip, List, TextInput } from "react-native-paper";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const CourseTags = (props : any) => {
@@ -64,12 +64,6 @@ const CourseTags = (props : any) => {
         onChangeText={(value) => setNewTag(value)}
         right={<TextInput.Icon name="pound" onPress={() => addNewTag()}/>}
       />
-
-      {/* <List.Accordion
-        title="Tags"
-        left={props => <List.Icon {...props} icon='pound' />}>
-        {renderSelectableTags()}
-      </List.Accordion> */}
 
     </View>
   );
