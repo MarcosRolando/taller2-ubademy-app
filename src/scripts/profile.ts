@@ -17,7 +17,6 @@ export async function getProfileInfo(email: string) {
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     const data = res.data['profile'];
     return Promise.resolve({
       _name: data['name'],
@@ -140,7 +139,6 @@ export async function postModifySub(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data); // Ok!
   } catch (error) {
     console.log(error);
@@ -162,7 +160,6 @@ export async function postPaySub(
           return Promise.reject(new Error(res.data['message']));
       }
     }
-    console.log(res.data);
     return Promise.resolve(res.data); // Ok!
   } catch (error) {
     console.log(error);

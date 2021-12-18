@@ -36,7 +36,6 @@ const ChangeSubscription = ({subscription}: any) => {
         })
       }
       setSubList(typesAux);
-      console.log(subList);
     })();
   }, [])
 

@@ -69,7 +69,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   }
 
   function changeSubscription() {
-    console.log(subType);
     navigation.navigate(SUB_CHANGE, {subscription: subType});
   }
   

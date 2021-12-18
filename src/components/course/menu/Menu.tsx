@@ -1,14 +1,16 @@
 import React from "react";
 import { ScrollView, View, TouchableOpacity } from "react-native";
-import { Card, List, Title, Button, Portal, Text } from "react-native-paper";
-import { COURSE, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_CORRECTION, COURSE_REVIEWS, COURSE_STUDENTS } from "../../../routes";
+import { ActivityIndicator, Card, List, Title, Button, Portal, Text } from "react-native-paper";
+import { COURSE, COURSE_MENU_EXAMS,
+  COURSE_MENU_EXAMS_CORRECTION, COURSE_REVIEWS,
+  COURSE_STUDENTS } from "../../../routes";
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { getCourseInfo, postSubscribeToCourse,
   postUnsubscribeToCourse } from "../../../scripts/course";
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { getMyCourses } from "../../../scripts/profile";
 import AddCollaborator from "./AddCollaborator";
 
@@ -26,6 +28,9 @@ const Menu = ({id, navigation}: any) => {
   const [title, setTitle] = React.useState("");
   const [subType, setSubType] = React.useState("Free");
   const [cover, setCover] = React.useState(undefined);
+
+  const [loading, setLoading] = React.useState(true);
+
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
@@ -84,6 +89,7 @@ const Menu = ({id, navigation}: any) => {
 
   useFocusEffect(React.useCallback(() => {
     (async () => {
+      try {
       const myCourses = await getMyCourses();
 
       for (let i = 0; i < myCourses.student.length; i++) {
@@ -116,19 +122,28 @@ const Menu = ({id, navigation}: any) => {
           break;
         }
       }
-    })();
 
-    (async () => {
-      try {
-        const info = await getCourseInfo(id);
-        setTitle(info.title);
-        setSubType(info.subscription_type);
-        setCover(info.images[0]);
-      } catch (error) {
-        alert(error)
-      }
+      const info = await getCourseInfo(id);
+      setTitle(info.title);
+      setSubType(info.subscription_type);
+      setCover(info.images[0]);
+
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
+
     })();
   }, []))
+
+  if (loading) {
+    return (
+      <View style={{marginTop: hp(5)}}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.screen}>
@@ -202,7 +217,6 @@ const Menu = ({id, navigation}: any) => {
             <Text>{subType}</Text>
 
             <TouchableOpacity
-              // TODO: que se avise al baka-back que se subscribió
               onPress={() => subscribeToCourse()}
               style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
             >
