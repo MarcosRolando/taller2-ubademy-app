@@ -1,6 +1,8 @@
+// @ts-nocheck
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {View, Image} from 'react-native';
+import * as Notifications from 'expo-notifications';
 import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS} from '../routes';
 import {
   COURSE_MENU, COURSE_MENU_EXAMS,
@@ -74,7 +76,22 @@ const ExploreScreen = ({navigation}: any) => {
   );
 };
 
-const Root = () => {
+const Root = ({ navigation }: any) => {
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log(notification);
+    });
+
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+  }, [])
+
   return (
     <Drawer.Navigator
       drawerContent={CustomDrawerContent}

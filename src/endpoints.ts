@@ -30,4 +30,4 @@ export const STUDENTS_GRADINGS ='student_gradings/'
 
 export const SUBSCRIPTION_TYPES = 'subscription_types';
 export const COURSE_GENRES = 'course_genres';
-export const MESSAGE_NOTIFICATION = 'message_sending';
+export const MESSAGE_NOTIFICATION = 'send_message';

@@ -1,18 +1,18 @@
 // @ts-nocheck
 import 'react-native-gesture-handler'; // DO NOT PUT ANYTHING ABOVE THIS IMPORT, THE DOCUMENTATION SAYS SO!
 import {StatusBar} from 'expo-status-bar';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import { SignupScreen, LoginScreen,
   ProfileSetupScreen } from './src/components/register/Screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP} from './src/routes';
+import {ROOT, LOGIN, SIGNUP, PROFILE_SETUP, CHAT_LIST} from './src/routes';
 import { AppRegistry, LogBox, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import colors from './src/styles/colors';
 import {UbademyTheme, NavigationTheme} from './src/styles/themes';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Root from './src/components/Root';
 import { setExpoToken } from './src/expoToken';
@@ -63,22 +63,10 @@ async function registerForPushNotificationsAsync() {
 
 
 export default function App() {
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
   useEffect(() => {
     (async () => {
-
       const token = await registerForPushNotificationsAsync();
       setExpoToken(token);
-      
-      // // This listener is fired whenever a notification is received while the app is foregrounded
-      // notificationListener.current = Notifications.addNotificationReceivedListener(notification => {});
-      
-      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-        console.log(response);
-      });
 
       return () => {
         Notifications.removeNotificationSubscription(notificationListener.current);

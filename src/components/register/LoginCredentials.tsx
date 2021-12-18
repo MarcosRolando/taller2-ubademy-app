@@ -11,8 +11,6 @@ import { PROFILE_SETUP, ROOT } from '../../routes';
 import colors from '../../styles/colors';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
-import { setAccessToken } from '../../apiWrapper';
-import { setUserCredentials } from '../../userCredentials';
 import * as Google from 'expo-google-app-auth';
 import { GoogleButton } from '../GoogleButton';
 import Fire from '../../../Fire';
