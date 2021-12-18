@@ -1,6 +1,6 @@
 import React from 'react';
 import { View} from 'react-native';
-import { ActivityIndicator, Button } from 'react-native-paper';
+import { ActivityIndicator, Button, Subheading } from 'react-native-paper';
 import { getMyCourses, getPassedCourses, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
@@ -13,6 +13,8 @@ import Fire from '../../../Fire';
 import { getUserCredentials } from '../../userCredentials';
 import Badges from './Badges';
 import ChangeSubscription from './ChangeSubscription';
+import Tags from '../course/menu/Tags';
+import styles from '../../styles/styles';
 
 
 const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
@@ -95,6 +97,12 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
 
       <Badges passedCourses={passedCourses} />
 
+      <Subheading style={{...styles.profileSubtitle, marginBottom:hp(3)}}>
+        Interests
+      </Subheading>
+
+      <Tags hashtags={likedCourses} />
+
       <Courses navigation={navigation} courses={courses} />
 
       {(ownProfile !== undefined) ? 
@@ -118,7 +126,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
         :
         <Button
           mode='contained'
-          style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+          style={{marginVertical: hp(5), marginHorizontal: wp(8)}}
           onPress={sendMessage}>
           Send message
         </Button>
