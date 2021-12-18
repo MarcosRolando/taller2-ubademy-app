@@ -10,12 +10,6 @@ import {faStar} from '@fortawesome/free-solid-svg-icons';
 import { getSubTypes, postModifySub, postPaySub } from "../../scripts/profile";
 import { StyleSheet } from "react-native";
 
-const data = [{
-  label: "Free", value: "Free"
-  }, {
-  label: "Silver", value: "Silver"
-}]
-
 const ChangeSubscription = ({subscription}: any) => {
   const [showSubsList, setShowSubsList] = React.useState(false);
   const [sub, setSub] = React.useState(subscription);
