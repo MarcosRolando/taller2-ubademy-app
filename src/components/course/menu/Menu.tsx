@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, View, TouchableOpacity } from "react-native";
-import { ActivityIndicator, Card, List, Title, Button, Portal, Text } from "react-native-paper";
+import { ActivityIndicator, Card, List, Title, Button, Portal, Text, Paragraph } from "react-native-paper";
 import { COURSE, COURSE_MENU_EXAMS,
   COURSE_MENU_EXAMS_CORRECTION, COURSE_REVIEWS,
   COURSE_STUDENTS } from "../../../routes";
@@ -13,6 +13,7 @@ import { getCourseInfo, postSubscribeToCourse,
 import { useFocusEffect } from '@react-navigation/native';
 import { getMyCourses } from "../../../scripts/profile";
 import AddCollaborator from "./AddCollaborator";
+import Tags from "./Tags";
 
 
 const Menu = ({id, navigation}: any) => {
@@ -26,8 +27,10 @@ const Menu = ({id, navigation}: any) => {
   const [showAddCollaborator, setShowAddCollaborator] = React.useState(false);
 
   const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [subType, setSubType] = React.useState("Free");
   const [cover, setCover] = React.useState(undefined);
+  const [hashtags, setHashtags] = React.useState([] as Array<string>);
 
   const [loading, setLoading] = React.useState(true);
 
@@ -127,6 +130,8 @@ const Menu = ({id, navigation}: any) => {
       setTitle(info.title);
       setSubType(info.subscription_type);
       setCover(info.images[0]);
+      setHashtags(info.hashtags);
+      setDescription(info.description);
 
     } catch (error) {
       alert(error);
@@ -152,7 +157,7 @@ const Menu = ({id, navigation}: any) => {
         {title}
       </Title>
 
-      <View style={{marginTop: hp(2)}}>
+      <View style={{marginTop: hp(2), marginBottom: hp(2)}}>
         <Card>
           <Card.Cover
           source={{uri: cover}}
@@ -160,6 +165,12 @@ const Menu = ({id, navigation}: any) => {
           style={{backgroundColor: colors.background}}/>
         </Card>
       </View>
+
+      <Paragraph style={{marginBottom: hp(2)}}>
+        {description}
+      </Paragraph>
+
+      <Tags hashtags={hashtags}/>
 
       <View style={styles.menu}>
         <List.Item
