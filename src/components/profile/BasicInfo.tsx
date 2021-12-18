@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAt, faGlobeAmericas, faStar} from '@fortawesome/free-solid-svg-icons';
 
 const BasicInfo = ({email, location, subType}: any) => {
+  console.log(location);
   return (
     <View >
       <Subheading style={styles.profileSubtitle}>
@@ -18,13 +19,18 @@ const BasicInfo = ({email, location, subType}: any) => {
           <FontAwesomeIcon color={color} size={size} icon={ faAt } />
         )} />}
       />
-      <List.Item
-        title={location}
-        description="Location"
-        left={(props) => <List.Icon {...props} icon={({size, color}) => (
-          <FontAwesomeIcon color={color} size={size} icon={ faGlobeAmericas } />
-        )} />}
-      />
+
+      {location !== undefined ? (
+        <List.Item
+          title={location}
+          description="Location"
+          left={(props) => <List.Icon {...props} icon={({size, color}) => (
+            <FontAwesomeIcon color={color} size={size} icon={ faGlobeAmericas } />
+          )} />}
+        />
+      ) : <></> }
+
+      {subType !== undefined ? (
       <List.Item
         title={subType}
         description="Tier"
@@ -32,6 +38,8 @@ const BasicInfo = ({email, location, subType}: any) => {
           <FontAwesomeIcon color={color} size={size} icon={ faStar } />
         )} />}
       />
+      ) : <></> }
+
     </View>
   );
 };

@@ -36,10 +36,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   useFocusEffect(React.useCallback(() => { 
     (async () => {
       try {
-        const _courses = await getMyCourses();
-        const _passedCourses = await getPassedCourses();
-        setCourses(_courses);
-        setPassedCourses(_passedCourses);
         if (ownProfile !== undefined) {
           const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
           setName(_name);
@@ -48,6 +44,11 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           setSubType(_subType);
           setImage(_image);
           setLikedCourses(_genres); // TODO mostrarlos aca tambien
+
+          const _courses = await getMyCourses();
+          const _passedCourses = await getPassedCourses();
+          setCourses(_courses);
+          setPassedCourses(_passedCourses);
         } else {
           setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
           setEmail(profileInfo.email);
@@ -89,13 +90,13 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   return (
     <View style={style}>
       <Intro username={name} image={image} />
-      {(ownProfile !== undefined) ? 
-        <BasicInfo email={email} location={location} subType={subType} />
-        :
-        <></>
-      }
+
+      <BasicInfo email={email} location={location} subType={subType} />
+
       <Badges passedCourses={passedCourses} />
+
       <Courses navigation={navigation} courses={courses} />
+
       {(ownProfile !== undefined) ? 
       <View>
           <Button
