@@ -45,7 +45,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           setLocation(_location);
           setSubType(_subType);
           setImage(_image);
-          setLikedCourses(_genres); // TODO mostrarlos aca tambien
+          setLikedCourses(_genres);
 
           const _courses = await getMyCourses();
           const _passedCourses = await getPassedCourses();
@@ -57,7 +57,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           setLocation(profileInfo.location);
           setSubType(profileInfo.subType);
           setImage(profileInfo.image);
-          setLikedCourses(profileInfo.genres); // TODO mostrarlos aca tambien
+          setLikedCourses(profileInfo.genres);
         }
       } catch(error) {
         console.log(error);

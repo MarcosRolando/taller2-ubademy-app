@@ -20,11 +20,9 @@ const CourseList = (props: any) => {
 
   return (
     <View>
-      <Subheading style={{...styles.profileSubtitle, paddingTop: hp(0), marginTop: hp(3), marginBottom: hp(3)}}>
-        Classes
-      </Subheading>
 
       {renderCourses()}
+      
     </View>
   )
 }

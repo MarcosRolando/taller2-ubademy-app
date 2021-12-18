@@ -160,6 +160,8 @@ const Reviews = ({courseId} : any) => {
 
     {renderGradings()}
 
+    <View style={{marginBottom:hp(8)}}/>
+
     </ScrollView>
   )
 }

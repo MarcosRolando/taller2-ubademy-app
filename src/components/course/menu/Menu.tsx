@@ -20,7 +20,7 @@ const Menu = ({id, navigation}: any) => {
   const [canEdit, setCanEdit] = React.useState(false);
   const [canCorrect, setCanCorrect] = React.useState(false);
   const [isProfessor, setIsProfessor] = React.useState(false);
-  const [canSeeExams, setCanSeeExams] = React.useState(false);
+  const [canSeeContent, setCanSeeContent] = React.useState(false);
 
   const [seePortal, setSeePortal] = React.useState(true);
   const [showUnsubscribe, setShowUnsubscribe] = React.useState(false);
@@ -101,7 +101,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(false);
           setSeePortal(false);
           setShowUnsubscribe(true);
-          setCanSeeExams(true);
+          setCanSeeContent(true);
           break;
         }
       }
@@ -111,7 +111,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(true);
           setSeePortal(false);
           setIsProfessor(true);
-          setCanSeeExams(true);
+          setCanSeeContent(true);
           break;
         }
       }
@@ -121,7 +121,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(true);
           setSeePortal(false);
           setIsProfessor(true);
-          setCanSeeExams(true);
+          setCanSeeContent(true);
           break;
         }
       }
@@ -173,18 +173,22 @@ const Menu = ({id, navigation}: any) => {
       <Tags hashtags={hashtags}/>
 
       <View style={styles.menu}>
-        <List.Item
-          title={"See course"}
-          right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-          onPress={goToCourseScreen}
-        />
+      {canSeeContent ? (
+        <View>
 
-        {canSeeExams ? (
+          <List.Item
+            title={"See course"}
+            right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
+            onPress={goToCourseScreen}
+          />
+
           <List.Item
             title={"See course's exams"}
             right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
             onPress={goToExamsScreen}
           />
+
+        </View>
         ) : <></>}
 
         {canCorrect ? (
