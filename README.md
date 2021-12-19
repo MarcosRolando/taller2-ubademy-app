@@ -26,7 +26,7 @@ Si todavía no se dispone de una cuenta, se debe tocar el botón inferior "Sign 
 Si por primera vez se toca la huella digital a la derecha del botón "Login" y se inicia sesión será posible realizar inicios de sesión a la cuenta de Ubademy utilizando únicamente la huella digital.
 
 <p align="center">
-  <img src="./../taller2-ubademy-app/docs/images/login01.jpeg">
+  <img src="./docs/images/login01.jpeg">
 </p>
 
 ## Registrarse
@@ -36,7 +36,7 @@ Si por primera vez se toca la huella digital a la derecha del botón "Login" y s
 Para poder registrarse se debe ingresar un mail válido y una contraseña de al menos seis carácteres. Se debe ingresar la misma contraseña en los dos últimos campos.
 
 <p align="center">
-  <img src="./../taller2-ubademy-app/docs/images/signin01.jpeg">
+  <img src="./docs/images/signin01.jpeg">
 </p>
 
 ### Registro con Google
@@ -119,8 +119,13 @@ También, de momento existen las siguientes formas de clasificar un curso:
 
 La pantalla principal de un curso consiste en su nombre, su imagen de portada, su información y opciones cuya visualización dependen de quién sea el usuario.
 
-* See course: 
-* 
+* See course: pantalla con las imágenes y los videos (Accesible para: estudiantes, creador y colaboradores)
+* See course's exams: lista con todos los exámenes disponibles en el curso (Accesible para: estudiantes, creador y colaboradores)
+* See students' exams: lista de todos los exámenes realizados por estudiantes (Accesible para: creador y colaboradores)
+* Add collaborator: permite agregar un colaborador al curso. (Accesible para: creador)
+* See students: lista de todos los estudiantes subscriptos. (Accesible: creador)
+* See reviews: reviews del curso. (Accesible: todos)
+(Accesible: estudiantes, creador y colaboradores)
 
 ### Inscripción a curso
 
