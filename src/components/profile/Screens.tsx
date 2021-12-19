@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { PROFILE_EDITOR, PROFILE_INFO } from '../../routes';
 import styles from '../../styles/styles';
+import ChangeSubscription from './ChangeSubscription';
 import Profile from './Profile';
 import ProfileEditor from './profileEditor/ProfileEditor';
 
@@ -53,3 +54,15 @@ export const UserScreen = ({route, navigation}: any) => {
     </View>
   );
 };
+
+export const ChangeSubscriptionScreen = ({route, navigation}: any) => {
+  const { subscription } = route.params;
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ChangeSubscription subscription={subscription} navigation={navigation} />
+      </ScrollView>
+    </View>
+  );
+}

@@ -84,6 +84,9 @@ const styles = StyleSheet.create({
   searchbar: {
     marginHorizontal: wp(4),
     marginVertical: wp(3),
+  },
+  screen: {
+    marginHorizontal:wp(2)
   }
 });
 

@@ -1,17 +1,20 @@
 import React from 'react';
 import { View} from 'react-native';
-import { ActivityIndicator, Button } from 'react-native-paper';
+import { ActivityIndicator, Button, Subheading } from 'react-native-paper';
 import { getMyCourses, getPassedCourses, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
 import Intro from './Intro';
 import { heightPercentageToDP as hp,
  widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { CHAT, PROFILE_EDITOR } from '../../routes';
+import { CHAT, PROFILE_EDITOR, SUB_CHANGE } from '../../routes';
 import { useFocusEffect } from '@react-navigation/core';
 import Fire from '../../../Fire';
 import { getUserCredentials } from '../../userCredentials';
 import Badges from './Badges';
+import ChangeSubscription from './ChangeSubscription';
+import Tags from '../course/menu/Tags';
+import styles from '../../styles/styles';
 
 
 const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
@@ -24,7 +27,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [loading, setLoading] = React.useState(true);
   const [passedCourses, setPassedCourses] =
     React.useState([] as Array<{creator_email: string, title: string}>)
-
+  const [showChangeSub, setShowChangeSub] = React.useState(false);
 
   const [courses, setCourses] = React.useState({
     student: [] as Array<any>,
@@ -35,10 +38,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   useFocusEffect(React.useCallback(() => { 
     (async () => {
       try {
-        const _courses = await getMyCourses();
-        const _passedCourses = await getPassedCourses();
-        setCourses(_courses);
-        setPassedCourses(_passedCourses);
         if (ownProfile !== undefined) {
           const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
           setName(_name);
@@ -46,14 +45,19 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           setLocation(_location);
           setSubType(_subType);
           setImage(_image);
-          setLikedCourses(_genres); // TODO mostrarlos aca tambien
+          setLikedCourses(_genres);
+
+          const _courses = await getMyCourses();
+          const _passedCourses = await getPassedCourses();
+          setCourses(_courses);
+          setPassedCourses(_passedCourses);
         } else {
           setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
           setEmail(profileInfo.email);
           setLocation(profileInfo.location);
           setSubType(profileInfo.subType);
           setImage(profileInfo.image);
-          setLikedCourses(profileInfo.genres); // TODO mostrarlos aca tambien
+          setLikedCourses(profileInfo.genres);
         }
       } catch(error) {
         console.log(error);
@@ -64,8 +68,13 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   }, []));
 
   const editProfile = () => {
-    navigation.navigate(PROFILE_EDITOR, { name, location, likedCourses, image })
+    navigation.navigate(PROFILE_EDITOR, { name, location, likedCourses, image });
   }
+
+  function changeSubscription() {
+    navigation.navigate(SUB_CHANGE, {subscription: subType});
+  }
+  
 
   const sendMessage = async () => {
     const chatId = await Fire.getOrCreateChat(profileInfo.email, profileInfo.image);
@@ -83,28 +92,46 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   return (
     <View style={style}>
       <Intro username={name} image={image} />
-      {(ownProfile !== undefined) ? 
-        <BasicInfo email={email} location={location} subType={subType} />
-        :
-        <></>
-      }
+
+      <BasicInfo email={email} location={location} subType={subType} />
+
       <Badges passedCourses={passedCourses} />
+
+      <Subheading style={{...styles.profileSubtitle, marginBottom:hp(3)}}>
+        Interests
+      </Subheading>
+
+      <Tags hashtags={likedCourses} />
+
       <Courses navigation={navigation} courses={courses} />
+
       {(ownProfile !== undefined) ? 
-        <Button
-          mode='contained'
-          style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
-          onPress={editProfile}>
-          Edit profile
-        </Button>
+      <View>
+          <Button
+            mode='contained'
+            style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+            onPress={editProfile}
+          >
+            Edit profile
+          </Button>
+
+          <Button
+            mode='contained'
+            style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+            onPress={changeSubscription}
+          >
+            Change subscription
+          </Button>
+        </View>
         :
         <Button
           mode='contained'
-          style={{marginVertical: hp(2), marginHorizontal: wp(8)}}
+          style={{marginVertical: hp(5), marginHorizontal: wp(8)}}
           onPress={sendMessage}>
           Send message
         </Button>
       }
+
     </View>
   );
 };

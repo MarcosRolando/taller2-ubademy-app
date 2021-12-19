@@ -1,11 +1,19 @@
 import React from "react";
 import { View } from "react-native";
-import { Chip, List } from "react-native-paper";
+import { Chip, List, TextInput } from "react-native-paper";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const CourseTags = (props : any) => {
   const [courseTags, setCourseTags] = [props.courseTags, props.setCourseTags];
+  const [newTag, setNewTag] = React.useState("");
   const tags = props.tags;
+
+  function addNewTag() {
+    if (!courseTags.includes(newTag)) {
+      setCourseTags([...courseTags, newTag]);
+    }
+    setNewTag("");
+  }
 
   function renderTags() {
     const tagsToRender = [];
@@ -49,11 +57,13 @@ const CourseTags = (props : any) => {
         {renderTags()}
       </View>
 
-      <List.Accordion
-        title="Tags"
-        left={props => <List.Icon {...props} icon='pound' />}>
-        {renderSelectableTags()}
-      </List.Accordion>
+      <TextInput
+        label="Add tag"
+        mode="outlined"
+        value={newTag}
+        onChangeText={(value) => setNewTag(value)}
+        right={<TextInput.Icon name="pound" onPress={() => addNewTag()}/>}
+      />
 
     </View>
   );

@@ -1,28 +1,39 @@
 import React from "react";
 import { ScrollView, View, TouchableOpacity } from "react-native";
-import { List, Title, Button, Portal, Text } from "react-native-paper";
-import { COURSE, COURSE_MENU_EXAMS, COURSE_MENU_EXAMS_CORRECTION, COURSE_REVIEWS, COURSE_STUDENTS } from "../../../routes";
+import { ActivityIndicator, Card, List, Title, Button, Portal, Text, Paragraph } from "react-native-paper";
+import { COURSE, COURSE_MENU_EXAMS,
+  COURSE_MENU_EXAMS_CORRECTION, COURSE_REVIEWS,
+  COURSE_STUDENTS } from "../../../routes";
 import styles from "../../../styles/styles";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import colors from "../../../styles/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { postSubscribeToCourse,
+import { getCourseInfo, postSubscribeToCourse,
   postUnsubscribeToCourse } from "../../../scripts/course";
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { getMyCourses } from "../../../scripts/profile";
 import AddCollaborator from "./AddCollaborator";
+import Tags from "./Tags";
 
 
 const Menu = ({id, navigation}: any) => {
   const [canEdit, setCanEdit] = React.useState(false);
   const [canCorrect, setCanCorrect] = React.useState(false);
   const [isProfessor, setIsProfessor] = React.useState(false);
+  const [canSeeContent, setCanSeeContent] = React.useState(false);
 
   const [seePortal, setSeePortal] = React.useState(true);
   const [showUnsubscribe, setShowUnsubscribe] = React.useState(false);
   const [showAddCollaborator, setShowAddCollaborator] = React.useState(false);
 
-  const isFocused = useIsFocused();
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [subType, setSubType] = React.useState("Free");
+  const [cover, setCover] = React.useState(undefined);
+  const [hashtags, setHashtags] = React.useState([] as Array<string>);
+
+  const [loading, setLoading] = React.useState(true);
+
 
   function goToCourseScreen() {
     navigation.navigate(COURSE, {id: id});
@@ -81,6 +92,7 @@ const Menu = ({id, navigation}: any) => {
 
   useFocusEffect(React.useCallback(() => {
     (async () => {
+      try {
       const myCourses = await getMyCourses();
 
       for (let i = 0; i < myCourses.student.length; i++) {
@@ -89,6 +101,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(false);
           setSeePortal(false);
           setShowUnsubscribe(true);
+          setCanSeeContent(true);
           break;
         }
       }
@@ -98,6 +111,7 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(true);
           setSeePortal(false);
           setIsProfessor(true);
+          setCanSeeContent(true);
           break;
         }
       }
@@ -107,31 +121,75 @@ const Menu = ({id, navigation}: any) => {
           setCanCorrect(true);
           setSeePortal(false);
           setIsProfessor(true);
+          setCanSeeContent(true);
           break;
         }
       }
+
+      const info = await getCourseInfo(id);
+      setTitle(info.title);
+      setSubType(info.subscription_type);
+      setCover(info.images[0]);
+      setHashtags(info.hashtags);
+      setDescription(info.description);
+
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
+
     })();
   }, []))
 
+  if (loading) {
+    return (
+      <View style={{marginTop: hp(5)}}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
+
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       
       <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
-        Menu
+        {title}
       </Title>
 
-      <View style={styles.menu}>
-        <List.Item
-          title={"See course"}
-          right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-          onPress={goToCourseScreen}
-        />
+      <View style={{marginTop: hp(2), marginBottom: hp(2)}}>
+        <Card>
+          <Card.Cover
+          source={{uri: cover}}
+          resizeMode={'contain'}
+          style={{backgroundColor: colors.background}}/>
+        </Card>
+      </View>
 
-        <List.Item
-          title={"See course's exams"}
-          right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-          onPress={goToExamsScreen}
-        />
+      <Paragraph style={{marginBottom: hp(2)}}>
+        {description}
+      </Paragraph>
+
+      <Tags hashtags={hashtags}/>
+
+      <View style={styles.menu}>
+      {canSeeContent ? (
+        <View>
+
+          <List.Item
+            title={"See course"}
+            right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
+            onPress={goToCourseScreen}
+          />
+
+          <List.Item
+            title={"See course's exams"}
+            right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
+            onPress={goToExamsScreen}
+          />
+
+        </View>
+        ) : <></>}
 
         {canCorrect ? (
 
@@ -171,10 +229,9 @@ const Menu = ({id, navigation}: any) => {
         <Portal>
           <View style={styles.viewOnFront}>
 
-            <Text>FREE</Text>
+            <Text>{subType}</Text>
 
             <TouchableOpacity
-              // TODO: que se avise al baka-back que se subscribió
               onPress={() => subscribeToCourse()}
               style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
             >

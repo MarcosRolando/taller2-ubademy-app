@@ -1,16 +1,16 @@
 import React from "react";
 import { View } from "react-native";
-import { ActivityIndicator, Button } from "react-native-paper";
+import { ActivityIndicator, Button, Title, Subheading } from "react-native-paper";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import BasicInfo from "./BasicInfo";
 import CourseList from "./CourseList";
 import Gallery from "./Gallery/Gallery";
 import { useFocusEffect } from "@react-navigation/native";
 import { getMyCourses } from "../../../scripts/profile";
+import styles from "../../../styles/styles";
 
 import { getCourseInfo } from "../../../scripts/course";
 import { getUserCredentials } from "../../../userCredentials";
-import { EXAM_CREATE_UPDATE, CREATE_UPDATE_COURSE } from "../../../routes";
+import { CREATE_UPDATE_COURSE } from "../../../routes";
 
 const Course = ({ id, navigation }: any) => {
 
@@ -135,18 +135,34 @@ const Course = ({ id, navigation }: any) => {
 
   return (
     <View style={{paddingHorizontal: wp(3)}}>
-      <View>
-        <BasicInfo info={info} cover={info.cover}/>
-      </View>
+
+      <Title style={{...styles.profileTitle, marginTop:hp(-5)}}>
+        Classes
+      </Title>
 
       {(showVideo && isSubscribed) ? (
-        <CourseList info={info}/>
+        <View style={{marginHorizontal:wp(2)}}>
+
+          <Subheading style={styles.profileSubtitle}>
+            Videos:
+          </Subheading>
+
+          <CourseList info={info}/>
+
+        </View>
         ) : <></> }
 
-      <View style={{marginBottom: hp(3)}}></View>
 
       {(showImages && isSubscribed) ? (
-        <Gallery info={info} />
+        <View style={{marginHorizontal:wp(2)}}>
+
+          <Subheading style={{...styles.profileSubtitle, marginBottom: hp(3)}}>
+            Images:
+          </Subheading>
+          
+          <Gallery info={info} />
+
+        </View>
         ) : <></> }
 
       {isCreator ? (

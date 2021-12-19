@@ -28,7 +28,9 @@ const Reviews = ({courseId} : any) => {
     (async () => {
       try {
         const gradings = await getStudentsGradings(courseId);
-        setCourseGrading(gradings.average);
+        if (gradings.average !== undefined) {
+          setCourseGrading(gradings.average);
+        }
         setGradingsList(gradings.gradings);
         setAlreadyReviewed(alreadyLeftAReview());
       } catch (error) {
@@ -159,6 +161,8 @@ const Reviews = ({courseId} : any) => {
       </Button>
 
     {renderGradings()}
+
+    <View style={{marginBottom:hp(8)}}/>
 
     </ScrollView>
   )
