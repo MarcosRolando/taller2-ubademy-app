@@ -45,6 +45,8 @@ Para poder registrarse con una cuenta de Google, se debe tocar el botón de "Sig
 
 Si se desea volver a la pantalla de inicio de sesión, se debe tocar el botón de "Log in".
 
+Un usuario apenas registrado posee como tipo de subscripción inicial "Free". Para cambiarla, ir a la sección "Modificación de subscripción".
+
 ## Pantalla de inicio y menú lateral
 
 En un inicio de sesión o un registro exitoso, el usuario será dirigido a la pantalla de inicio.
@@ -71,7 +73,18 @@ Al ingresar a la pantalla del perfil se mostraran los datos del usuario.
 * Datos privados: ubicación, tipo de subscripción, cursos.
 * Datos públicos: email, nombre, imagen de perfil, intereses.
 
+Los cursos mostrados están divididos en:
+
+* Student: cursos donde el usuario se encuentra subscripto como estudiante.
+* Collaborator: cursos donde el usuario fue registrado como colaborador del curso.
+* Creator: cursos creados por el usuario.
+
 <!-- IMAGEN PERFIL PROPIO -->
+
+En caso de haber finalizado un curso, si se desea obtener un certificado de curso aprobado se puede tocar la badge. Se abrirá un menú de opciones donde se podrá indicar cómo se desea compartir el certificado.
+
+<!-- IMAGEN DE BADGES -->
+
 
 El botón de "Edit profile" lleva a la pantalla donde se puede editar el perfil.
 
@@ -98,6 +111,12 @@ Si se elige una subscripción de un tier mayor a la actual, se mostrará por pan
 Para realizar una búsqueda de curso, existen las opciones de filtrar por categoría y por tipo de subscripción. Se debe seleccionar alguno de estos filtros y tocar el ícono de la lupa para realizar la búsqueda.
 
 <!-- IMAGEN BUSQUEDA POR CATEGORIAS -->
+
+### Búsqueda de usuarios
+
+Para buscar un usuario, se debe escribir un mail en la barra de búsqueda y tocar el ícono de la lupa. Esta acción nos llevará automáticamente al perfil de ese usuario, donde sólo se podrá ver la información pública del mismo.
+
+<!-- IMAGEN BUSQUEDA POR USUARIOS -->
 
 ## Cursos
 
@@ -155,6 +174,105 @@ Será posible editar el curso una vez creado. Esto sólo puede ser realizado por
 
 ### Edición de curso
 
-Para editar un curso se debe ingresar al curso 
+Para editar un curso se debe ingresar al curso y la sección de "See course". Debajo de todo, se debe tocar el botón "Edit Course".
+
+Se abrirá una pantalla donde se podrá editar la imagen de portada, la descripción, el tipo del curso, etc. También se puede agregar o eliminar imágenes y videos.
+
+Cuando se desee finalizar con la edición se debe tocar "Update course". En caso que se desee descartar los cambios basta con volver a la anterior pantalla.
+
+<!-- IMAGEN CURSO EDITAR -->
 
 ### Alta de colaborador
+
+Para poder agregar un colaborador se debe tocar el botón "Add collaborator" que abrirá una ventana. Se debe escribir en el campo el mail del usuario que se desea agregar como colaborador y presionar aceptar. En caso contrario, se debe precionar cancelar.
+
+Agregar un colaborador a un curso es una acción sólo realizable por el creador del curso.
+
+<!-- IMAGEN CURSO ADD COLLABORATOR -->
+
+### Visualizar el contenido del curso
+
+El contenido dispuesto por el creador se encuentra en la sección "See course".
+
+El contenido disponible consiste en:
+
+* Videos: al seleccionar un video se reproducirá automáticamente.
+* Imágenes: se puede explorar la galería de imágenes deslizando el dedo sobre la misma. Se puede realizar zoom tocando la lupa con el símbolo más sobre la imagen y salir de la pantalla de zoom tocando la lupa con el símbolo menos o deslizando la imagen hacia abajo.
+
+<!-- IMAGEN CURSO -->
+
+
+### Listado de alumnos
+
+Pantalla donde se ve todos los alumnos subscriptos al curso. Permite filtrar por examen rendido.
+
+<!-- IMAGEN LISTADO ALUMNOS -->
+
+### Listado de exámenes
+
+Pantalla donde se ven todos los exámenes rendidos por los alumnos. Se puede filtrar por corregido, no corregido o no filtrar.
+
+<!-- IMAGEN LISTADO EXAMENES -->
+
+
+### Reviews del curso
+
+Pantalla donde se pueden ver los reviews del curso o dejar un review.
+
+Para dejar un review se debe escribir uno en el campo indicado por "Leave a review", seleccionar la cantidad de estrellas con las cuales se califica el curso y una vez finalizado presionar "Send review".
+
+En caso de que ya se haya dejado un review, no se podrá volver a dejar uno o editar el que ya fue publicado.
+
+<!-- IMAGEN REVIEWS -->
+
+## Exámenes
+
+### Creación de examen
+
+Para crear un examen se debe ingresar al curso y luego ingresar a la sección "See course's exams". En esa pantalla, se debe tocar el botón "Add exam" al final.
+
+Se abrirá una nueva pantalla con el campo para indicar el nombre del examen y distintos botones:
+
+* Add question: agregar una pregunta al examen para que los alumnos puedan contestarla.
+* Create: finalizar la creación del examen.
+* Go back: volver para atrás. Se perderán todos los cambios.
+
+Si se desea eliminar una pregunta, se debe tocar la x en el extremo de la misma.
+
+Una vez creado un examen, para que los alumnos puedan verlo y completarlo, es necesario publicarlo. Para publicar un examen, se debe ir a "See course's exams", seleccionar el examen que se desea publicar y tocar el botón "Publish". Una vez publicado, no podrá ser editado.
+
+El examen no podrá ser creado si no tiene nombre o preguntas.
+
+<!-- IMAGEN CREACION -->
+
+### Edición de examen
+
+Para editar un examen, es requisito que este no haya sido todavía publicado.
+
+Para editar un examen, se debe ir a "See course's exams", seleccionar el examen que se desea editar y tocar el botón "Edit".
+
+La pantalla funcionará igual que la de creación, además, aparecerán el nombre y las preguntas que contenía el examen.
+
+<!-- IMAGEN DE EDICION -->
+
+### Corrección de examen
+
+Si se desea corregir un examen, se debe ir la sección "See students' exams". Se debe seleccionar el examen que se desea corregir. Se da la opción de dejar comentarios para cada pregunta y se debe mandar una calificación numérica entre uno y diez.
+
+Los exámenes pueden ser filtrados según si se corrigieron, si no se corrigieron o ver todos.
+
+<!-- IMAGEN DE CORRECCION -->
+
+
+### Completar examen
+
+Si se es estudiante y se desea completar un examen, se debe ingresar en el curso a "See course's exams". Allí se listarán todos los exámenes que se pueden realizar.
+
+Si se selecciona un examen, se irá a una pantalla con las opciones.
+
+* Do exam: esta opción lleva a una pantalla con las preguntas del examen. Para completarlo, se debe tocar los campos y escribir una respuesta. Para enviarlo, se debe tocar el botón "Send".
+* See corrections: aquí se mostraran las correcciones del examen y la nota.
+
+Si la calificación es 4 o menos, se podrá volver a realizar el examen. En caso contrario, no se podrá volver a realizarlo.
+
+<!-- IMAGEN DE COMPLETAR -->
