@@ -9,7 +9,8 @@ import { getExamQuestions,
 } from "../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 import styles from "../../../styles/styles";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp,
+widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { getUserCredentials } from "../../../userCredentials";
 
 
@@ -97,8 +98,8 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
     const questionsToRender = [];
     for (let i = 0; i < questions.length; i++) {
       questionsToRender.push(
-        <View key={i}>
-          <Subheading>
+        <View key={i} style={{marginBottom: hp(4)}}>
+          <Subheading style={{fontWeight: "bold", fontSize: wp(5), marginBottom: hp(2), color:colors.second}}>
             {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
@@ -127,7 +128,7 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
     <ScrollView style={styles.screen}>
       <SafeAreaView>
 
-        <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
+        <Title style={{...styles.profileTitle, paddingTop: hp(2), marginBottom: hp(2)}}>
           {title}
         </Title>
 
