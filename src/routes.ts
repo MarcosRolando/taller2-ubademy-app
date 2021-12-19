@@ -2,6 +2,7 @@
 export const LOGIN = 'Login';
 export const SIGNUP = 'Signup';
 export const PROFILE_SETUP = 'ProfileSetup';
+export const LOGOUT = 'LogOut';
 
 // Root route, after logging in
 export const ROOT = 'Root';
