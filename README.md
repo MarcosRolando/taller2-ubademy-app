@@ -17,23 +17,27 @@ Un texto para probar editar la pagina
 
 Si se dispone de una cuenta en Ubademy, para ingresar a la aplicación se debe escribir el mail y la contraseña con las cuales se registraron a la app y tocar el botón de "Login".
 
-Si se registró a la aplicación con una cuenta de Google, se debe tocar el botón de "Sign in with Google" y seleccionar la cuenta que se desea utilizar.
+<p align="center">
+  <img src="./docs/images/login02.png">
+</p>
 
-Si todavía no se dispone de una cuenta, se debe tocar el botón inferior "Sign up" para registrarse de forma normal o "Sign in with Google" para registrarse con una cuenta de Google.
+### Login con Google:
+
+Si se registró a la aplicación con una cuenta de Google, se debe tocar el botón de "Sign in with Google" y seleccionar la cuenta que se desea utilizar.
 
 ### Login con con datos biométricos:
 
 Si por primera vez se toca la huella digital a la derecha del botón "Login" y se inicia sesión será posible realizar inicios de sesión a la cuenta de Ubademy utilizando únicamente la huella digital.
 
-<p align="center">
-  <img src="./docs/images/login01.jpeg">
-</p>
+Si todavía no se dispone de una cuenta, se debe tocar el botón inferior "Sign up" para registrarse de forma normal o "Sign in with Google" para registrarse con una cuenta de Google.
 
 ## Registrarse
 
 ### Registro normal
 
 Para poder registrarse se debe ingresar un mail válido y una contraseña de al menos seis carácteres. Se debe ingresar la misma contraseña en los dos últimos campos.
+
+Una vez registrado, se debe ingresar el nombre que se desea mostrar en el perfil de usuario, la ubicación y los intereses. Esta información podrá ser editada en cualquier momento (ver Edición de Perfil).
 
 <p align="center">
   <img src="./docs/images/signin01.png">
