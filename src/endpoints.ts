@@ -33,3 +33,4 @@ export const SUB_PAY = 'pay_subscription';
 
 export const SUBSCRIPTION_TYPES = 'subscription_types';
 export const COURSE_GENRES = 'course_genres';
+export const MESSAGE_NOTIFICATION = 'send_message';
