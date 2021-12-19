@@ -62,3 +62,94 @@ El menú lateral se accede tocando el ícono en la esquina superior izquierda. L
 
 <!-- IMAGEN MENÚ LATERAL -->
 
+## Perfil
+
+### Visualización de perfil
+
+Al ingresar a la pantalla del perfil se mostraran los datos del usuario.
+
+* Datos privados: ubicación, tipo de subscripción, cursos.
+* Datos públicos: email, nombre, imagen de perfil, intereses.
+
+<!-- IMAGEN PERFIL PROPIO -->
+
+El botón de "Edit profile" lleva a la pantalla donde se puede editar el perfil.
+
+El botón de "Change subscription" lleva a la pantalla donde se puede cambiar la subscripción.
+
+### Edición de perfil
+
+Para editar el perfil, se puede modificar los campos, la imagen y seleccionar nuevos intereses entre las opciones o eliminarlos. Si se desea guardar los cambios, se debe tocar el botón "Save profile". En caso contrario, basta con regresar a la anterior pantalla y los cambios serán borrados.
+
+<!-- IMAGEN EDICIÓN PERFIL -->
+
+### Modificación de subscripción
+
+Para modificar la subscripción se debe seleccionar de la lista de opciones.
+
+Si se elige una subscripción de un tier menor a la actual, no se debe pagar y el cambio será automático.
+
+Si se elige una subscripción de un tier mayor a la actual, se mostrará por pantalla el monto que se debe pagar para cambiar la subscripción. Si se selecciona el botón "Pay" se realizará la transacción y el monto indicado se descontará de la billetera. En el caso contrario, se cancelará el cambio de subscripción y no se descontará el dinero.
+
+## Búsquedas
+
+### Búsqueda de curso por categorias y subscripción
+
+Para realizar una búsqueda de curso, existen las opciones de filtrar por categoría y por tipo de subscripción. Se debe seleccionar alguno de estos filtros y tocar el ícono de la lupa para realizar la búsqueda.
+
+<!-- IMAGEN BUSQUEDA POR CATEGORIAS -->
+
+## Cursos
+
+Los cursos tienen distintos niveles de subscripción:
+* Free
+* Silver
+* Golden
+* Platinum
+
+También, de momento existen las siguientes formas de clasificar un curso:
+* Programming
+* Art
+* Music
+* Math
+* Chemestry
+* Physics
+
+### Pantalla principal del curso
+
+La pantalla principal de un curso consiste en su nombre, su imagen de portada, su información y opciones cuya visualización dependen de quién sea el usuario.
+
+* See course: 
+* 
+
+### Inscripción a curso
+
+Para inscribirse a un curso se debe tocar el botón inferior "Subscribe".
+
+Para que la subscripción sea aceptada, la inscripción del usuario debe ser igual o menor a la indicada en el curso junto al botón. Si se desea inscribirse a un curso con una subscripción mayor, primero se debe incrementar la subscripción.
+
+<!-- IMAGEN CURSO MENU -->
+
+### Desinscripción a curso
+
+Para desinscribirse del curso se debe tocar el botón "Unsubscribe".
+
+Si el usuario se desinscribe del curso, los exámenes realizados serán considerados y en caso de volver a inscribirse, no será necesario que los vuelva a realizar si se encuentran aprobados.
+
+<!-- IMAGEN CURSO MENU -->
+
+### Creación de curso
+
+Para crear un curso se debe seleccionar el ícono "Create a course" en el menú lateral. 
+
+Para que se pueda crear el curso, es necesario llenar todos los campos. Agregar tags, imágenes y videos es opcional.
+
+Cuando se desee crear el curso se debe tocar el botón "Create Course".
+
+Será posible editar el curso una vez creado. Esto sólo puede ser realizado por un creador.
+
+### Edición de curso
+
+Para editar un curso se debe ingresar al curso 
+
+### Alta de colaborador
