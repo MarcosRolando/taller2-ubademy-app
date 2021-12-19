@@ -1,7 +1,10 @@
+// @ts-nocheck
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {View, Image} from 'react-native';
 import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS, SUB_CHANGE} from '../routes';
+import Fire from '../../Fire';
+import * as Notifications from 'expo-notifications';
 import {
   COURSE_MENU, COURSE_MENU_EXAMS,
   COURSE_MENU_EXAMS_CORRECTION,
@@ -75,7 +78,21 @@ const ExploreScreen = ({navigation}: any) => {
   );
 };
 
-const Root = () => {
+const Root = ({ navigation }: any) => {
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    (async () => {
+      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(async response => {
+        let otherUserEmail = response.notification.request.content.title.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/)[0];
+        let chatId = await Fire.getOrCreateChat(otherUserEmail, '');
+        navigation.navigate(CHAT, { chatId, otherUserEmail })
+      });
+    })();
+  }, [])
+
   return (
     <Drawer.Navigator
       drawerContent={CustomDrawerContent}

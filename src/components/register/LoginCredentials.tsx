@@ -11,8 +11,6 @@ import { PROFILE_SETUP, ROOT } from '../../routes';
 import colors from '../../styles/colors';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
-import { setAccessToken } from '../../apiWrapper';
-import { setUserCredentials } from '../../userCredentials';
 import * as Google from 'expo-google-app-auth';
 import { GoogleButton } from '../GoogleButton';
 import Fire from '../../../Fire';
@@ -29,7 +27,6 @@ const LoginCredentials = (props: any) => {
   });
   const [loading, setLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
-  const [registerFingerprint, setRegisterFingerprint] = React.useState(false);
 
   async function sendCredentials() {
     if (!email.value.trim()) {
@@ -43,7 +40,7 @@ const LoginCredentials = (props: any) => {
       return;
     }
     setLoading(true);
-    sendLoginCredentials(email.value, password.value, registerFingerprint)
+    sendLoginCredentials(email.value, password.value)
       .then(() => {
         setErrorMessage('');
         props.navigation.navigate(ROOT);
@@ -82,21 +79,18 @@ const LoginCredentials = (props: any) => {
     try {
       const response = await LocalAuthentication.authenticateAsync();
       if (!response.success) return;
-      const jwt = await SecureStore.getItemAsync('ubademy-biometric-jwt');
-      if (jwt !== null) {
-        setAccessToken(jwt);
-        const email = String(await SecureStore.getItemAsync('ubademy-email'));
-        const password = String(await SecureStore.getItemAsync('ubademy-password'));
-        setUserCredentials(email, password);
-        await Fire.login(email, password);
-        setErrorMessage('');
-        props.navigation.navigate(ROOT);
-        return;
+      const email = String(await SecureStore.getItemAsync('ubademy-email'));
+      const password = String(await SecureStore.getItemAsync('ubademy-password'));
+      if (password !== null && email !== null) {
+        setLoading(true);
+        sendLoginCredentials(email.value, password.value)
+      } else {
+        setErrorMessage('No user credentials were found');
       }
-      setErrorMessage('Login with your credentials to setup the fingerprint login');
-      setRegisterFingerprint(true);
     } catch(error) {
       console.log(error);
+      setErrorMessage(errorMsg.message);
+      setLoading(false);
     }
   }
 
