@@ -15,6 +15,7 @@ import { getUserCredentials } from "../../../userCredentials";
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 const MESSAGE_EXAM_IS_DONE= "The exam has been submitted";
+const MESSAGE_EXAM_IS_PUBLISHED = "The exam has been published";
 
 const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
@@ -53,6 +54,8 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
   async function callPostPublishExam() {
     try {
       const examQuestions = await postPublishExam(courseId, title, "vi");
+      setIsFinishedMessage(MESSAGE_EXAM_IS_PUBLISHED);
+      setIsFinished(true);
     } catch (error) {
       alert(error);
     }
@@ -121,7 +124,7 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <SafeAreaView>
 
         <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
@@ -146,19 +149,25 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
       ) : 
       <View>
         {(!isPublished && onlyView) ? (
-          <View>
+          <View style={{alignItems: "center"}}>
             
             <Button
               onPress={() => goToExamUpdateScreen()}
+              disabled={isFinished}
             >
               Edit
             </Button>
 
             <Button
               onPress={() => callPostPublishExam()}
+              disabled={isFinished}
             >
               Publish
             </Button>
+
+            <Text style={{color: colors.primary}}>
+              {isFinishedMessage}
+            </Text>
           
           </View>
         ) : <></>}
