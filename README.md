@@ -36,7 +36,7 @@ Si por primera vez se toca la huella digital a la derecha del botón "Login" y s
 Para poder registrarse se debe ingresar un mail válido y una contraseña de al menos seis carácteres. Se debe ingresar la misma contraseña en los dos últimos campos.
 
 <p align="center">
-  <img src="./docs/images/signin01.jpeg">
+  <img src="./docs/images/signin01.png">
 </p>
 
 ### Registro con Google
