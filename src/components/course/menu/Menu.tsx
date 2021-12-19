@@ -192,21 +192,11 @@ const Menu = ({id, navigation}: any) => {
         ) : <></>}
 
         {canCorrect ? (
-
-          <List.Item
-            title={"See students' exams"}
-            right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-            onPress={goToStudentsExamsScreen}
-          />
-
-        ) : <></>}
-
-        {canEdit ? (
           <View>
             <List.Item
-              title={"Add collaborator"}
+              title={"See students' exams"}
               right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
-              onPress={addCollaborator}
+              onPress={goToStudentsExamsScreen}
             />
 
             <List.Item
@@ -214,14 +204,22 @@ const Menu = ({id, navigation}: any) => {
               right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
               onPress={goToStudentsScreen}
             />
-          </View>
+            </View>
         ) : <></>}
 
         <List.Item
           title={"See reviews"}
           right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
           onPress={() => goToReviewsScreen()}
-          />
+        />
+
+        {canEdit ? (
+            <List.Item
+              title={"Add collaborator"}
+              right={props => <List.Icon {...props} icon="hand-pointing-right"/>}
+              onPress={addCollaborator}
+            />
+        ) : <></>}
 
       </View>
 

@@ -81,7 +81,7 @@ const MenuStudents = ({courseId, navigation}: any) => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
 
       <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
         Students

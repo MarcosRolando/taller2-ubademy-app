@@ -78,7 +78,7 @@ const ExamCorrected = ({ courseId, examName, navigation }: any) => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <SafeAreaView>
         <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
           Corrections

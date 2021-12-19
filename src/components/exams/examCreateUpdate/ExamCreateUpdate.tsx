@@ -143,7 +143,7 @@ const ExamCreateUpdate = ({courseId, examName, canEdit, questions, navigation} :
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <SafeAreaView>
 
         {canEdit ? (

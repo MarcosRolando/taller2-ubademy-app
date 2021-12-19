@@ -23,7 +23,7 @@ const MenuExamOptions = ({courseId, examName, navigation}: any) => {
   }
 
   return (
-    <View>
+    <View style={styles.screen}>
       <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
         {examName}
       </Title>
