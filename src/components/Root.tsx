@@ -2,6 +2,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React, { useEffect, useRef } from 'react';
 import {View, Image} from 'react-native';
+import Fire from '../../Fire';
 import * as Notifications from 'expo-notifications';
 import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS} from '../routes';
 import {
@@ -81,15 +82,14 @@ const Root = ({ navigation }: any) => {
   const responseListener = useRef();
 
   useEffect(() => {
-    // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      console.log(notification);
-    });
-
-    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+    (async () => {
+      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(async response => {
+        let otherUserEmail = response.notification.request.content.title.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/)[0];
+        let chatId = await Fire.getOrCreateChat(otherUserEmail, '');
+        navigation.navigate(CHAT, { chatId, otherUserEmail })
+      });
+    })();
   }, [])
 
   return (
