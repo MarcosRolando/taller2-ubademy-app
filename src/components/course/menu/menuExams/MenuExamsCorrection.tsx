@@ -37,7 +37,7 @@ const MenuExamsCorrection = ({id, navigation}: any) => {
   }, [searchValue]);
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <Title style={{...styles.profileTitle, paddingTop:hp(2)}}>
         Students' exams
       </Title>

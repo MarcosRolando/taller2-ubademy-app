@@ -9,12 +9,14 @@ import { getExamQuestions,
 } from "../../../scripts/exam";
 import { useFocusEffect } from '@react-navigation/core';
 import styles from "../../../styles/styles";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp,
+widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { getUserCredentials } from "../../../userCredentials";
 
 
 const QUESTION_PLACEHOLDER = "Enter your answer..."
 const MESSAGE_EXAM_IS_DONE= "The exam has been submitted";
+const MESSAGE_EXAM_IS_PUBLISHED = "The exam has been published";
 
 const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation }: any) => {
   const [questions, setQuestions] = React.useState([] as Array<string>)
@@ -53,6 +55,8 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
   async function callPostPublishExam() {
     try {
       const examQuestions = await postPublishExam(courseId, title, "vi");
+      setIsFinishedMessage(MESSAGE_EXAM_IS_PUBLISHED);
+      setIsFinished(true);
     } catch (error) {
       alert(error);
     }
@@ -94,8 +98,8 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
     const questionsToRender = [];
     for (let i = 0; i < questions.length; i++) {
       questionsToRender.push(
-        <View key={i}>
-          <Subheading>
+        <View key={i} style={{marginBottom: hp(4)}}>
+          <Subheading style={{fontWeight: "bold", fontSize: wp(5), marginBottom: hp(2), color:colors.second}}>
             {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
@@ -121,10 +125,10 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <SafeAreaView>
 
-        <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
+        <Title style={{...styles.profileTitle, paddingTop: hp(2), marginBottom: hp(2)}}>
           {title}
         </Title>
 
@@ -146,19 +150,25 @@ const Exam = ({ title, onlyView, courseId, isPublished, isProfessor, navigation 
       ) : 
       <View>
         {(!isPublished && onlyView) ? (
-          <View>
+          <View style={{alignItems: "center"}}>
             
             <Button
               onPress={() => goToExamUpdateScreen()}
+              disabled={isFinished}
             >
               Edit
             </Button>
 
             <Button
               onPress={() => callPostPublishExam()}
+              disabled={isFinished}
             >
               Publish
             </Button>
+
+            <Text style={{color: colors.primary}}>
+              {isFinishedMessage}
+            </Text>
           
           </View>
         ) : <></>}

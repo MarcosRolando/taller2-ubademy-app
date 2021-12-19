@@ -3,7 +3,8 @@ import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Button, List, Paragraph, Subheading, TextInput, Title } from "react-native-paper";
 import colors from "../../../styles/colors";
 import styles from "../../../styles/styles";
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp,
+  widthPercentageToDP as wp } from "react-native-responsive-screen";
 import DropDown from "react-native-paper-dropdown";
 import { postGradeExam } from "../../../scripts/exam";
 import { getUserCredentials } from "../../../userCredentials";
@@ -87,12 +88,12 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
     const questionsToRender = [];
     for (let i = 0; i < questions.length; i++) {
       questionsToRender.push(
-        <View key={i}>
-          <Subheading>
+        <View key={i} style={{marginBottom: hp(4)}}>
+          <Subheading style={{fontWeight: "bold", fontSize: wp(5), marginBottom: hp(1), color:colors.second}}>
             {"Question " + (i + 1).toString() + ": " + questions[i]}
           </Subheading>
 
-          <Paragraph>
+          <Paragraph style={{marginBottom: hp(1)}}>
             {answers[i]}
           </Paragraph>
 
@@ -119,7 +120,7 @@ const ExamCorrection = ({ courseId, examTitle, studentEmail, navigation }: any) 
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <SafeAreaView>
         <Title style={{...styles.profileTitle, paddingTop: hp(2)}}>
           Corrections
