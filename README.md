@@ -57,14 +57,17 @@ En un inicio de sesión o un registro exitoso, el usuario será dirigido a la pa
 
 En la pantalla de inicio se pueden realizar búsquedas. Para más información dirigirse a la sección de Búsquedas.
 
-<!-- IMAGEN PANTALLA EXPLORE -->
-
 El menú lateral se accede tocando el ícono en la esquina superior izquierda. Los íconos representan:
 
 * Explore: pantalla donde se pueden realizar busquedas de cursos o usuarios.
 * Create a course: pantalla donde se puede crear un curso.
 * Profile: pantalla donde se puede ver el perfil propio y editarlo.
 * Chats: pantalla donde se encuentran los mensajes privados realizados con usuarios.
+* Log out: cerrar sesión.
+
+<p align="center">
+  <img src="./docs/images/home_screen01.png">
+</p>
 
 <!-- IMAGEN MENÚ LATERAL -->
 
@@ -83,7 +86,11 @@ Los cursos mostrados están divididos en:
 * Collaborator: cursos donde el usuario fue registrado como colaborador del curso.
 * Creator: cursos creados por el usuario.
 
-<!-- IMAGEN PERFIL PROPIO -->
+Si el usuario no pertenece a ningún curso no se verá la opción de visualizarlos.
+
+<p align="center">
+  <img src="./docs/images/profile01.jpg">
+</p>
 
 En caso de haber finalizado un curso, si se desea obtener un certificado de curso aprobado se puede tocar la badge. Se abrirá un menú de opciones donde se podrá indicar cómo se desea compartir el certificado.
 
@@ -98,7 +105,9 @@ El botón de "Change subscription" lleva a la pantalla donde se puede cambiar la
 
 Para editar el perfil, se puede modificar los campos, la imagen y seleccionar nuevos intereses entre las opciones o eliminarlos. Si se desea guardar los cambios, se debe tocar el botón "Save profile". En caso contrario, basta con regresar a la anterior pantalla y los cambios serán borrados.
 
-<!-- IMAGEN EDICIÓN PERFIL -->
+<p align="center">
+  <img src="./docs/images/profile02.png">
+</p>
 
 ### Modificación de subscripción
 
@@ -114,13 +123,17 @@ Si se elige una subscripción de un tier mayor a la actual, se mostrará por pan
 
 Para realizar una búsqueda de curso, existen las opciones de filtrar por categoría y por tipo de subscripción. Se debe seleccionar alguno de estos filtros y tocar el ícono de la lupa para realizar la búsqueda.
 
-<!-- IMAGEN BUSQUEDA POR CATEGORIAS -->
+<p align="center">
+  <img src="./docs/images/home_screen02.png">
+</p>
 
 ### Búsqueda de usuarios
 
 Para buscar un usuario, se debe escribir un mail en la barra de búsqueda y tocar el ícono de la lupa. Esta acción nos llevará automáticamente al perfil de ese usuario, donde sólo se podrá ver la información pública del mismo.
 
-<!-- IMAGEN BUSQUEDA POR USUARIOS -->
+<p align="center">
+  <img src="./docs/images/home_screen03.png">
+</p>
 
 ## Cursos
 
