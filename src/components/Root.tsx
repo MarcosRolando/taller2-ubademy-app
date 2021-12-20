@@ -33,6 +33,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { ChatListScreen, ChatScreen } from './Chats/Screens';
 import { Button } from 'react-native-paper';
 import { setUserCredentials } from '../userCredentials';
+import { postLogOut } from '../scripts/logOut';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -58,6 +59,7 @@ const CustomDrawerContent = (props: any) => {
       <Button
         onPress={() => {
           setUserCredentials("", "");
+          postLogOut();
           props.navigation.navigate(LOGIN);
         }}
       >
