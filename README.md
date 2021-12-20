@@ -117,6 +117,10 @@ Si se elige una subscripción de un tier menor a la actual, no se debe pagar y e
 
 Si se elige una subscripción de un tier mayor a la actual, se mostrará por pantalla el monto que se debe pagar para cambiar la subscripción. Si se selecciona el botón "Pay" se realizará la transacción y el monto indicado se descontará de la billetera. En el caso contrario, se cancelará el cambio de subscripción y no se descontará el dinero.
 
+<p align="center">
+  <img src="./docs/images/profile03.png">
+</p>
+
 ## Búsquedas
 
 ### Búsqueda de curso por categorias y subscripción
