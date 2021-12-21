@@ -1,6 +1,6 @@
 import React from 'react';
-import { View} from 'react-native';
-import { ActivityIndicator, Button, Subheading } from 'react-native-paper';
+import { View } from 'react-native';
+import { ActivityIndicator, Button, Paragraph, Subheading } from 'react-native-paper';
 import { getMyCourses, getPassedCourses, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
 import Courses from './Courses';
@@ -28,6 +28,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [passedCourses, setPassedCourses] =
     React.useState([] as Array<{creator_email: string, title: string}>)
   const [showChangeSub, setShowChangeSub] = React.useState(false);
+  const [balance, setBalance] = React.useState(0);
 
   const [courses, setCourses] = React.useState({
     student: [] as Array<any>,
@@ -35,11 +36,13 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     collaborator: [] as Array<any>,
   });
 
+  console.log(ownProfile);
+
   useFocusEffect(React.useCallback(() => { 
     (async () => {
       try {
         if (ownProfile !== undefined) {
-          const {_name, _email, _location, _subType, _image, _genres} = await getProfileInfo(getUserCredentials().email);
+          const {_name, _email, _location, _subType, _image, _genres, _wallet_data} = await getProfileInfo(getUserCredentials().email);
           setName(_name);
           setEmail(_email);
           setLocation(_location);
@@ -51,6 +54,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           const _passedCourses = await getPassedCourses();
           setCourses(_courses);
           setPassedCourses(_passedCourses);
+          setBalance(_wallet_data.balance);
         } else {
           setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
           setEmail(profileInfo.email);
@@ -96,6 +100,22 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
       <BasicInfo email={email} location={location} subType={subType} />
 
       <Badges passedCourses={passedCourses} />
+
+      {ownProfile !== undefined ? (
+        <View>
+          <Subheading style={{...styles.profileSubtitle, marginBottom:hp(3)}}>
+            Balance
+          </Subheading>
+
+          <View style={{...styles.payment, alignSelf:"center"}}>
+            <Paragraph style={styles.paymentText}>
+              $ {balance}
+            </Paragraph>
+          </View>
+
+        </View>
+
+      ) : <></>}
 
       <Subheading style={{...styles.profileSubtitle, marginBottom:hp(3)}}>
         Interests

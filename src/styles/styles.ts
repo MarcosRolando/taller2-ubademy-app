@@ -87,6 +87,18 @@ const styles = StyleSheet.create({
   },
   screen: {
     marginHorizontal:wp(2)
+  },
+  payment: {
+    backgroundColor: colors.primary,
+    borderRadius:wp(2),
+    width:wp(50),
+    height: hp(5),
+    justifyContent: 'center'
+  },
+  paymentText: {
+    fontWeight:"bold",
+    alignSelf:"center",
+    textAlignVertical:"center"
   }
 });
 
