@@ -92,14 +92,15 @@ Si el usuario no pertenece a ningún curso no se verá la opción de visualizarl
   <img src="./docs/images/profile01.jpg">
 </p>
 
-En caso de haber finalizado un curso, si se desea obtener un certificado de curso aprobado se puede tocar la badge. Se abrirá un menú de opciones donde se podrá indicar cómo se desea compartir el certificado.
-
-<!-- IMAGEN DE BADGES -->
-
-
 El botón de "Edit profile" lleva a la pantalla donde se puede editar el perfil.
 
 El botón de "Change subscription" lleva a la pantalla donde se puede cambiar la subscripción.
+
+En caso de haber finalizado un curso, si se desea obtener un certificado de curso aprobado se puede tocar la badge. Se abrirá un menú de opciones donde se podrá indicar cómo se desea compartir el certificado.
+
+<p align="center">
+  <img src="./docs/images/profile04.png">
+</p>
 
 ### Edición de perfil
 
@@ -168,7 +169,7 @@ La pantalla principal de un curso consiste en su nombre, su imagen de portada, s
 (Accesible: estudiantes, creador y colaboradores)
 
 <p align="center">
-  <img src="./docs/images/course02.jpeg">
+  <img src="./docs/images/course16.png">
 </p>
 
 ### Inscripción a curso
@@ -217,15 +218,15 @@ Cuando se desee finalizar con la edición se debe tocar "Update course". En caso
   <img src="./docs/images/course05.png">
 </p>
 
-<!-- IMAGEN CURSO EDITAR -->
-
 ### Alta de colaborador
 
 Para poder agregar un colaborador se debe tocar el botón "Add collaborator" que abrirá una ventana. Se debe escribir en el campo el mail del usuario que se desea agregar como colaborador y presionar aceptar. En caso contrario, se debe precionar cancelar.
 
 Agregar un colaborador a un curso es una acción sólo realizable por el creador del curso.
 
-<!-- IMAGEN CURSO ADD COLLABORATOR -->
+<p align="center">
+  <img src="./docs/images/course15.png">
+</p>
 
 ### Visualizar el contenido del curso
 
@@ -236,20 +237,27 @@ El contenido disponible consiste en:
 * Videos: al seleccionar un video se reproducirá automáticamente.
 * Imágenes: se puede explorar la galería de imágenes deslizando el dedo sobre la misma. Se puede realizar zoom tocando la lupa con el símbolo más sobre la imagen y salir de la pantalla de zoom tocando la lupa con el símbolo menos o deslizando la imagen hacia abajo.
 
-<!-- IMAGEN CURSO -->
+<p align="center">
+  <img src="./docs/images/course09.png">
+</p>
 
+El botón "Edit course" sólo se verá para el creador.
 
 ### Listado de alumnos
 
 Pantalla donde se ve todos los alumnos subscriptos al curso. Permite filtrar por examen rendido.
 
-<!-- IMAGEN LISTADO ALUMNOS -->
+<p align="center">
+  <img src="./docs/images/course08.png">
+</p>
 
 ### Listado de exámenes
 
 Pantalla donde se ven todos los exámenes rendidos por los alumnos. Se puede filtrar por corregido, no corregido o no filtrar.
 
-<!-- IMAGEN LISTADO EXAMENES -->
+<p align="center">
+  <img src="./docs/images/course12.png">
+</p>
 
 
 ### Reviews del curso
@@ -260,7 +268,9 @@ Para dejar un review se debe escribir uno en el campo indicado por "Leave a revi
 
 En caso de que ya se haya dejado un review, no se podrá volver a dejar uno o editar el que ya fue publicado.
 
-<!-- IMAGEN REVIEWS -->
+<p align="center">
+  <img src="./docs/images/course14.png">
+</p>
 
 ## Exámenes
 
@@ -284,8 +294,6 @@ El examen no podrá ser creado si no tiene nombre o preguntas.
   <img src="./docs/images/course06.png">
 </p>
 
-<!-- IMAGEN CREACION -->
-
 ### Edición de examen
 
 Para editar un examen, es requisito que este no haya sido todavía publicado.
@@ -294,16 +302,9 @@ Para editar un examen, se debe ir a "See course's exams", seleccionar el examen 
 
 La pantalla funcionará igual que la de creación, además, aparecerán el nombre y las preguntas que contenía el examen.
 
-<!-- IMAGEN DE EDICION -->
-
-### Corrección de examen
-
-Si se desea corregir un examen, se debe ir la sección "See students' exams". Se debe seleccionar el examen que se desea corregir. Se da la opción de dejar comentarios para cada pregunta y se debe mandar una calificación numérica entre uno y diez.
-
-Los exámenes pueden ser filtrados según si se corrigieron, si no se corrigieron o ver todos.
-
-<!-- IMAGEN DE CORRECCION -->
-
+<p align="center">
+  <img src="./docs/images/course07.png">
+</p>
 
 ### Completar examen
 
@@ -316,4 +317,26 @@ Si se selecciona un examen, se irá a una pantalla con las opciones.
 
 Si la calificación es 4 o menos, se podrá volver a realizar el examen. En caso contrario, no se podrá volver a realizarlo.
 
-<!-- IMAGEN DE COMPLETAR -->
+<p align="center">
+  <img src="./docs/images/course10.png">
+</p>
+
+### Corrección de examen
+
+Si se desea corregir un examen, se debe ir la sección "See students' exams". Se debe seleccionar el examen que se desea corregir. Se da la opción de dejar comentarios para cada pregunta y se debe mandar una calificación numérica entre uno y diez.
+
+Los exámenes pueden ser filtrados según si se corrigieron, si no se corrigieron o ver todos.
+
+<p align="center">
+  <img src="./docs/images/course11.png">
+</p>
+
+### Ver corrección de un examen
+
+Si como alumno, se desea ver la corrección de un examen, se debe ingresar a la sección "See course's exams", tocar un examen y tocar "See corrections".
+
+Los exámenes se aprueban con un número igual o mayor a 4.
+
+<p align="center">
+  <img src="./docs/images/course13.png">
+</p>
