@@ -73,7 +73,6 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={CHAT} component={ChatScreen} />
       <HomeStack.Screen name={EXAM_CORRECTION} component={ExamCorrectionScreen} />
       <HomeStack.Screen name={EXAM_CORRECTED} component={ExamCorrectedScreen} />
-      <HomeStack.Screen name={SUB_CHANGE} component={ChangeSubscriptionScreen} />
     </HomeStack.Navigator>
   );
 };

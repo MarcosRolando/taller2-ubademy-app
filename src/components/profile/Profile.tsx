@@ -12,7 +12,6 @@ import { useFocusEffect } from '@react-navigation/core';
 import Fire from '../../../Fire';
 import { getUserCredentials } from '../../userCredentials';
 import Badges from './Badges';
-import ChangeSubscription from './ChangeSubscription';
 import Tags from '../course/menu/Tags';
 import styles from '../../styles/styles';
 
@@ -27,7 +26,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [loading, setLoading] = React.useState(true);
   const [passedCourses, setPassedCourses] =
     React.useState([] as Array<{creator_email: string, title: string}>)
-  const [showChangeSub, setShowChangeSub] = React.useState(false);
   const [balance, setBalance] = React.useState(0);
 
   const [courses, setCourses] = React.useState({
