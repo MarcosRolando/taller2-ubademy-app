@@ -167,13 +167,19 @@ La pantalla principal de un curso consiste en su nombre, su imagen de portada, s
 * See reviews: reviews del curso. (Accesible: todos)
 (Accesible: estudiantes, creador y colaboradores)
 
+<p align="center">
+  <img src="./docs/images/course02.jpeg">
+</p>
+
 ### Inscripción a curso
 
 Para inscribirse a un curso se debe tocar el botón inferior "Subscribe".
 
 Para que la subscripción sea aceptada, la inscripción del usuario debe ser igual o menor a la indicada en el curso junto al botón. Si se desea inscribirse a un curso con una subscripción mayor, primero se debe incrementar la subscripción.
 
-<!-- IMAGEN CURSO MENU -->
+<p align="center">
+  <img src="./docs/images/course03.png">
+</p>
 
 ### Desinscripción a curso
 
@@ -181,7 +187,9 @@ Para desinscribirse del curso se debe tocar el botón "Unsubscribe".
 
 Si el usuario se desinscribe del curso, los exámenes realizados serán considerados y en caso de volver a inscribirse, no será necesario que los vuelva a realizar si se encuentran aprobados.
 
-<!-- IMAGEN CURSO MENU -->
+<p align="center">
+  <img src="./docs/images/course04.png">
+</p>
 
 ### Creación de curso
 
@@ -190,6 +198,10 @@ Para crear un curso se debe seleccionar el ícono "Create a course" en el menú 
 Para que se pueda crear el curso, es necesario llenar todos los campos. Agregar tags, imágenes y videos es opcional.
 
 Cuando se desee crear el curso se debe tocar el botón "Create Course".
+
+<p align="center">
+  <img src="./docs/images/course01.png">
+</p>
 
 Será posible editar el curso una vez creado. Esto sólo puede ser realizado por un creador.
 
@@ -200,6 +212,10 @@ Para editar un curso se debe ingresar al curso y la sección de "See course". De
 Se abrirá una pantalla donde se podrá editar la imagen de portada, la descripción, el tipo del curso, etc. También se puede agregar o eliminar imágenes y videos.
 
 Cuando se desee finalizar con la edición se debe tocar "Update course". En caso que se desee descartar los cambios basta con volver a la anterior pantalla.
+
+<p align="center">
+  <img src="./docs/images/course05.png">
+</p>
 
 <!-- IMAGEN CURSO EDITAR -->
 
@@ -263,6 +279,10 @@ Si se desea eliminar una pregunta, se debe tocar la x en el extremo de la misma.
 Una vez creado un examen, para que los alumnos puedan verlo y completarlo, es necesario publicarlo. Para publicar un examen, se debe ir a "See course's exams", seleccionar el examen que se desea publicar y tocar el botón "Publish". Una vez publicado, no podrá ser editado.
 
 El examen no podrá ser creado si no tiene nombre o preguntas.
+
+<p align="center">
+  <img src="./docs/images/course06.png">
+</p>
 
 <!-- IMAGEN CREACION -->
 
