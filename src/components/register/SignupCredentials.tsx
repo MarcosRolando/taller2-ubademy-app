@@ -8,6 +8,17 @@ import { sendSignupCredentials } from '../../scripts/signUp';
 import colors from '../../styles/colors';
 import { PROFILE_SETUP } from '../../routes';
 
+const characters = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+
+function validateEmail(email: string) {
+  return email
+    .toLowerCase()
+    .match(
+      characters
+    );
+}
+
 
 const SignupCredentials = (props: any) => {
   const [email, setEmail] = React.useState({
@@ -42,12 +53,24 @@ const SignupCredentials = (props: any) => {
       setErrorMessage('Please enter a password');
       return;
     }
+    if (password.value.length < 6) {
+      setErrorMessage('The password must be at least 6 characters');
+      return;
+    }
     if (password.value != confPassword.value) {
       setConfPassword({
         ...confPassword,
         theme: Themes.textInputWrong,
       })
       setErrorMessage('Passwords must match');
+      return;
+    }
+    if (!validateEmail(email.value)) {
+      setEmail({
+        ...email,
+        theme: Themes.textInputWrong,
+      })
+      setErrorMessage('Please enter a valid email');
       return;
     }
     setLoading(true);
