@@ -138,9 +138,8 @@ const Menu = ({id, navigation}: any) => {
     } finally {
       setLoading(false);
     }
-
     })();
-  }, []))
+  }, [id]))
 
   if (loading) {
     return (
