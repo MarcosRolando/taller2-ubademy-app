@@ -2,7 +2,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React, { useEffect, useRef } from 'react';
 import {View, Image} from 'react-native';
-import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS, SUB_CHANGE} from '../routes';
+import {COURSE, CREATE_UPDATE_COURSE, EXAM, EXAM_CREATE_UPDATE, EXPLORE, HOME, PROFILE, USER, CHAT, CHAT_LIST, EXAM_CORRECTED, EXAM_CORRECTION, COURSE_REVIEWS, SUB_CHANGE, LOGIN} from '../routes';
 import Fire from '../../Fire';
 import * as Notifications from 'expo-notifications';
 import {
@@ -31,6 +31,9 @@ import { CreateUpdateCourseScreen,
   MenuExamOptionsScreen, ExamCorrectedScreen, MenuStudentsScreen, CourseReviewsScreen } from './course/Screens';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { ChatListScreen, ChatScreen } from './Chats/Screens';
+import { Button } from 'react-native-paper';
+import { setUserCredentials } from '../userCredentials';
+import { postLogOut } from '../scripts/logOut';
 
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -52,6 +55,16 @@ const CustomDrawerContent = (props: any) => {
         </View>
       </TouchableHighlight>
       <DrawerItemList {...props} />
+
+      <Button
+        onPress={() => {
+          postLogOut();
+          setUserCredentials("", "");
+          props.navigation.navigate(LOGIN);
+        }}
+      >
+        Log out
+      </Button>
     </DrawerContentScrollView>
   );
 };
