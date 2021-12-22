@@ -222,25 +222,6 @@ const Menu = ({id, navigation}: any) => {
 
       </View>
 
-      {seePortal ? (
-        <Portal>
-          <View style={styles.viewOnFront}>
-
-            <Text>{subType}</Text>
-
-            <TouchableOpacity
-              onPress={() => subscribeToCourse()}
-              style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
-            >
-              <Text style={{}}
-                >SUBSCRIBE
-              </Text>
-            </TouchableOpacity>
-            
-          </View>
-        </Portal>
-      ) : <></> }
-
       {showUnsubscribe ? (
         <Button
           color={colors.error}
@@ -255,6 +236,23 @@ const Menu = ({id, navigation}: any) => {
           showAddCollaborator={showAddCollaborator}
           setShowAddCollaborator={setShowAddCollaborator}
         />
+
+      {seePortal ? (
+          <View style={styles.viewOnFront}>
+
+            <Text>{subType}</Text>
+
+            <TouchableOpacity
+              onPress={() => subscribeToCourse()}
+              style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
+            >
+              <Text style={{}}
+                >SUBSCRIBE
+              </Text>
+            </TouchableOpacity>
+            
+          </View>
+      ) : <></> }
 
     </ScrollView>
   )
