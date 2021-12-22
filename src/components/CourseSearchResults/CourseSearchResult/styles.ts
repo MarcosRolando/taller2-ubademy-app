@@ -22,14 +22,15 @@ export const styles = StyleSheet.create({
   },
   SubTypeText: {
     position: 'relative', 
-    left: wp(65),
+    left: wp(58),
     color: 'white',
     fontSize: 20,
     bottom: hp(3),
     backgroundColor: colors.secondary,
-    maxWidth: wp(22),
+    maxWidth: wp(30),
     borderRadius: 5,
     paddingHorizontal: 15,
+    textAlign:"center"
   },
   TouchableHighlight: {
     borderRadius: 10,
