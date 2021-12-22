@@ -11,7 +11,7 @@ import {
   COURSE_MENU_EXAM_OPTIONS,
   COURSE_STUDENTS
 } from '../routes';
-import {ChangeSubscriptionScreen, ProfileScreen, UserScreen} from './profile/Screens';
+import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import colors from '../styles/colors';
@@ -86,7 +86,6 @@ const ExploreScreen = ({navigation}: any) => {
       <HomeStack.Screen name={CHAT} component={ChatScreen} />
       <HomeStack.Screen name={EXAM_CORRECTION} component={ExamCorrectionScreen} />
       <HomeStack.Screen name={EXAM_CORRECTED} component={ExamCorrectedScreen} />
-      <HomeStack.Screen name={SUB_CHANGE} component={ChangeSubscriptionScreen} />
     </HomeStack.Navigator>
   );
 };

@@ -18,6 +18,7 @@ export async function getProfileInfo(email: string) {
       }
     }
     const data = res.data['profile'];
+    console.log(res.data);
     return Promise.resolve({
       _name: data['name'],
       _email: data['email'],
@@ -25,6 +26,7 @@ export async function getProfileInfo(email: string) {
       _subType: data['subscription_type'],
       _genres: data['interesting_genres'],
       _image: data['profile_picture_link'],
+      _wallet_data: data['wallet_data']
       //TODO eventualmente me tienen que llegar los cursos en los que esta inscripto
     });
   } catch (error) {
