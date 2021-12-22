@@ -4,22 +4,21 @@ import { List } from "react-native-paper";
 import { Video } from "expo-av";
 import colors from "../../../styles/colors";
 
-const ClassVideo = ({uri, title, canPlay, setCanPlay} : any) => {
+const ClassVideo = ({uri, title, isDisabled, setIsDisabled} : any) => {
   const video = React.useRef(null as any);
   const [status, setStatus] = React.useState({} as any);
-  console.log("CANPLAY:",canPlay)
 
   function onFullscreenUpdate(fullscreenUpdate: any) {
     switch (fullscreenUpdate.fullscreenUpdate) {
       case Video.FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT:
-        setCanPlay(false);
+        setIsDisabled(true);
         break;
       case Video.FULLSCREEN_UPDATE_PLAYER_DID_PRESENT: 
         break;
       case Video.FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS: 
         break;
       case Video.FULLSCREEN_UPDATE_PLAYER_DID_DISMISS:
-        setCanPlay(true);
+        setIsDisabled(false);
         video.current.stopAsync();
       ;
     }
@@ -45,10 +44,11 @@ const ClassVideo = ({uri, title, canPlay, setCanPlay} : any) => {
         title={title}
         left={props => <List.Icon {...props} icon="play"/>}
         onPress={() => {
+          setIsDisabled(true);
           video.current.presentFullscreenPlayer();
         }}
         style={{backgroundColor:colors.background}}
-        disabled={!canPlay}
+        disabled={isDisabled}
       />
       </View>
     </View>

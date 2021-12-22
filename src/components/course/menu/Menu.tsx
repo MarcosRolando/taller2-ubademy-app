@@ -70,11 +70,17 @@ const Menu = ({id, navigation}: any) => {
     setShowAddCollaborator(true);
   }
 
+
   async function subscribeToCourse() {
     try {
       const res = await postSubscribeToCourse(id);
       setSeePortal(false);
       setShowUnsubscribe(true);
+      setCanEdit(false);
+      setCanCorrect(false);
+      // setSeePortal(false);
+      // setShowUnsubscribe(true);
+      setCanSeeContent(true);
     } catch (error) {
       alert(error)
     }
@@ -85,6 +91,11 @@ const Menu = ({id, navigation}: any) => {
       const res = await postUnsubscribeToCourse(id);
       setSeePortal(true);
       setShowUnsubscribe(false);
+      setCanEdit(false);
+      setCanCorrect(false);
+      // setSeePortal(false);
+      // setShowUnsubscribe(true);
+      setCanSeeContent(false);
     } catch (error) {
       alert(error)
     }

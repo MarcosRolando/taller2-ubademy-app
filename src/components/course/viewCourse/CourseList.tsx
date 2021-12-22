@@ -3,7 +3,7 @@ import { View } from "react-native";
 import ClassVideo from "./ClassVideo";
 
 const CourseList = (props: any) => {
-  const [canPlay, setCanPlay] = React.useState(true);
+  const [isDisabled, setIsDisabled] = React.useState(false);
   const course = props.info.videos;
 
   function renderCourses() {
@@ -14,8 +14,8 @@ const CourseList = (props: any) => {
           key={i}
           title={course[i].title}
           uri={course[i].uri}
-          canPlay={canPlay}
-          setCanPlay={setCanPlay}/>
+          isDisabled={isDisabled}
+          setIsDisabled={setIsDisabled}/>
       )
     }
     return coursesToRender;
