@@ -52,21 +52,6 @@ const styles = StyleSheet.create({
     height: 0,
     width: 0,
   },
-  // viewOnFront: {
-  //   position: "absolute",
-  //   bottom:0,
-  //   alignContent: "center",
-  //   alignItems: 'center',
-  //   marginLeft: "auto",
-  //   marginRight: "auto",
-  //   left: 0,
-  //   right: 0,
-  //   backgroundColor: colors.primary,
-  //   paddingTop: hp(1),
-  //   paddingBottom: hp(1),
-  //   flexDirection: "row",
-  //   justifyContent: "center"
-  // },
   viewOnFront: {
     alignContent: "center",
     alignItems: 'center',
