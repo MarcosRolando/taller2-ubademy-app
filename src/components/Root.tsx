@@ -11,7 +11,7 @@ import {
   COURSE_MENU_EXAM_OPTIONS,
   COURSE_STUDENTS
 } from '../routes';
-import {ChangeSubscriptionScreen, ProfileScreen, UserScreen} from './profile/Screens';
+import {ProfileScreen, UserScreen} from './profile/Screens';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChalkboard, faComments, faSchool, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import colors from '../styles/colors';

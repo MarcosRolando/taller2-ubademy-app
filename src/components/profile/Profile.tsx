@@ -34,8 +34,6 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
     collaborator: [] as Array<any>,
   });
 
-  console.log(ownProfile);
-
   useFocusEffect(React.useCallback(() => { 
     (async () => {
       try {
