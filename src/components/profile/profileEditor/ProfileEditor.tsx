@@ -27,6 +27,7 @@ const ProfileEditor = ({ _name, _location, _likedCourses,
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
+    setLoading(true);
     getProfileOptionsData()
       .then(({locations, courses}) => {
         let nLocations = locations.map((location) => {
