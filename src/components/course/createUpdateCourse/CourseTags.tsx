@@ -62,7 +62,13 @@ const CourseTags = (props : any) => {
         mode="outlined"
         value={newTag}
         onChangeText={(value) => setNewTag(value)}
-        right={<TextInput.Icon name="pound" onPress={() => addNewTag()}/>}
+        right={<TextInput.Icon name="pound" onPress={() => 
+          {
+            if (newTag.length > 0){
+              addNewTag();
+            }
+          }
+        }/>}
       />
 
     </View>
