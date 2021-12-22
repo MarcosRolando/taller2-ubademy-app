@@ -5,8 +5,9 @@ import { LOGOUT } from "../endpoints";
 
 export async function postLogOut() {
   try {
+    console.log(getAxiosConfig());
     const res = await sendAPIrequest(() => axios.post(
-      `${API_URL}${LOGOUT}`, getAxiosConfig()));
+      `${API_URL}${LOGOUT}`, {}, getAxiosConfig()));
     if (res.data['status'] === 'error') {
       switch (res.data['message']) {
         default:

@@ -58,8 +58,8 @@ const CustomDrawerContent = (props: any) => {
 
       <Button
         onPress={() => {
-          setUserCredentials("", "");
           postLogOut();
+          setUserCredentials("", "");
           props.navigation.navigate(LOGIN);
         }}
       >
