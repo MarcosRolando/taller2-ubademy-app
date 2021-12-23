@@ -43,6 +43,8 @@ const LoginCredentials = (props: any) => {
     sendLoginCredentials(email.value, password.value)
       .then(() => {
         setErrorMessage('');
+        setEmail('');
+        setPassword('');
         props.navigation.navigate(ROOT);
       },
       (errorMsg: Error) => {
@@ -66,6 +68,9 @@ const LoginCredentials = (props: any) => {
           props.navigation.navigate(PROFILE_SETUP)
         } else {
           await Fire.login(user.email, password);
+          setErrorMessage('');
+          setEmail('');
+          setPassword('');
           props.navigation.navigate(ROOT)
         }
       } catch(error: Error) {
@@ -82,7 +87,6 @@ const LoginCredentials = (props: any) => {
       const email = String(await SecureStore.getItemAsync('ubademy-email'));
       const password = String(await SecureStore.getItemAsync('ubademy-password'));
       if (password !== null && email !== null) {
-        setLoading(true);
         sendLoginCredentials(email.value, password.value)
       } else {
         setErrorMessage('No user credentials were found');

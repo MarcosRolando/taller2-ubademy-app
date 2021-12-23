@@ -44,8 +44,7 @@ async function registerForPushNotificationsAsync() {
       alert('Failed to get push token for push notification!');
       return;
     }
-    // token = (await Notifications.getExpoPushTokenAsync()).data;
-    token = 'a';
+    token = (await Notifications.getExpoPushTokenAsync('@marcosrolando/ubademyapp')).data;
   } else {
     alert('Must use physical device for Push Notifications');
   }

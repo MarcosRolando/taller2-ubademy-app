@@ -7,6 +7,7 @@ import {ERROR_EMAIL_USED} from '../apiErrorMessages';
 import Fire from '../../Fire';
 import { setUserProfilePicture } from '../userProfile';
 import { getExpoToken } from '../expoToken';
+import * as SecureStore from 'expo-secure-store';
 
 export async function sendSignupCredentials(email: string, password: string) {
   try {
@@ -26,6 +27,8 @@ export async function sendSignupCredentials(email: string, password: string) {
     setUserCredentials(email, password);
     setAccessToken(res.data['access_token']);
     await Fire.register(email, password);
+    await SecureStore.setItemAsync('ubademy-email', email);
+    await SecureStore.setItemAsync('ubademy-password', password);
     return Promise.resolve('');
   } catch (error) {
     console.log(error);
