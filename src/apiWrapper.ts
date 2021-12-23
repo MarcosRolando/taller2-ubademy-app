@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { API_URL } from "../api_url";
 import { ERROR_EXPIRED_CREDENTIALS } from "./apiErrorMessages";
-import { LOGIN } from "./endpoints";
+import { sendLoginCredentials } from "./scripts/logIn";
 import { getUserCredentials } from './userCredentials';
 
 let accessToken = ''; // The JWT
@@ -26,11 +25,8 @@ export async function sendAPIrequest(request: () => Promise<AxiosResponse>) {
   }
   const res = await request();
   if ((res.data['status'] === 'error') && (res.data['message'] === ERROR_EXPIRED_CREDENTIALS)) {
-    const login_res = await axios.post(`${API_URL}${LOGIN}`, getUserCredentials());
-    if (login_res.data['status'] == 'error') { // Unexpected error
-      return Promise.reject(login_res);
-    }
-    setAccessToken(login_res.data['access_token']); // Update the JWT
+    const { email, password } = getUserCredentials();
+    await sendLoginCredentials(email, password);
     return request();
   }
   return res;

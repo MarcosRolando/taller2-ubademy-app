@@ -61,7 +61,6 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
-
 export default function App() {
   useEffect(() => {
     (async () => {
@@ -74,8 +73,6 @@ export default function App() {
       };
     })();
   }, []);
-
-
 
   return (
     <PaperProvider theme={UbademyTheme}>
