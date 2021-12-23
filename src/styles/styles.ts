@@ -90,12 +90,15 @@ const styles = StyleSheet.create({
     borderRadius:wp(2),
     width:wp(50),
     height: hp(5),
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: hp(3),
   },
   paymentText: {
     fontWeight:"bold",
     alignSelf:"center",
-    textAlignVertical:"center"
+    textAlignVertical:"center",
+    textAlign: "center",
+    marginHorizontal: wp(2)
   }
 });
 

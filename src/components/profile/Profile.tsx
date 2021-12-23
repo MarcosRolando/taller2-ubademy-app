@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { ActivityIndicator, Button, Paragraph, Subheading } from 'react-native-paper';
 import { getMyCourses, getPassedCourses, getProfileInfo } from '../../scripts/profile';
 import BasicInfo from './BasicInfo';
@@ -14,6 +14,7 @@ import { getUserCredentials } from '../../userCredentials';
 import Badges from './Badges';
 import Tags from '../course/menu/Tags';
 import styles from '../../styles/styles';
+import colors from '../../styles/colors';
 
 
 const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
@@ -27,6 +28,10 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
   const [passedCourses, setPassedCourses] =
     React.useState([] as Array<{creator_email: string, title: string}>)
   const [balance, setBalance] = React.useState(0);
+  const [wallet, SetWallet] = React.useState({
+    address: "",
+    balance: ""
+  });
 
   const [courses, setCourses] = React.useState({
     student: [] as Array<any>,
@@ -51,6 +56,7 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
           setCourses(_courses);
           setPassedCourses(_passedCourses);
           setBalance(_wallet_data.balance);
+          SetWallet(_wallet_data);
         } else {
           setName(profileInfo.name); // TODO estoy casi seguro que estoy mandando cosas que no recibo aca
           setEmail(profileInfo.email);
@@ -100,12 +106,18 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
       {ownProfile !== undefined ? (
         <View>
           <Subheading style={{...styles.profileSubtitle, marginBottom:hp(3)}}>
-            Balance
+            Wallet
           </Subheading>
 
           <View style={{...styles.payment, alignSelf:"center"}}>
             <Paragraph style={styles.paymentText}>
-              $ {balance}
+              {wallet.balance} ETH
+            </Paragraph>
+          </View>
+
+          <View style={{...styles.payment, alignSelf:"center", height: hp(10)}}>
+            <Paragraph style={{...styles.paymentText, marginHorizontal: wp(2)}}>
+              {wallet.address}
             </Paragraph>
           </View>
 
@@ -113,11 +125,18 @@ const Profile = ({ profileInfo, navigation, style, ownProfile }: any) => {
 
       ) : <></>}
 
-      <Subheading style={{...styles.profileSubtitle, marginBottom:hp(3)}}>
+      <Subheading style={{...styles.profileSubtitle, marginBottom:hp(2), paddingTop:hp(2)}}>
         Interests
       </Subheading>
 
-      <Tags hashtags={likedCourses} />
+      {likedCourses.length > 0 ? (
+        <Tags hashtags={likedCourses} />
+      ) : (
+        <Text style={{color: colors.primary, textAlign: "center", marginBottom: hp(3)}}>
+          This user has no interests yet!
+        </Text>
+      )}
+
 
       <Courses navigation={navigation} courses={courses} />
 
