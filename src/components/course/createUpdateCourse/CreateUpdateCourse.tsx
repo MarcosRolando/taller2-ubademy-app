@@ -30,7 +30,7 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
 
   const [showCourses, setShowCourses] = React.useState(false);
   const [coursesList, setCoursesList] = React.useState([] as Array<{label:string, value:string}>);
-  const [courseType, setCourseType] = React.useState('');
+  const [courseType, setCourseType] = React.useState("");
 
   const [showSubTypes, setShowSubTypes] = React.useState(false);
   const [subTypesList, setSubTypesList] = React.useState([] as Array<{label:string, value:string}>);
@@ -103,7 +103,24 @@ const CreateUpdateCourse = ({ id, isEditing, style, navigation }: any) => {
         setLoading(false);
       }
     })();
-  }, []));
+    return () => {
+      setId("");
+      setCoursenName('');
+      setCourseDescription('');
+      setErrorMessage('');
+      setCourseImage(Image.resolveAssetSource(defaultPicture).uri);
+      setVideos([] as Array<{name: string, uri: string}>);
+      setImages([] as Array<string>);
+      setShowCourses(false);
+      setCoursesList([] as Array<{label:string, value:string}>);
+    
+      setShowSubTypes(false);
+      setSubTypesList([] as Array<{label:string, value:string}>);
+      setSubType('');
+      setShowLocations(false);
+      setLocationsList([] as Array<{label:string, value:string}>);
+    }
+  }, [id]));
 
   async function pickCourseImage() {
     let result = await ImagePicker.launchImageLibraryAsync({

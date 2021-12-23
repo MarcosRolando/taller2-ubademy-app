@@ -70,11 +70,15 @@ const Menu = ({id, navigation}: any) => {
     setShowAddCollaborator(true);
   }
 
+
   async function subscribeToCourse() {
     try {
       const res = await postSubscribeToCourse(id);
       setSeePortal(false);
       setShowUnsubscribe(true);
+      setCanEdit(false);
+      setCanCorrect(false);
+      setCanSeeContent(true);
     } catch (error) {
       alert(error)
     }
@@ -85,6 +89,9 @@ const Menu = ({id, navigation}: any) => {
       const res = await postUnsubscribeToCourse(id);
       setSeePortal(true);
       setShowUnsubscribe(false);
+      setCanEdit(false);
+      setCanCorrect(false);
+      setCanSeeContent(false);
     } catch (error) {
       alert(error)
     }
@@ -138,9 +145,8 @@ const Menu = ({id, navigation}: any) => {
     } finally {
       setLoading(false);
     }
-
     })();
-  }, []))
+  }, [id]))
 
   if (loading) {
     return (
@@ -223,25 +229,6 @@ const Menu = ({id, navigation}: any) => {
 
       </View>
 
-      {seePortal ? (
-        <Portal>
-          <View style={styles.viewOnFront}>
-
-            <Text>{subType}</Text>
-
-            <TouchableOpacity
-              onPress={() => subscribeToCourse()}
-              style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
-            >
-              <Text style={{}}
-                >SUBSCRIBE
-              </Text>
-            </TouchableOpacity>
-            
-          </View>
-        </Portal>
-      ) : <></> }
-
       {showUnsubscribe ? (
         <Button
           color={colors.error}
@@ -256,6 +243,23 @@ const Menu = ({id, navigation}: any) => {
           showAddCollaborator={showAddCollaborator}
           setShowAddCollaborator={setShowAddCollaborator}
         />
+
+      {seePortal ? (
+          <View style={styles.viewOnFront}>
+
+            <Text>{subType}</Text>
+
+            <TouchableOpacity
+              onPress={() => subscribeToCourse()}
+              style={{backgroundColor: colors.background, borderRadius: 1.5, padding:wp(2), marginLeft:wp(10)}}
+            >
+              <Text style={{}}
+                >SUBSCRIBE
+              </Text>
+            </TouchableOpacity>
+            
+          </View>
+      ) : <></> }
 
     </ScrollView>
   )
