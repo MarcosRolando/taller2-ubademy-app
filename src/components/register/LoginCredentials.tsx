@@ -43,8 +43,14 @@ const LoginCredentials = (props: any) => {
     sendLoginCredentials(email.value, password.value)
       .then(() => {
         setErrorMessage('');
-        setEmail('');
-        setPassword('');
+        setEmail({
+          value: '',
+          style: Themes.textInput,
+        });
+        setPassword({
+          value: '',
+          style: Themes.textInput,
+        });
         props.navigation.navigate(ROOT);
       },
       (errorMsg: Error) => {
@@ -69,8 +75,14 @@ const LoginCredentials = (props: any) => {
         } else {
           await Fire.login(user.email, password);
           setErrorMessage('');
-          setEmail('');
-          setPassword('');
+          setEmail({
+            value: '',
+            style: Themes.textInput,
+          });
+          setPassword({
+            value: '',
+            style: Themes.textInput,
+          });
           props.navigation.navigate(ROOT)
         }
       } catch(error: Error) {
@@ -84,10 +96,18 @@ const LoginCredentials = (props: any) => {
     try {
       const response = await LocalAuthentication.authenticateAsync();
       if (!response.success) return;
-      const email = String(await SecureStore.getItemAsync('ubademy-email'));
-      const password = String(await SecureStore.getItemAsync('ubademy-password'));
-      if (password !== null && email !== null) {
-        sendLoginCredentials(email.value, password.value)
+      const _email = String(await SecureStore.getItemAsync('ubademy-email'));
+      const _password = String(await SecureStore.getItemAsync('ubademy-password'));
+      if (_password !== null && _email !== null) {
+        setLoading(true);
+        sendLoginCredentials(_email, _password)
+          .then(() => {
+            props.navigation.navigate(ROOT);
+          },
+          (errorMsg: Error) => {
+            setErrorMessage(errorMsg.message);
+          })
+          .finally(() => setLoading(false));
       } else {
         setErrorMessage('No user credentials were found');
       }
