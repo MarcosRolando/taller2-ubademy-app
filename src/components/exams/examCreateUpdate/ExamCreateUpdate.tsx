@@ -160,6 +160,7 @@ const ExamCreateUpdate = ({courseId, examName, canEdit, questions, navigation} :
           label={"Exam's name"}
           value={name}
           onChangeText={(newName) => setName(newName)}
+          disabled={canEdit}
         >
         </TextInput>
 
