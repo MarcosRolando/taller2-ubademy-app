@@ -7,7 +7,7 @@ Un texto para probar editar la pagina
 # Manual de Usuario
 
 <p align="center">
-  <img src="./../taller2-ubademy-app/assets/ubademy-logo.png" style="height:50%">
+  <img src="./assets/ubademy-logo.png" style="height:50%">
 </p>
 
 ## Iniciar sesión
