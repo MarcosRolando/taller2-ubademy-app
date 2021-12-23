@@ -103,6 +103,10 @@ const Root = ({ navigation }: any) => {
         navigation.navigate(CHAT, { chatId, otherUserEmail })
       });
     })();
+
+    return () => {
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, [])
 
   return (

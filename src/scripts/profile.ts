@@ -1,40 +1,11 @@
 import axios from "axios";
 import { API_URL } from "../../api_url";
 import { getAxiosConfig, sendAPIrequest } from "../apiWrapper";
-import { MY_COURSES, PROFILE, SIGNUP_PROFILE, UPDATE_PROFILE,
+import { MY_COURSES, SIGNUP_PROFILE, UPDATE_PROFILE,
   PROFILE_PASSED_COURSES, 
   SUB_TYPES,
   SUB_MODIFY,
   SUB_PAY} from "../endpoints";
-
-export async function getProfileInfo(email: string) {
-  try {
-    const res = await sendAPIrequest(() => axios.get(
-      `${API_URL}${PROFILE}/${email}`, getAxiosConfig()));
-    if (res.data['status'] === 'error') {
-      switch (res.data['message']) {
-        default:
-          return Promise.reject(new Error(res.data['message']));
-      }
-    }
-    const data = res.data['profile'];
-    console.log(res.data);
-    return Promise.resolve({
-      _name: data['name'],
-      _email: data['email'],
-      _location: data['country'],
-      _subType: data['subscription_type'],
-      _genres: data['interesting_genres'],
-      _image: data['profile_picture_link'],
-      _wallet_data: data['wallet_data']
-      //TODO eventualmente me tienen que llegar los cursos en los que esta inscripto
-    });
-  } catch (error) {
-    console.log(error);
-    return Promise.reject(new Error('Error when trying to reach the server'));
-  }
-}
-
 
 export async function getProfileOptionsData() {
   try {
@@ -50,7 +21,6 @@ export async function getProfileOptionsData() {
     return Promise.reject(new Error('Error when trying to reach the server'));
   }
 }
-
 
 export async function sendUpdateProfile(username: string, location: string, courses: Array<string>,
                                         profile_picture: string, subscription_type: string) {
@@ -169,3 +139,4 @@ export async function postPaySub(
   }
 }
 
+export { getProfileInfo } from '../apiWrapper';

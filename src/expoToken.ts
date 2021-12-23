@@ -1,4 +1,4 @@
-let expoToken = undefined;
+let expoToken: any = undefined;
 
 export function setExpoToken(token: string) {
   expoToken = token;
