@@ -78,8 +78,6 @@ const Menu = ({id, navigation}: any) => {
       setShowUnsubscribe(true);
       setCanEdit(false);
       setCanCorrect(false);
-      // setSeePortal(false);
-      // setShowUnsubscribe(true);
       setCanSeeContent(true);
     } catch (error) {
       alert(error)
@@ -93,8 +91,6 @@ const Menu = ({id, navigation}: any) => {
       setShowUnsubscribe(false);
       setCanEdit(false);
       setCanCorrect(false);
-      // setSeePortal(false);
-      // setShowUnsubscribe(true);
       setCanSeeContent(false);
     } catch (error) {
       alert(error)
